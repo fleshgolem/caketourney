@@ -1,6 +1,37 @@
 <div class="tournaments view">
+
+
+
 <h2><?php  __('Tournament');?></h2>
-	<dl><?php $i = 0; $class = ' class="altrow"';?>
+
+
+<table>
+<?php foreach ($tournament['Round'] as $round){?>
+	<tr>
+	<?php foreach ($round['Match'] as $match){?>
+	
+		<td><?php 
+			if ($match['Player1']!=null)
+				echo($match['Player1']['name']);?>
+			vs 
+			<?php 
+			if ($match['Player2']!=null)
+				echo($match['Player2']['name']);?>
+		</td>
+
+	<?php
+	} ?>
+	</tr>
+<?php
+} ?>	
+</table>
+</div>
+
+
+<!-- TO BE DELETED-->
+
+
+	<!--<dl><?php $i = 0; $class = ' class="altrow"';?>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Id'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $tournament['Tournament']['id']; ?>
@@ -23,17 +54,7 @@
 		</dd>
 	</dl>
 </div>
-<div class="actions">
-	<h3><?php __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('Edit Tournament', true), array('action' => 'edit', $tournament['Tournament']['id'])); ?> </li>
-		<li><?php echo $this->Html->link(__('Delete Tournament', true), array('action' => 'delete', $tournament['Tournament']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $tournament['Tournament']['id'])); ?> </li>
-		<li><?php echo $this->Html->link(__('List Tournaments', true), array('action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Tournament', true), array('action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Users', true), array('controller' => 'users', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New User', true), array('controller' => 'users', 'action' => 'add')); ?> </li>
-	</ul>
-</div>
+
 <div class="related">
 	<h3><?php __('Related Users');?></h3>
 	<?php if (!empty($tournament['User'])):?>
@@ -90,3 +111,4 @@
 		</ul>
 	</div>
 </div>
+-->
