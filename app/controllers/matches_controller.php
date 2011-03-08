@@ -11,7 +11,24 @@ class MatchesController extends AppController {
 		$this->data['Match']['number_in_round']=$number_in_round;
 		$this->data['Match']['games']=$games_per_match;
 		if ($this->Match->save($this->data)) {
-				debug('The match has been saved');
+				
+		} 
+		else 
+		{
+				$this->Session->setFlash(__('The match could not be saved. Please, try again.', true));
+		}
+		
+	}
+	function generate_with_matchup ($round_id, $number_in_round, $games_per_match, $player1, $player2)
+	{
+		$this->Match->create();
+		$this->data['Match']['round_id']=$round_id;
+		$this->data['Match']['number_in_round']=$number_in_round;
+		$this->data['Match']['games']=$games_per_match;
+		$this->data['Match']['player1_id']=$player1['id'];
+		$this->data['Match']['player2_id']=$player2['id'];
+
+		if ($this->Match->save($this->data)) {
 		} 
 		else 
 		{
