@@ -21,6 +21,7 @@ class UsersController extends AppController {
     {
         if (!empty($this->data)) {
             $this->User->create();
+			
             if ($this->User->save($this->data)) {
                 $this->Session->setFlash(__('Your account has been created.', true));
                 $this->redirect('/');
@@ -89,6 +90,7 @@ class UsersController extends AppController {
        return $this->redirect($this->Auth->logout());
     }
 	function index() {
+		
 		$this->User->id = $this->Auth->user('id');
  
         // Load the user (avoid populating $this->data)
@@ -101,7 +103,7 @@ class UsersController extends AppController {
 
 	function view($id = null) {
 		if (!$id) {
-			$this->Session->setFlash(__('Invalid user', true));
+			$this->Session->setFlash(__('Invalid User', true));
 			$this->redirect(array('action' => 'index'));
 		}
 		$this->set('user', $this->User->read(null, $id));
