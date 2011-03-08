@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 08. März 2011 um 15:17
+-- Erstellungszeit: 09. März 2011 um 00:22
 -- Server Version: 5.5.8
 -- PHP-Version: 5.3.5
 
@@ -28,20 +28,15 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 CREATE TABLE IF NOT EXISTS `matches` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `round_id` int(11) NOT NULL,
-  `player1_id` int(11) NOT NULL,
-  `player2_id` int(11) NOT NULL,
+  `player1_id` int(11) DEFAULT NULL,
+  `player2_id` int(11) DEFAULT NULL,
   `games` int(11) DEFAULT NULL,
   `player1_score` int(11) DEFAULT NULL,
   `player2_score` int(11) DEFAULT NULL,
   `open` tinyint(1) NOT NULL,
   `number_in_round` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=101 ;
-
---
--- Daten für Tabelle `matches`
---
-
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
 
 -- --------------------------------------------------------
 
@@ -54,12 +49,7 @@ CREATE TABLE IF NOT EXISTS `rounds` (
   `number` int(11) NOT NULL,
   `tournament_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=116 ;
-
---
--- Daten für Tabelle `rounds`
---
-
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 -- --------------------------------------------------------
 
@@ -73,12 +63,7 @@ CREATE TABLE IF NOT EXISTS `tournaments` (
   `typeField` varchar(20) NOT NULL,
   `typeAlias` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=87 ;
-
---
--- Daten für Tabelle `tournaments`
---
-
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -101,14 +86,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `admin` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
-
---
--- Daten für Tabelle `users`
---
-
-INSERT INTO `users` (`id`, `created`, `modified`, `lastlogin`, `name`, `email`, `username`, `password`, `bnetaccount`, `bnetcode`, `race`, `admin`) VALUES
-(1, '2011-03-07 01:39:53', '2011-03-08 15:17:08', NULL, 'Admin', 'admin@admin.com', 'admin', '8cb500037eda73f0302eb04536e47be192443003', 'egal', 234, '2', 1);
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 -- --------------------------------------------------------
 
@@ -121,9 +99,4 @@ CREATE TABLE IF NOT EXISTS `users_tournaments` (
   `user_id` int(11) NOT NULL,
   `tournament_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=301 ;
-
---
--- Daten für Tabelle `users_tournaments`
---
-
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;

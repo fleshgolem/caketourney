@@ -2,4 +2,5 @@ Installation:
 
 1)Import SQL dump from sql/caketourney.sql
 2)modify config/database.php to your db
-3)Login as "admin//admin1"
+3)Register
+4)Admin rights have to be manually granted through sql
