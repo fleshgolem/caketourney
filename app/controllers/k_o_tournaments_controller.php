@@ -20,13 +20,15 @@ class KOTournamentsController extends AppController {
 		if (!empty($this->data)) {
 			$this->KOTournament->create();
 			if ($this->KOTournament->save($this->data)) {
+				$this->data['Tournament']['typeField']="KO";
+				$this->data['Tournament']['typeAlias']=0;
 				$this->Session->setFlash(__('The tournament has been saved', true));
 				
 			} else {
 				$this->Session->setFlash(__('The tournament could not be saved. Please, try again.', true));
 			}
 			//Create first round with random matchups
-
+			
 			shuffle($this->data['User']['User']);
 			$players = count($this->data['User']['User']);
 			

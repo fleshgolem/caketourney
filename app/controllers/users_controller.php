@@ -118,6 +118,10 @@ class UsersController extends AppController {
 		}
 		if (!empty($this->data)) {
 			$this->User->create();
+			if (!$this->User->findByAdmin('1'))
+			{
+				$this->data['User']['admin']=1;
+			}
 			if ($this->User->save($this->data)) {
 				$this->Session->setFlash(__('The user has been saved', true));
 				$this->redirect(array('action' => 'index'));
