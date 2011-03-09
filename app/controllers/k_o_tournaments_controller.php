@@ -19,9 +19,11 @@ class KOTournamentsController extends AppController {
 	function add() {
 		if (!empty($this->data)) {
 			$this->KOTournament->create();
+			$this->data['KOTournament']['typeField']='KO';
+			$this->data['KOTournament']['typeAlias']=0;
+			debug($this->data);
 			if ($this->KOTournament->save($this->data)) {
-				$this->data['Tournament']['typeField']="KO";
-				$this->data['Tournament']['typeAlias']=0;
+				
 				$this->Session->setFlash(__('The tournament has been saved', true));
 				
 			} else {
@@ -75,6 +77,7 @@ class KOTournamentsController extends AppController {
 					$this->KOTournament->Round->Match->saveField('player'.(($i%2)+1).'_id',$this->data['User']['User'][$i]);
 				}
 			}
+			$this->redirect(array('action' => 'view', $this->KOTournament->id));
 		}
 		$users = $this->KOTournament->User->find('list');
 		$this->set(compact('users'));

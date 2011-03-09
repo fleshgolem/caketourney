@@ -25,7 +25,7 @@
 		<td><?php echo $user['User']['email']; ?>&nbsp;</td>
 		<td><?php echo $user['User']['bnetaccount']; ?>&nbsp;</td>
 		<td><?php echo $user['User']['bnetcode']; ?>&nbsp;</td>
-		<td><?php echo $user['User']['race']; ?>&nbsp;</td>
+		<td><?php echo $this->Race->replace($user['User']['race']); ?>&nbsp;</td>
 		<td><?php echo $user['User']['admin']; ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View', true), array('action' => 'view', $user['User']['id'])); ?>
@@ -44,7 +44,7 @@
 	<p>
 	<?php
 	echo $this->Paginator->counter(array(
-	'format' => __('Page %page% of %pages%, showing %current% records out of %count% total, starting on record %start%, ending on %end%', true)
+	'format' => __('Page %page% of %pages%', true)
 	));
 	?>	</p>
 
@@ -58,6 +58,8 @@
 <div class="actions">
 	<h3><?php __('Actions'); ?></h3>
 	<ul>
-		<li><?php if ($this->Session->read('Auth.User.admin')) echo $this->Html->link(__('New User', true), array('action' => 'add')); ?></li>
+		<li><?php echo $this->Html->link(__('New Tournament', true), array('controller' => 'tournaments','action' => 'add')); ?></li>
+		<li><?php echo $this->Html->link(__('List Tournaments', true), array('controller' => 'tournaments', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Users', true), array('controller' => 'users', 'action' => 'index')); ?> </li>
 	</ul>
 </div>

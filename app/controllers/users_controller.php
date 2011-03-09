@@ -2,7 +2,7 @@
 class UsersController extends AppController {
 
 	var $name = 'Users';
-	
+	var $helpers = array('Race');
  
     /**
      * Runs automatically before the controller action is called
@@ -71,6 +71,16 @@ class UsersController extends AppController {
             array('password_match', 'password', false);
  
         $this->User->set($this->data);
+		
+		if (!empty($this->data) && empty($this->data['User']['password'] )) {
+           
+			$this->User->saveField('bnetaccount', $this->data['User']['bnetaccount']);
+			$this->User->saveField('bnetcode', $this->data['User']['bnetcode']);
+			$this->User->saveField('race', $this->data['User']['race']);
+            $this->Session->setFlash('Your data has been updated');
+            $this->redirect(array('controller'=>'tournaments' , 'action' => 'index'));
+        }
+		
         if (!empty($this->data) && $this->User->validates()) {
             $password = $this->Auth->password($this->data['User']['password']);
             $this->User->saveField('password', $password);
@@ -78,7 +88,7 @@ class UsersController extends AppController {
 			$this->User->saveField('bnetcode', $this->data['User']['bnetcode']);
 			$this->User->saveField('race', $this->data['User']['race']);
             $this->Session->setFlash('Your data has been updated');
-            $this->redirect(array('action' => 'account'));
+            $this->redirect(array('controller'=>'tournaments' , 'action' => 'index'));
         }
     }
     /**
@@ -109,27 +119,7 @@ class UsersController extends AppController {
 		$this->set('user', $this->User->read(null, $id));
 	}
 
-	function add() {
-		
-		if (!$this->Session->read('Auth.User.admin'))
-		{
-			$this->Session->setFlash(__('Access denied', true));
-			$this->redirect(array('action'=>'index'));
-		}
-		if (!empty($this->data)) {
-			$this->User->create();
-			if (!$this->User->findByAdmin('1'))
-			{
-				$this->data['User']['admin']=1;
-			}
-			if ($this->User->save($this->data)) {
-				$this->Session->setFlash(__('The user has been saved', true));
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The user could not be saved. Please, try again.', true));
-			}
-		}
-	}
+
 
 	function edit($id = null) {
 		

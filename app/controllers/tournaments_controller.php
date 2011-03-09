@@ -2,18 +2,24 @@
 class TournamentsController extends AppController {
 
 	var $name = 'Tournaments';
-
+	
 	function index() {
 		$this->Tournament->recursive = 0;
 		$this->set('tournaments', $this->paginate());
 	}
 
 	function view($id = null) {
-		if (!$id) {
+		//redirect to right tourney type
+
+		if ($this->Tournament->field('typeAlias') == 0)
+		{
+			$this->redirect(array('controller'=> 'KOTournaments','action' => 'view',$id));
+		}
+		/*if (!$id) {
 			$this->Session->setFlash(__('Invalid tournament', true));
 			$this->redirect(array('action' => 'index'));
 		}
-		$this->set('tournament', $this->Tournament->read(null, $id));
+		$this->set('tournament', $this->Tournament->read(null, $id));*/
 	}
 
 	function add() {

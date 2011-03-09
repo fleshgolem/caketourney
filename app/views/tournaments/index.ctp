@@ -4,8 +4,7 @@
 	<tr>
 			<th><?php echo $this->Paginator->sort('id');?></th>
 			<th><?php echo $this->Paginator->sort('name');?></th>
-			<th><?php echo $this->Paginator->sort('typeField');?></th>
-			<th><?php echo $this->Paginator->sort('typeAlias');?></th>
+			<th><?php echo $this->Paginator->sort('Type','typeField');?></th>
 			<th class="actions"><?php __('Actions');?></th>
 	</tr>
 	<?php
@@ -20,7 +19,6 @@
 		<td><?php echo $tournament['Tournament']['id']; ?>&nbsp;</td>
 		<td><?php echo $tournament['Tournament']['name']; ?>&nbsp;</td>
 		<td><?php echo $tournament['Tournament']['typeField']; ?>&nbsp;</td>
-		<td><?php echo $tournament['Tournament']['typeAlias']; ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View', true), array('action' => 'view', $tournament['Tournament']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit', true), array('action' => 'edit', $tournament['Tournament']['id'])); ?>
@@ -32,7 +30,7 @@
 	<p>
 	<?php
 	echo $this->Paginator->counter(array(
-	'format' => __('Page %page% of %pages%, showing %current% records out of %count% total, starting on record %start%, ending on %end%', true)
+	'format' => __('Page %page% of %pages%', true)
 	));
 	?>	</p>
 
@@ -47,7 +45,7 @@
 	<h3><?php __('Actions'); ?></h3>
 	<ul>
 		<li><?php echo $this->Html->link(__('New Tournament', true), array('action' => 'add')); ?></li>
+		<li><?php echo $this->Html->link(__('List Tournaments', true), array('controller' => 'tournaments', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Users', true), array('controller' => 'users', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New User', true), array('controller' => 'users', 'action' => 'add')); ?> </li>
 	</ul>
 </div>

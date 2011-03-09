@@ -34,6 +34,13 @@ a {
 	text-decoration: underline;
 	font-weight: bold;
 }
+
+.invert a
+{
+	color: #fff;
+	text-decoration: underline;
+	font-weight: bold;
+}
 a:hover {
 	color: #367889;
 	text-decoration:none;
@@ -167,7 +174,7 @@ table .altrow td {
 	background: #f5f5f5;
 }
 td.actions {
-	text-align: center;
+	text-align: left;
 	white-space: nowrap;
 }
 table td.actions a {
@@ -392,7 +399,8 @@ div.actions li {
 	white-space: nowrap;
 	padding: 0;
 }
-div.actions ul li a {
+div.actions ul li a 
+{
 	font-weight: normal;
 	display: block;
 	clear: both;
@@ -403,6 +411,7 @@ div.actions ul li a:hover {
 
 input[type=submit],
 div.actions ul li a,
+div.buttons a,
 td.actions a {
 	font-weight:normal;
 	padding: 4px 8px;
@@ -420,6 +429,7 @@ td.actions a {
 }
 input[type=submit]:hover,
 div.actions ul li a:hover,
+div.buttons a,
 td.actions a:hover {
 	background: #f0f09a;
 	background: -webkit-gradient(linear, left top, left bottom, from(#f7f7e1), to(#eeeca9));
