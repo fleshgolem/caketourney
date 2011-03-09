@@ -10,6 +10,7 @@ class MatchesController extends AppController {
 		$this->data['Match']['round_id']=$round_id;
 		$this->data['Match']['number_in_round']=$number_in_round;
 		$this->data['Match']['games']=$games_per_match;
+		$this->data['Match']['open']=1;
 		if ($this->Match->save($this->data)) {
 				
 		} 
@@ -27,7 +28,8 @@ class MatchesController extends AppController {
 		$this->data['Match']['games']=$games_per_match;
 		$this->data['Match']['player1_id']=$player1['id'];
 		$this->data['Match']['player2_id']=$player2['id'];
-
+		$this->data['Match']['open']=1;
+		
 		if ($this->Match->save($this->data)) {
 		} 
 		else 
@@ -43,6 +45,17 @@ class MatchesController extends AppController {
 	}
 
 	function view($id = null) {
+		// Set User's ID in model which is needed for validation
+        $user_id = $this->Auth->user('id');
+ 
+		if ($this->Match->field('player1_id') == $user_id OR $this->Match->field('player2_id') == $user_id )
+		{
+			$this->set('report',true);
+		}
+		else
+		{
+			$this->set('report',false);
+		}
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid match', true));
 			$this->redirect(array('action' => 'index'));

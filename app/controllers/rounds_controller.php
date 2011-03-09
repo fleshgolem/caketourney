@@ -13,7 +13,7 @@ class RoundsController extends AppController {
 		if ($this->Round->save($this->data)) 
 		{
 				$id= $this->Round->id;
-				$this->Session->setFlash(__('The round has been saved', true));
+				//$this->Session->setFlash(__('The round has been saved', true));
 		} 
 			else 
 		{
@@ -39,7 +39,7 @@ class RoundsController extends AppController {
 		if ($this->Round->save($this->data)) 
 		{
 				$id= $this->Round->id;
-				$this->Session->setFlash(__('The round has been saved', true));
+				//$this->Session->setFlash(__('The round has been saved', true));
 		} 
 			else 
 		{

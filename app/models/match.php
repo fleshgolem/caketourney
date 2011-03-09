@@ -1,6 +1,7 @@
 <?php
 class Match extends AppModel {
 	var $name = 'Match';
+	var $recursive = 2;
 	var $validate = array(
 		'round_id' => array(
 			'numeric' => array(

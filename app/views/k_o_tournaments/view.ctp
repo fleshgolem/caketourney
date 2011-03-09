@@ -2,7 +2,7 @@
 
 
 
-<h2><?php  __('Tournament');?></h2>
+<h2><?php  echo ($tournament['KOTournament']['name']);?></h2>
 
 
 <table>
