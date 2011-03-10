@@ -25,7 +25,7 @@
 		<td><?php echo $user['User']['email']; ?>&nbsp;</td>
 		<td><?php echo $user['User']['bnetaccount']; ?>&nbsp;</td>
 		<td><?php echo $user['User']['bnetcode']; ?>&nbsp;</td>
-		<td><?php echo $this->Race->replace($user['User']['race']); ?>&nbsp;</td>
+		<td><?php echo $this->Race->small_img($user['User']['race']); ?>&nbsp;</td>
 		<td><?php echo $user['User']['admin']; ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View', true), array('action' => 'view', $user['User']['id'])); ?>

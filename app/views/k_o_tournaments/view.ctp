@@ -10,13 +10,24 @@
 	<tr>
 	<?php foreach ($round['Match'] as $match){?>
 	
-		<td><?php 
+		<td>
+			<?php 
 			if ($match['Player1']!=null)
-				echo($match['Player1']['name']);?>
-			vs 
+				echo $this->Race->small_img($match['Player1']['race'])?>
+			<?php 
+			//Link to match
+			$matchtitle = '';
+			if ($match['Player1']!=null)
+				$matchtitle .=($match['Player1']['name']);
+			$matchtitle .= ' vs ' ;
+			if ($match['Player2']!=null)
+				$matchtitle .=($match['Player2']['name']);
+			echo $this->Html->link(($matchtitle), array('controller' => 'matches', 'action' => 'view',$match['id'])); 	
+				?>
 			<?php 
 			if ($match['Player2']!=null)
-				echo($match['Player2']['name']);?>
+				echo $this->Race->small_img($match['Player2']['race'])
+			?>
 		</td>
 
 	<?php

@@ -3,7 +3,7 @@
 
 class RaceHelper extends AppHelper {
 	var $helpers = array('Html');
-    function replace($i) {
+    function small_img($i) {
         switch ($i) {
 		case 0:
 			return ($this->Html->image('terran.png', array('alt' => 'Terran')));

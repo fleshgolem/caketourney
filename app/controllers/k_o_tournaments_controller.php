@@ -2,7 +2,7 @@
 App::import('Controller', 'Rounds');
 App::import('Controller', 'Matches');
 class KOTournamentsController extends AppController {
-
+	var $helpers = array('Race');
 	var $name = 'KOTournaments';
 	function report_match($match_id, $player1_score, $player2_score)
 	{

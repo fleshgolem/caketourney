@@ -38,12 +38,12 @@ if($report)
 		<?php echo $this->Form->create('Match');?>
 		<h3>Scores</h3>
 		<div class="score1">
-			<?php echo ($this->Race->replace($match['Player1']['race']).' '. $match['Player1']['name'])?>
+			<?php echo ($this->Race->small_img($match['Player1']['race']).' '. $match['Player1']['name'])?>
 			<?php echo $this->Form->input('player1_score', array( 'label' => '' ));?>
 		</div>
 		<div class="score2">
 			<?php echo $this->Form->input('player2_score', array( 'label' => '' ));?>
-			<?php echo ($match['Player2']['name'].' '.$this->Race->replace($match['Player2']['race']))?>
+			<?php echo ($match['Player2']['name'].' '.$this->Race->small_img($match['Player2']['race']))?>
 		</div>
 		<?php echo $this->Form->end(__('Submit', true));?>
 	</div>
