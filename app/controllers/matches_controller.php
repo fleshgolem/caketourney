@@ -30,7 +30,13 @@ class MatchesController extends AppController {
 		$this->data['Match']['player1_id']=$player1['id'];
 		$this->data['Match']['player2_id']=$player2['id'];
 		
-		if(!$player1 OR !$player2){
+		if(!$player1){
+			$this->data['Match']['player2_score']=1;
+			$this->data['Match']['open']=0;
+		}
+		
+		else if (!$player2){
+			$this->data['Match']['player1_score']=1;
 			$this->data['Match']['open']=0;
 		}
 		else
