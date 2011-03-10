@@ -4,6 +4,44 @@ App::import('Controller', 'Matches');
 class KOTournamentsController extends AppController {
 
 	var $name = 'KOTournaments';
+	function report_match($match_id, $player1_score, $player2_score)
+	{
+		
+		//get corresponding tournament
+		$match = $this->KOTournament->Round->Match->findById($match_id);
+		$tournament_id = $match['Round']['Tournament']['id'];
+		$tournament = $this->KOTournament->findById($tournament_id);
+		
+		//Check if draw was reported
+		if ($player1_score == $player2_score)
+		{
+			//annull result
+			$this->KOTournament->Round->Match->id = $match['Match']['id'];
+			$this->KOTournament->Round->Match->saveField('player1_score',0);
+			$this->KOTournament->Round->Match->saveField('player2_score',0);
+			$this->KOTournament->Round->Match->saveField('open',1);
+			$this->Session->setFlash(__('Invalid result, no draws in KO Tournaments', true));
+			$this->redirect(array('controller' => 'Matches', 'action' => 'view',$match_id));
+		}
+		if ($player1_score > $player2_score)
+		{
+			$winner_id = $match['Match']['player1_id'];
+		}
+		else
+		{
+			$winner_id = $match['Match']['player2_id'];
+		}
+		//Advance Winner
+		$roundnumber=$match['Round']['number'];
+		$nextround=$this->KOTournament->Round->find('first',array('conditions'=>array('Round.number'=>$roundnumber+1,'Round.tournament_id'=>$tournament_id)));
+		$nextmatchnumber=floor($match['Match']['number_in_round']/2);
+		$nextplayernumber=$match['Match']['number_in_round']%2+1;
+		$nextmatch=$this->KOTournament->Round->Match->find('first',array('conditions'=>array('Match.round_id'=>$nextround['Round']['id'],'Match.number_in_round'=>$nextmatchnumber)));
+		$this->KOTournament->Round->Match->id=$nextmatch['Match']['id'];
+		$this->KOTournament->Round->Match->saveField('player'.$nextplayernumber.'_id',$winner_id);
+		$this->redirect(array('controller' => 'KOTournaments', 'action' => 'view',$tournament_id));
+	}
+		
 	function index() {
 		$this->redirect(array('controller'=>'tournaments','action' => 'index'));
 	}
@@ -75,6 +113,8 @@ class KOTournamentsController extends AppController {
 					$this->KOTournament->Round->Match->id = $match['Match']['id'];
 					$playernumber = $match['Match']['number_in_round']%2+1;
 					$this->KOTournament->Round->Match->saveField('player'.(($i%2)+1).'_id',$this->data['User']['User'][$i]);
+					
+					
 				}
 			}
 			$this->redirect(array('action' => 'view', $this->KOTournament->id));

@@ -57,17 +57,18 @@
 					
 		</div>
 		<div id="content">
+			
+			<?php echo $this->Session->flash(); ?>
+
+			<?php echo $content_for_layout; ?>
 			<div class="actions">
 				<h3><?php __('Actions'); ?></h3>
 				<ul>
-					<li><?php echo $this->Html->link(__('New Tournament', true), array('action' => 'add')); ?></li>
+					<li><?php echo $this->Html->link(__('New Tournament', true), array('controller' => 'tournaments','action' => 'add')); ?></li>
 					<li><?php echo $this->Html->link(__('List Tournaments', true), array('controller' => 'tournaments', 'action' => 'index')); ?> </li>
 					<li><?php echo $this->Html->link(__('List Users', true), array('controller' => 'users', 'action' => 'index')); ?> </li>
 				</ul>
 			</div>
-			<?php echo $this->Session->flash(); ?>
-
-			<?php echo $content_for_layout; ?>
 
 		</div>
 		<div id="footer">

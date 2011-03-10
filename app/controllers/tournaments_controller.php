@@ -1,8 +1,25 @@
 <?php
+App::import('Controller', 'KOTournaments');
 class TournamentsController extends AppController {
 
 	var $name = 'Tournaments';
+	function report_match($match_id, $player1_score, $player2_score)
+	{
 	
+		//get corresponding tournament
+		$match = $this->Tournament->Round->Match->findById($match_id);
+		$tournament_id = $match['Round']['Tournament']['id'];
+		$tournament = $this->Tournament->findById($tournament_id);
+		
+		//pass on to the right controller
+		if($tournament['Tournament']['typeAlias']==0)
+		{
+			$KOTournaments = new KOTournamentsController;
+			$KOTournaments->ConstructClasses();
+			
+			$KOTournaments->report_match($match_id,$player1_score,$player2_score);
+		}
+	}
 	function index() {
 		$this->Tournament->recursive = 0;
 		$this->set('tournaments', $this->paginate());

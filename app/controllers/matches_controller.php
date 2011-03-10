@@ -1,4 +1,5 @@
 <?php
+App::import('Controller', 'Tournaments');
 class MatchesController extends AppController {
 
 	var $name = 'Matches';
@@ -28,8 +29,14 @@ class MatchesController extends AppController {
 		$this->data['Match']['games']=$games_per_match;
 		$this->data['Match']['player1_id']=$player1['id'];
 		$this->data['Match']['player2_id']=$player2['id'];
-		$this->data['Match']['open']=1;
 		
+		if(!$player1 OR !$player2){
+			$this->data['Match']['open']=0;
+		}
+		else
+		{
+			$this->data['Match']['open']=1;
+		}
 		if ($this->Match->save($this->data)) {
 		} 
 		else 
@@ -45,7 +52,7 @@ class MatchesController extends AppController {
 	}
 
 	function view($id = null) {
-		// Set User's ID in model which is needed for validation
+		// Get User's id for authentication
         $user_id = $this->Auth->user('id');
  
 		if ($this->Match->field('player1_id') == $user_id OR $this->Match->field('player2_id') == $user_id )
@@ -59,6 +66,21 @@ class MatchesController extends AppController {
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid match', true));
 			$this->redirect(array('action' => 'index'));
+		}
+		
+		if (!empty($this->data)) {
+			$this->data['Match']['open']=0;
+			if ($this->Match->save($this->data)) {
+				$this->Session->setFlash(__('The match has been saved', true));
+				
+				$Tournaments = new TournamentsController;
+				$Tournaments->ConstructClasses();
+			
+				$Tournaments->report_match($this->Match->id, $this->data['Match']['player1_score'],$this->data['Match']['player2_score']);
+				}
+		}
+		if (empty($this->data)) {
+			$this->data = $this->Match->read(null, $id);
 		}
 		$this->set('match', $this->Match->read(null, $id));
 	}

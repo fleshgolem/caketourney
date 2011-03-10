@@ -133,6 +133,17 @@ div.actions h3 {
 	color:#777;
 }
 
+div.scores {
+	margin-top: 10pt;
+	text-align:center;
+	width: 50%;
+	}
+div.score1 {
+	float: left;
+	}
+div.score2 {
+	float: right;
+	}
 
 /** Tables **/
 table {
@@ -214,7 +225,7 @@ div.paging span a {
 dl {
 	line-height: 2em;
 	margin: 0em 0em;
-	width: 60%;
+	width: 50%;
 }
 dl .altrow {
 	background: #f4f4f4;
@@ -267,9 +278,14 @@ form div {
 	padding: .5em;
 	vertical-align: text-top;
 }
+
+div.scores input{
+	width: 20%;
+	}
 form .input {
 	color: #444;
 }
+
 form .required {
 	font-weight: bold;
 }
