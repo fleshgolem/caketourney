@@ -117,7 +117,8 @@ ul, li {
 /** containers **/
 div.form,
 div.index,
-div.view {
+div.view ,
+div.home{
 	float:right;
 	width:76%;
 	border-left:1px solid #666;

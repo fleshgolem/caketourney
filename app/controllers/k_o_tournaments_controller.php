@@ -54,12 +54,11 @@ class KOTournamentsController extends AppController {
 		$this->set('tournament', $this->KOTournament->read(null, $id));
 	}
 
-	function add() {
+	function add_random() {
 		if (!empty($this->data)) {
 			$this->KOTournament->create();
 			$this->data['KOTournament']['typeField']='KO';
 			$this->data['KOTournament']['typeAlias']=0;
-			debug($this->data);
 			if ($this->KOTournament->save($this->data)) {
 				
 				$this->Session->setFlash(__('The tournament has been saved', true));
@@ -68,61 +67,69 @@ class KOTournamentsController extends AppController {
 				$this->Session->setFlash(__('The tournament could not be saved. Please, try again.', true));
 			}
 			//Create first round with random matchups
-			
 			shuffle($this->data['User']['User']);
-			$players = count($this->data['User']['User']);
+			$playerlist = $this->data['User']['User'];
 			
-			$Rounds = new RoundsController;
-			$Rounds->ConstructClasses();
-			$roundnumber = ceil(log($players,2));
-			//Create Matchups
-			
-			//Byes first
-			$matchups = array(array());
-			$cutoff = pow(2,$roundnumber) - $players; 
-			for ($i=0; $i< $cutoff;$i++)
-			{
-				$matchups[$i][0]=$this->data['User']['User'][$i];
-				$matchups[$i][1]=null;
-			}
-			//Regular matches next
-			for ($i = 0; $i < $players-$cutoff; $i++)
-			{
-				$matchups[floor($i/2)+$cutoff][$i%2]=$this->data['User']['User'][$i+$cutoff];
-			}
-
-			$Rounds->generate_with_matchups($this->KOTournament->id,0,(pow(2,$roundnumber))/2,3,$matchups);
-			//Create further Rounds
-			for($i=1;$i<$roundnumber;$i++)
-			{
-				$Rounds->generate($this->KOTournament->id,$i,(pow(2,($roundnumber-$i)))/2,3);
-			}
-			
-			//Fill Byes for round 2
-			if ($cutoff > 0)
-			{
-				$Matches = new MatchesController;
-				$Matches->ConstructClasses();
-				$round2 = $this->KOTournament->Round->find('first',array('conditions'=>array('Round.number'=>1,'Round.tournament_id'=>$this->KOTournament->id)));
-				
-				$matches = $this->KOTournament->Round->Match->find('all',array('conditions'=>array('Match.round_id'=>$round2['Round']['id']),'order'=>array('Match.number_in_round')));
-				
-				for ($i=0; $i< $cutoff;$i++)
-				{
-					$match = $matches[floor($i/2)];
-					$this->KOTournament->Round->Match->id = $match['Match']['id'];
-					$playernumber = $match['Match']['number_in_round']%2+1;
-					$this->KOTournament->Round->Match->saveField('player'.(($i%2)+1).'_id',$this->data['User']['User'][$i]);
-					
-					
-				}
-			}
-			$this->redirect(array('action' => 'view', $this->KOTournament->id));
+			$this->create_matchups($playerlist);
+			//$this->redirect(array('action' => 'view', $this->KOTournament->id));
 		}
 		$users = $this->KOTournament->User->find('list');
 		$this->set(compact('users'));
 	}
-
+	
+	function create_matchups ($playerlist)
+	{
+		$players = count($playerlist);
+		$Rounds = new RoundsController;
+		$Rounds->ConstructClasses();
+		$roundnumber = ceil(log($players,2));
+		//Create Matchups
+		
+		//Byes first
+		$matchups = array(array());
+		$cutoff = pow(2,$roundnumber) - $players; 
+		for ($i=0; $i< $cutoff;$i++)
+		{
+			$matchups[$i][0]=$playerlist[$i];
+			debug($playerlist[$i]);
+			$matchups[$i][1]=null;
+		}
+		//Regular matches next
+		for ($i = 0; $i < $players-$cutoff; $i+=2)
+		{
+			debug($playerlist[$i]);
+			$matchups[($i/2)+$cutoff][0]=$playerlist[($i/2)+$cutoff];
+			$matchups[($i+1)/2+$cutoff][1]=$playerlist[$players-($i/2)-1];
+		}
+		
+		$Rounds->generate_with_matchups($this->KOTournament->id,0,(pow(2,$roundnumber))/2,3,$matchups);
+		//Create further Rounds
+		for($i=1;$i<$roundnumber;$i++)
+		{
+			$Rounds->generate($this->KOTournament->id,$i,(pow(2,($roundnumber-$i)))/2,3);
+		}
+		
+		//Fill Byes for round 2
+		if ($cutoff > 0)
+		{
+			$Matches = new MatchesController;
+			$Matches->ConstructClasses();
+			$round2 = $this->KOTournament->Round->find('first',array('conditions'=>array('Round.number'=>1,'Round.tournament_id'=>$this->KOTournament->id)));
+			
+			$matches = $this->KOTournament->Round->Match->find('all',array('conditions'=>array('Match.round_id'=>$round2['Round']['id']),'order'=>array('Match.number_in_round')));
+			
+			for ($i=0; $i< $cutoff;$i++)
+			{
+				$match = $matches[floor($i/2)];
+				$this->KOTournament->Round->Match->id = $match['Match']['id'];
+				$playernumber = $match['Match']['number_in_round']%2+1;
+				$this->KOTournament->Round->Match->saveField('player'.(($i%2)+1).'_id',$playerlist[$i]);
+				
+				
+			}
+		}
+	}
+	
 	function edit($id = null) {
 		if (!$id && empty($this->data)) {
 			$this->Session->setFlash(__('Invalid tournament', true));
