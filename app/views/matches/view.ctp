@@ -6,7 +6,7 @@ if($report)
 {
 	echo("testest");
 }?>
-<h2><?php echo ($this->Race->replace($match['Player1']['race']).' '. $match['Player1']['name'] .' VS '.$match['Player2']['name'].' '.$this->Race->replace($match['Player2']['race']));?></h2>
+<h2><?php echo ($this->Race->small_img($match['Player1']['race']).' '. $match['Player1']['name'] .' VS '.$match['Player2']['name'].' '.$this->Race->small_img($match['Player2']['race']));?></h2>
 	<dl><?php $i = 0; $class = ' class="altrow"';?>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Round'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
@@ -56,10 +56,10 @@ if($report)
 	<div class="scores">
 		<h3>Scores</h3>
 		<div align="left">
-			<?php echo ($this->Race->replace($match['Player1']['race']).' '. $match['Player1']['name'].' '.$match['Match']['player1_score'])?>
+			<?php echo ($this->Race->small_img($match['Player1']['race']).' '. $match['Player1']['name'].' '.$match['Match']['player1_score'])?>
 		</div>
 		<div align="right">
-			<?php echo ($match['Match']['player2_score'].' '. $match['Player2']['name'].' '.$this->Race->replace($match['Player2']['race']))?>
+			<?php echo ($match['Match']['player2_score'].' '. $match['Player2']['name'].' '.$this->Race->small_img($match['Player2']['race']))?>
 		</div>
 	</div>
 	<?php
