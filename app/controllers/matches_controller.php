@@ -2,7 +2,7 @@
 class MatchesController extends AppController {
 
 	var $name = 'Matches';
-
+	var $helpers = array('Race');
 	
 	function generate ($round_id, $number_in_round, $games_per_match)
 	{
