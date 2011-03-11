@@ -62,21 +62,69 @@ class KOTournamentsController extends AppController {
 			if ($this->KOTournament->save($this->data)) {
 				
 				$this->Session->setFlash(__('The tournament has been saved', true));
-				
+				//Create first round with random matchups
+				shuffle($this->data['User']['User']);
+				$playerlist = $this->data['User']['User'];
+				$this->create_matchups($playerlist);
+				//$this->redirect(array('action' => 'view', $this->KOTournament->id));
 			} else {
 				$this->Session->setFlash(__('The tournament could not be saved. Please, try again.', true));
 			}
-			//Create first round with random matchups
-			shuffle($this->data['User']['User']);
-			$playerlist = $this->data['User']['User'];
 			
-			$this->create_matchups($playerlist);
-			//$this->redirect(array('action' => 'view', $this->KOTournament->id));
 		}
 		$users = $this->KOTournament->User->find('list');
 		$this->set(compact('users'));
 	}
-	
+	function add_seeded() {
+		if (!empty($this->data)) {
+			$this->KOTournament->create();
+			$this->data['KOTournament']['typeField']='KO';
+			$this->data['KOTournament']['typeAlias']=0;
+			if ($this->KOTournament->save($this->data)) {
+				
+				$this->Session->setFlash(__('The tournament has been saved', true));
+				//Create first round with random matchups
+				
+				$this->redirect(array('action' => 'seed', $this->KOTournament->id));
+				$this->set('tournament', $this->KOTournament->read(null, $id));
+			} else {
+				$this->Session->setFlash(__('The tournament could not be saved. Please, try again.', true));
+			}
+			
+		}
+		$users = $this->KOTournament->User->find('list');
+		$this->set(compact('users'));
+	}
+	function seed($id = null)
+	{
+		if (!empty($this->data)) {
+			//find possible errors
+			if(count($this->data['playerpos'])>count(array_unique($this->data['playerpos'])))
+			{
+				$this->Session->setFlash(__('Please don\'t enter any position twice', true));
+				$this->redirect($this->referer());
+			}
+			
+			$playerlist = array();
+			foreach ($this->data['playerpos'] as $i=>$pos)
+			{
+				if($pos>count($this->data['playerpos']))
+				{
+					$this->Session->setFlash(__('Maximum position is '.count($this->data['playerpos']), true));
+					$this->redirect($this->referer());
+				}
+				//$player=$this->KOTournament->User->findById($i);
+				//$playerlist[$pos-1]=$player['User'];
+				$playerlist[$pos-1]=$i;
+				
+			}
+			$this->create_matchups($playerlist);
+		}
+		if (empty($this->data)) {
+			$this->data = $this->KOTournament->read(null, $id);
+		}
+		$this->set('tournament', $this->KOTournament->read(null, $id));
+	}	
 	function create_matchups ($playerlist)
 	{
 		$players = count($playerlist);
@@ -91,17 +139,15 @@ class KOTournamentsController extends AppController {
 		for ($i=0; $i< $cutoff;$i++)
 		{
 			$matchups[$i][0]=$playerlist[$i];
-			debug($playerlist[$i]);
+	
 			$matchups[$i][1]=null;
 		}
 		//Regular matches next
 		for ($i = 0; $i < $players-$cutoff; $i+=2)
 		{
-			debug($playerlist[$i]);
 			$matchups[($i/2)+$cutoff][0]=$playerlist[($i/2)+$cutoff];
 			$matchups[($i+1)/2+$cutoff][1]=$playerlist[$players-($i/2)-1];
 		}
-		
 		$Rounds->generate_with_matchups($this->KOTournament->id,0,(pow(2,$roundnumber))/2,3,$matchups);
 		//Create further Rounds
 		for($i=1;$i<$roundnumber;$i++)

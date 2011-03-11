@@ -54,7 +54,7 @@ class UsersController extends AppController {
 			// Load the user (avoid populating $this->data)
 			$current_user = $this->User->findById($id);
 			$this->Session->write('current_user', $current_user);
-            //$this->redirect($url);
+            $this->redirect($url);
         }
     }
  

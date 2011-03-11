@@ -21,21 +21,21 @@ class MatchesController extends AppController {
 		}
 		
 	}
-	function generate_with_matchup ($round_id, $number_in_round, $games_per_match, $player1, $player2)
+	function generate_with_matchup ($round_id, $number_in_round, $games_per_match, $player1_id, $player2_id)
 	{
 		$this->Match->create();
 		$this->data['Match']['round_id']=$round_id;
 		$this->data['Match']['number_in_round']=$number_in_round;
 		$this->data['Match']['games']=$games_per_match;
-		$this->data['Match']['player1_id']=$player1['id'];
-		$this->data['Match']['player2_id']=$player2['id'];
+		$this->data['Match']['player1_id']=$player1_id;
+		$this->data['Match']['player2_id']=$player2_id;
 		
-		if(!$player1){
+		if(!$player1_id){
 			$this->data['Match']['player2_score']=1;
 			$this->data['Match']['open']=0;
 		}
 		
-		else if (!$player2){
+		else if (!$player2_id){
 			$this->data['Match']['player1_score']=1;
 			$this->data['Match']['open']=0;
 		}
