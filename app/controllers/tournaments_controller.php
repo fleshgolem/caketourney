@@ -3,6 +3,7 @@ App::import('Controller', 'KOTournaments');
 class TournamentsController extends AppController {
 
 	var $name = 'Tournaments';
+	
 	function report_match($match_id, $player1_score, $player2_score)
 	{
 	
@@ -31,6 +32,10 @@ class TournamentsController extends AppController {
 		if ($this->Tournament->field('typeAlias') == 0)
 		{
 			$this->redirect(array('controller'=> 'KOTournaments','action' => 'view',$id));
+		}
+		if ($this->Tournament->field('typeAlias') == 1)
+		{
+			$this->redirect(array('controller'=> 'SwissTournaments','action' => 'view',$id));
 		}
 		/*if (!$id) {
 			$this->Session->setFlash(__('Invalid tournament', true));

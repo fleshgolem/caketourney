@@ -1,86 +1,87 @@
-<div class="swissTournaments view">
-<h2><?php  __('Swiss Tournament');?></h2>
-	<dl><?php $i = 0; $class = ' class="altrow"';?>
+<div class="tournaments view">
+
+
+
+<h2><?php  echo ($tournament['SwissTournament']['name']);?></h2>
+
+
+<table>
+<?php foreach ($tournament['Round'] as $round){?>
+	<tr>
+	<?php foreach ($round['Match'] as $match){?>
+	
+		<td>
+			<?php 
+			if ($match['Player1']!=null)
+				echo $this->Race->small_img($match['Player1']['race'])?>
+			<?php 
+			//Link to match
+			$matchtitle = '';
+			if ($match['Player1']!=null)
+				$matchtitle .=($match['Player1']['name']);
+			$matchtitle .= ' vs ' ;
+			if ($match['Player2']!=null)
+				$matchtitle .=($match['Player2']['name']);
+			echo $this->Html->link(($matchtitle), array('controller' => 'matches', 'action' => 'view',$match['id'])); 	
+				?>
+			<?php 
+			if ($match['Player2']!=null)
+				echo $this->Race->small_img($match['Player2']['race'])
+			?>
+		</td>
+
+	<?php
+	} ?>
+	</tr>
+<?php
+} ?>	
+</table>
+<?php  echo $this->Html->link(__('finish round',true), array('controller' => 'swiss_tournaments', 'action' => 'finish_round',$tournament['SwissTournament']['id']));?>
+<table>
+<?php foreach ($ranking as $i=>$rank){?>
+	<tr>
+		<td><?php echo($i);?></td>
+		<td><?php echo($rank['User']['name']);?></td>
+		<td><?php echo($rank['Ranking']['wins']);?></td>
+		<td><?php echo($rank['Ranking']['draws']);?></td>
+		<td><?php echo($rank['Ranking']['defeats']);?></td>
+		<td><?php echo($rank['Ranking']['elo']);?></td>
+	</tr>
+	<?php }?>
+</table>
+</div>
+
+
+<!-- TO BE DELETED-->
+
+
+	<!--<dl><?php $i = 0; $class = ' class="altrow"';?>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Id'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $swissTournament['SwissTournament']['id']; ?>
+			<?php echo $tournament['Tournament']['id']; ?>
 			&nbsp;
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Name'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $swissTournament['SwissTournament']['name']; ?>
+			<?php echo $tournament['Tournament']['name']; ?>
 			&nbsp;
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('TypeField'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $swissTournament['SwissTournament']['typeField']; ?>
+			<?php echo $tournament['Tournament']['typeField']; ?>
 			&nbsp;
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('TypeAlias'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $swissTournament['SwissTournament']['typeAlias']; ?>
+			<?php echo $tournament['Tournament']['typeAlias']; ?>
 			&nbsp;
 		</dd>
 	</dl>
 </div>
-<div class="actions">
-	<h3><?php __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('Edit Swiss Tournament', true), array('action' => 'edit', $swissTournament['SwissTournament']['id'])); ?> </li>
-		<li><?php echo $this->Html->link(__('Delete Swiss Tournament', true), array('action' => 'delete', $swissTournament['SwissTournament']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $swissTournament['SwissTournament']['id'])); ?> </li>
-		<li><?php echo $this->Html->link(__('List Swiss Tournaments', true), array('action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Swiss Tournament', true), array('action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Rankings', true), array('controller' => 'rankings', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Ranking', true), array('controller' => 'rankings', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Users', true), array('controller' => 'users', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New User', true), array('controller' => 'users', 'action' => 'add')); ?> </li>
-	</ul>
-</div>
-<div class="related">
-	<h3><?php __('Related Rankings');?></h3>
-	<?php if (!empty($swissTournament['Ranking'])):?>
-	<table cellpadding = "0" cellspacing = "0">
-	<tr>
-		<th><?php __('Id'); ?></th>
-		<th><?php __('Tournament Id'); ?></th>
-		<th><?php __('User Id'); ?></th>
-		<th><?php __('Match Points'); ?></th>
-		<th><?php __('Elo'); ?></th>
-		<th class="actions"><?php __('Actions');?></th>
-	</tr>
-	<?php
-		$i = 0;
-		foreach ($swissTournament['Ranking'] as $ranking):
-			$class = null;
-			if ($i++ % 2 == 0) {
-				$class = ' class="altrow"';
-			}
-		?>
-		<tr<?php echo $class;?>>
-			<td><?php echo $ranking['id'];?></td>
-			<td><?php echo $ranking['tournament_id'];?></td>
-			<td><?php echo $ranking['user_id'];?></td>
-			<td><?php echo $ranking['match_points'];?></td>
-			<td><?php echo $ranking['elo'];?></td>
-			<td class="actions">
-				<?php echo $this->Html->link(__('View', true), array('controller' => 'rankings', 'action' => 'view', $ranking['id'])); ?>
-				<?php echo $this->Html->link(__('Edit', true), array('controller' => 'rankings', 'action' => 'edit', $ranking['id'])); ?>
-				<?php echo $this->Html->link(__('Delete', true), array('controller' => 'rankings', 'action' => 'delete', $ranking['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $ranking['id'])); ?>
-			</td>
-		</tr>
-	<?php endforeach; ?>
-	</table>
-<?php endif; ?>
 
-	<div class="actions">
-		<ul>
-			<li><?php echo $this->Html->link(__('New Ranking', true), array('controller' => 'rankings', 'action' => 'add'));?> </li>
-		</ul>
-	</div>
-</div>
 <div class="related">
 	<h3><?php __('Related Users');?></h3>
-	<?php if (!empty($swissTournament['User'])):?>
+	<?php if (!empty($tournament['User'])):?>
 	<table cellpadding = "0" cellspacing = "0">
 	<tr>
 		<th><?php __('Id'); ?></th>
@@ -99,7 +100,7 @@
 	</tr>
 	<?php
 		$i = 0;
-		foreach ($swissTournament['User'] as $user):
+		foreach ($tournament['User'] as $user):
 			$class = null;
 			if ($i++ % 2 == 0) {
 				$class = ' class="altrow"';
@@ -134,3 +135,4 @@
 		</ul>
 	</div>
 </div>
+-->

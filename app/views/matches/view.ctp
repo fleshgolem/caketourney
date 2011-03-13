@@ -1,11 +1,7 @@
 <div class="matches view">
-<?php 
 
-//Show Report page, if user participates
-if($report)
-{
-	echo("testest");
-}?>
+
+
 <h2><?php echo ($this->Race->small_img($match['Player1']['race']).' '. $match['Player1']['name'] .' VS '.$match['Player2']['name'].' '.$this->Race->small_img($match['Player2']['race']));?></h2>
 	<dl><?php $i = 0; $class = ' class="altrow"';?>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Round'); ?></dt>
@@ -29,7 +25,9 @@ if($report)
 	<?php 
 
 	//Show Report page, if user participates and match is open
-	if($report AND $match['Match']['open'])
+	//security disable for testing
+	//if($report AND $match['Match']['open'])
+	if($match['Match']['open'])
 	{
 		echo("testest");
 	?>

@@ -4,7 +4,7 @@ App::import('Controller', 'Matches');
 class SwissTournamentsController extends AppController {
 
 	var $name = 'SwissTournaments';
-
+	var $helpers = array('Race');
 	function index() {
 		$this->SwissTournament->recursive = 0;
 		$this->set('swissTournaments', $this->paginate());
@@ -15,19 +15,32 @@ class SwissTournamentsController extends AppController {
 			$this->Session->setFlash(__('Invalid swiss tournament', true));
 			$this->redirect(array('action' => 'index'));
 		}
-		$this->set('swissTournament', $this->SwissTournament->read(null, $id));
+		$this->set('tournament', $this->SwissTournament->read(null, $id));
+		$this->set('ranking', $this->SwissTournament->Ranking->find('all',array('conditions'=>array('Ranking.tournament_id'=>$id),'order'=>array('Ranking.match_points DESC','Ranking.elo DESC'))));
 	}
 
 	function add() {
 		if (!empty($this->data)) {
+			
 			$this->SwissTournament->create();
-			$this->data['TypeAlias'] = 1;
-			$this->data['TypeField'] = 'Swiss';
-			$this->data['current_round'] = 0;
+			$this->data['SwissTournament']['typeAlias'] = 1;
+			$this->data['SwissTournament']['typeField'] = 'Swiss';
+			$this->data['SwissTournament']['current_round'] = 0;
+
+			
 			if ($this->SwissTournament->save($this->data)) {
+				foreach($this->data['User']['User'] as $user)
+				{
+					$this->SwissTournament->Ranking->create();
+					$this->data['Ranking']['tournament_id']=$this->SwissTournament->id;
+					$this->data['Ranking']['user_id']=$user;
+					$this->data['Ranking']['elo']=1000;
+					$this->SwissTournament->Ranking->save($this->data);
+				}
+				$this->create_rounds($this->data['User']['User']);
 				$this->Session->setFlash(__('The swiss tournament has been saved', true));
-				$this->redirect(array('action' => 'index'));
-				$this->pair_round(0,$this->SwissTournament->id);
+				$this->redirect(array('action' => 'view',$this->SwissTournament->id));
+				
 			} else {
 				$this->Session->setFlash(__('The swiss tournament could not be saved. Please, try again.', true));
 			}
@@ -35,12 +48,17 @@ class SwissTournamentsController extends AppController {
 		$users = $this->SwissTournament->User->find('list');
 		$this->set(compact('users'));
 	}
-	function finish_round($tournament_id, $round_id)
+	
+	function finish_round($tournament_id)
 	{
-		$matches = $this->SwissTournament->Round->Match->findAllByRound_id($round_id);
-		
+		$this->SwissTournament->id = $tournament_id;
+		$current_round = $this->SwissTournament->field('current_round');
+		$round = $this->SwissTournament->Round->find('first',array('conditions'=>array('Round.number'=>$current_round,'Round.tournament_id'=>$tournament_id)));
+		$round_id=$round['Round']['id'];
+		$matches = $this->SwissTournament->Round->Match->findAllByRoundId($round_id);
 		foreach ($matches as $match)
 		{
+			$match_id= $match['Match']['id'];
 			if ($match['Match']['player1_score'] > $match['Match']['player2_score'])
 			{
 				$this->report_win($match_id,$match['Match']['player1_id'],$match['Match']['player2_id'],$tournament_id);
@@ -54,16 +72,16 @@ class SwissTournamentsController extends AppController {
 				$this->report_draw($match_id,$match['Match']['player1_id'],$match['Match']['player2_id'],$tournament_id);
 			}
 		}
-		$this->SwissTournament->id = $tournament_id;
-		$current_round = $this->SwissTournament->field('current_round');
+		
 		$current_round++;
 		$this->SwissTournament->saveField('current_round',$current_round);
 		$this->pair_round($current_round,$tournament_id);
+		$this->redirect(array('action' => 'view',$tournament_id));
 	}
 	function report_win($match_id,$winner_id,$loser_id,$tournament_id)
 	{
-		$winner_ranking = $this->Tournament->Ranking->find('first',array('conditions'=>array('Ranking.tournament_id'=>$tournament_id,'Ranking.user_id'=>$winner_id)));		
-		$loser_ranking = $this->Tournament->Ranking->find('first',array('conditions'=>array('Ranking.tournament_id'=>$tournament_id,'Ranking.user_id'=>$loser_id)));
+		$winner_ranking = $this->SwissTournament->Ranking->find('first',array('conditions'=>array('Ranking.tournament_id'=>$tournament_id,'Ranking.user_id'=>$winner_id)));		
+		$loser_ranking = $this->SwissTournament->Ranking->find('first',array('conditions'=>array('Ranking.tournament_id'=>$tournament_id,'Ranking.user_id'=>$loser_id)));
 			
 		$winner_elo = $winner_ranking['Ranking']['elo'];
 		$loser_elo = $loser_ranking['Ranking']['elo'];
@@ -75,21 +93,21 @@ class SwissTournamentsController extends AppController {
 		
 		$winner_new_elo = $winner_elo + $k*(1-$winner_expect);
 		$loser_new_elo = $loser_elo + $k*(-$loser_expect);
-		
-		$this->Tournament->Ranking->id=$winner_ranking['Ranking']['id'];
-		$this->Tournament->Ranking->saveField ('match_points',$winner_ranking['Ranking']['match_points']+2);
-		$this->Tournament->Ranking->saveField ('elo', $winner_new_elo);
-		$this->Tournament->Ranking->saveField ('wins',$winner_ranking['Ranking']['wins']+1);
+		$this->SwissTournament->Ranking->id=$winner_ranking['Ranking']['id'];
+
+		$this->SwissTournament->Ranking->saveField ('match_points',$winner_ranking['Ranking']['match_points']+2);
+		$this->SwissTournament->Ranking->saveField ('elo', $winner_new_elo);
+		$this->SwissTournament->Ranking->saveField ('wins',$winner_ranking['Ranking']['wins']+1);
 
 		
-		$this->Tournament->Ranking->id=$loser_ranking['Ranking']['id'];
-		$this->Tournament->Ranking->saveField ('elo', $loser_new_elo);
-		$this->Tournament->Ranking->saveField ('defeats',$loser_ranking['Ranking']['defeats']+1);
+		$this->SwissTournament->Ranking->id=$loser_ranking['Ranking']['id'];
+		$this->SwissTournament->Ranking->saveField ('elo', $loser_new_elo);
+		$this->SwissTournament->Ranking->saveField ('defeats',$loser_ranking['Ranking']['defeats']+1);
 	}
 	function report_draw($match_id,$player1_id,$player2_id,$tournament_id)
 	{
-		$player1_ranking = $this->Tournament->Ranking->find('first',array('conditions'=>array('Ranking.tournament_id'=>$tournament_id,'Ranking.user_id'=>$player1_id)));		
-		$player2_ranking = $this->Tournament->Ranking->find('first',array('conditions'=>array('Ranking.tournament_id'=>$tournament_id,'Ranking.user_id'=>$player2_id)));
+		$player1_ranking = $this->SwissTournament->Ranking->find('first',array('conditions'=>array('Ranking.tournament_id'=>$tournament_id,'Ranking.user_id'=>$player1_id)));		
+		$player2_ranking = $this->SwissTournament->Ranking->find('first',array('conditions'=>array('Ranking.tournament_id'=>$tournament_id,'Ranking.user_id'=>$player2_id)));
 			
 		$player1_elo = $player1_ranking['Ranking']['elo'];
 		$player2_elo = $player2_ranking['Ranking']['elo'];
@@ -101,43 +119,44 @@ class SwissTournamentsController extends AppController {
 		$player1_new_elo = $player1_elo + $k*(0.5-$player1_expect);
 		$player2_new_elo = $player2_elo + $k*(0.5-$player2_expect);
 		
-		$this->Tournament->Ranking->id=$player1_ranking['Ranking']['id'];
-		$this->Tournament->Ranking->saveField ('match_points',$player1_ranking['Ranking']['match_points']+1);
-		$this->Tournament->Ranking->saveField ('elo', $player1_new_elo);
+		$this->SwissTournament->Ranking->id=$player1_ranking['Ranking']['id'];
+		$this->SwissTournament->Ranking->saveField ('match_points',$player1_ranking['Ranking']['match_points']+1);
+		$this->SwissTournament->Ranking->saveField ('elo', $player1_new_elo);
 		
-		$this->Tournament->Ranking->id=$player2_ranking['Ranking']['id'];
-		$this->Tournament->Ranking->saveField ('match_points',$player2_ranking['Ranking']['match_points']+1);
-		$this->Tournament->Ranking->saveField ('elo', $player2_new_elo);
+		$this->SwissTournament->Ranking->id=$player2_ranking['Ranking']['id'];
+		$this->SwissTournament->Ranking->saveField ('match_points',$player2_ranking['Ranking']['match_points']+1);
+		$this->SwissTournament->Ranking->saveField ('elo', $player2_new_elo);
 	}
 	function pair_round($round_number, $tournament_id)
 	{
-		//retrieve players sorted by ranking
-		$ranked_players = $this->SwissTournament->User->find('all',array('condition'=>array('User.tournament_id'=>$tournament_id),'order'=>array('Ranking.match_points DESC','Ranking.elo DESC')));
 		
+		//retrieve players sorted by ranking
+		$ranked_players = $this->SwissTournament->Ranking->find('all',array('conditions'=>array('Ranking.tournament_id'=>$tournament_id),'order'=>array('Ranking.match_points DESC','Ranking.elo DESC')));
 		$round = $this->SwissTournament->Round->find('first',array('conditions'=>array('Round.number'=>$round_number,'Round.tournament_id'=>$tournament_id)));
 		$round_id = $round['Round']['id'];
 		//award bye, if odd number of players
+
 		if(count($ranked_players)%2==1)
 		{
-			for ($i = count($ranked_players)%2 - 1;$i>=0;$i--);
+			for ($i = 0;$i<count($ranked_players);$i++)
 			{
-				$player_to_bye = $ranked_players[$i];
+				$player_to_bye = $ranked_players[count($ranked_players)-1-$i];
 				if($player_to_bye['Ranking']['bye']==0)
 				{
 					
-					unset($ranked_players[$i]);
+					unset($ranked_players[count($ranked_players)-1-$i]);
 					$matchups = $this->pair_rest($ranked_players,$round_id,$tournament_id);
 					if($matchups)
 					{
 						//Bye and pairings found
 						
 						//Set bye flag
-						$this->SwissTournament->Ranking->id=$rank['Ranking']['id'];
+						$this->SwissTournament->Ranking->id=$player_to_bye['Ranking']['user_id'];
 						$this->SwissTournament->Ranking->saveField('bye',1);
 						
 						//Put bye match in matchups
 						$matchup=array();
-						$matchup[0]=$player_to_bye['User']['id'];
+						$matchup[0]=$player_to_bye['Ranking']['user_id'];
 						$matchup[1]=null;
 						array_push($matchups,$matchup);
 						break;
@@ -155,7 +174,6 @@ class SwissTournamentsController extends AppController {
 			//even players, no bye, just pair
 			$matchups = $this->pair_rest($ranked_players,$round_id,$tournament_id);
 		}
-		
 		//Put players in matches
 		foreach ($matchups as $i=>$matchup)
 		{
@@ -171,13 +189,12 @@ class SwissTournamentsController extends AppController {
 		
 		//Get player to pair, remove from array
 		$player_to_pair = array_shift($unpaired_players);
-
 		//Check if only one opponent is left, try to pair
 		if (count($unpaired_players)==1)
 		{
 			$opponent = array_shift($unpaired_players);
-			$match1 = $this->SwissTournament->find('first',array('conditions'=>array('round_id'=>$round_id,'player1_id'=>$player_to_pair['User']['id'],'player2_id'=>$opponent['User']['id'])));
-			$match2 = $this->SwissTournament->find('first',array('conditions'=>array('round_id'=>$round_id,'player2_id'=>$player_to_pair['User']['id'],'player1_id'=>$opponent['User']['id'])));
+			$match1 = $this->SwissTournament->Round->Match->find('first',array('conditions'=>array('Match.round_id'=>$round_id,'Match.player1_id'=>$player_to_pair['Ranking']['user_id'],'player2_id'=>$opponent['Ranking']['user_id'])));
+			$match2 = $this->SwissTournament->Round->Match->find('first',array('conditions'=>array('Match.round_id'=>$round_id,'Match.player2_id'=>$player_to_pair['Ranking']['user_id'],'player1_id'=>$opponent['Ranking']['user_id'])));
 			if($match1 OR $match2)
 			{
 				//Match already played, pairing failed -> backtrack
@@ -188,24 +205,23 @@ class SwissTournamentsController extends AppController {
 				//Put paired match in matchups, finish pairing
 				$matchups=array(array());
 				$matchup=array();
-				$matchup[0]=$player_to_pair['User']['id'];
-				$matchup[1]=$oppoent['User']['id'];
-				array_push($matchups,$matchup);
+				$matchup[0]=$player_to_pair['Ranking']['user_id'];
+				$matchup[1]=$opponent['Ranking']['user_id'];
+				$matchups[0]=$matchup;
 				return $matchups;
 			}
 		}
 		//more than one opponent left
 		//find scoregroup
-		$rank=$this->SwissTournament->Ranking->find('first',array('conditions'=>array('Ranking.user_id'=>$player_to_pair['User']['id'],'Ranking.tournament_id'=>$tournament_id)));
-		$score=$rank['Ranking']['match_points'];
-		$scoregroup=$this->SwissTournament->Ranking->find('all',array('conditions'=>array('Ranking.mach_point'=>$score,'Ranking.tournament_id'=>$tournament_id,'Ranking.user_id <>'=>$player_to_pair['User']['id'])));
+		$score=$player_to_pair['Ranking']['match_points'];
+		$scoregroup=$this->SwissTournament->Ranking->find('all',array('conditions'=>array('Ranking.match_points'=>$score,'Ranking.tournament_id'=>$tournament_id,'Ranking.user_id <>'=>$player_to_pair['Ranking']['user_id'])));
 		if (count($scoregroup)==0)
 		{
 			//player floats, find next lower scoregroup
 			while($score>=0)
 			{
 				$score--;
-				$scoregroup=$this->SwissTournament->Ranking->find('all',array('conditions'=>array('Ranking.mach_point'=>$score,'Ranking.tournament_id'=>$tournament_id)));
+				$scoregroup=$this->SwissTournament->Ranking->find('all',array('conditions'=>array('Ranking.match_points'=>$score,'Ranking.tournament_id'=>$tournament_id)));
 				if(count($scoregroup)>0)
 				{
 					//group found, stop searching
@@ -214,18 +230,14 @@ class SwissTournamentsController extends AppController {
 			}
 		}
 		shuffle($scoregroup);
-		
 		//find opponent in scoregroup
-		foreach($scoregroup as $rank)
-		{
-			$opponent = $this->SwissTournament->User->findById($rank['Ranking']['user_id']);
-			
+		foreach($scoregroup as $opponent)
+		{			
 			//check if match already played or player already paired
-			$match1 = $this->SwissTournament->find('first',array('conditions'=>array('round_id'=>$round_id,'player1_id'=>$player_to_pair['User']['id'],'player2_id'=>$opponent['User']['id'])));
-			$match2 = $this->SwissTournament->find('first',array('conditions'=>array('round_id'=>$round_id,'player2_id'=>$player_to_pair['User']['id'],'player1_id'=>$opponent['User']['id'])));
+			$match1 = $this->SwissTournament->Round->Match->find('first',array('conditions'=>array('Match.round_id'=>$round_id,'Match.player1_id'=>$player_to_pair['Ranking']['user_id'],'player2_id'=>$opponent['Ranking']['user_id'])));
+			$match2 = $this->SwissTournament->Round->Match->find('first',array('conditions'=>array('Match.round_id'=>$round_id,'Match.player2_id'=>$player_to_pair['Ranking']['user_id'],'player1_id'=>$opponent['Ranking']['user_id'])));
 			if(!$match1 AND !$match2 AND in_array($opponent,$unpaired_players))
 			{
-				
 				$opp_key = array_search($opponent,$unpaired_players);
 				unset($unpaired_players[$opp_key]);
 				$matchups = $this->pair_rest($unpaired_players,$round_id,$tournament_id);
@@ -233,14 +245,14 @@ class SwissTournamentsController extends AppController {
 				{
 					//pairing successful, pair this match
 					$matchup=array();
-					$matchup[0]=$player_to_pair['User']['id'];
-					$matchup[1]=$opponent['User']['id'];
+					$matchup[0]=$player_to_pair['Ranking']['user_id'];
+					$matchup[1]=$opponent['Ranking']['user_id'];
 					array_push($matchups,$matchup);
 					return $matchups;
 				}
 				else
 				{
-					$unpaired_players[$opp_key]=opponent;
+					$unpaired_players[$opp_key]=$opponent;
 				}
 			}
 			
@@ -259,7 +271,7 @@ class SwissTournamentsController extends AppController {
 		//Get random matchups for first round
 		$matchups = array(array());
 		
-		for ($i = 0; i>$playernumber;$i++)
+		for ($i = 0; $i<$playernumber;$i++)
 			{
 			$matchups[floor($i/2)][$i%2]=$players[$i];
 			}
@@ -270,7 +282,7 @@ class SwissTournamentsController extends AppController {
 		//Create further rounds
 		for ($i = 1; $i < $roundnumber; $i++)
 		{
-			$Rounds->generate($this->SwissTournament->id,0,count($matchups),3);
+			$Rounds->generate($this->SwissTournament->id,$i,count($matchups),3);
 		}
 	}
 		
