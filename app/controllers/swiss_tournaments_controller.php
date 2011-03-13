@@ -122,10 +122,12 @@ class SwissTournamentsController extends AppController {
 		$this->SwissTournament->Ranking->id=$player1_ranking['Ranking']['id'];
 		$this->SwissTournament->Ranking->saveField ('match_points',$player1_ranking['Ranking']['match_points']+1);
 		$this->SwissTournament->Ranking->saveField ('elo', $player1_new_elo);
+		$this->SwissTournament->Ranking->saveField ('draws',$player1_ranking['Ranking']['draws']+1);
 		
 		$this->SwissTournament->Ranking->id=$player2_ranking['Ranking']['id'];
 		$this->SwissTournament->Ranking->saveField ('match_points',$player2_ranking['Ranking']['match_points']+1);
 		$this->SwissTournament->Ranking->saveField ('elo', $player2_new_elo);
+		$this->SwissTournament->Ranking->saveField ('draws',$player2_ranking['Ranking']['draws']+1);
 	}
 	function pair_round($round_number, $tournament_id)
 	{
