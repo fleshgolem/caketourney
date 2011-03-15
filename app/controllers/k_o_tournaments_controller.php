@@ -83,7 +83,7 @@ class KOTournamentsController extends AppController {
 			if ($this->KOTournament->save($this->data)) {
 				
 				$this->Session->setFlash(__('The tournament has been saved', true));
-				//Create first round with random matchups
+				//Let user determine seedings
 				
 				$this->redirect(array('action' => 'seed', $this->KOTournament->id));
 				$this->set('tournament', $this->KOTournament->read(null, $id));
@@ -95,6 +95,18 @@ class KOTournamentsController extends AppController {
 		$users = $this->KOTournament->User->find('list');
 		$this->set(compact('users'));
 	}
+	function generate_seeded($seeded_players,$name)
+	{
+		$this->KOTournament->create();
+		$this->data['KOTournament']['typeField']='KO';
+		$this->data['KOTournament']['typeAlias']=0;
+		$this->data['KOTournament']['name']=$name;
+		if ($this->KOTournament->save($this->data)) {
+			$this->create_matchups($seeded_players);
+		}
+		return $this->KOTournament->id;
+	}
+		
 	function seed($id = null)
 	{
 		if (!empty($this->data)) {
@@ -132,7 +144,7 @@ class KOTournamentsController extends AppController {
 		$Rounds->ConstructClasses();
 		$roundnumber = ceil(log($players,2));
 		//Create Matchups
-		
+
 		//Byes first
 		$matchups = array(array());
 		$cutoff = pow(2,$roundnumber) - $players; 

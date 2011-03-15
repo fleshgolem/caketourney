@@ -1,6 +1,7 @@
 <?php
 App::import('Controller', 'Rounds');
 App::import('Controller', 'Matches');
+App::import('Controller', 'KOTournaments');
 class SwissTournamentsController extends AppController {
 
 	var $name = 'SwissTournaments';
@@ -73,10 +74,48 @@ class SwissTournamentsController extends AppController {
 			}
 		}
 		
+		//check if max number of rounds played
+		$players = $this->SwissTournament->User->findAllByTournamentId($tournament_id);
 		$current_round++;
 		$this->SwissTournament->saveField('current_round',$current_round);
-		$this->pair_round($current_round,$tournament_id);
-		$this->redirect(array('action' => 'view',$tournament_id));
+		if ($current_round<ceil(log(count($players),2)))
+		{
+			//Move on to next round
+			$this->pair_round($current_round,$tournament_id);
+			$this->redirect(array('action' => 'view',$tournament_id));
+		}
+		else
+		{
+			//generate playoffs
+			$this->redirect(array('action' => 'playoffs',$tournament_id));
+		}
+	}
+	function playoffs($id)
+	{
+		if (!empty($this->data))
+		{
+			$KO = new KOTournamentsController;
+			$KO->ConstructClasses();
+			$seeds=array();
+			$ranked_players = $this->SwissTournament->Ranking->find('all',array('conditions'=>array('Ranking.tournament_id'=>$id),'order'=>array('Ranking.match_points DESC','Ranking.elo DESC')));
+			for($i=0;$i<$this->data['SwissTournament']['cutoff'];$i++)
+			{
+				$seeds[$i]=$ranked_players[$i]['Ranking']['user_id'];
+			}
+			$this->SwissTournament->id=$id;
+			$name = $this->SwissTournament->field('name');
+			$name .= ' Playoffs';
+
+
+			$id = $KO->generate_seeded($seeds,$name);
+			$this->Session->setFlash(__('Playoffs created', true));
+			$this->redirect(array('controller'=>'KOTournaments','action' => 'view',$id));
+		}
+		if (empty($this->data))
+		{
+			$this->data=$this->SwissTournament->read(null,$id);
+			
+		}
 	}
 	function report_win($match_id,$winner_id,$loser_id,$tournament_id)
 	{

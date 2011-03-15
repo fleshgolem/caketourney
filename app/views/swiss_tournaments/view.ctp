@@ -29,14 +29,22 @@
 				echo $this->Race->small_img($match['Player2']['race'])
 			?>
 		</td>
-
+		
 	<?php
 	} ?>
+	<?php 
+
+		if($tournament['SwissTournament']['current_round']==$round['number'])
+		{?>
+			<td>
+			<?php  echo $this->Html->link(__('Finish Round',true), array('controller' => 'swiss_tournaments', 'action' => 'finish_round',$tournament['SwissTournament']['id']));?>
+			</td>
+		<?php }?>
 	</tr>
 <?php
 } ?>	
 </table>
-<?php  echo $this->Html->link(__('finish round',true), array('controller' => 'swiss_tournaments', 'action' => 'finish_round',$tournament['SwissTournament']['id']));?>
+
 <table>
 <?php foreach ($ranking as $i=>$rank){?>
 	<tr>

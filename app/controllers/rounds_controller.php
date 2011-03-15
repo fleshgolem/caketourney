@@ -32,7 +32,7 @@ class RoundsController extends AppController {
 			
 	}
 	function generate_with_matchups ($tournament_id, $number, $matchcount, $games_per_match, $matchups)
-	{
+	{	
 		$this->Round->create();
 		$this->data['Round']['tournament_id']=$tournament_id;
 		$this->data['Round']['number']=$number;
