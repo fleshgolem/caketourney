@@ -38,7 +38,7 @@ class SwissTournamentsController extends AppController {
 					$this->data['Ranking']['elo']=1000;
 					$this->SwissTournament->Ranking->save($this->data);
 				}
-				$this->create_rounds($this->data['User']['User']);
+				$this->create_rounds($this->data['User']['User'],$this->data['SwissTournament']['bestof']);
 				$this->Session->setFlash(__('The swiss tournament has been saved', true));
 				$this->redirect(array('action' => 'view',$this->SwissTournament->id));
 				
@@ -109,7 +109,7 @@ class SwissTournamentsController extends AppController {
 
 			$id = $KO->generate_seeded($seeds,$name);
 			$this->Session->setFlash(__('Playoffs created', true));
-			$this->redirect(array('controller'=>'KOTournaments','action' => 'view',$id));
+			$this->redirect(array('controller'=>'KOTournaments','action' => 'determine_gamecount',$id));
 		}
 		if (empty($this->data))
 		{
@@ -302,7 +302,7 @@ class SwissTournamentsController extends AppController {
 		return false;
 	}
 	
-	function create_rounds($players)
+	function create_rounds($players,$bestof)
 	{
 		//TODO: How many rounds to play exactly?
 		$playernumber = count($players);
@@ -319,11 +319,11 @@ class SwissTournamentsController extends AppController {
 		$Rounds = new RoundsController;
 		$Rounds->ConstructClasses();
 		
-		$Rounds->generate_with_matchups($this->SwissTournament->id,0,count($matchups),3,$matchups);
+		$Rounds->generate_with_matchups($this->SwissTournament->id,0,count($matchups),$bestof,$matchups);
 		//Create further rounds
 		for ($i = 1; $i < $roundnumber; $i++)
 		{
-			$Rounds->generate($this->SwissTournament->id,$i,count($matchups),3);
+			$Rounds->generate($this->SwissTournament->id,$i,count($matchups),$bestof);
 		}
 	}
 		

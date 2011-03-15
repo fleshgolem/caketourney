@@ -62,4 +62,26 @@
 	</div>
 	<?php
 	}?>
+	
+	<h3>Comments</h3>
+	<?php echo $this->Form->create('Match', array('action'=>'post_comment'));?>
+	<?php echo $this->Form->input('Comment.text', array('label'=>'Post Comment'));?>
+	<?php echo $this->Form->end(__('Submit', true));?>
+	<table>
+		<?php
+		foreach ($comments as $comment){?>
+		<tr>
+			<td>
+				<?php echo ($comment['User']['username'])?>
+				<br>
+				<small>
+				<?php echo ($comment['Comment']['date_posted'])?>
+				</small>
+			</td>
+			<td>
+				<?php echo ($comment['Comment']['body'])?>
+			</td>
+		</tr>
+		<?php }?>
+	</table>
 </div>

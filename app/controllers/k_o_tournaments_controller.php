@@ -66,7 +66,7 @@ class KOTournamentsController extends AppController {
 				shuffle($this->data['User']['User']);
 				$playerlist = $this->data['User']['User'];
 				$this->create_matchups($playerlist);
-				//$this->redirect(array('action' => 'view', $this->KOTournament->id));
+				$this->redirect(array('action' => 'determine_gamecount', $this->KOTournament->id));
 			} else {
 				$this->Session->setFlash(__('The tournament could not be saved. Please, try again.', true));
 			}
@@ -107,6 +107,29 @@ class KOTournamentsController extends AppController {
 		return $this->KOTournament->id;
 	}
 		
+	function determine_gamecount($id)
+	{
+		if (!empty($this->data)) {
+			 
+			$rounds=$this->KOTournament->Round->findAllByTournamentId($id);
+			foreach($rounds as $round)
+			{
+				$i = $round['Round']['number'];
+				foreach($round['Match'] as $match)
+				{
+					$this->KOTournament->Round->Match->id=$match['id'];
+					$this->KOTournament->Round->Match->saveField('games',$this->data['bestof'][$i]);
+				}
+			}
+			$this->redirect(array('action' => 'view', $id));
+		}
+		if (empty($this->data)) {
+			$this->data = $this->KOTournament->read(null, $id);
+			
+		}
+	$this->set('tournament', $this->KOTournament->read(null, $id));
+	}
+		
 	function seed($id = null)
 	{
 		if (!empty($this->data)) {
@@ -131,6 +154,7 @@ class KOTournamentsController extends AppController {
 				
 			}
 			$this->create_matchups($playerlist);
+			$this->redirect(array('action' => 'determine_gamecount', $this->KOTournament->id));
 		}
 		if (empty($this->data)) {
 			$this->data = $this->KOTournament->read(null, $id);
@@ -160,11 +184,11 @@ class KOTournamentsController extends AppController {
 			$matchups[($i/2)+$cutoff][0]=$playerlist[($i/2)+$cutoff];
 			$matchups[($i+1)/2+$cutoff][1]=$playerlist[$players-($i/2)-1];
 		}
-		$Rounds->generate_with_matchups($this->KOTournament->id,0,(pow(2,$roundnumber))/2,3,$matchups);
+		$Rounds->generate_with_matchups($this->KOTournament->id,0,(pow(2,$roundnumber))/2,1,$matchups);
 		//Create further Rounds
 		for($i=1;$i<$roundnumber;$i++)
 		{
-			$Rounds->generate($this->KOTournament->id,$i,(pow(2,($roundnumber-$i)))/2,3);
+			$Rounds->generate($this->KOTournament->id,$i,(pow(2,($roundnumber-$i)))/2,1);
 		}
 		
 		//Fill Byes for round 2

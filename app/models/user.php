@@ -12,7 +12,21 @@ class User extends AppModel {
 			'associationForeignKey'  => 'tournament_id',
 			)
 		);
+
 	var $hasMany = array(
+		'Comment' => array(
+			'className' => 'Comment',
+			'foreignKey' => 'user_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
 		'Match' => array(
 			'className' => 'Match',
 			'foreignKey' => 'player1_id',

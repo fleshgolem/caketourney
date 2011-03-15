@@ -89,6 +89,8 @@ class MatchesController extends AppController {
 			$this->data = $this->Match->read(null, $id);
 		}
 		$this->set('match', $this->Match->read(null, $id));
+		$comments=$this->Match->Comment->find('all',array('conditions'=>array('Comment.match_id'=>$id),'sort'=>array('Comment.date_posted DESC')));
+		$this->set('comments' , $comments);
 	}
 
 	function add() {
@@ -141,5 +143,24 @@ class MatchesController extends AppController {
 		$this->Session->setFlash(__('Match was not deleted', true));
 		$this->redirect(array('action' => 'index'));
 	}
+	function post_comment($id)
+		{
+		if (!$id) {
+			$this->Session->setFlash(__('Invalid id for match', true));
+			$this->redirect(array('action'=>'index'));
+		}
+		if(!empty($this->data))
+		{
+			$this->Match->Comment->create();
+			$this->Match->Comment->saveField('body',$this->data['Comment']['text']);
+			//TODO: datum einfügen 
+			$user_id = $this->Auth->user('id');
+			$this->Match->Comment->saveField('user_id',$user_id);
+			$this->Match->Comment->saveField('match_id',$id);
+			$this->redirect(array('action' => 'view',$id));
+		}
+	}
+
+			
 }
 ?>
