@@ -47,6 +47,8 @@
 					echo $this->Html->link(__('Logout', true), array('controller' => 'users', 'action' => 'logout')); 
 					echo (' ');
 					echo $this->Html->link(__('Account Settings', true), array('controller' => 'users', 'action' => 'account')); 
+					echo (' ');
+					echo $this->Html->link(__('My Open Matches', true), array('controller' => 'users', 'action' => 'open_matches'));
 				}
 				else
 				{

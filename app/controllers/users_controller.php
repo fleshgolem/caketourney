@@ -119,7 +119,13 @@ class UsersController extends AppController {
 		$this->set('user', $this->User->read(null, $id));
 	}
 
-
+	function open_matches()
+	{
+		$id = $this->Auth->user('id');
+		
+		$matches = $this->User->Match->find('all',array('conditions'=>array('Match.open'=>1,'OR'=>array('Match.player1_id'=>$id,'Match.player2_id'=>$id))));
+		$this->set('matches',$matches);
+	}
 
 	function edit($id = null) {
 		
