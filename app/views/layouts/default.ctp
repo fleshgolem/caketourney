@@ -36,8 +36,10 @@
 <body>
 	<div id="container">
 		<div id="header">
-			<h1><?php echo $this->Html->link(__('OPSL', true), '/'); ?></h1>
-			<div class="buttons" align="right">
+			<div  align="left" width="50%">
+				<?php echo $this->Html->image('OPSL_logo_small.png');?>
+			</div>
+			<div  class="buttons" align="right"width="50%">
 				<?php  
 
 				if ($this->Session->check('Auth.User'))
@@ -80,8 +82,9 @@
 					array('target' => '_blank', 'escape' => false)
 				);
 			?>
+			<?php echo $this->element('sql_dump'); ?>
 		</div>
 	</div>
-	<?php echo $this->element('sql_dump'); ?>
+	
 </body>
 </html>
