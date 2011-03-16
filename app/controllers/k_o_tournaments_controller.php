@@ -51,7 +51,7 @@ class KOTournamentsController extends AppController {
 			$this->Session->setFlash(__('Invalid tournament', true));
 			$this->redirect(array('action' => 'index'));
 		}
-		$this->set('tournament', $this->KOTournament->read(null, $id));
+		$this->set('tournament', $this->KOTournament->find('first', array('conditions'=>array('id' => $id), 'recursive' => 3)));
 	}
 
 	function add_random() {

@@ -4,7 +4,7 @@ class KOTournament extends Tournament {
 
     var $name = 'KOTournament'; 
     var $useTable = 'tournaments'; 
-    var $recursive = 3;
+    var $recursive = 1;
 
 } 
 ?>

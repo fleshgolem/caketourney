@@ -14,7 +14,8 @@ class User extends AppModel {
 		);
 
 	var $hasMany = array(
-		'Comment' => array(
+		//Do not associate comments with users, to keep db queries low
+		/*'Comment' => array(
 			'className' => 'Comment',
 			'foreignKey' => 'user_id',
 			'dependent' => false,
@@ -26,7 +27,7 @@ class User extends AppModel {
 			'exclusive' => '',
 			'finderQuery' => '',
 			'counterQuery' => ''
-		),
+		),*/
 		'Match' => array(
 			'className' => 'Match',
 			'foreignKey' => 'player1_id',
@@ -53,7 +54,7 @@ class User extends AppModel {
 			'finderQuery' => '',
 			'counterQuery' => ''
 		),
-		'Ranking' => array(
+		/*'Ranking' => array(
 			'className' => 'Ranking',
 			'foreignKey' => 'user_id',
 			'dependent' => false,
@@ -65,7 +66,7 @@ class User extends AppModel {
 			'exclusive' => '',
 			'finderQuery' => '',
 			'counterQuery' => ''
-		)
+		)*/
 	);
 	var $validate = array(
 		'name' => array(

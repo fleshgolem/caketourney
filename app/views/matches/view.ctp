@@ -11,7 +11,7 @@
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Tournament'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $this->Html->link($match['Round']['Tournament']['name'], array('controller' => 'tournaments', 'action' => 'view', $match['Round']['Tournament']['id'])); ?>
+			<?php echo $this->Html->link($round['Tournament']['name'], array('controller' => 'tournaments', 'action' => 'view', $round['Tournament']['id'])); ?>
 			&nbsp;
 		</dd>
 		
@@ -65,7 +65,7 @@
 	
 	<h3>Comments</h3>
 	<?php echo $this->Form->create('Match', array('action'=>'post_comment'));?>
-	<?php echo $this->Form->input('Comment.text', array('label'=>'Post Comment'));?>
+	<?php echo $this->Form->input('Comment.body', array('label'=>'Post Comment'));?>
 	<?php echo $this->Form->end(__('Submit', true));?>
 	<table>
 		<?php

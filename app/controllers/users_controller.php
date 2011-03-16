@@ -123,7 +123,7 @@ class UsersController extends AppController {
 	{
 		$id = $this->Auth->user('id');
 		
-		$matches = $this->User->Match->find('all',array('conditions'=>array('Match.open'=>1,'OR'=>array('Match.player1_id'=>$id,'Match.player2_id'=>$id))));
+		$matches = $this->User->Match->find('all',array('recursive'=>2,'conditions'=>array('Match.open'=>1,'OR'=>array('Match.player1_id'=>$id,'Match.player2_id'=>$id))));
 		$this->set('matches',$matches);
 	}
 

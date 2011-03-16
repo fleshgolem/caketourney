@@ -1,7 +1,7 @@
 <?php
 class Match extends AppModel {
 	var $name = 'Match';
-	var $recursive = 2;
+	var $recursive = 1;
 	var $validate = array(
 		'round_id' => array(
 			'numeric' => array(
@@ -49,7 +49,7 @@ class Match extends AppModel {
 		'Comment' => array(
 			'className' => 'Comment',
 			'foreignKey' => 'match_id',
-			'dependent' => false,
+			'dependent' => true,
 			'conditions' => '',
 			'fields' => '',
 			'order' => '',

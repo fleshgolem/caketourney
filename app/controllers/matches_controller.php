@@ -88,8 +88,11 @@ class MatchesController extends AppController {
 		if (empty($this->data)) {
 			$this->data = $this->Match->read(null, $id);
 		}
-		$this->set('match', $this->Match->read(null, $id));
-		$comments=$this->Match->Comment->find('all',array('conditions'=>array('Comment.match_id'=>$id),'sort'=>array('Comment.date_posted DESC')));
+		$match=$this->Match->read(null, $id);
+		$this->set('match', $match );
+		$round=$this->Match->Round->findById($match['Match']['round_id']);
+		$this->set('round', $round);
+		$comments=$this->Match->Comment->find('all',array('conditions'=>array('Comment.match_id'=>$id),'sort'=>array('Comment.date_posted ASC')));
 		$this->set('comments' , $comments);
 	}
 
@@ -152,11 +155,14 @@ class MatchesController extends AppController {
 		if(!empty($this->data))
 		{
 			$this->Match->Comment->create();
-			$this->Match->Comment->saveField('body',$this->data['Comment']['text']);
-			//TODO: datum einfügen 
 			$user_id = $this->Auth->user('id');
-			$this->Match->Comment->saveField('user_id',$user_id);
-			$this->Match->Comment->saveField('match_id',$id);
+			$this->data['Comment']['user_id']=$user_id;
+			$this->data['Comment']['match_id']=$id;
+			$date = date_create('now');
+
+			$this->data['Comment']['date_posted']=$date->format('Y-m-d H:i:s');
+			debug($this->data);
+			$this->Match->Comment->save($this->data);
 			$this->redirect(array('action' => 'view',$id));
 		}
 	}
