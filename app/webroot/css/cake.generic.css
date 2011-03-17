@@ -23,21 +23,21 @@
 
 /** General Style Info **/
 body {
-	background: #003d4c;
-	color: #fff;
+	background: #000;
+	color: #BBCEDD;
 	font-family:'lucida grande',verdana,helvetica,arial,sans-serif;
 	font-size:90%;
 	margin: 0;
 }
 a {
-	color: #003d4c;
+	color: #4B8948;
 	text-decoration: underline;
 	font-weight: bold;
 }
 
 .invert a
 {
-	color: #fff;
+	color: #BBCEDD;
 	text-decoration: underline;
 	font-weight: bold;
 }
@@ -53,23 +53,21 @@ h1, h2, h3, h4 {
 	margin-bottom:0.5em;
 }
 h1 {
-	background:#fff;
-	color: #003d4c;
+	color: #AF9BCA;
 	font-size: 100%;
 }
 h2 {
-	background:#fff;
-	color: #e32;
+	color: #9A7051;
 	font-family:'Gill Sans','lucida grande', helvetica, arial, sans-serif;
 	font-size: 190%;
 }
 h3 {
-	color: #993;
+	color:#69B088;
 	font-family:'Gill Sans','lucida grande', helvetica, arial, sans-serif;
 	font-size: 165%;
 }
 h4 {
-	color: #993;
+	color: #69B088;
 	font-weight: normal;
 }
 ul, li {
@@ -83,26 +81,27 @@ ul, li {
 
 #header{
 	padding: 10px 20px;
+	background-color:#000;
 }
 #header h1 {
-	line-height:20px;
-	background: #003d4c url('../img/cake.icon.png') no-repeat left;
-	color: #fff;
+	line-height:100px;
+	background: #003d4c url('../img/OPSL_logo_small.png') no-repeat left;
+	color: #BBCEDD;
 	padding: 0px 30px;
 }
 #header h1 a {
-	color: #fff;
+	color: #BBCEDD;
 	background: #003d4c;
 	font-weight: normal;
 	text-decoration: none;
 }
 #header h1 a:hover {
-	color: #fff;
+	color: #BBCEDD;
 	background: #003d4c;
 	text-decoration: underline;
 }
 #content{
-	background: #fff;
+	background: #BBCEDD;
 	clear: both;
 	color: #333;
 	padding: 10px 20px 40px 20px;
@@ -112,6 +111,7 @@ ul, li {
 	clear: both;
 	padding: 6px 10px;
 	text-align: right;
+	background:#000;
 }
 
 /** containers **/
@@ -148,7 +148,7 @@ div.score2 {
 
 /** Tables **/
 table {
-	background: #fff;
+	background: #BBCEDD;
 	border-right:0;
 	clear: both;
 	color: #333;
@@ -173,17 +173,17 @@ th a.desc:after {
 	content: ' ⇡';
 }
 table tr td {
-	background: #fff;
+	background: #BBCEDD;
 	padding: 6px;
 	text-align: left;
 	vertical-align: top;
 	border-bottom:1px solid #ddd;
 }
 table tr:nth-child(2n) td {
-	background: #f5f5f5;
+	background: #92B1C8;
 }
 table .altrow td {
-	background: #f5f5f5;
+	background: #92B1C8;
 }
 td.actions {
 	text-align: left;
@@ -202,12 +202,12 @@ table td.actions a {
 	font-family: Monaco, Consolas, "Courier New", monospaced;
 }
 .cake-sql-log caption {
-	color:#fff;
+	color:#BBCEDD;
 }
 
 /** Paging **/
 div.paging {
-	background:#fff;
+	background:#BBCEDD;
 	color: #ccc;
 	margin-top: 1em;
 	clear:both;
@@ -229,7 +229,7 @@ dl {
 	width: 50%;
 }
 dl .altrow {
-	background: #f4f4f4;
+	background: #92B1C8;
 }
 dt {
 	font-weight: bold;
@@ -255,7 +255,7 @@ fieldset {
 	padding: 16px 20px;
 }
 fieldset legend {
-	background:#fff;
+	background:#BBCEDD;
 	color: #e32;
 	font-size: 160%;
 	font-weight: bold;
@@ -347,23 +347,23 @@ input[type=submit] {
 	width: auto;
 }
 form .submit input[type=submit] {
-	background:#62af56;
-	background: -webkit-gradient(linear, left top, left bottom, from(#a8ea9c), to(#62af56));
-	background-image: -moz-linear-gradient(top, #a8ea9c, #62af56);
-	border-color: #2d6324;
+	background:#DDCABB;
+	background: -webkit-gradient(linear, left top, left bottom, from(#DDCABB), to(#DDDBBB));
+	background-image: -moz-linear-gradient(top, #DDCABB, #DDDBBB);
+	border-color: #BB977C;
 	color: #000;
-	text-shadow: #8cee7c 0px 1px 0px;
+	#text-shadow: #8cee7c 0px 1px 0px;
 }
 form .submit input[type=submit]:hover {
-	background:#4ca83d;
-	background: -webkit-gradient(linear, left top, left bottom, from(#85e573), to(#4ca83d));
-	background-image: -moz-linear-gradient(top, #85e573, #4ca83d);
+	background:#E5D7CD;
+	background: -webkit-gradient(linear, left top, left bottom, from(#E5D7CD), to(#E5E3CD));
+	background-image: -moz-linear-gradient(top, #E5D7CD, #E5E3CD);
 }
 
 /** Notices and Errors **/
 div.message {
 	clear: both;
-	color: #fff;
+	color: #BBCEDD;
 	font-size: 140%;
 	font-weight: bold;
 	margin: 0 0 1em 0;
@@ -372,13 +372,13 @@ div.message {
 }
 div.error-message {
 	clear: both;
-	color: #fff;
+	color: #BBCEDD;
 	font-weight: bold;
 	background: #c73e14;
 }
 p.error {
 	background-color: #e32;
-	color: #fff;
+	color: #BBCEDD;
 	font-family: Courier, monospace;
 	font-size: 120%;
 	line-height: 140%;
@@ -402,7 +402,7 @@ p.error em {
 }
 .success {
 	background: green;
-	color: #fff;
+	color: #BBCEDD;
 }
 
 /**  Actions  **/
@@ -432,16 +432,16 @@ div.buttons a,
 td.actions a {
 	font-weight:normal;
 	padding: 4px 8px;
-	background:#e6e49f;
-	background: -webkit-gradient(linear, left top, left bottom, from(#f1f1d4), to(#e6e49f));
-	background-image: -moz-linear-gradient(top, #f1f1d4, #e6e49f);
-	color:#333;
-	border:1px solid #aaac62;
+	background:#C6937B;
+	background: -webkit-gradient(linear, left top, left bottom, from(#B47050), to(#C6937B));
+	background-image: -moz-linear-gradient(top, #B47050, #C6937B);
+	color:#EEF3F6;
+	border:1px solid #6A94B4;
 	-webkit-border-radius:8px;
 	-moz-border-radius:8px;
 	border-radius:8px;
 	text-decoration:none;
-	text-shadow: #fff 0px 1px 0px;
+	text-shadow: #555 0px 1px 0px;
 	min-width: 0;
 }
 input[type=submit]:hover,
@@ -449,7 +449,7 @@ div.actions ul li a:hover,
 div.buttons a,
 td.actions a:hover {
 	background: #f0f09a;
-	background: -webkit-gradient(linear, left top, left bottom, from(#f7f7e1), to(#eeeca9));
+	background: -webkit-gradient(linear, left top, left bottom, from(#BC7E62), to(#CEA18D));
 }
 
 /** Related **/
@@ -473,7 +473,7 @@ pre.cake-debug {
 	position: relative;
 }
 div.cake-stack-trace {
-	background: #fff;
+	background: #BBCEDD;
 	color: #333;
 	margin: 0px;
 	padding: 6px;
