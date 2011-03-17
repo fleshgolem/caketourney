@@ -9,7 +9,8 @@ class TournamentsController extends AppController {
 	
 		//get corresponding tournament
 		$match = $this->Tournament->Round->Match->findById($match_id);
-		$tournament_id = $match['Round']['Tournament']['id'];
+		$round = $this->Tournament->Round->findById($match['Round']['id']);
+		$tournament_id = $round['Tournament']['id'];
 		$tournament = $this->Tournament->findById($tournament_id);
 		
 		//pass on to the right controller

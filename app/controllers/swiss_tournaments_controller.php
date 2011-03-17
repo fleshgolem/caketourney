@@ -12,14 +12,30 @@ class SwissTournamentsController extends AppController {
 	}
 
 	function view($id = null) {
+		$current_user = $this->Auth->user('id');
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid swiss tournament', true));
 			$this->redirect(array('action' => 'index'));
 		}
+		//Check if user is participating
+		$this->SwissTournament->bindModel(array('hasOne' => array('UsersTournament')));
+		$in_tournament = $this->SwissTournament->find('first',array('conditions'=>array('SwissTournament.id'=>$id,'UsersTournament.user_id'=>$current_user)));
+		$this->set('in_tournament', $in_tournament);
 		$this->set('tournament', $this->SwissTournament->read(null, $id));
 		$this->set('ranking', $this->SwissTournament->Ranking->find('all',array('conditions'=>array('Ranking.tournament_id'=>$id),'order'=>array('Ranking.match_points DESC','Ranking.elo DESC'))));
 	}
-
+	function settings($id=null){
+		$current_user = $this->Auth->user('id');
+		if (!empty($this->data)) {
+			if($this->SwissTournament->Ranking->save($this->data))
+			{
+				$this->Session->setFlash(__('Settings saved', true));
+			}
+		}
+		else {
+			$this->data=$this->SwissTournament->Ranking->find('first',array('conditions'=>array('Ranking.user_id'=>$current_user,'Ranking.tournament_id'=>$id)));
+		}
+	}
 	function add() {
 		if (!empty($this->data)) {
 			
@@ -75,7 +91,8 @@ class SwissTournamentsController extends AppController {
 		}
 		
 		//check if max number of rounds played
-		$players = $this->SwissTournament->User->findAllByTournamentId($tournament_id);
+		$this->SwissTournament->User->bindModel(array('hasOne' => array('UsersTournament')));
+		$players = $this->SwissTournament->User->find('all',array('conditions'=>array('UsersTournament.tournament_id'=>$tournament_id)));
 		$current_round++;
 		$this->SwissTournament->saveField('current_round',$current_round);
 		if ($current_round<ceil(log(count($players),2)))
@@ -172,7 +189,7 @@ class SwissTournamentsController extends AppController {
 	{
 		
 		//retrieve players sorted by ranking
-		$ranked_players = $this->SwissTournament->Ranking->find('all',array('conditions'=>array('Ranking.tournament_id'=>$tournament_id),'order'=>array('Ranking.match_points DESC','Ranking.elo DESC')));
+		$ranked_players = $this->SwissTournament->Ranking->find('all',array('conditions'=>array('Ranking.away'=>'0','Ranking.tournament_id'=>$tournament_id),'order'=>array('Ranking.match_points DESC','Ranking.elo DESC')));
 		$round = $this->SwissTournament->Round->find('first',array('conditions'=>array('Round.number'=>$round_number,'Round.tournament_id'=>$tournament_id)));
 		$round_id = $round['Round']['id'];
 		//award bye, if odd number of players
@@ -227,7 +244,6 @@ class SwissTournamentsController extends AppController {
 	
 	function pair_rest($unpaired_players,$round_id,$tournament_id)
 	{
-		
 		//Get player to pair, remove from array
 		$player_to_pair = array_shift($unpaired_players);
 		//Check if only one opponent is left, try to pair
@@ -255,14 +271,14 @@ class SwissTournamentsController extends AppController {
 		//more than one opponent left
 		//find scoregroup
 		$score=$player_to_pair['Ranking']['match_points'];
-		$scoregroup=$this->SwissTournament->Ranking->find('all',array('conditions'=>array('Ranking.match_points'=>$score,'Ranking.tournament_id'=>$tournament_id,'Ranking.user_id <>'=>$player_to_pair['Ranking']['user_id'])));
+		$scoregroup=$this->SwissTournament->Ranking->find('all',array('conditions'=>array('Ranking.away'=>'0','Ranking.match_points'=>$score,'Ranking.tournament_id'=>$tournament_id,'Ranking.user_id <>'=>$player_to_pair['Ranking']['user_id'])));
 		if (count($scoregroup)==0)
 		{
 			//player floats, find next lower scoregroup
 			while($score>=0)
 			{
 				$score--;
-				$scoregroup=$this->SwissTournament->Ranking->find('all',array('conditions'=>array('Ranking.match_points'=>$score,'Ranking.tournament_id'=>$tournament_id)));
+				$scoregroup=$this->SwissTournament->Ranking->find('all',array('conditions'=>array('Ranking.away'=>'0','Ranking.match_points'=>$score,'Ranking.tournament_id'=>$tournament_id)));
 				if(count($scoregroup)>0)
 				{
 					//group found, stop searching

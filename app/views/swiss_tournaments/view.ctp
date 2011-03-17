@@ -4,7 +4,12 @@
 
 <h2><?php  echo ($tournament['SwissTournament']['name']);?></h2>
 
-
+<?php 
+if ($in_tournament){?>
+	<div class="buttons">
+		<?php echo $this->Html->link('My Tournament Settings', array('action'=>'settings',$tournament['SwissTournament']['id']));?>
+	</div>
+<?php }?>
 <table>
 <?php foreach ($tournament['Round'] as $round){?>
 	<tr>
@@ -48,7 +53,7 @@
 <table>
 <?php foreach ($ranking as $i=>$rank){?>
 	<tr>
-		<td><?php echo($i);?></td>
+		<td><?php echo($i+1);?></td>
 		<td><?php echo($rank['User']['name']);?></td>
 		<td><?php echo($rank['Ranking']['wins']);?></td>
 		<td><?php echo($rank['Ranking']['draws']);?></td>

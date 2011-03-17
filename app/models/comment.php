@@ -2,6 +2,16 @@
 class Comment extends AppModel {
 	var $name = 'Comment';
 	var $validate = array(
+		'body' => array(
+			'notempty' => array(
+				'rule' => array('notempty'),
+				'message' => 'Please enter some text',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
 		'match_id' => array(
 			'numeric' => array(
 				'rule' => array('numeric'),

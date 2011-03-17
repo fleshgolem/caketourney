@@ -1,17 +1,23 @@
 <?php
 class User extends AppModel {
 	var $name = 'User';
-	var $hasAndBelongsToMany = array
-		(
-		'Tournament' =>
-		array
-			(
-			'className'              => 'Tournament',
-			'joinTable'              => 'users_tournaments',
-			'foreignKey'             => 'user_id',                
-			'associationForeignKey'  => 'tournament_id',
-			)
-		);
+	var $hasAndBelongsToMany = array(
+		'Tournament' => array(
+			'className' => 'Tournament',
+			'joinTable' => 'users_tournaments',
+			'foreignKey' => 'user_id',
+			'associationForeignKey' => 'tournament_id',
+			'unique' => true,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'finderQuery' => '',
+			'deleteQuery' => '',
+			'insertQuery' => ''
+		)
+	);
 
 	var $hasMany = array(
 		//Do not associate comments with users, to keep db queries low

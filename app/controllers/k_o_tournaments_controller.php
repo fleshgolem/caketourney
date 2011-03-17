@@ -9,8 +9,8 @@ class KOTournamentsController extends AppController {
 		
 		//get corresponding tournament
 		$match = $this->KOTournament->Round->Match->findById($match_id);
-		$tournament_id = $match['Round']['Tournament']['id'];
-		$tournament = $this->KOTournament->findById($tournament_id);
+		$round = $this->KOTournament->Round->findById($match['Round']['id']);
+		$tournament_id = $round['Tournament']['id'];
 		
 		//Check if draw was reported
 		if ($player1_score == $player2_score)

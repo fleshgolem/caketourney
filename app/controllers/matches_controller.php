@@ -92,7 +92,7 @@ class MatchesController extends AppController {
 		$this->set('match', $match );
 		$round=$this->Match->Round->findById($match['Match']['round_id']);
 		$this->set('round', $round);
-		$comments=$this->Match->Comment->find('all',array('conditions'=>array('Comment.match_id'=>$id),'sort'=>array('Comment.date_posted ASC')));
+		$comments=$this->Match->Comment->find('all',array('conditions'=>array('Comment.match_id'=>$id),'order'=>array('Comment.date_posted DESC')));
 		$this->set('comments' , $comments);
 	}
 
