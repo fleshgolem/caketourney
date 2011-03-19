@@ -352,7 +352,7 @@ form .submit input[type=submit] {
 	background-image: -moz-linear-gradient(top, #DDCABB, #DDDBBB);
 	border-color: #BB977C;
 	color: #000;
-	#text-shadow: #8cee7c 0px 1px 0px;
+	/*text-shadow: #8cee7c 0px 1px 0px;*/
 }
 form .submit input[type=submit]:hover {
 	background:#E5D7CD;
@@ -434,7 +434,7 @@ td.actions a {
 	padding: 4px 8px;
 	background:#C6937B;
 	background: -webkit-gradient(linear, left top, left bottom, from(#B47050), to(#C6937B));
-	background-image: -moz-linear-gradient(top, #B47050, #C6937B);
+	background: -moz-linear-gradient(top, #B47050, #C6937B);
 	color:#EEF3F6;
 	border:1px solid #6A94B4;
 	-webkit-border-radius:8px;
@@ -446,10 +446,11 @@ td.actions a {
 }
 input[type=submit]:hover,
 div.actions ul li a:hover,
-div.buttons a,
+div.buttons a:hover,
 td.actions a:hover {
-	background: #f0f09a;
+	background: #CEA18D;
 	background: -webkit-gradient(linear, left top, left bottom, from(#BC7E62), to(#CEA18D));
+	background: -moz-linear-gradient(top,#BC7E62, #CEA18D);
 }
 
 /** Related **/
