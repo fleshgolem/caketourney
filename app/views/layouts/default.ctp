@@ -71,6 +71,7 @@
 					<li><?php echo $this->Html->link(__('New Tournament', true), array('controller' => 'tournaments','action' => 'add')); ?></li>
 					<li><?php echo $this->Html->link(__('List Tournaments', true), array('controller' => 'tournaments', 'action' => 'index')); ?> </li>
 					<li><?php echo $this->Html->link(__('List Users', true), array('controller' => 'users', 'action' => 'index')); ?> </li>
+					<li><?php echo $this->Html->link(__('View Forum', true), array('controller' => 'threads', 'action' => 'index')); ?> </li>
 				</ul>
 			</div>
 
