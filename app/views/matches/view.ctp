@@ -71,15 +71,15 @@
 		<?php
 		foreach ($comments as $comment){?>
 		<tr>
-			<td>
-				<?php echo ($comment['User']['username'])?>
+			<td class="info">
+				<?php echo($this->Html->link($comment['User']['username'], array('controller' => 'users', 'action' => 'view', $comment['User']['id']))); ?>
 				<br>
 				<small>
-				<?php echo ($comment['Comment']['date_posted'])?>
+				<?php echo ($comment['Comment']['date_posted']);?>
 				</small>
 			</td>
 			<td>
-				<?php echo ($comment['Comment']['body'])?>
+				<?php echo ( $this->Text->autoLink($comment['Comment']['body']));?>
 			</td>
 		</tr>
 		<?php }?>

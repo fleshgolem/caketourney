@@ -12,7 +12,7 @@
 			<small><?php echo ($post['Post']['date_posted']);?></small>
 		</td>
 		<td>
-			<?php echo ($post['Post']['body']);?>
+			<?php echo ( $this->Text->autoLink($post['Post']['body']));?>
 		</td>
 	</tr>
 <?php

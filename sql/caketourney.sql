@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Erstellungszeit: 18. März 2011 um 16:54
+-- Erstellungszeit: 20. März 2011 um 22:23
 -- Server Version: 5.5.8
 -- PHP-Version: 5.3.5
 
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `body` text NOT NULL,
   `date_posted` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 -- --------------------------------------------------------
 
@@ -52,6 +52,21 @@ CREATE TABLE IF NOT EXISTS `matches` (
   `number_in_round` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=160 ;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `posts`
+--
+
+CREATE TABLE IF NOT EXISTS `posts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `thread_id` int(11) NOT NULL,
+  `date_posted` datetime NOT NULL,
+  `body` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
 
 -- --------------------------------------------------------
 
@@ -85,6 +100,21 @@ CREATE TABLE IF NOT EXISTS `rounds` (
   `tournament_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=71 ;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `threads`
+--
+
+CREATE TABLE IF NOT EXISTS `threads` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(200) NOT NULL,
+  `date_modified` datetime NOT NULL,
+  `original_poster_id` int(11) NOT NULL,
+  `last_poster_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 -- --------------------------------------------------------
 

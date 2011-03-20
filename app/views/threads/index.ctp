@@ -1,5 +1,5 @@
 <div class="threads index">
-	<h2><?php __('Threads');?></h2>
+	<h2><?php __('Forum');?></h2>
 	<div class="buttons">
 		<?php echo ($this->Html->Link('New Thread', array('action' => 'add')));?>
 	</div>
@@ -22,7 +22,7 @@
 		}
 	?>
 	<tr<?php echo $class;?>>
-		<td><?php echo $this->Html->link(__($thread['Thread']['title'], true), array('action' => 'view', $thread['Thread']['id'])); ?></td>
+		<td width="50%"><?php echo $this->Html->link(__($thread['Thread']['title'], true), array('action' => 'view', $thread['Thread']['id'])); ?></td>
 		<td>
 			<?php echo $this->Html->link($thread['OriginalPoster']['name'], array('controller' => 'users', 'action' => 'view', $thread['OriginalPoster']['id'])); ?>		
 		</td>

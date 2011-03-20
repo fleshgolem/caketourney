@@ -2,6 +2,7 @@
 class ThreadsController extends AppController {
 
 	var $name = 'Threads';
+	var $helpers = array('Text');
 	var $paginate = array(
 		'limit' => 25,
         'order' => array(
