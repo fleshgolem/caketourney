@@ -66,6 +66,8 @@
 	<h3>Comments</h3>
 	<?php echo $this->Form->create('Match', array('action'=>'post_comment'));?>
 	<?php echo $this->Form->input('Comment.body', array('label'=>'Post Comment'));?>
+	BBCode is enabled<br>
+	Embedding images is disabled
 	<?php echo $this->Form->end(__('Submit', true));?>
 	<table>
 		<?php
@@ -79,7 +81,8 @@
 				</small>
 			</td>
 			<td>
-				<?php echo ( $this->Text->autoLink($comment['Comment']['body']));?>
+				<?php $body = $this->Bbcode->doShortcode(strip_tags($comment['Comment']['body']));
+				echo ( $this->Text->autoLink($body));?>
 			</td>
 		</tr>
 		<?php }?>

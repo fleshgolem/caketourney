@@ -12,7 +12,9 @@
 			<small><?php echo ($post['Post']['date_posted']);?></small>
 		</td>
 		<td>
-			<?php echo ( $this->Text->autoLink($post['Post']['body']));?>
+			<?php
+				$body = $this->Bbcode->doShortcode(strip_tags($post['Post']['body']));
+				echo ( $this->Text->autoLink($body));?>
 		</td>
 	</tr>
 <?php
@@ -37,7 +39,10 @@
 		echo $this->Form->input('id');
 		echo $this->Form->input('Post.body');
 	?>
+		BBCode is enabled<br>
+		Embedding images is disabled
 	</fieldset>
+	
 <?php echo $this->Form->end(__('Submit', true));?>
 </div>
 <!--
