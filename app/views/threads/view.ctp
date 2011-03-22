@@ -13,7 +13,7 @@
 		</td>
 		<td>
 			<?php
-				$body = $this->Bbcode->doShortcode(strip_tags($post['Post']['body']));
+				$body = $this->Bbcode->htmlize(strip_tags($post['Post']['body']));
 				echo ( $this->Text->autoLink($body));?>
 		</td>
 	</tr>
