@@ -75,6 +75,7 @@ class MatchesController extends AppController {
 		}
 		
 		if (!empty($this->data)) {
+
 			$this->data['Match']['open']=0;
 			if ($this->Match->save($this->data)) {
 				$this->Session->setFlash(__('The match has been saved', true));

@@ -73,27 +73,13 @@ class ThreadsController extends AppController {
 		$this->set(compact('users'));
 	}
 
-	function edit($id = null) {
-		if (!$id && empty($this->data)) {
-			$this->Session->setFlash(__('Invalid thread', true));
-			$this->redirect(array('action' => 'index'));
-		}
-		if (!empty($this->data)) {
-			if ($this->Thread->save($this->data)) {
-				$this->Session->setFlash(__('The thread has been saved', true));
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The thread could not be saved. Please, try again.', true));
-			}
-		}
-		if (empty($this->data)) {
-			$this->data = $this->Thread->read(null, $id);
-		}
-		$users = $this->Thread->User->find('list');
-		$this->set(compact('users'));
-	}
 
 	function delete($id = null) {
+		if (!$this->Session->read('Auth.User.admin'))
+		{
+			$this->Session->setFlash(__('Access denied', true));
+			$this->redirect(array('action'=>'index'));
+		}
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid id for thread', true));
 			$this->redirect(array('action'=>'index'));

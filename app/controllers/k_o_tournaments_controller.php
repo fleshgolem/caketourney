@@ -55,6 +55,11 @@ class KOTournamentsController extends AppController {
 	}
 
 	function add_random() {
+		if (!$this->Session->read('Auth.User.admin'))
+		{
+			$this->Session->setFlash(__('Access denied', true));
+			$this->redirect(array('action'=>'index'));
+		}
 		if (!empty($this->data)) {
 			$this->KOTournament->create();
 			$this->data['KOTournament']['typeField']='KO';
@@ -76,6 +81,11 @@ class KOTournamentsController extends AppController {
 		$this->set(compact('users'));
 	}
 	function add_seeded() {
+		if (!$this->Session->read('Auth.User.admin'))
+		{
+			$this->Session->setFlash(__('Access denied', true));
+			$this->redirect(array('action'=>'index'));
+		}
 		if (!empty($this->data)) {
 			$this->KOTournament->create();
 			$this->data['KOTournament']['typeField']='KO';
@@ -212,37 +222,6 @@ class KOTournamentsController extends AppController {
 		}
 	}
 	
-	function edit($id = null) {
-		if (!$id && empty($this->data)) {
-			$this->Session->setFlash(__('Invalid tournament', true));
-			$this->redirect(array('action' => 'index'));
-		}
-		if (!empty($this->data)) {
-			if ($this->Tournament->save($this->data)) {
-				$this->Session->setFlash(__('The tournament has been saved', true));
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The tournament could not be saved. Please, try again.', true));
-			}
-		}
-		if (empty($this->data)) {
-			$this->data = $this->Tournament->read(null, $id);
-		}
-		$users = $this->Tournament->User->find('list');
-		$this->set(compact('users'));
-	}
 
-	function delete($id = null) {
-		if (!$id) {
-			$this->Session->setFlash(__('Invalid id for tournament', true));
-			$this->redirect(array('action'=>'index'));
-		}
-		if ($this->Tournament->delete($id)) {
-			$this->Session->setFlash(__('Tournament deleted', true));
-			$this->redirect(array('action'=>'index'));
-		}
-		$this->Session->setFlash(__('Tournament was not deleted', true));
-		$this->redirect(array('action' => 'index'));
-	}
 }
 ?>

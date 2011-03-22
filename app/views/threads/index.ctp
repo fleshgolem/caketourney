@@ -11,7 +11,12 @@
 			<th><?php echo $this->Paginator->sort('original_poster_id');?></th>
 			<th>Replies</th>
 			<th><?php echo $this->Paginator->sort('Last Post','date_modified');?></th>
-			<th class="actions"><?php __('Actions');?></th>
+			<?php 
+				//Only show delete if admin
+			if ($this->Session->read('Auth.User.admin')) 
+			{?>
+				<th class="actions"><?php __('Actions');?></th>
+			<?php }?>
 	</tr>
 	<?php
 	$i = 0;
@@ -35,9 +40,15 @@
 			<?php echo $thread['Thread']['date_modified']; ?>&nbsp;
 			</small>
 		</td>
+		<?php 
+				//Only show delete if admin
+		if ($this->Session->read('Auth.User.admin')) 
+		{?>
 		<td class="actions">
-			<?php echo $this->Html->link('Delete', array('action' => 'delete', $thread['Thread']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $thread['Thread']['id'])); ?>
+			
+					<?php echo $this->Html->link('Delete', array('action' => 'delete', $thread['Thread']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $thread['Thread']['id'])); ?>
 		</td>
+		<?php }?>
 	</tr>
 <?php endforeach; ?>
 	</table>

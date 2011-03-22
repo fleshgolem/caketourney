@@ -25,9 +25,8 @@
 	<?php 
 
 	//Show Report page, if user participates and match is open
-	//security disable for testing
-	//if($report AND $match['Match']['open'])
-	if($match['Match']['open'])
+	if($report AND $match['Match']['open'])
+	//if($match['Match']['open'])
 	{
 		echo("testest");
 	?>

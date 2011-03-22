@@ -1,3 +1,4 @@
+<div class="users form">
 <?php
 echo $this->Form->create(array('action' => 'register'));
 echo $this->Form->input('name');
@@ -10,3 +11,4 @@ echo $this->Form->input('bnetcode', array('label' => 'Battle.net Character Code'
 echo $this->Form->input('race', array('options' => array("Terran","Protoss","Zerg","Random",)));
 echo $this->Form->end('Register');
 ?>
+</div>

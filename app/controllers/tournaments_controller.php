@@ -46,6 +46,11 @@ class TournamentsController extends AppController {
 	}
 
 	function add() {
+		if (!$this->Session->read('Auth.User.admin'))
+		{
+			$this->Session->setFlash(__('Access denied', true));
+			$this->redirect(array('action'=>'index'));
+		}
 		if (!empty($this->data)) {
 			$this->Tournament->create();
 			if ($this->Tournament->save($this->data)) {
@@ -60,6 +65,11 @@ class TournamentsController extends AppController {
 	}
 
 	function edit($id = null) {
+		if (!$this->Session->read('Auth.User.admin'))
+		{
+			$this->Session->setFlash(__('Access denied', true));
+			$this->redirect(array('action'=>'index'));
+		}
 		if (!$id && empty($this->data)) {
 			$this->Session->setFlash(__('Invalid tournament', true));
 			$this->redirect(array('action' => 'index'));
@@ -80,6 +90,11 @@ class TournamentsController extends AppController {
 	}
 
 	function delete($id = null) {
+		if (!$this->Session->read('Auth.User.admin'))
+		{
+			$this->Session->setFlash(__('Access denied', true));
+			$this->redirect(array('action'=>'index'));
+		}
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid id for tournament', true));
 			$this->redirect(array('action'=>'index'));

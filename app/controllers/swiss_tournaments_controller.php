@@ -37,6 +37,11 @@ class SwissTournamentsController extends AppController {
 		}
 	}
 	function add() {
+		if (!$this->Session->read('Auth.User.admin'))
+		{
+			$this->Session->setFlash(__('Access denied', true));
+			$this->redirect(array('action'=>'index'));
+		}
 		if (!empty($this->data)) {
 			
 			$this->SwissTournament->create();
@@ -68,6 +73,11 @@ class SwissTournamentsController extends AppController {
 	
 	function finish_round($tournament_id)
 	{
+		if (!$this->Session->read('Auth.User.admin'))
+		{
+			$this->Session->setFlash(__('Access denied', true));
+			$this->redirect(array('action'=>'index'));
+		}
 		$this->SwissTournament->id = $tournament_id;
 		$current_round = $this->SwissTournament->field('current_round');
 		$round = $this->SwissTournament->Round->find('first',array('conditions'=>array('Round.number'=>$current_round,'Round.tournament_id'=>$tournament_id)));
@@ -369,37 +379,6 @@ class SwissTournamentsController extends AppController {
 		}
 	}
 		
-	function edit($id = null) {
-		if (!$id && empty($this->data)) {
-			$this->Session->setFlash(__('Invalid swiss tournament', true));
-			$this->redirect(array('action' => 'index'));
-		}
-		if (!empty($this->data)) {
-			if ($this->SwissTournament->save($this->data)) {
-				$this->Session->setFlash(__('The swiss tournament has been saved', true));
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The swiss tournament could not be saved. Please, try again.', true));
-			}
-		}
-		if (empty($this->data)) {
-			$this->data = $this->SwissTournament->read(null, $id);
-		}
-		$users = $this->SwissTournament->User->find('list');
-		$this->set(compact('users'));
-	}
 
-	function delete($id = null) {
-		if (!$id) {
-			$this->Session->setFlash(__('Invalid id for swiss tournament', true));
-			$this->redirect(array('action'=>'index'));
-		}
-		if ($this->SwissTournament->delete($id)) {
-			$this->Session->setFlash(__('Swiss tournament deleted', true));
-			$this->redirect(array('action'=>'index'));
-		}
-		$this->Session->setFlash(__('Swiss tournament was not deleted', true));
-		$this->redirect(array('action' => 'index'));
-	}
 }
 ?>

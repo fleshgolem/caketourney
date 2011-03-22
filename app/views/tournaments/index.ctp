@@ -21,8 +21,13 @@
 		<td><?php echo $tournament['Tournament']['typeField']; ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View', true), array('action' => 'view', $tournament['Tournament']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit', true), array('action' => 'edit', $tournament['Tournament']['id'])); ?>
-			<?php echo $this->Html->link(__('Delete', true), array('action' => 'delete', $tournament['Tournament']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $tournament['Tournament']['id'])); ?>
+			<?php 
+			//Only show edit and delete if admin
+			if ($this->Session->read('Auth.User.admin')) 
+			{
+				echo $this->Html->link(__('Edit', true), array('action' => 'edit', $tournament['Tournament']['id'])); 
+				echo $this->Html->link(__('Delete', true), array('action' => 'delete', $tournament['Tournament']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $tournament['Tournament']['id'])); 
+			}?>
 		</td>
 	</tr>
 <?php endforeach; ?>

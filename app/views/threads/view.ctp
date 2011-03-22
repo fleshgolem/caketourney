@@ -13,7 +13,7 @@
 		</td>
 		<td>
 			<?php
-				$body = $this->Bbcode->htmlize(strip_tags($post['Post']['body']));
+				$body = $this->Bbcode->doshortcode(strip_tags($post['Post']['body']));
 				echo ( $this->Text->autoLink($body));?>
 		</td>
 	</tr>
@@ -28,8 +28,8 @@
 
 	<div class="paging">
 		<?php echo $this->Paginator->prev('<< ' . __('previous', true), array(), null, array('class'=>'disabled'));?>
-	 | 	<?php echo $this->Paginator->numbers();?>
- |
+	  	<?php echo $this->Paginator->numbers();?>
+ 
 		<?php echo $this->Paginator->next(__('next', true) . ' >>', array(), null, array('class' => 'disabled'));?>
 	</div>
 <?php echo $this->Form->create('Thread');?>
