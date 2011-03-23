@@ -9,6 +9,7 @@
 			<th><?php echo $this->Paginator->sort('bnetcode');?></th>
 			<th><?php echo $this->Paginator->sort('race');?></th>
 			<th><?php echo $this->Paginator->sort('admin');?></th>
+			<th><?php echo $this->Paginator->sort('elo');?></th>
 			<th class="actions"><?php __('Actions');?></th>
 	</tr>
 	<?php
@@ -27,6 +28,7 @@
 		<td><?php echo $user['User']['bnetcode']; ?>&nbsp;</td>
 		<td><?php echo $this->Race->small_img($user['User']['race']); ?>&nbsp;</td>
 		<td><?php echo $user['User']['admin']; ?>&nbsp;</td>
+		<td><?php echo $user['User']['elo']; ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View', true), array('action' => 'view', $user['User']['id'])); ?>
 			<?php 

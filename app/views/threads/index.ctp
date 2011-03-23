@@ -29,13 +29,13 @@
 	<tr<?php echo $class;?>>
 		<td width="50%"><?php echo $this->Html->link(__($thread['Thread']['title'], true), array('action' => 'view', $thread['Thread']['id'])); ?></td>
 		<td>
-			<?php echo $this->Html->link($thread['OriginalPoster']['name'], array('controller' => 'users', 'action' => 'view', $thread['OriginalPoster']['id'])); ?>		
+			<?php echo $this->Html->link($thread['OriginalPoster']['username'], array('controller' => 'users', 'action' => 'view', $thread['OriginalPoster']['id'])); ?>		
 		</td>
 		<td>
 			<?php echo (count($thread['Post']));?>
 		<td>
 			<small>
-			<?php echo $this->Html->link($thread['LastPoster']['name'], array('controller' => 'users', 'action' => 'view', $thread['LastPoster']['id'])); ?>
+			<?php echo $this->Html->link($thread['LastPoster']['username'], array('controller' => 'users', 'action' => 'view', $thread['LastPoster']['id'])); ?>
 			<br>
 			<?php echo $thread['Thread']['date_modified']; ?>&nbsp;
 			</small>

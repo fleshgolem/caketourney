@@ -26,10 +26,10 @@
 			<?php echo $this->Html->link($match['Round']['id'], array('controller' => 'rounds', 'action' => 'view', $match['Round']['id'])); ?>
 		</td>
 		<td>
-			<?php echo $this->Html->link($match['Player1']['name'], array('controller' => 'users', 'action' => 'view', $match['Player1']['id'])); ?>
+			<?php echo $this->Html->link($match['Player1']['username'], array('controller' => 'users', 'action' => 'view', $match['Player1']['id'])); ?>
 		</td>
 		<td>
-			<?php echo $this->Html->link($match['Player2']['name'], array('controller' => 'users', 'action' => 'view', $match['Player2']['id'])); ?>
+			<?php echo $this->Html->link($match['Player2']['username'], array('controller' => 'users', 'action' => 'view', $match['Player2']['id'])); ?>
 		</td>
 		<td><?php echo $match['Match']['games']; ?>&nbsp;</td>
 		<td><?php echo $match['Match']['player1_score']; ?>&nbsp;</td>

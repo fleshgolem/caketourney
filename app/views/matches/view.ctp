@@ -2,7 +2,7 @@
 
 
 
-<h2><?php echo ($this->Race->small_img($match['Player1']['race']).' '. $match['Player1']['name'] .' VS '.$match['Player2']['name'].' '.$this->Race->small_img($match['Player2']['race']));?></h2>
+<h2><?php echo ($this->Race->small_img($match['Player1']['race']).' '. $match['Player1']['username'] .' VS '.$match['Player2']['username'].' '.$this->Race->small_img($match['Player2']['race']));?></h2>
 	<dl><?php $i = 0; $class = ' class="altrow"';?>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Round'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
@@ -35,12 +35,12 @@
 		<?php echo $this->Form->create('Match');?>
 		<h3>Scores</h3>
 		<div class="score1">
-			<?php echo ($this->Race->small_img($match['Player1']['race']).' '. $match['Player1']['name'])?>
+			<?php echo ($this->Race->small_img($match['Player1']['race']).' '. $match['Player1']['username'])?>
 			<?php echo $this->Form->input('player1_score', array( 'label' => '' ));?>
 		</div>
 		<div class="score2">
 			<?php echo $this->Form->input('player2_score', array( 'label' => '' ));?>
-			<?php echo ($match['Player2']['name'].' '.$this->Race->small_img($match['Player2']['race']))?>
+			<?php echo ($match['Player2']['username'].' '.$this->Race->small_img($match['Player2']['race']))?>
 		</div>
 		<?php echo $this->Form->end(__('Submit', true));?>
 	</div>
@@ -53,10 +53,10 @@
 	<div class="scores">
 		<h3>Scores</h3>
 		<div align="left">
-			<?php echo ($this->Race->small_img($match['Player1']['race']).' '. $match['Player1']['name'].' '.$match['Match']['player1_score'])?>
+			<?php echo ($this->Race->small_img($match['Player1']['race']).' '. $match['Player1']['username'].' '.$match['Match']['player1_score'])?>
 		</div>
 		<div align="right">
-			<?php echo ($match['Match']['player2_score'].' '. $match['Player2']['name'].' '.$this->Race->small_img($match['Player2']['race']))?>
+			<?php echo ($match['Match']['player2_score'].' '. $match['Player2']['username'].' '.$this->Race->small_img($match['Player2']['race']))?>
 		</div>
 	</div>
 	<?php

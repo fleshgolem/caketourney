@@ -7,7 +7,7 @@
 		echo $this->Form->input('id');
 		foreach ($tournament['User'] as $user)
 		{
-			echo $user['name'];
+			echo $user['username'];
 			echo $this->Form->input('playerpos.'.$user['id'],array( 'label' => false ));
 		}
 		

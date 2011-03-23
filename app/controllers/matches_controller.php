@@ -76,6 +76,12 @@ class MatchesController extends AppController {
 		
 		if (!empty($this->data)) {
 
+			if ((!$this->Session->read('Auth.User.admin')) AND ($this->Match->field('player1_id') != !$this->Session->read('Auth.User.id')) AND ($this->Match->field('player2_id') != !$this->Session->read('Auth.User.id')))
+			{
+				$this->Session->setFlash(__('Access denied', true));
+				//$this->redirect(array('action'=>'index'));
+			}
+
 			$this->data['Match']['open']=0;
 			if ($this->Match->save($this->data)) {
 				$this->Session->setFlash(__('The match has been saved', true));
@@ -97,23 +103,14 @@ class MatchesController extends AppController {
 		$this->set('comments' , $comments);
 	}
 
-	function add() {
-		if (!empty($this->data)) {
-			$this->Match->create();
-			if ($this->Match->save($this->data)) {
-				$this->Session->setFlash(__('The match has been saved', true));
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The match could not be saved. Please, try again.', true));
-			}
-		}
-		$rounds = $this->Match->Round->find('list');
-		$player1s = $this->Match->Player1->find('list');
-		$player2s = $this->Match->Player2->find('list');
-		$this->set(compact('rounds', 'player1s', 'player2s'));
-	}
+
 
 	function edit($id = null) {
+		if (!$this->Session->read('Auth.User.admin'))
+		{
+			$this->Session->setFlash(__('Access denied', true));
+			$this->redirect(array('action'=>'index'));
+		}
 		if (!$id && empty($this->data)) {
 			$this->Session->setFlash(__('Invalid match', true));
 			$this->redirect(array('action' => 'index'));
@@ -136,6 +133,11 @@ class MatchesController extends AppController {
 	}
 
 	function delete($id = null) {
+	if (!$this->Session->read('Auth.User.admin'))
+		{
+			$this->Session->setFlash(__('Access denied', true));
+			$this->redirect(array('action'=>'index'));
+		}
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid id for match', true));
 			$this->redirect(array('action'=>'index'));

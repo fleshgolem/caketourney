@@ -17,10 +17,10 @@
 			//Link to match
 			$matchtitle = '';
 			if ($match['Player1']!=null)
-				$matchtitle .=($match['Player1']['name']);
+				$matchtitle .=($match['Player1']['username']);
 			$matchtitle .= ' vs ' ;
 			if ($match['Player2']!=null)
-				$matchtitle .=($match['Player2']['name']);
+				$matchtitle .=($match['Player2']['username']);
 			echo $this->Html->link(($matchtitle), array('controller' => 'matches', 'action' => 'view',$match['Match']['id'])); 	
 			if ($match['Player2']!=null)
 				echo $this->Race->small_img($match['Player2']['race']);
