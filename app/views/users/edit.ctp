@@ -10,6 +10,7 @@
 		//echo $this->Form->input('password');
 		echo $this->Form->input('bnetaccount');
 		echo $this->Form->input('bnetcode');
+		echo $this->Form->input('elo');
 		echo $this->Form->input('race', array('options' => array("Terran","Protoss","Zerg","Random",), 'selected' => $this->data['User']['race']));
 		echo $this->Form->input('admin');
 	?>
