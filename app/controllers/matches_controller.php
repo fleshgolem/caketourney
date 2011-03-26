@@ -31,15 +31,11 @@ class MatchesController extends AppController {
 		$this->data['Match']['player2_id']=$player2_id;
 		
 		if(!$player1_id){
-			debug($player1_id);
-			debug($player2_id);
 			$this->data['Match']['player2_score']=1;
 			$this->data['Match']['open']=0;
 		}
 		
 		else if (!$player2_id){
-			debug($player1_id);
-			debug($player2_id);
 			$this->data['Match']['player1_score']=1;
 			$this->data['Match']['open']=0;
 		}
@@ -168,7 +164,6 @@ class MatchesController extends AppController {
 			$date = date_create('now');
 
 			$this->data['Comment']['date_posted']=$date->format('Y-m-d H:i:s');
-			debug($this->data);
 			$this->Match->Comment->save($this->data);
 			$this->redirect(array('action' => 'view',$id));
 		}

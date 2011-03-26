@@ -53,10 +53,10 @@
 	<div class="scores">
 		<h3>Scores</h3>
 		<div align="left">
-			<?php echo ($this->Race->small_img($match['Player1']['race']).' '. $match['Player1']['username'].' '.$match['Match']['player1_score'])?>
+			<?php echo ($this->Race->small_img($match['Player1']['race']).' '. $match['Player1']['username'].' <strong>'.$match['Match']['player1_score'].'</strong>')?>
 		</div>
 		<div align="right">
-			<?php echo ($match['Match']['player2_score'].' '. $match['Player2']['username'].' '.$this->Race->small_img($match['Player2']['race']))?>
+			<?php echo ('<strong>'.$match['Match']['player2_score'].'</strong> '. $match['Player2']['username'].' '.$this->Race->small_img($match['Player2']['race']))?>
 		</div>
 	</div>
 	<?php

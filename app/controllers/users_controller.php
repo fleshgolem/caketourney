@@ -22,13 +22,13 @@ class UsersController extends AppController {
         if (!empty($this->data)) {
             $this->User->create();
 			//Set admin flag if no admin in system yet
-			if (!$this->User->findByAdmin())
+			if (!$this->User->findByAdmin(1))
 			{
 				$this->data['User']['admin']=1;
 			}
             if ($this->User->save($this->data)) {
                 $this->Session->setFlash(__('Your account has been created.', true));
-                $this->redirect('/');
+                //$this->redirect('/');
             } else {
                 $this->Session->setFlash(__('Your account could not be created.', true));
             }
