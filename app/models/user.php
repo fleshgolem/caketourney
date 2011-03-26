@@ -77,15 +77,15 @@ class User extends AppModel {
 	var $validate = array(
 		'name' => array(
             'length' => array(
-                'rule'      => array('minLength', 5),
-                'message'   => 'Please enter your full name (more than 5 chars)',
+                'rule'      => array('minLength', 3),
+                'message'   => 'Please enter your full name (more than 3 chars)',
                 'required'  => true,
             ),
         ),
         'username' => array(
             'length' => array(
-                'rule'      => array('minLength', 5),
-                'message'   => 'Must be more than 5 characters',
+                'rule'      => array('minLength', 3),
+                'message'   => 'Must be more than 3 characters',
                 'required'  => true,
             ),
             'alphanum' => array(
