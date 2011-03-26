@@ -13,12 +13,15 @@
 		<td>
 			<?php 
 			if ($match['Player1']!=null)
-				echo $this->Race->small_img($match['Player1']['race'])?>
+			{
+				echo $this->Race->small_img($match['Player1']['race']);
+				echo ('<strong>'.$match['player1_score'].'</strong> ');
+			}?>
 			<?php 
 			//Link to match
 			$matchtitle = '';
 			if ($match['Player1']!=null)
-				$matchtitle .=($match['Player1']['username']);
+				$matchtitle .=($match['Player1']['username']) ;
 			$matchtitle .= ' vs ' ;
 			if ($match['Player2']!=null)
 				$matchtitle .=($match['Player2']['username']);
@@ -26,8 +29,10 @@
 				?>
 			<?php 
 			if ($match['Player2']!=null)
-				echo $this->Race->small_img($match['Player2']['race'])
-			?>
+			{
+				echo (' <strong>'.$match['player2_score'].'</strong>');
+				echo $this->Race->small_img($match['Player2']['race']);
+			}?>
 		</td>
 
 	<?php

@@ -71,7 +71,7 @@ class KOTournamentsController extends AppController {
 				shuffle($this->data['User']['User']);
 				$playerlist = $this->data['User']['User'];
 				$this->create_matchups($playerlist);
-				$this->redirect(array('action' => 'determine_gamecount', $this->KOTournament->id));
+				//$this->redirect(array('action' => 'determine_gamecount', $this->KOTournament->id));
 			} else {
 				$this->Session->setFlash(__('The tournament could not be saved. Please, try again.', true));
 			}

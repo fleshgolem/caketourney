@@ -31,11 +31,15 @@ class MatchesController extends AppController {
 		$this->data['Match']['player2_id']=$player2_id;
 		
 		if(!$player1_id){
+			debug($player1_id);
+			debug($player2_id);
 			$this->data['Match']['player2_score']=1;
 			$this->data['Match']['open']=0;
 		}
 		
 		else if (!$player2_id){
+			debug($player1_id);
+			debug($player2_id);
 			$this->data['Match']['player1_score']=1;
 			$this->data['Match']['open']=0;
 		}
@@ -61,7 +65,7 @@ class MatchesController extends AppController {
 		// Get User's id for authentication
         $user_id = $this->Auth->user('id');
  
-		if ($this->Match->field('player1_id') == $user_id OR $this->Match->field('player2_id') == $user_id )
+		if ($this->Match->field('player1_id') == $user_id OR $this->Match->field('player2_id') == $user_id  OR $this->Session->read('Auth.User.admin'))
 		{
 			$this->set('report',true);
 		}

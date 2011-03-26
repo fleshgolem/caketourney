@@ -18,7 +18,10 @@ if ($in_tournament){?>
 		<td>
 			<?php 
 			if ($match['Player1']!=null)
-				echo $this->Race->small_img($match['Player1']['race'])?>
+			{
+				echo $this->Race->small_img($match['Player1']['race']);
+				echo ('<strong>'.$match['player1_score'].'</strong> ');
+			}?>
 			<?php 
 			//Link to match
 			$matchtitle = '';
@@ -31,8 +34,10 @@ if ($in_tournament){?>
 				?>
 			<?php 
 			if ($match['Player2']!=null)
-				echo $this->Race->small_img($match['Player2']['race'])
-			?>
+			{
+				echo (' <strong>'.$match['player2_score'].'</strong>');
+				echo $this->Race->small_img($match['Player2']['race']);
+			}?>
 		</td>
 		
 	<?php
