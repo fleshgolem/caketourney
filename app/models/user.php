@@ -34,6 +34,19 @@ class User extends AppModel {
 			'finderQuery' => '',
 			'counterQuery' => ''
 		),*/
+		/*'Signup' => array(
+			'className' => 'Signup',
+			'foreignKey' => 'user_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),*/
 		'Match' => array(
 			'className' => 'Match',
 			'foreignKey' => 'player1_id',

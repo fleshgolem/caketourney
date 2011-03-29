@@ -28,7 +28,6 @@
 	if($report AND $match['Match']['open'])
 	//if($match['Match']['open'])
 	{
-		echo("testest");
 	?>
 	
 	<div class="scores">

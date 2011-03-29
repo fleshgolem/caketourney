@@ -36,7 +36,7 @@ class SwissTournamentsController extends AppController {
 			$this->data=$this->SwissTournament->Ranking->find('first',array('conditions'=>array('Ranking.user_id'=>$current_user,'Ranking.tournament_id'=>$id)));
 		}
 	}
-	function add() {
+	function start($id) {
 		if (!$this->Session->read('Auth.User.admin'))
 		{
 			$this->Session->setFlash(__('Access denied', true));
@@ -44,9 +44,6 @@ class SwissTournamentsController extends AppController {
 		}
 		if (!empty($this->data)) {
 			
-			$this->SwissTournament->create();
-			$this->data['SwissTournament']['typeAlias'] = 1;
-			$this->data['SwissTournament']['typeField'] = 'Swiss';
 			$this->data['SwissTournament']['current_round'] = 0;
 
 			
@@ -67,7 +64,21 @@ class SwissTournamentsController extends AppController {
 				$this->Session->setFlash(__('The swiss tournament could not be saved. Please, try again.', true));
 			}
 		}
-		$users = $this->SwissTournament->User->find('list');
+		if (empty($this->data)) {
+			$this->data = $this->SwissTournament->read(null, $id);
+			
+		}
+		$options['joins'] = array(
+			array('table' => 'signups',
+			'alias' => 'Signup',
+			'type' => 'LEFT',
+			'conditions' => array(
+				'User.id = Signup.user_id',
+			)));
+			
+		$options['conditions'] = array('Signup.tournament_id'=>$id);
+		//$this->KOTournament->User->bindModel(array('hasMany' => array('Signup' => array('conditions'=>array('Signup.tournament_id'=>$id,'Signup.user_id'=>'User.id')))));
+		$users = $this->SwissTournament->User->find('list',$options);
 		$this->set(compact('users'));
 	}
 	

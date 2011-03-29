@@ -79,7 +79,7 @@ class TournamentsController extends AppController {
 		}
 		if ($this->Tournament->field('typeField') == 'KO' OR $this->Tournament->field('typeField') == 'SKO')
 		{
-			//	$this->redirect(array('controller'=> 'KOTournaments','action' => 'view',$id));
+			$this->redirect(array('controller'=> 'KOTournaments','action' => 'view',$id));
 		}
 		if ($this->Tournament->field('typeField') == 'Swiss')
 		{
@@ -129,7 +129,20 @@ class TournamentsController extends AppController {
 	}
 	function start($id)
 	{
-		$tournament = $this->Tournament->read(null,$id);
+		$this->Tournament->id=$id;
+		if ($this->Tournament->field('typeField') == 'KO' )
+		{
+			$this->redirect(array('controller'=> 'KOTournaments','action' => 'start_random',$id));
+		}
+		if($this->Tournament->field('typeField') == 'SKO')
+		{
+			$this->redirect(array('controller'=> 'KOTournaments','action' => 'start_seeded',$id));
+		}
+		if ($this->Tournament->field('typeField') == 'Swiss')
+		{
+			$this->redirect(array('controller'=> 'SwissTournaments','action' => 'start',$id));
+		}
+		
 	}
 	function add() {
 		if (!$this->Session->read('Auth.User.admin'))

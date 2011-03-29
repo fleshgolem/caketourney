@@ -54,16 +54,15 @@ class KOTournamentsController extends AppController {
 		$this->set('tournament', $this->KOTournament->find('first', array('conditions'=>array('id' => $id), 'recursive' => 3)));
 	}
 
-	function add_random() {
+	function start_random($id) {
 		if (!$this->Session->read('Auth.User.admin'))
 		{
 			$this->Session->setFlash(__('Access denied', true));
 			$this->redirect(array('action'=>'index'));
 		}
 		if (!empty($this->data)) {
-			$this->KOTournament->create();
-			$this->data['KOTournament']['typeField']='KO';
-			$this->data['KOTournament']['typeAlias']=0;
+
+			$this->data['KOTournament']['current_round']=0;
 			if ($this->KOTournament->save($this->data)) {
 				
 				$this->Session->setFlash(__('The tournament has been saved', true));
@@ -71,40 +70,64 @@ class KOTournamentsController extends AppController {
 				shuffle($this->data['User']['User']);
 				$playerlist = $this->data['User']['User'];
 				$this->create_matchups($playerlist);
-				//$this->redirect(array('action' => 'determine_gamecount', $this->KOTournament->id));
+				$this->redirect(array('action' => 'determine_gamecount', $this->KOTournament->id));
 			} else {
 				$this->Session->setFlash(__('The tournament could not be saved. Please, try again.', true));
 			}
 			
 		}
-		$users = $this->KOTournament->User->find('list');
+		if (empty($this->data)) {
+			$this->data = $this->KOTournament->read(null, $id);
+			
+		}
+		$options['joins'] = array(
+			array('table' => 'signups',
+			'alias' => 'Signup',
+			'type' => 'LEFT',
+			'conditions' => array(
+				'User.id = Signup.user_id',
+			)));
+		$options['conditions'] = array('Signup.tournament_id'=>$id);
+		//$this->KOTournament->User->bindModel(array('hasMany' => array('Signup' => array('conditions'=>array('Signup.tournament_id'=>$id,'Signup.user_id'=>'User.id')))));
+		$users = $this->KOTournament->User->find('list',$options);
 		$this->set(compact('users'));
 	}
-	function add_seeded() {
+	function start_seeded($id) {
 		if (!$this->Session->read('Auth.User.admin'))
 		{
 			$this->Session->setFlash(__('Access denied', true));
 			$this->redirect(array('action'=>'index'));
 		}
 		if (!empty($this->data)) {
-			$this->KOTournament->create();
-			$this->data['KOTournament']['typeField']='KO';
-			$this->data['KOTournament']['typeAlias']=0;
+
+			$this->data['KOTournament']['current_round']=0;
 			if ($this->KOTournament->save($this->data)) {
 				
 				$this->Session->setFlash(__('The tournament has been saved', true));
-				//Let user determine seedings
-				
+				//Create first round with random matchups
 				$this->redirect(array('action' => 'seed', $this->KOTournament->id));
-				$this->set('tournament', $this->KOTournament->read(null, $id));
 			} else {
 				$this->Session->setFlash(__('The tournament could not be saved. Please, try again.', true));
 			}
 			
 		}
-		$users = $this->KOTournament->User->find('list');
+		if (empty($this->data)) {
+			$this->data = $this->KOTournament->read(null, $id);
+			
+		}
+		$options['joins'] = array(
+			array('table' => 'signups',
+			'alias' => 'Signup',
+			'type' => 'LEFT',
+			'conditions' => array(
+				'User.id = Signup.user_id',
+			)));
+		$options['conditions'] = array('Signup.tournament_id'=>$id);
+		//$this->KOTournament->User->bindModel(array('hasMany' => array('Signup' => array('conditions'=>array('Signup.tournament_id'=>$id,'Signup.user_id'=>'User.id')))));
+		$users = $this->KOTournament->User->find('list',$options);
 		$this->set(compact('users'));
 	}
+	
 	function generate_seeded($seeded_players,$name)
 	{
 		$this->KOTournament->create();

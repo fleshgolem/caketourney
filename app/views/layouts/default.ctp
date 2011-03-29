@@ -92,7 +92,7 @@
 					array('target' => '_blank', 'escape' => false)
 				);
 			?>
-			<!--<?php echo $this->element('sql_dump'); ?>-->
+			<?php echo $this->element('sql_dump'); ?>
 		</div>
 	</div>
 	
