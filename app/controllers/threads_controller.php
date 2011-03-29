@@ -28,6 +28,9 @@ class ThreadsController extends AppController {
 			if ($this->Thread->Post->save($this->data)) {
 				$this->Session->setFlash(__('The Post has been saved', true));
 			}
+			$this->data['Thread']['date_modified']=$date->format('Y-m-d H:i:s');
+			$this->data['Thread']['last_poster_id']=$current_user;
+			$this->Thread->save($this->data);
 		}
 		if(empty($this->data))
 		{

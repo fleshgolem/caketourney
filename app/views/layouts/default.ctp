@@ -82,6 +82,10 @@
 
 		</div>
 		<div id="footer">
+		
+		<div align="left">
+			<?php echo $this->Html->link('Impressum',array('controller'=>'pages','action'=>'impressum'))?>
+		</div>
 			<?php echo $this->Html->link(
 					$this->Html->image('cake.power.gif', array('alt'=> __('CakePHP: the rapid development php framework', true), 'border' => '0')),
 					'http://www.cakephp.org/',

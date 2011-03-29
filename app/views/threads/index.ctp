@@ -32,7 +32,7 @@
 			<?php echo $this->Html->link($thread['OriginalPoster']['username'], array('controller' => 'users', 'action' => 'view', $thread['OriginalPoster']['id'])); ?>		
 		</td>
 		<td>
-			<?php echo (count($thread['Post']));?>
+			<?php echo (count($thread['Post'])-1);?>
 		<td>
 			<small>
 			<?php echo $this->Html->link($thread['LastPoster']['username'], array('controller' => 'users', 'action' => 'view', $thread['LastPoster']['id'])); ?>

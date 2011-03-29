@@ -4,11 +4,11 @@
 	<tr>
 			<th><?php echo $this->Paginator->sort('username');?></th>
 			<th><?php echo $this->Paginator->sort('name');?></th>
-			<th><?php echo $this->Paginator->sort('email');?></th>
-			<th><?php echo $this->Paginator->sort('bnetaccount');?></th>
-			<th><?php echo $this->Paginator->sort('bnetcode');?></th>
+			<!--<th><?php echo $this->Paginator->sort('email');?></th>-->
+			<th><?php echo $this->Paginator->sort('Battle.net Name', 'bnetaccount');?></th>
+			<th><?php echo $this->Paginator->sort('Battle.net Code', 'bnetcode');?></th>
 			<th><?php echo $this->Paginator->sort('race');?></th>
-			<th><?php echo $this->Paginator->sort('admin');?></th>
+			<!--<th><?php echo $this->Paginator->sort('admin');?></th>-->
 			<th><?php echo $this->Paginator->sort('elo');?></th>
 			<th class="actions"><?php __('Actions');?></th>
 	</tr>
@@ -23,11 +23,11 @@
 	<tr<?php echo $class;?>>
 		<td><?php echo $user['User']['username']; ?>&nbsp;</td>
 		<td><?php echo $user['User']['name']; ?>&nbsp;</td>
-		<td><?php echo $user['User']['email']; ?>&nbsp;</td>
+		<!--<td><?php echo $user['User']['email']; ?>&nbsp;</td>-->
 		<td><?php echo $user['User']['bnetaccount']; ?>&nbsp;</td>
 		<td><?php echo $user['User']['bnetcode']; ?>&nbsp;</td>
 		<td><?php echo $this->Race->small_img($user['User']['race']); ?>&nbsp;</td>
-		<td><?php echo $user['User']['admin']; ?>&nbsp;</td>
+		<!--<td><?php echo $user['User']['admin']; ?>&nbsp;</td>-->
 		<td><?php echo $user['User']['elo']; ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View', true), array('action' => 'view', $user['User']['id'])); ?>

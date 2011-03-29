@@ -47,7 +47,16 @@ class UsersController extends AppController {
             $fields = array('lastlogin' => date('Y-m-d H:i:s'), 'modified' => false);
             $this->User->id = $id;
             $this->User->save($fields, false, array('lastlogin'));
- 
+			if ($this->data['User']['remember_me']) 
+			{
+				$cookie = array();
+				$cookie['username'] = $this->data['User']['username'];
+				$cookie['password'] = $this->data['User']['password'];
+				$this->Cookie->write('Auth.User', $cookie, true, '+2 weeks');
+				unset($this->data['User']['remember_me']);
+
+			}
+
             // Redirect the user
             $url = array('controller' => 'users', 'action' => 'account');
             //if ($this->Session->check('Auth.redirect')) {
