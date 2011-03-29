@@ -89,7 +89,10 @@ class KOTournamentsController extends AppController {
 			)));
 		$options['conditions'] = array('Signup.tournament_id'=>$id);
 		//$this->KOTournament->User->bindModel(array('hasMany' => array('Signup' => array('conditions'=>array('Signup.tournament_id'=>$id,'Signup.user_id'=>'User.id')))));
+		
 		$users = $this->KOTournament->User->find('list',$options);
+		if (empty($users))
+			$users = $this->KOTournament->User->find('list');
 		$this->set(compact('users'));
 	}
 	function start_seeded($id) {
@@ -125,6 +128,8 @@ class KOTournamentsController extends AppController {
 		$options['conditions'] = array('Signup.tournament_id'=>$id);
 		//$this->KOTournament->User->bindModel(array('hasMany' => array('Signup' => array('conditions'=>array('Signup.tournament_id'=>$id,'Signup.user_id'=>'User.id')))));
 		$users = $this->KOTournament->User->find('list',$options);
+		if (empty($users))
+			$users = $this->KOTournament->User->find('list');
 		$this->set(compact('users'));
 	}
 	

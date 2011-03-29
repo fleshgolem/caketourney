@@ -79,6 +79,8 @@ class SwissTournamentsController extends AppController {
 		$options['conditions'] = array('Signup.tournament_id'=>$id);
 		//$this->KOTournament->User->bindModel(array('hasMany' => array('Signup' => array('conditions'=>array('Signup.tournament_id'=>$id,'Signup.user_id'=>'User.id')))));
 		$users = $this->SwissTournament->User->find('list',$options);
+		if (empty($users)
+			$users = $this->SwissTournament->User->find('list');
 		$this->set(compact('users'));
 	}
 	
