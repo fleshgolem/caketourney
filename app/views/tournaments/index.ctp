@@ -5,6 +5,7 @@
 			<th><?php echo $this->Paginator->sort('id');?></th>
 			<th><?php echo $this->Paginator->sort('name');?></th>
 			<th><?php echo $this->Paginator->sort('Type','typeField');?></th>
+			<th><?php echo $this->Paginator->sort('current_round');?></th>
 			<th class="actions"><?php __('Actions');?></th>
 	</tr>
 	<?php
@@ -19,6 +20,13 @@
 		<td><?php echo $tournament['Tournament']['id']; ?>&nbsp;</td>
 		<td><?php echo $tournament['Tournament']['name']; ?>&nbsp;</td>
 		<td><?php echo $tournament['Tournament']['typeField']; ?>&nbsp;</td>
+		<td><?php 
+			if ( $tournament['Tournament']['current_round']==-1)
+				echo ('Sign Ups open');
+			else
+				echo ($tournament['Tournament']['current_round']); 
+			?>&nbsp;
+		</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View', true), array('action' => 'view', $tournament['Tournament']['id'])); ?>
 			<?php 
@@ -29,6 +37,7 @@
 				echo $this->Html->link(__('Delete', true), array('action' => 'delete', $tournament['Tournament']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $tournament['Tournament']['id'])); 
 			}?>
 		</td>
+		
 	</tr>
 <?php endforeach; ?>
 	</table>

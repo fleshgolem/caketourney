@@ -1,10 +1,12 @@
 <div class="tournaments form">
-<h2>New Tournament</h2>
 
-Select Type:
-<ul>
-<li><?php echo $this->Html->link(__('Random KO Tournament', true), array('controller'=>'KOTournaments','action' => 'add_random')); ?><br>
-<li><?php echo $this->Html->link(__('Seeded KO Tournament', true), array('controller'=>'KOTournaments','action' => 'add_seeded')); ?>
-<li><?php echo $this->Html->link(__('Swiss Tournament', true), array('controller'=>'SwissTournaments','action' => 'add')); ?>
-</ul>
+<?php echo $this->Form->create('Tournament');?>
+	<fieldset>
+ 		<legend><?php __('New Tournament'); ?></legend>
+	<?php
+		echo $this->Form->input('name');
+		echo $this->Form->input('typeAlias', array('label'=>'Type','options' => array("Random KO","Seeded KO","Swiss")));
+	?>
+	</fieldset>
+<?php echo $this->Form->end(__('Submit', true));?>
 </div>

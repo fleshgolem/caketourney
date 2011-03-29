@@ -73,12 +73,15 @@ class TournamentsController extends AppController {
 
 	function view($id = null) {
 		//redirect to right tourney type
-
-		if ($this->Tournament->field('typeAlias') == 0)
+		if ($this->Tournament->field('current_round')==-1)
 		{
-			$this->redirect(array('controller'=> 'KOTournaments','action' => 'view',$id));
+			$this->redirect(array('action' => 'view_signups',$id));
 		}
-		if ($this->Tournament->field('typeAlias') == 1)
+		if ($this->Tournament->field('typeField') == 'KO' OR $this->Tournament->field('typeField') == 'SKO')
+		{
+			//	$this->redirect(array('controller'=> 'KOTournaments','action' => 'view',$id));
+		}
+		if ($this->Tournament->field('typeField') == 'Swiss')
 		{
 			$this->redirect(array('controller'=> 'SwissTournaments','action' => 'view',$id));
 		}
@@ -88,7 +91,46 @@ class TournamentsController extends AppController {
 		}
 		$this->set('tournament', $this->Tournament->read(null, $id));*/
 	}
-
+	function view_signups($id)
+	{
+		$this->Tournament->id = $id;
+		$this->set('id',$id);
+		$this->set('name',$this->Tournament->field('name'));
+		$signups = $this->Tournament->Signup->find('all',array('conditions'=>array('tournament_id'=>$id)));
+		$this->set('signups',$signups);
+		$current_user = $this->Session->read('Auth.User.id');
+		$signed_up = $this->Tournament->Signup->find('first',array('conditions'=>array('tournament_id'=>$id,'user_id'=>$current_user)));
+		$this->set('signed_up',$signed_up);
+	}
+	
+	function sign_up($id)
+	{
+		$current_user = $this->Session->read('Auth.User.id');
+		$this->Tournament->Signup->create();
+		$this->data['Signup']['tournament_id'] = $id;
+		$this->data['Signup']['user_id'] = $current_user;
+		if ($this->Tournament->Signup->save($this->data))
+		{
+				$this->Session->setFlash(__('Signed Up', true));
+				$this->redirect(array('action' => 'view_signups',$id));
+		}
+		
+	}
+	function unsign($id)
+	{
+		$current_user = $this->Session->read('Auth.User.id');
+		$signup = $this->Tournament->Signup->find('first',array('conditions'=>array('tournament_id'=>$id,'user_id'=>$current_user)));
+		if ($this->Tournament->Signup->delete($signup['Signup']['id']))
+		{
+				$this->Session->setFlash(__('Unsigned', true));
+				$this->redirect(array('action' => 'view_signups',$id));
+		}
+		
+	}
+	function start($id)
+	{
+		$tournament = $this->Tournament->read(null,$id);
+	}
 	function add() {
 		if (!$this->Session->read('Auth.User.admin'))
 		{
@@ -96,16 +138,28 @@ class TournamentsController extends AppController {
 			$this->redirect(array('action'=>'index'));
 		}
 		if (!empty($this->data)) {
+		//debug($this->data);
 			$this->Tournament->create();
+			$this->data['Tournament']['current_round']=-1;
+			switch ($this->data['Tournament']['typeAlias']){
+				case 0:
+					$this->data['Tournament']['typeField']='KO';
+					break;
+				case 1:
+					$this->data['Tournament']['typeField']='SKO';
+					break;
+				case 2:
+					$this->data['Tournament']['typeField']='Swiss';
+			}
+			
 			if ($this->Tournament->save($this->data)) {
 				$this->Session->setFlash(__('The tournament has been saved', true));
-				$this->redirect(array('action' => 'index'));
+				//$this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The tournament could not be saved. Please, try again.', true));
 			}
 		}
-		$users = $this->Tournament->User->find('list');
-		$this->set(compact('users'));
+		
 	}
 
 	function edit($id = null) {
