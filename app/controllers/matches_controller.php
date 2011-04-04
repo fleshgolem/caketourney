@@ -60,7 +60,7 @@ class MatchesController extends AppController {
 	function view($id = null) {
 		// Get User's id for authentication
         $user_id = $this->Auth->user('id');
- 
+		$this->set('current_user',$user_id);
 		if ($this->Match->field('player1_id') == $user_id OR $this->Match->field('player2_id') == $user_id  OR $this->Session->read('Auth.User.admin'))
 		{
 			$this->set('report',true);

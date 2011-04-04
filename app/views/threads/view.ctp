@@ -12,6 +12,14 @@
 			<small><?php echo ($post['Post']['date_posted']);?></small>
 		</td>
 		<td>
+			<div align="right" class="buttons">
+				<?php
+				if ($this->Session->read('Auth.User.admin') OR $post['Post']['user_id']==$current_user)
+				{
+					echo($this->Html->link('Edit', array('controller' => 'posts', 'action' => 'edit', $post['Post']['id'])));
+					echo $this->Html->link('Delete', array('controller' => 'posts', 'action' => 'delete', $post['Post']['id']), null, sprintf(__('Are you sure you want to delete this Post?', true)));
+				}?>
+			</div>
 			<?php
 				$body = $this->Bbcode->doshortcode(strip_tags($post['Post']['body']));
 				echo ( $this->Text->autoLink($body));?>

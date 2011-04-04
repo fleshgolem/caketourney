@@ -79,6 +79,14 @@
 				</small>
 			</td>
 			<td>
+				<div align="right" class="buttons">
+					<?php
+					if ($this->Session->read('Auth.User.admin') OR $comment['Comment']['user_id']==$current_user)
+					{
+						echo($this->Html->link('Edit', array('controller' => 'comments', 'action' => 'edit', $comment['Comment']['id'])));
+						echo $this->Html->link('Delete', array('controller' => 'comments', 'action' => 'delete', $comment['Comment']['id']), null, sprintf(__('Are you sure you want to delete this Comment?', true)));
+					}?>
+				</div>
 				<?php $body = $this->Bbcode->doShortcode(strip_tags($comment['Comment']['body']));
 				echo ( $this->Text->autoLink($body));?>
 			</td>

@@ -18,9 +18,11 @@ class ThreadsController extends AppController {
 	function view($id = null) 
 	{
 		$this->Thread->recursive = 1;
+		$current_user = $current_user = $this->Auth->user('id');
+		$this->set('current_user',$current_user);
 		if(!empty($this->data))
 		{
-			$current_user = $current_user = $this->Auth->user('id');
+			
 			$date = date_create('now');
 			$this->data['Post']['user_id']=$current_user;
 			$this->data['Post']['date_posted']= $date->format('Y-m-d H:i:s');
