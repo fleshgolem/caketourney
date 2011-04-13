@@ -40,6 +40,7 @@ class UsersController extends AppController {
      */
     function login()
     {
+		$this->set('title_for_layout', 'Tournament Home');
         // Check for a successful login
         if (!empty($this->data) && $id = $this->Auth->user('id')) {
  

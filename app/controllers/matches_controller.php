@@ -69,6 +69,7 @@ class MatchesController extends AppController {
 		{
 			$this->set('report',false);
 		}
+		
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid match', true));
 			$this->redirect(array('action' => 'index'));
@@ -101,6 +102,8 @@ class MatchesController extends AppController {
 		$this->set('round', $round);
 		$comments=$this->Match->Comment->find('all',array('conditions'=>array('Comment.match_id'=>$id),'order'=>array('Comment.date_posted DESC')));
 		$this->set('comments' , $comments);
+		$replays=$this->Match->Replay->find('all',array('conditions'=>array('Replay.match_id'=>$id)));
+		$this->set('replays' , $replays);
 	}
 
 
@@ -168,7 +171,36 @@ class MatchesController extends AppController {
 			$this->redirect(array('action' => 'view',$id));
 		}
 	}
+	function upload_replays($id){
+		if ((!$this->Session->read('Auth.User.admin')) AND ($this->Match->field('player1_id') != !$this->Session->read('Auth.User.id')) AND ($this->Match->field('player2_id') != !$this->Session->read('Auth.User.id')))
+		{
+			$this->Session->setFlash(__('Access denied', true));
+			//$this->redirect(array('action'=>'index'));
+		}
+		if (!$id) {
+			$this->Session->setFlash(__('Invalid id for match', true));
+			$this->redirect(array('action'=>'index'));
+		}
+		if(!empty($this->data))
+		{
+			$this->data['Replay']['match_id']=$id;
+			foreach ($this->data['Replay'] as $i=>$replay)
+			{
+				if(!empty($this->data['Replay'][$i]['file']))
+				{
+					$this->Match->Replay->create();
+					
+					$this->data['Replay']['file']=$this->data['Replay'][$i]['file'];
+					$this->Match->Replay->save($this->data);
+				}
+			}
 
 			
+		}
+		if (empty($this->data)) {
+			$this->data = $this->Match->read(null, $id);
+		}
+		$this->set('match',$this->Match->read(null,$id));
+	}
 }
 ?>

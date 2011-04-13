@@ -60,7 +60,19 @@
 	</div>
 	<?php
 	}?>
-	
+	<h3>Replays</h3>
+	<?php
+	//show upload button if allowed
+	if($report){?>
+	<div class="buttons" align="right">
+		<?php echo $this->Html->link('Upload Replays', array('controller'=>'matches', 'action' => 'upload_replays', $match['Match']['id']));?>
+	</div>
+	<?php }?>
+	<?php foreach ($replays as $replay)
+	{?>
+		<?php echo $this->Html->link( $replay['Replay']['name'], '/files/'.$replay['Replay']['name'] );?>
+		<br>
+	<?php }?>
 	<h3>Comments</h3>
 	<?php echo $this->Form->create('Match', array('action'=>'post_comment'));?>
 	<?php echo $this->Form->input('Comment.body', array('label'=>'Post Comment'));?>

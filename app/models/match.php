@@ -58,6 +58,19 @@ class Match extends AppModel {
 			'exclusive' => '',
 			'finderQuery' => '',
 			'counterQuery' => ''
+		),
+		'Replay' => array(
+			'className' => 'Replay',
+			'foreignKey' => 'match_id',
+			'dependent' => true,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
 		));
 	var $belongsTo = array(
 		'Round' => array(

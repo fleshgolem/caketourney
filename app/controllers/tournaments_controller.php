@@ -125,7 +125,7 @@ class TournamentsController extends AppController {
 				$this->Session->setFlash(__('Unsigned', true));
 				$this->redirect(array('action' => 'view_signups',$id));
 		}
-		
+		$this->redirect(array('action' => 'index'));
 	}
 	function start($id)
 	{
