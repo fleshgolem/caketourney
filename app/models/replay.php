@@ -69,7 +69,7 @@ class Replay extends AppModel {
 	
 	function createFileName($fileName){
          //Logic for sanitizing your filename
-         return $this->data['Match']['id']. ' ' . $fileName;
+         return $this->data['Match']['id']. ' ' . stripslashes($fileName);
     }
 }
 ?>
