@@ -194,7 +194,7 @@ class MatchesController extends AppController {
 					$this->Match->Replay->save($this->data);
 				}
 			}
-
+			$this->redirect(array('action' => 'view',$id));
 			
 		}
 		if (empty($this->data)) {
