@@ -1,43 +1,23 @@
-<div class="tournaments view">
+<div class="tournaments bracket view">
 
 
 
 <h2><?php  echo ($tournament['KOTournament']['name']);?></h2>
+<?php $m = 0;?>
 <?php foreach ($tournament['Round'] as $round){?>
 
+
 	<div class="tournamentRound">
-	<?php foreach ($round['Match'] as $match){?>
-		<div class="matchbox">
-			<div class="namesbox">
-				<div class="topbox"> 
-					<?php
-					if ($match['Player1']!=null)
-						echo $this->Html->link(($match['Player1']['username']), array('controller' => 'matches', 'action' => 'view',$match['id']));
-					else
-						echo $this->Html->link(('-'), array('controller' => 'matches', 'action' => 'view',$match['id']));
-					?>
-				</div>
-				<div class="bottombox"> 
-					<?php
-					if ($match['Player2']!=null)
-						echo $this->Html->link(($match['Player2']['username']), array('controller' => 'matches', 'action' => 'view',$match['id']));
-					else
-						echo $this->Html->link(('-'), array('controller' => 'matches', 'action' => 'view',$match['id']));
-					?>
-				</div>
-			</div>
-    		<div class="scorebox">
-    			<div class="scoretop">
-					<?php echo $this->Html->link(($match['player1_score']), array('controller' => 'matches', 'action' => 'view',$match['id']));?>
-				</div>
-				<div class="scorebottom">
-					<?php echo $this->Html->link(($match['player2_score']), array('controller' => 'matches', 'action' => 'view',$match['id']));?>
-				</div>
-    		</div>
-		</div>
-	<?php }?>
+	<?php 
+	$this->Bracket->spaceboxes($round['number']);
+	foreach ($round['Match'] as $match){
+		$this->Bracket->matchbox($match['Player1'],$match['Player2'],$match['player1_score'],$match['player2_score'],$match['id']);
+		$this->Bracket->dummyboxes($round['number']);
+	}?>
 	</div>
-<?php }?>
+<?php 
+	$m += 30;
+}?>
 <!--
 <table>
 <?php foreach ($tournament['Round'] as $round){?>

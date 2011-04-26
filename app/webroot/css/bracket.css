@@ -186,12 +186,19 @@
 
 
 /**  topbox bottombox scoretop scorebottom  **/
+div.bracket {
+	display: table;
+}
+
+
 div.tournamentRound {
+	display:table-cell;
+	
 	position: relative;
+	vertical-align: middle;
 	float: left;
 	width: 200px;
-	vertical-align: center;
-	border: 1px solid;
+	
 }
 
 div.linebox {
@@ -355,7 +362,7 @@ td.topbox a {
 	-moz-border-radius-topleft:8px;
 	-khtml-border-radius-topleft:8px;
 	-webkit-border-radius-topleft:8px;
-	border-radius-topleft:8px;
+	border-top-left-radius:8px;
 }
 
 div.bottombox  a,
@@ -363,7 +370,7 @@ td.bottombox a {
 	-moz-border-radius-bottomleft:8px;
 	-khtml-border-radius-bottomleft:8px;
 	-webkit-border-radius-bottomleft:8px;
-	border-radius-topright:8px;
+	border-bottom-left-radius:8px;
 }
 
 div.scoretop  a,
@@ -371,7 +378,7 @@ td.scoretop a {
 	-moz-border-radius-topright:8px;
 	-khtml-border-radius-topright:8px;
 	-webkit-border-radius-topright:8px;
-	border-radius-topright:8px;
+	border-top-right-radius:8px;
 }
 
 div.scorebottom  a,
@@ -379,7 +386,7 @@ td.scorebottom a {
 	-moz-border-radius-bottomright:8px;
 	-khtml-border-radius-bottomright:8px;
 	-webkit-border-radius-bottomright:8px;
-	border-radius-topright:8px;
+	border-bottom-right-radius:8px;
 }
 
 div.playerBox8{
