@@ -6,7 +6,7 @@ class Replay extends AppModel {
                         'uploadDir' => 'files',
                         'forceWebroot' => true,  //if false, files will be upload to the exact path of uploadDir
                         'fields' => array('name'=>'name','type'=>'type','size'=>'size'),
-                        'allowedTypes' => array('sc2replay' => array('application/octet-stream')),
+                        'allowedTypes' => array('sc2replay' => array('application/octet-stream','application/x-octet-stream')),
                         'required' => false, //default is false, if true a validation error would occur if a file wsan't uploaded.
                         'maxFileSize' => '500000', //bytes OR false to turn off maxFileSize (default false)
                         'unique' => true, //filenames will overwrite existing files of the same name. (default true)

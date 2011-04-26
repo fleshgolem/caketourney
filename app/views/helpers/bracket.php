@@ -71,5 +71,23 @@ class BracketHelper extends AppHelper {
 			echo('<div class="matchbox"> </div>');
 		}
 	}
+	
+	function lines($round)
+	{
+		?>
+		<div class="linebox">
+    	<div class="halflinebox">
+		<?php
+		//debug($round);
+		if ($round > 0)
+		{
+			echo ('<div class="spacebox2em"> </div>');
+		}
+		$boxes = pow(2,$round-1)-1;
+		//debug($boxes);
+		for ($i = 0; $i < $boxes; $i++)
+		{
+			echo('<div class="matchbox"> </div>');
+		}
 }
 ?>
