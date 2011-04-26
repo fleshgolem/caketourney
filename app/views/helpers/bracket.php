@@ -89,5 +89,6 @@ class BracketHelper extends AppHelper {
 		{
 			echo('<div class="matchbox"> </div>');
 		}
+	}
 }
 ?>
