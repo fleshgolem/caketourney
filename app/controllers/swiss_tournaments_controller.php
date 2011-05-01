@@ -56,7 +56,7 @@ class SwissTournamentsController extends AppController {
 					$this->data['Ranking']['elo']=1000;
 					$this->SwissTournament->Ranking->save($this->data);
 				}
-				$this->create_rounds($this->data['User']['User'],$this->data['SwissTournament']['bestof']);
+				$this->create_rounds($this->data['SwissTournament']['roundnumber'],$this->data['User']['User'],$this->data['SwissTournament']['bestof']);
 				$this->Session->setFlash(__('The swiss tournament has been saved', true));
 				$this->redirect(array('action' => 'view',$this->SwissTournament->id));
 				
@@ -120,7 +120,11 @@ class SwissTournamentsController extends AppController {
 		$players = $this->SwissTournament->User->find('all',array('conditions'=>array('UsersTournament.tournament_id'=>$tournament_id)));
 		$current_round++;
 		$this->SwissTournament->saveField('current_round',$current_round);
-		if ($current_round<ceil(log(count($players),2)))
+		
+		//check if max round reached
+		
+		$roundnumber = $this->SwissTournament->Round->find('count',array('conditions'=>array('tournament_id'=>$tournament_id)));
+		if ($current_round<$roundnumber)
 		{
 			//Move on to next round
 			$this->pair_round($current_round,$tournament_id);
@@ -369,11 +373,11 @@ class SwissTournamentsController extends AppController {
 		return false;
 	}
 	
-	function create_rounds($players,$bestof)
+	function create_rounds($roundnumber,$players,$bestof)
 	{
 		//TODO: How many rounds to play exactly?
 		$playernumber = count($players);
-		$roundnumber = ceil(log($playernumber,2));
+		
 		
 		shuffle($players);
 		//Get random matchups for first round
