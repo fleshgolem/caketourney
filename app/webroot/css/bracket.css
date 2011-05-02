@@ -2,6 +2,606 @@
 	text-align: center;
 }
 
+/**
+ *
+ * Generic CSS for CakePHP
+ *
+ * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
+ * Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ *
+ * Licensed under The MIT License
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @link          http://cakephp.org CakePHP(tm) Project
+ * @package       cake
+ * @subpackage    cake.app.webroot.css
+ * @since         CakePHP(tm)
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ */
+
+* {
+	margin:0;
+	padding:0;
+}
+
+/** General Style Info **/
+body {
+	/*background: #888; #9ac2e1 #8bc0ea*/
+	/*background: -moz-linear-gradient(top,#BC7E62, #CEA18D);
+	background: -webkit-gradient(linear, left top, left bottom, from(#BC7E62), to(#CEA18D));*/
+	
+	background: #9ac2e1;
+	color: #00000;
+	font-family:'lucida grande',verdana,helvetica,arial,sans-serif;
+	font-size:90%;
+	margin: 0;
+}
+a {
+	color: #4B8948;
+	text-decoration: underline;
+	font-weight: bold;
+}
+
+.invert a
+{
+	color: #BBCEDD;
+	text-decoration: underline;
+	font-weight: bold;
+}
+a:hover {
+	color: #367889;
+	text-decoration:none;
+}
+a img {
+	border:none;
+}
+h1, h2, h3, h4 {
+	font-weight: normal;
+	/*margin-bottom:0.5em;*/
+}
+h1 {
+	color: #AF9BCA;
+	font-size: 100%;
+}
+h2 {
+	color: #9A7051;
+	font-family:'Gill Sans','lucida grande', helvetica, arial, sans-serif;
+	font-size: 190%;
+}
+h3 {
+	color:#69B088;
+	font-family:'Gill Sans','lucida grande', helvetica, arial, sans-serif;
+	font-size: 165%;
+}
+h4 {
+	color: #69B088;
+	font-weight: normal;
+}
+ul, li {
+	margin: 0 12px;
+}
+
+/** Layout **/
+#container {
+	text-align: left;
+}
+
+#header{
+	/*padding: 10px 0px;*/
+	/*margin:0;*/
+	text-align:center;
+	background-color:#888;
+
+	
+}
+#header h1 {
+/*	-moz-border-radius-topleft:32px;
+	-khtml-border-top-left-radius:32px;
+	-webkit-border-radius-topleft:32px;
+	border-radius-topleft:32px;
+	-moz-border-radius-topright:32px;
+	-khtml-border-top-right-radius:32px;
+	-webkit-border-radius-topright:32px;
+	border-radius-topright:32px;*/
+	background-color:#000;
+	background: #000 url('../img/logo2.png') no-repeat center;
+	color: #505050;
+	height: 250px;
+}
+#header h2 {
+	background-color: #333;
+	color: #00000;
+}
+#header h1 a {
+	color: #BBCEDD;
+	background: #003d4c;
+	font-weight: normal;
+	text-decoration: none;
+}
+#header h1 a:hover {
+	color: #BBCEDD;
+	background: #003d4c;
+	text-decoration: underline;
+}
+#content{
+	background: #BBCEDD;
+	clear: both;
+	color: #333;
+	padding: 10px 20px 40px 20px;
+	overflow: auto;
+}
+
+#footer {
+	position:relative;
+	clear: both;
+	text-align:center;
+	margin:0;
+	padding: 10px 20px;
+	text-align: right;
+	background:#505050;
+/*	-moz-border-radius-bottomleft:32px;
+	-khtml-border-bottom-left-radius:32px;
+	-webkit-border-radius-bottomleft:32px;
+	border-radius-bottomleft:32px;
+	-moz-border-radius-bottomright:32px;
+	-khtml-border-bottom-right-radius:32px;
+	-webkit-border-radius-bottomright:32px;
+	border-radius-bottomright:32px;*/
+}
+
+
+/** containers **/
+div.form,
+div.index,
+div.view ,
+div.home{
+	float:right;
+	width:76%;
+	border-left:1px solid #666;
+	padding:10px 2%;
+}
+div.actions {
+	float:left;
+	width:16%;
+	padding:10px 1.5%;
+}
+div.actions h3 {
+	padding-top:0;
+	color:#777;
+}
+
+div.scores {
+	margin-top: 10pt;
+	text-align:center;
+	width: 50%;
+	}
+div.score1 {
+	float: left;
+	}
+div.score2 {
+	float: right;
+	}
+
+/** Tables **/
+table {
+	background: #BBCEDD;
+	border-right:0;
+	clear: both;
+	color: #333;
+	margin-bottom: 10px;
+	width: 100%;
+}
+th {
+	border:0;
+	border-bottom:2px solid #555;
+	text-align: left;
+	padding:4px;
+}
+th a {
+	display: block;
+	padding: 2px 4px;
+	text-decoration: none;
+}
+th a.asc:after {
+	content: ' ⇣';
+}
+th a.desc:after {
+	content: ' ⇡';
+}
+table tr td {
+	background: #BBCEDD;
+	padding: 6px;
+	text-align: left;
+	vertical-align: top;
+	border-bottom:1px solid #ddd;
+}
+table tr:nth-child(2n) td {
+	background: #92B1C8;
+}
+table .altrow td {
+	background: #92B1C8;
+}
+td.actions {
+	text-align: left;
+	white-space: nowrap;
+}
+td.info {
+	width: 20%;
+	}
+table td.actions a {
+	margin: 0px 6px;
+	padding:2px 5px;
+}
+.cake-sql-log table {
+	background: #f4f4f4;
+}
+.cake-sql-log td {
+	padding: 4px 8px;
+	text-align: left;
+	font-family: Monaco, Consolas, "Courier New", monospaced;
+}
+.cake-sql-log caption {
+	color:#BBCEDD;
+}
+
+/** Paging **/
+div.paging {
+	background:#BBCEDD;
+	color: #ccc;
+	margin-top: 1em;
+	clear:both;
+}
+div.paging span.disabled {
+	color: #ddd;
+	display: inline;
+}
+div.paging span.current {
+	color: #c73e14;
+}
+div.paging span a {
+}
+
+/** Scaffold View **/
+dl {
+	line-height: 2em;
+	margin: 0em 0em;
+	width: 50%;
+}
+dl .altrow {
+	background: #92B1C8;
+}
+dt {
+	font-weight: bold;
+	padding-left: 4px;
+	vertical-align: top;
+}
+dd {
+	margin-left: 10em;
+	margin-top: -2em;
+	vertical-align: top;
+}
+
+/** Forms **/
+form {
+	clear: both;
+	margin-right: 20px;
+	padding: 0;
+	width: 95%;
+}
+fieldset {
+	border: 1px solid #ccc;
+	margin-bottom: 1em;
+	padding: 16px 20px;
+}
+fieldset legend {
+	background:#BBCEDD;
+	color: #9A7051;
+	font-size: 160%;
+	font-weight: bold;
+}
+fieldset fieldset {
+	margin-top: 0px;
+	margin-bottom: 20px;
+	padding: 16px 10px;
+}
+fieldset fieldset legend {
+	font-size: 120%;
+	font-weight: normal;
+}
+fieldset fieldset div {
+	clear: left;
+	margin: 0 20px;
+}
+form div {
+	clear: both;
+	margin-bottom: 1em;
+	padding: .5em;
+	vertical-align: text-top;
+}
+
+div.scores input{
+	width: 20%;
+	}
+form .input {
+	color: #444;
+}
+
+form .required {
+	font-weight: bold;
+}
+form .required label:after {
+	color: #e32;
+	content: '*';
+	display:inline;
+}
+form div.submit {
+	border: 0;
+	clear: both;
+	margin-top: 10px;
+}
+label {
+	display: block;
+	font-size: 110%;
+	margin-bottom:3px;
+}
+input, textarea {
+	clear: both;
+	font-size: 140%;
+	font-family: "frutiger linotype", "lucida grande", "verdana", sans-serif;
+	padding: 1%;
+	width:98%;
+}
+select {
+	clear: both;
+	font-size: 120%;
+	vertical-align: text-bottom;
+}
+select[multiple=multiple] {
+	width: 100%;
+}
+option {
+	font-size: 120%;
+	padding: 0 3px;
+}
+input[type=checkbox] {
+	clear: left;
+	float: left;
+	margin: 0px 6px 7px 2px;
+	width: auto;
+}
+div.checkbox label {
+	display: inline;
+}
+input[type=radio] {
+	float:left;
+	width:auto;
+	margin: 0 3px 7px 0;
+}
+div.radio label {
+	margin: 0 0 6px 20px;
+}
+input[type=submit] {
+	display: inline;
+	font-size: 110%;
+	width: auto;
+}
+form .submit input[type=submit] {
+	background:#DDCABB;
+	background: -webkit-gradient(linear, left top, left bottom, from(#DDCABB), to(#DDDBBB));
+	background-image: -moz-linear-gradient(top, #DDCABB, #DDDBBB);
+	border-color: #BB977C;
+	color: #000;
+	/*text-shadow: #8cee7c 0px 1px 0px;*/
+}
+form .submit input[type=submit]:hover {
+	background:#E5D7CD;
+	background: -webkit-gradient(linear, left top, left bottom, from(#E5D7CD), to(#E5E3CD));
+	background-image: -moz-linear-gradient(top, #E5D7CD, #E5E3CD);
+}
+
+/** Notices and Errors **/
+div.message {
+	clear: both;
+	color: #BBCEDD;
+	font-size: 140%;
+	font-weight: bold;
+	margin: 0 0 1em 0;
+	background: #c73e14;
+	padding: 5px;
+}
+div.error-message {
+	clear: both;
+	color: #BBCEDD;
+	font-weight: bold;
+	background: #c73e14;
+}
+p.error {
+	background-color: #e32;
+	color: #BBCEDD;
+	font-family: Courier, monospace;
+	font-size: 120%;
+	line-height: 140%;
+	padding: 0.8em;
+	margin: 1em 0;
+}
+p.error em {
+	color: #000;
+	font-weight: normal;
+	line-height: 140%;
+}
+.notice {
+	background: #ffcc00;
+	color: #000;
+	display: block;
+	font-family: Courier, monospace;
+	font-size: 120%;
+	line-height: 140%;
+	padding: 0.8em;
+	margin: 1em 0;
+}
+.success {
+	background: green;
+	color: #BBCEDD;
+}
+
+/**  Actions  **/
+div.actions ul {
+	margin: 0;
+	padding: 0;
+}
+div.actions li {
+	margin:0 0 0.5em 0;
+	list-style-type: none;
+	white-space: nowrap;
+	padding: 0;
+}
+div.actions ul li a 
+{
+	font-weight: normal;
+	display: block;
+	clear: both;
+}
+div.actions ul li a:hover {
+	text-decoration: underline;
+}
+
+input[type=submit],
+div.actions ul li a,
+div.buttons a,
+td.actions a {
+	font-weight:normal;
+	padding: 4px 8px;
+	background:#C6937B;
+	background: -webkit-gradient(linear, left top, left bottom, from(#B47050), to(#C6937B));
+	background: -moz-linear-gradient(top, #B47050, #C6937B);
+	color:#EEF3F6;
+	border:1px solid #6A94B4;
+	-webkit-border-radius:8px;
+	-moz-border-radius:8px;
+	border-radius:8px;
+	text-decoration:none;
+	text-shadow: #555 0px 1px 0px;
+	min-width: 0;
+}
+input[type=submit]:hover,
+div.actions ul li a:hover,
+div.buttons a:hover,
+td.actions a:hover {
+	background: #CEA18D;
+	background: -webkit-gradient(linear, left top, left bottom, from(#BC7E62), to(#CEA18D));
+	background: -moz-linear-gradient(top,#BC7E62, #CEA18D);
+}
+
+/** Related **/
+div.related {
+	clear: both;
+	display: block;
+}
+
+/** Debugging **/
+pre {
+	color: #000;
+	background: #f0f0f0;
+	padding: 1em;
+}
+pre.cake-debug {
+	background: #ffcc00;
+	font-size: 120%;
+	line-height: 140%;
+	margin-top: 1em;
+	overflow: auto;
+	position: relative;
+}
+div.cake-stack-trace {
+	background: #BBCEDD;
+	color: #333;
+	margin: 0px;
+	padding: 6px;
+	font-size: 120%;
+	line-height: 140%;
+	overflow: auto;
+	position: relative;
+}
+div.cake-code-dump pre {
+	position: relative;
+	overflow: auto;
+}
+div.cake-stack-trace pre, div.cake-code-dump pre {
+	color: #000;
+	background-color: #F0F0F0;
+	margin: 0px;
+	padding: 1em;
+	overflow: auto;
+}
+div.cake-code-dump pre, div.cake-code-dump pre code {
+	clear: both;
+	font-size: 12px;
+	line-height: 15px;
+	margin: 4px 2px;
+	padding: 4px;
+	overflow: auto;
+}
+div.cake-code-dump span.code-highlight {
+	background-color: #ff0;
+	padding: 4px;
+}
+div.code-coverage-results div.code-line {
+	padding-left:5px;
+	display:block;
+	margin-left:10px;
+}
+div.code-coverage-results div.uncovered span.content {
+	background:#ecc;
+}
+div.code-coverage-results div.covered span.content {
+	background:#cec;
+}
+div.code-coverage-results div.ignored span.content {
+	color:#aaa;
+}
+div.code-coverage-results span.line-num {
+	color:#666;
+	display:block;
+	float:left;
+	width:20px;
+	text-align:right;
+	margin-right:5px;
+}
+div.code-coverage-results span.line-num strong {
+	color:#666;
+}
+div.code-coverage-results div.start {
+	border:1px solid #aaa;
+	border-width:1px 1px 0px 1px;
+	margin-top:30px;
+	padding-top:5px;
+}
+div.code-coverage-results div.end {
+	border:1px solid #aaa;
+	border-width:0px 1px 1px 1px;
+	margin-bottom:30px;
+	padding-bottom:5px;
+}
+div.code-coverage-results div.realstart {
+	margin-top:0px;
+}
+div.code-coverage-results p.note {
+	color:#bbb;
+	padding:5px;
+	margin:5px 0 10px;
+	font-size:10px;
+}
+div.code-coverage-results span.result-bad {
+	color: #a00;
+}
+div.code-coverage-results span.result-ok {
+	color: #fa0;
+}
+div.code-coverage-results span.result-good {
+	color: #0a0;
+}
+
 /****** round 1 ******/
 .round1-top, .round1-bottom {
 	float: left;
@@ -186,19 +786,10 @@
 
 
 /**  topbox bottombox scoretop scorebottom  **/
-div.bracket {
-	display: table;
-}
-
-
 div.tournamentRound {
-	display:table-cell;
-	
 	position: relative;
-	vertical-align: middle;
 	float: left;
 	width: 200px;
-	
 }
 
 div.linebox {
@@ -360,33 +951,33 @@ td.scorebottom a:hover {
 div.topbox  a,
 td.topbox a {
 	-moz-border-radius-topleft:8px;
-	-khtml-border-radius-topleft:8px;
+	-khtml-border-top-left-radius:8px;
 	-webkit-border-radius-topleft:8px;
-	border-top-left-radius:8px;
+	border-radius-topleft:8px;
 }
 
 div.bottombox  a,
 td.bottombox a {
 	-moz-border-radius-bottomleft:8px;
-	-khtml-border-radius-bottomleft:8px;
+	-khtml-border-bottom-left-radius:8px;
 	-webkit-border-radius-bottomleft:8px;
-	border-bottom-left-radius:8px;
+	border-radius-topright:8px;
 }
 
 div.scoretop  a,
 td.scoretop a {
 	-moz-border-radius-topright:8px;
-	-khtml-border-radius-topright:8px;
+	-khtml-border-top-right-radius:8px;
 	-webkit-border-radius-topright:8px;
-	border-top-right-radius:8px;
+	border-radius-topright:8px;
 }
 
 div.scorebottom  a,
 td.scorebottom a {
 	-moz-border-radius-bottomright:8px;
-	-khtml-border-radius-bottomright:8px;
+	-khtml-border-bottom-right-radius:8px;
 	-webkit-border-radius-bottomright:8px;
-	border-bottom-right-radius:8px;
+	border-radius-topright:8px;
 }
 
 div.playerBox8{
@@ -403,9 +994,12 @@ div.playerBox16{
 #wrapper1 {
 	position:relative;
 	text-align:left;
-	width: 1024px;
+	width: 1280px;
     margin: 0px auto;
-	background:#888 url("../images/rightcolor_bg.gif") repeat-y top right;
+	/*background: -moz-linear-gradient(top,#BC7E62, #CEA18D);
+	background: -webkit-gradient(linear, left top, left bottom, from(#BC7E62), to(#CEA18D));*/
+	background:#9ac2e1 url("../images/rightcolor_bg.gif") repeat-y top right;
+	/*background:#888 #8bc0ea;*/
 	}
 #wrapper2 {
 	position:relative;
@@ -429,7 +1023,8 @@ div.playerBox16{
 	width:200px; /* actual value */
 	margin:0 0 -10px 0;
 	padding:10px 5px;
-	background:#888;
+	background: #9ac2e1;
+	/*background:#888;#9ac2e1 #8bc0ea*/
 	z-index:100;
 	}
 #rightcol {
@@ -443,7 +1038,8 @@ div.playerBox16{
 	width:200px; /* actual value */
 	margin:0 0 -10px 0;
 	padding:10px 5px;
-	background:#888;
+	background: #9ac2e1 ;
+	/*background:#888; #8bc0ea*/
 	z-index:99;
 	}
 #centercol {
@@ -488,6 +1084,7 @@ div.containerbox {
 	width: 100%;
 	margin: auto;
 	padding: 10px 0px;
+	
 }
 
 
@@ -499,16 +1096,20 @@ div.containerheader {
 	text-decoration:none;
 	text-shadow: #555 0px 1px 0px;
 	-moz-border-radius-topleft:8px;
-	-khtml-border-radius-topleft:8px;
+	-khtml-border-top-left-radius:8px;
 	-webkit-border-radius-topleft:8px;
 	border-radius-topleft:8px;
 	-moz-border-radius-topright:8px;
-	-khtml-border-radius-topright:8px;
+	-khtml-border-top-right-radius:8px;
 	-webkit-border-radius-topright:8px;
 	border-radius-topright:8px;
 	background: #333;
 	text-align:center;
 	font-weight:normal;
+	box-shadow:4px 4px 4px #666;
+	-moz-box-shadow:4px 4px 4px #666;
+	-khtml-box-shadow:4px 4px 4px #666;
+	-webkit-box-shadow:4px 4px 4px #666;
 }
 div.containerheader:hover {
 	background: #3e3e3e;
@@ -520,14 +1121,18 @@ div.containercontent {
 	text-decoration:none;
 	text-shadow: #555 0px 1px 0px;
 	-moz-border-radius-bottomright:8px;
-	-khtml-border-radius-bottomright:8px;
+	-khtml-border-bottom-right-radius:8px;
 	-webkit-border-radius-bottomright:8px;
 	border-radius-topright:8px;
 	-moz-border-radius-bottomleft:8px;
-	-khtml-border-radius-bottomleft:8px;
+	-khtml-border-bottom-left-radius:8px;
 	-webkit-border-radius-bottomleft:8px;
 	border-radius-topright:8px;
 	background-color:#505050;
+	box-shadow:4px 4px 4px #666;
+	-moz-box-shadow:4px 4px 4px #666;
+	-khtml-box-shadow:4px 4px 4px #666;
+	-webkit-box-shadow:4px 4px 4px #666;
 }
 
 div.containercontentbox {
@@ -581,29 +1186,29 @@ div.topmenuemaincontentRight a {
 div.topmenuemaincontentMid a:hover,
 div.topmenuemaincontentLeft a:hover,
 div.topmenuemaincontentRight a:hover{
-	background: #9d9d9d;
+	background: #676767;
 /*	background: -webkit-gradient(linear, left top, left bottom, from(#BC7E62), to(#CEA18D));
 	background: -moz-linear-gradient(top,#BC7E62, #CEA18D);*/
 }
 
 div.topmenuemaincontentLeft a{
 	-moz-border-radius-topleft:8px;
-	-khtml-border-radius-topleft:8px;
+	-khtml-border-top-left-radius:8px;
 	-webkit-border-radius-topleft:8px;
 	border-radius-topleft:8px;
 	-moz-border-radius-bottomleft:8px;
-	-khtml-border-radius-bottomleft:8px;
+	-khtml-border-bottom-left-radius:8px;
 	-webkit-border-radius-bottomleft:8px;
 	border-radius-bottomleft:8px;
 }
 
 div.topmenuemaincontentRight a{
 	-moz-border-radius-topright:8px;
-	-khtml-border-radius-topright:8px;
+	-khtml-border-top-right-radius:8px;
 	-webkit-border-radius-topright:8px;
 	border-radius-topright:8px;
 	-moz-border-radius-bottomright:8px;
-	-khtml-border-radius-bottomright:8px;
+	-khtml-border-bottom-right-radius:8px;
 	-webkit-border-radius-bottomright:8px;
 	border-radius-bottomright:8px;
 }
@@ -638,7 +1243,7 @@ div.menuebox a {
 	
 }
 div.menuebox a:hover{
-	background: #9d9d9d;
+	background: #676767;
 /*	background: -webkit-gradient(linear, left top, left bottom, from(#BC7E62), to(#CEA18D));
 	background: -moz-linear-gradient(top,#BC7E62, #CEA18D);*/
 }

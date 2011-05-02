@@ -28,7 +28,7 @@
 	<?php
 		echo $this->Html->meta('icon');
 
-		echo $this->Html->css('cake.generic');
+		/*echo $this->Html->css('cake.generic');*/
 		echo $this->Html->css('bracket');
 		echo $scripts_for_layout;
 	?>
@@ -36,51 +36,185 @@
 <body>
 	<div id="container">
 		<div id="header">
-			<div  align="left" width="50%">
-				<?php echo $this->Html->image('OPSL_logo_small.png');?>
+        	<h1></h1>
+            
+            <div class="topmenuemainbox">
+			<div class="topmenuewrapper">
+			<div class="topmenuebox">
+				<div class="topmenuemaincontentLeft">
+				<div class="containercontentbox">
+					<a href="A">Home</a>
+				</div>
+				</div>
 			</div>
-			<div  class="buttons" align="right"width="50%">
-				<?php  
-
-				if ($this->Session->check('Auth.User'))
-				{
-					echo $this->Session->read('Auth.User.username'); 
-					echo (' ');
-					echo $this->Html->link(__('Logout', true), array('controller' => 'users', 'action' => 'logout')); 
-					echo (' ');
-					echo $this->Html->link(__('Account Settings', true), array('controller' => 'users', 'action' => 'account')); 
-					echo (' ');
-					echo $this->Html->link(__('My Open Matches', true), array('controller' => 'users', 'action' => 'open_matches'));
-				}
-				else
-				{
-					echo "Not logged in";
-				}
-				?>
+			<div class="topmenuebox">
+				<div class="topmenuemaincontentMid">
+				<div class="containercontentbox">
+					<?php echo $this->Html->link(__('Tournaments', true), array('controller' => 'tournaments', 'action' => 'index')); ?>
+				</div>
+				</div>
 			</div>
+			<div class="topmenuebox">
+				<div class="topmenuemaincontentMid">
+				<div class="containercontentbox">
+                	<?php echo $this->Html->link(__('Forum', true), array('controller' => 'threads', 'action' => 'index')); ?>
+					
+				</div>
+				</div>
+			</div>
+			<div class="topmenuebox">
+				<div class="topmenuemaincontentRight">
+				<div class="containercontentbox">
+					<a href="A">LinkD</a>
+				</div>
+				</div>
+			</div>
+			</div>
+			</div>
+    
+			
 					
 		</div>
-		<div id="content">
-			
-			<?php echo $this->Session->flash(); ?>
-
-			<?php echo $content_for_layout; ?>
-			<div class="actions">
-				<h3><?php __('Actions'); ?></h3>
-				<ul>
-					<li>
-						<?php if ($this->Session->read('Auth.User.admin'))
+        <div id="wrapper1"><!-- sets background to white and creates full length leftcol-->
+	
+	
+	
+	<div id="wrapper2"><!-- sets background to white and creates full length rightcol-->
+	
+		<div id="maincol"><!-- begin main content area -->
+				
+			<div id="leftcol"><!-- begin leftcol -->
+				<div class="containerbox">
+					<div class="containerheader">
+                    <?php 
+					if ($this->Session->check('Auth.User')){
+						echo $this->Session->read('Auth.User.username'); 
+                    }
+					else{
+						echo "Not logged in";
+					}
+					?>
+					</div>
+					<div class="containercontent">
+					<div class="containercontentbox">
+                    	<div class="menuebox">
+                    	<?php
+                    	if ($this->Session->check('Auth.User')){
+							echo $this->Html->link(__('Logout', true), array('controller' => 'users', 'action' => 'logout')); 
+						}
+						else{
+							echo "Not logged in";
+						}
+						?>
+                     	</div>
+                        <div class="menuebox">
+                    	<?php
+                    	if ($this->Session->check('Auth.User')){
+							echo $this->Html->link(__('Account Settings', true), array('controller' => 'users', 'action' => 'account')); 
+						}
+						else{
+							echo "Not logged in";
+						}
+						?>
+                     	</div>
+                        <div class="menuebox">
+                    	<?php
+                    	if ($this->Session->check('Auth.User')){
+							echo $this->Html->link(__('My Open Matches', true), array('controller' => 'users', 'action' => 'open_matches'));
+						}
+						else{
+							echo "Not logged in";
+						}
+						?>
+                     	</div>
+					</div>
+					</div>
+				</div>
+                <div class="containerbox">
+					<div class="containerheader">
+                    Actions
+					</div>
+					<div class="containercontent">
+					<div class="containercontentbox">
+                    	<div class="menuebox">
+                    	<?php if ($this->Session->read('Auth.User.admin'))
 						{ 
 							echo $this->Html->link(__('New Tournament', true), array('controller' => 'tournaments','action' => 'add')); 
 						}?>
-					</li>
-					<li><?php echo $this->Html->link(__('List Tournaments', true), array('controller' => 'tournaments', 'action' => 'index')); ?> </li>
-					<li><?php echo $this->Html->link(__('List Users', true), array('controller' => 'users', 'action' => 'index')); ?> </li>
-					<li><?php echo $this->Html->link(__('View Forum', true), array('controller' => 'threads', 'action' => 'index')); ?> </li>
-				</ul>
+                     	</div>
+                        <div class="menuebox">
+                    	<?php echo $this->Html->link(__('List Users', true), array('controller' => 'users', 'action' => 'index')); ?>
+                     	</div>
+                        <div class="menuebox">
+                    	<?php
+                    	if ($this->Session->check('Auth.User')){
+							echo $this->Html->link(__('My Open Matches', true), array('controller' => 'users', 'action' => 'open_matches'));
+						}
+						else{
+							echo "Not logged in";
+						}
+						?>
+                     	</div>
+					</div>
+					</div>
+				</div>
+			</div><!-- end leftcol -->
+				
+			<div id="rightcol"><!-- begin rightcol -->
+				<div class="containerbox">
+					<div class="containerheader">
+					test
+					</div>
+					<div class="containercontent">
+					<div class="containercontentbox">
+					<div class="maincontentbox">
+					test2
+					</div>
+					</div>
+					</div>
+				</div>
+				<div class="containerbox">
+					<div class="containerheader">
+					test
+					</div>
+					<div class="containercontent">
+					<div class="containercontentbox">
+					<div class="maincontentbox">
+					test2
+					</div>
+					</div>
+					</div>
+				</div>
+			</div><!-- end righttcol -->
+			
+		<div id="centercol"><!-- begin centercol -->
+			<div class="containerbox">
+				<div class="containerheader">
+					test
+				</div>
+				<div class="containercontent">
+				<div class="maincontentbox">
+					<div class="scollbox">
+						<?php echo $this->Session->flash(); ?>
+						<?php echo $content_for_layout; ?>
+						
+					</div>
+				</div>
+				</div>
 			</div>
+				
+			</div><!-- end centercol -->
+				
+		</div><!-- end main content area -->
+				
+		
+	
+	</div><!-- end wrapper1 -->
 
-		</div>
+	
+
+</div><!-- end wrapper2 -->
+		
 		<div id="footer">
 		
 		<div align="left">
