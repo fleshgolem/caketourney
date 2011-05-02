@@ -155,9 +155,12 @@ class UsersController extends AppController {
 		if (!empty($this->data)) {
 			$success = 1;
 			foreach ($this->data['User'] as $key=>$field)
+			{
+				if (isset($field)
 				{
-				if (!$this->User->saveField($key,$field)) $success=0;
+					if (!$this->User->saveField($key,$field)) $success=0;
 				}
+			}
 			if ($success) {
 				$this->Session->setFlash(__('The user has been saved', true));
 				$this->redirect(array('action' => 'index'));
