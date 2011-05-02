@@ -156,7 +156,7 @@ class UsersController extends AppController {
 			$success = 1;
 			foreach ($this->data['User'] as $key=>$field)
 			{
-				if (isset($field)
+				if (isset($field))
 				{
 					if (!$this->User->saveField($key,$field)) $success=0;
 				}
