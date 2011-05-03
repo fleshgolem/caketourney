@@ -74,11 +74,6 @@
 		<br>
 	<?php }?>
 	<h3>Comments</h3>
-	<?php echo $this->Form->create('Match', array('action'=>'post_comment'));?>
-	<?php echo $this->Form->input('Comment.body', array('label'=>'Post Comment'));?>
-	BBCode is enabled<br>
-	Embedding images is disabled
-	<?php echo $this->Form->end(__('Submit', true));?>
 	<table>
 		<?php
 		foreach ($comments as $comment){?>
@@ -105,4 +100,10 @@
 		</tr>
 		<?php }?>
 	</table>
+	<?php echo $this->Form->create('Match', array('action'=>'post_comment'));?>
+	<?php echo $this->Form->input('Comment.body', array('label'=>'Post Comment'));?>
+	BBCode is enabled<br>
+	Embedding images is disabled
+	<?php echo $this->Form->end(__('Submit', true));?>
+	
 </div>
