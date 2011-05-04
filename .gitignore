@@ -1,3 +1,4 @@
-/app/tmp/
-/app/config/database.php
-/app/webroot/files
+app/tmp/
+app/tmp/cache
+app/config/database.php
+app/webroot/files
