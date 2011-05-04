@@ -1495,3 +1495,5 @@
 2011-05-01 19:17:06 Debug: Notice (8): Undefined offset: 1 in [C:\xampp\htdocs\caketourney\app\controllers\rounds_controller.php, line 56]
 2011-05-01 19:17:26 Debug: Notice (8): Undefined offset: 1 in [C:\xampp\htdocs\caketourney\app\controllers\rounds_controller.php, line 56]
 2011-05-01 19:17:42 Debug: Notice (8): Undefined offset: 1 in [C:\xampp\htdocs\caketourney\app\controllers\rounds_controller.php, line 56]
+2011-05-04 23:48:35 Debug: Notice (8): Undefined property: UsersController::$Cookie in [C:\xampp\htdocs\caketourney\app\controllers\users_controller.php, line 44]
+2011-05-04 23:50:41 Debug: Notice (8): Undefined property: UsersController::$Cookie in [C:\xampp\htdocs\caketourney\app\controllers\users_controller.php, line 77]
