@@ -65,7 +65,12 @@
 			<div class="topmenuebox">
 				<div class="topmenuemaincontentRight">
 				<div class="containercontentbox">
-					<a href="A">LinkD</a>
+					<?php
+						if ($this->Session->check('Auth.User')){	
+							 echo $this->Html->link(__('List Users', true), array('controller' => 'users', 'action' => 'index')); 
+						}else{
+							echo $this->Html->link(__('List Users', true), array('controller' => 'users', 'action' => 'index')); 
+                     }?>
 				</div>
 				</div>
 			</div>
@@ -102,18 +107,12 @@
                     	if ($this->Session->check('Auth.User')){
 							echo $this->Html->link(__('Logout', true), array('controller' => 'users', 'action' => 'logout')); 
 						}
-						else{
-							echo "Not logged in";
-						}
 						?>
                      	</div>
                         <div class="menuebox">
                     	<?php
                     	if ($this->Session->check('Auth.User')){
 							echo $this->Html->link(__('Account Settings', true), array('controller' => 'users', 'action' => 'account')); 
-						}
-						else{
-							echo "Not logged in";
 						}
 						?>
                      	</div>
@@ -122,8 +121,12 @@
                     	if ($this->Session->check('Auth.User')){
 							echo $this->Html->link(__('My Open Matches', true), array('controller' => 'users', 'action' => 'open_matches'));
 						}
-						else{
-							echo "Not logged in";
+						?>
+                     	</div>
+                        <div class="menuebox">
+                    	<?php
+                    	if ($this->Session->check('Auth.User')){
+							echo $this->Html->link('My Tournament Settings', array('action'=>'settings',$tournament['SwissTournament']['id']));
 						}
 						?>
                      	</div>
@@ -132,7 +135,13 @@
 				</div>
                 <div class="containerbox">
 					<div class="containerheader">
-                    Actions
+                    <?php
+                    	if ($this->Session->check('Auth.User')){
+                   	 		echo"Actions";
+						}
+						else{
+							echo"Not logged in";
+					}?>
 					</div>
 					<div class="containercontent">
 					<div class="containercontentbox">
@@ -143,17 +152,17 @@
 						}?>
                      	</div>
                         <div class="menuebox">
-                    	<?php echo $this->Html->link(__('List Users', true), array('controller' => 'users', 'action' => 'index')); ?>
-                     	</div>
+                    	<?php
+						if ($this->Session->check('Auth.User')){	
+							 echo $this->Html->link(__('List Users', true), array('controller' => 'users', 'action' => 'index')); 
+                     	}?>
+                        </div>
                         <div class="menuebox">
                     	<?php
                     	if ($this->Session->check('Auth.User')){
 							echo $this->Html->link(__('My Open Matches', true), array('controller' => 'users', 'action' => 'open_matches'));
-						}
-						else{
-							echo "Not logged in";
-						}
-						?>
+						}?>
+						
                      	</div>
 					</div>
 					</div>
@@ -163,24 +172,40 @@
 			<div id="rightcol"><!-- begin rightcol -->
 				<div class="containerbox">
 					<div class="containerheader">
-					test
+					Upcoming Matches
 					</div>
 					<div class="containercontent">
 					<div class="containercontentbox">
 					<div class="maincontentbox">
-					test2
+					<?php foreach($matches as $match){?>
+						<?php 
+							if ($match['Player1']!=null)
+								echo $this->Race->small_img($match['Player1']['race']);
+								//Link to match
+								$matchtitle = '';
+							if ($match['Player1']!=null)
+								$matchtitle .=($match['Player1']['username']);
+								$matchtitle .= ' vs ' ;
+							if ($match['Player2']!=null)
+								$matchtitle .=($match['Player2']['username']);
+								echo $this->Html->link(($matchtitle), array('controller' => 'matches', 'action' => 'view',$match['Match']['id'])); 	
+							if ($match['Player2']!=null)
+								echo $this->Race->small_img($match['Player2']['race']);
+						?>
+                   <?php }?>
+
 					</div>
 					</div>
 					</div>
 				</div>
 				<div class="containerbox">
 					<div class="containerheader">
-					test
+					Statistic Center
 					</div>
 					<div class="containercontent">
 					<div class="containercontentbox">
 					<div class="maincontentbox">
-					test2
+					*under construction*
 					</div>
 					</div>
 					</div>
@@ -190,7 +215,7 @@
 		<div id="centercol"><!-- begin centercol -->
 			<div class="containerbox">
 				<div class="containerheader">
-					test
+					Main Content
 				</div>
 				<div class="containercontent">
 				<div class="maincontentbox">
