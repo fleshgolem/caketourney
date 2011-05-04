@@ -3,7 +3,6 @@ class UsersController extends AppController {
 
 	var $name = 'Users';
 	var $helpers = array('Race');
- 
     /**
      * Runs automatically before the controller action is called
      */
@@ -40,6 +39,8 @@ class UsersController extends AppController {
      */
     function login()
     {
+		
+
 		$this->set('title_for_layout', 'Tournament Home');
         // Check for a successful login
         if (!empty($this->data) && $id = $this->Auth->user('id')) {
@@ -70,6 +71,19 @@ class UsersController extends AppController {
 			$this->Session->write('current_user', $current_user);
             $this->redirect($url);
         }
+		if (empty($this->data))
+		{
+			$cookie = $this->Cookie->read('Auth.User');
+			if (!is_null($cookie)) {
+				if ($this->Auth->login($cookie)) {
+					//  Clear auth message, just in case we use it.
+					$this->Session->del('Message.auth');
+					$this->redirect($this->Auth->redirect());
+				} else { // Delete invalid Cookie
+					$this->Cookie->del('Auth.User');
+				}
+			}
+		}
     }
  
 	function account()
