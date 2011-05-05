@@ -1,6 +1,18 @@
 <div class="matches view">
-<h2>Upcoming Matches</h2>
-<table cellpadding="0" cellspacing="0">
+<div class="PostBox">
+<div class="ThreadTitleBox">
+	<div class="ThreadTitleContent">
+		<h2>Upcoming Matches</h2>
+	</div> 
+	
+	<p style="clear: both;">  </p>  
+</div>
+</div>
+<div class="PostBox"> 
+	<div class="PostContent">
+		<div class="PostContentBox">
+			<div class="PostMainContentbox">
+				<table cellpadding="0" cellspacing="0">
 	<tr>
 		<th>Player 1</th>
 		<th>Player 2</th>
@@ -32,4 +44,14 @@
 	</tr>
 	<?}?>
 </table>
+			</div>
+		</div>
+		<p style="clear: both;"> </p>
+	</div>
+	<div class="PostFooter">
+		<div class="bottomaction">  </div>
+		<p style="clear: both;">  </p>
+	</div>
+</div>
+
 </div>

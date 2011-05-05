@@ -124,11 +124,7 @@
 						?>
                      	</div>
                         <div class="menuebox">
-                    	<?php
-                    	/*if ($this->Session->check('Auth.User')){
-							echo $this->Html->link('My Tournament Settings', array('action'=>'settings',$tournament['SwissTournament']['id']));
-						}*/
-						?>
+                    	<?php echo $this->Html->link(__('Upcoming Matches', true), array('controller' => 'matches', 'action' => 'upcoming_matches')); ?>
                      	</div>
 					</div>
 					</div>
@@ -219,10 +215,7 @@
 			
 		<div id="centercol"><!-- begin centercol -->
 			<div class="containerbox">
-				<div class="containerheader">
-					Main Content
-				</div>
-				<div class="containercontent">
+				<div class="containerMain">
 				<div class="maincontentbox">
 					<div class="scollbox">
 						<?php echo $this->Session->flash(); ?>

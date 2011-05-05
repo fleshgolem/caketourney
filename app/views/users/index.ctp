@@ -23,7 +23,6 @@
 			<!--<th><?php echo $this->Paginator->sort('admin');?></th>-->
 			<th><?php echo $this->Paginator->sort('elo');?></th>
 			<th><?php echo $this->Paginator->sort('division');?></th>
-			<th class="actions"><?php __('Actions');?></th>
 	</tr>
 	<?php
 	$i = 0;
@@ -34,7 +33,7 @@
 		}
 	?>
 	<tr<?php echo $class;?>>
-		<td><?php echo $user['User']['username']; ?>&nbsp;</td>
+		<td><?php echo $this->Html->link(__($user['User']['username'], true), array('action' => 'view', $user['User']['id'])); ?> &nbsp;</td>
 		<td><?php echo $user['User']['name']; ?>&nbsp;</td>
 		<!--<td><?php echo $user['User']['email']; ?>&nbsp;</td>-->
 		<td><?php echo $user['User']['bnetaccount']; ?>&nbsp;</td>
@@ -43,10 +42,7 @@
 		<!--<td><?php echo $user['User']['admin']; ?>&nbsp;</td>-->
 		<td><?php echo $user['User']['elo']; ?>&nbsp;</td>
 		<td><?php echo $user['User']['division']; ?>&nbsp;</td>
-		<td class="actions">
-			<?php echo $this->Html->link(__('View', true), array('action' => 'view', $user['User']['id'])); ?>
-			
-		</td>
+		
 	</tr>
 <?php endforeach; ?>
 	</table>
@@ -73,4 +69,5 @@
  |
 		<?php echo $this->Paginator->next(__('next', true) . ' >>', array(), null, array('class' => 'disabled'));?>
 	</div>
+    <p style="clear: both;"> </p>
 </div>

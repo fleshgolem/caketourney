@@ -1133,6 +1133,34 @@ div.containercontent {
 	-khtml-box-shadow:4px 4px 4px #666;
 	-webkit-box-shadow:4px 4px 4px #666;
 }
+div.containerMain {
+	width: 100%;
+	color:#EEF3F6;
+	border:1px solid #333;
+	text-decoration:none;
+	text-shadow: #555 0px 1px 0px;
+	-moz-border-radius-topleft:8px;
+	-khtml-border-top-left-radius:8px;
+	-webkit-border-radius-topleft:8px;
+	border-radius-topleft:8px;
+	-moz-border-radius-topright:8px;
+	-khtml-border-top-right-radius:8px;
+	-webkit-border-radius-topright:8px;
+	border-radius-topright:8px;
+	-moz-border-radius-bottomright:8px;
+	-khtml-border-bottom-right-radius:8px;
+	-webkit-border-radius-bottomright:8px;
+	border-radius-topright:8px;
+	-moz-border-radius-bottomleft:8px;
+	-khtml-border-bottom-left-radius:8px;
+	-webkit-border-radius-bottomleft:8px;
+	border-radius-topright:8px;
+	background-color:#505050;
+	box-shadow:4px 4px 4px #666;
+	-moz-box-shadow:4px 4px 4px #666;
+	-khtml-box-shadow:4px 4px 4px #666;
+	-webkit-box-shadow:4px 4px 4px #666;
+}
 
 div.containercontentbox {
 	width: 100%;
