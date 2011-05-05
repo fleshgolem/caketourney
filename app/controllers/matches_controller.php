@@ -185,6 +185,10 @@ class MatchesController extends AppController {
 				'limit' => 10 //int
 				));
 		$this->set('matches',$matches);
+		if (isset($this->params['requested'])) 
+		{            
+			return $matches;        
+		}
 	}
 
 		
