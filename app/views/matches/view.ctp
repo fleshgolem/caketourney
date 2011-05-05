@@ -74,35 +74,59 @@
 		<br>
 	<?php }?>
 	<h3>Comments</h3>
-	<?php echo $this->Form->create('Match', array('action'=>'post_comment'));?>
-	<?php echo $this->Form->input('Comment.body', array('label'=>'Post Comment'));?>
-	BBCode is enabled<br>
-	Embedding images is disabled
-	<?php echo $this->Form->end(__('Submit', true));?>
-	<table>
-		<?php
-		foreach ($comments as $comment){?>
-		<tr>
-			<td class="info">
+<?php foreach($comments as $comment)
+{?>
+<div class="PostBox"> 
+	<div class="PostContent">
+		<div class="leftBox">
+			<div class="PostContentBox">
+				<div class="PostMainContentbox">
 				<?php echo($this->Html->link($comment['User']['username'], array('controller' => 'users', 'action' => 'view', $comment['User']['id']))); ?>
 				<br>
 				<small>
 				<?php echo ($comment['Comment']['date_posted']);?>
 				</small>
-			</td>
-			<td>
-				<div align="right" class="buttons">
-					<?php
-					if ($this->Session->read('Auth.User.admin') OR $comment['Comment']['user_id']==$current_user)
-					{
-						echo($this->Html->link('Edit', array('controller' => 'comments', 'action' => 'edit', $comment['Comment']['id'])));
-						echo $this->Html->link('Delete', array('controller' => 'comments', 'action' => 'delete', $comment['Comment']['id']), null, sprintf(__('Are you sure you want to delete this Comment?', true)));
-					}?>
 				</div>
+			</div>
+		</div>
+		<div class="rightBox">
+			<div class="PostContentBox">
+				<div class="PostMainContentbox">
+				
 				<?php $body = $this->Bbcode->doShortcode(strip_tags($comment['Comment']['body']));
 				echo ( $this->Text->autoLink($body));?>
-			</td>
-		</tr>
-		<?php }?>
-	</table>
+				</div>
+			</div>
+		</div>
+		<p style="clear: both;">  </p>
+	</div>
+                            
+	<div class="PostFooter">
+		<div class="bottomaction">
+        	<?php
+					if ($this->Session->read('Auth.User.admin') OR $comment['Comment']['user_id']==$current_user)
+					{
+						
+						echo $this->Html->link('Delete', array('controller' => 'comments', 'action' => 'delete', $comment['Comment']['id']), null, sprintf(__('Are you sure you want to delete this Comment?', true)));
+					}?>
+        </div>
+        <div class="bottomaction"> <?php
+				if ($this->Session->read('Auth.User.admin') OR $comment['Comment']['user_id']==$current_user)
+				{
+					echo($this->Html->link('Edit', array('controller' => 'comments', 'action' => 'edit', $comment['Comment']['id'])));
+					
+				}?>
+        </div>
+		<p style="clear: both;">  </p>
+	</div>
+</div>
+<?php
+}?>
+    
+	<?php echo $this->Form->create('Match', array('action'=>'post_comment'));?>
+	<?php echo $this->Form->input('Comment.body', array('label'=>'Post Comment'));?>
+	BBCode is enabled<br>
+	Embedding images is disabled
+	<?php echo $this->Form->end(__('Submit', true));?>
+	
 </div>

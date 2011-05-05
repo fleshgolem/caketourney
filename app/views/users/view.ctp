@@ -1,5 +1,13 @@
 <div class="users view">
 <h2><?php  __('User');?></h2>
+<?php 
+	//Only show edit and delete if admin
+	if ($this->Session->read('Auth.User.admin')) 
+	{
+		echo $this->Html->link(__('Edit', true), array('action' => 'edit', $user['User']['id'])); 
+		echo $this->Html->link(__('Delete', true), array('action' => 'delete', $user['User']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $user['User']['id'])); 
+	}
+?>
 	<dl><?php $i = 0; $class = ' class="altrow"';?>
 		
 	

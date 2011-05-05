@@ -1,9 +1,18 @@
 <div class="threads view">
 
-
-<h2><?php echo($thread['Thread']['title']);?></h2>
-
-
+<div class="PostBox">
+<div class="ThreadTitleBox">
+	<div class="ThreadTitleContent">
+		<h2><?php echo($thread['Thread']['title']);?></h2>
+	</div> 
+	<div class="bottomaction"> <?php
+		if ($this->Session->read('Auth.User.admin')){
+			echo $this->Html->link('Delete', array('action' => 'delete', $thread['Thread']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $thread['Thread']['id']));
+		}?>
+     </div>
+	<p style="clear: both;">  </p>  
+</div>
+</div>
 
 <?php foreach($posts as $post)
 {?>
@@ -64,16 +73,30 @@
  
 		<?php echo $this->Paginator->next(__('next', true) . ' >>', array(), null, array('class' => 'disabled'));?>
 	</div>
-<?php echo $this->Form->create('Thread');?>
-	<fieldset>
- 		<legend><?php __('Post Reply'); ?></legend>
-	<?php
-		echo $this->Form->input('id');
-		echo $this->Form->input('Post.body');
-	?>
-		BBCode is enabled<br>
-		Embedding images is disabled
-	</fieldset>
-	
-<?php echo $this->Form->end(__('Submit', true));?>
+   <p style="clear: both;">  </p>
+<div class="PostBox"> 
+	<div class="PostContent">
+		<div class="PostContentBox">
+			<div class="PostMainContentbox">
+				<?php echo $this->Form->create('Thread');?>
+				<fieldset>
+ 				<legend><?php __('Post Reply'); ?></legend>
+				<?php
+				echo $this->Form->input('id');
+				echo $this->Form->input('Post.body');
+				?>
+				BBCode is enabled<br>
+				Embedding images is disabled
+				</fieldset>
+			</div>
+		</div>
+		<p style="clear: both;"> </p>
+	</div>
+	<div class="PostFooter">
+		<div class="bottomaction"> <?php echo $this->Form->end(__('Submit', true));?> </div>
+		<p style="clear: both;">  </p>
+	</div>
+</div>
+
+
 </div>

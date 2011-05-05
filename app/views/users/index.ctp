@@ -1,6 +1,18 @@
 <div class="users index">
-	<h2><?php __('Users');?></h2>
-	<table cellpadding="0" cellspacing="0">
+<div class="PostBox">
+<div class="ThreadTitleBox">
+	<div class="ThreadTitleContent">
+		<h2><?php __('Users');?></h2>
+	</div> 
+	
+	<p style="clear: both;">  </p>  
+</div>
+</div>
+<div class="PostBox"> 
+	<div class="PostContent">
+		<div class="PostContentBox">
+			<div class="PostMainContentbox">
+				<table cellpadding="0" cellspacing="0">
 	<tr>
 			<th><?php echo $this->Paginator->sort('username');?></th>
 			<th><?php echo $this->Paginator->sort('name');?></th>
@@ -33,18 +45,21 @@
 		<td><?php echo $user['User']['division']; ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View', true), array('action' => 'view', $user['User']['id'])); ?>
-			<?php 
-			//Only show edit and delete if admin
-			if ($this->Session->read('Auth.User.admin')) 
-				{
-					echo $this->Html->link(__('Edit', true), array('action' => 'edit', $user['User']['id'])); 
-					echo $this->Html->link(__('Delete', true), array('action' => 'delete', $user['User']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $user['User']['id'])); 
-				}
-			?>
+			
 		</td>
 	</tr>
 <?php endforeach; ?>
 	</table>
+			</div>
+		</div>
+		<p style="clear: both;"> </p>
+	</div>
+	<div class="PostFooter">
+		<div class="bottomaction">  </div>
+		<p style="clear: both;">  </p>
+	</div>
+</div>	
+	
 	<p>
 	<?php
 	echo $this->Paginator->counter(array(

@@ -1,9 +1,18 @@
 <div class="threads index">
-	<h2><?php __('Forum');?></h2>
-	<div class="buttons">
-		<?php echo ($this->Html->Link('New Thread', array('action' => 'add')));?>
-	</div>
-	<p>
+<div class="PostBox">
+<div class="ThreadTitleBox">
+	<div class="ThreadTitleContent">
+		<h2><?php __('Forum');?></h2>
+	</div> 
+	
+	<p style="clear: both;">  </p>  
+</div>
+</div>
+<div class="PostBox"> 
+	<div class="PostContent">
+		<div class="PostContentBox">
+			<div class="PostMainContentbox">
+				<p>
 	<table cellpadding="0" cellspacing="0">
 	<tr>
 			<th><?php echo $this->Paginator->sort('title');?></th>
@@ -11,12 +20,7 @@
 			<th><?php echo $this->Paginator->sort('original_poster_id');?></th>
 			<th>Replies</th>
 			<th><?php echo $this->Paginator->sort('Last Post','date_modified');?></th>
-			<?php 
-				//Only show delete if admin
-			if ($this->Session->read('Auth.User.admin')) 
-			{?>
-				<th class="actions"><?php __('Actions');?></th>
-			<?php }?>
+			
 	</tr>
 	<?php
 	$i = 0;
@@ -40,18 +44,22 @@
 			<?php echo $thread['Thread']['date_modified']; ?>&nbsp;
 			</small>
 		</td>
-		<?php 
-				//Only show delete if admin
-		if ($this->Session->read('Auth.User.admin')) 
-		{?>
-		<td class="actions">
-			
-					<?php echo $this->Html->link('Delete', array('action' => 'delete', $thread['Thread']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $thread['Thread']['id'])); ?>
-		</td>
-		<?php }?>
+		
 	</tr>
 <?php endforeach; ?>
 	</table>
+			</div>
+		</div>
+		<p style="clear: both;"> </p>
+	</div>
+	<div class="PostFooter">
+		<div class="bottomaction">
+		<?php echo ($this->Html->Link('New Thread', array('action' => 'add')));?>
+    </div>
+		<p style="clear: both;">  </p>
+	</div>
+</div>
+	
 	<p>
 	<?php
 	echo $this->Paginator->counter(array(

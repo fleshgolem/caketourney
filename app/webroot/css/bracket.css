@@ -38,7 +38,7 @@ body {
 	margin: 0;
 }
 a {
-	color: #4B8948;
+	color: #9A7051;
 	text-decoration: underline;
 	font-weight: bold;
 }
@@ -50,7 +50,7 @@ a {
 	font-weight: bold;
 }
 a:hover {
-	color: #367889;
+	color: #9A7051;
 	text-decoration:none;
 }
 a img {
@@ -139,7 +139,7 @@ ul, li {
 	margin:0;
 	padding: 10px 20px;
 	text-align: right;
-	background:#505050;
+	background:#333;
 /*	-moz-border-radius-bottomleft:32px;
 	-khtml-border-bottom-left-radius:32px;
 	-webkit-border-radius-bottomleft:32px;
@@ -183,7 +183,7 @@ div.score2 {
 
 /** Tables **/
 table {
-	background: #BBCEDD;
+	background: #9ac2e1;
 	border-right:0;
 	clear: both;
 	color: #333;
@@ -208,17 +208,17 @@ th a.desc:after {
 	content: ' ⇡';
 }
 table tr td {
-	background: #BBCEDD;
+	background: #9ac2e1;
 	padding: 6px;
 	text-align: left;
 	vertical-align: top;
 	border-bottom:1px solid #ddd;
 }
 table tr:nth-child(2n) td {
-	background: #92B1C8;
+	background: #95b9d6;
 }
 table .altrow td {
-	background: #92B1C8;
+	background: #95b9d6;
 }
 td.actions {
 	text-align: left;
@@ -245,7 +245,7 @@ table td.actions a {
 
 /** Paging **/
 div.paging {
-	background:#BBCEDD;
+	background:#505050;
 	color: #ccc;
 	margin-top: 1em;
 	clear:both;
@@ -288,12 +288,12 @@ form {
 	width: 95%;
 }
 fieldset {
-	border: 1px solid #ccc;
+	border: 0px solid #ccc;
 	margin-bottom: 1em;
 	padding: 16px 20px;
 }
 fieldset legend {
-	background:#BBCEDD;
+	background:#9ac2e1;
 	color: #9A7051;
 	font-size: 160%;
 	font-weight: bold;
@@ -391,6 +391,7 @@ form .submit input[type=submit] {
 	border-color: #BB977C;
 	color: #000;
 	/*text-shadow: #8cee7c 0px 1px 0px;*/
+	
 }
 form .submit input[type=submit]:hover {
 	background:#E5D7CD;
@@ -1249,7 +1250,6 @@ div.menuebox a:hover{
 div.PostBox {
 	/*padding:5px*/ 
 	width: 98%;
-	margin: auto;
 	padding: 2px 0px;
 	
 	
@@ -1324,9 +1324,10 @@ div.PostMainContentbox {
 
 div.bottomaction {
 	float:right;
+	vertical-align: middle;
 }
 
-div.bottomaction a {
+div.bottomaction a{
 	font-weight: normal;
 	display: block;
 	padding: 0 8px;
@@ -1340,6 +1341,40 @@ div.bottomaction a {
 	text-shadow: #555 0px 1px 0px;
 	min-width: 0;
 	
+	
 }
 
-
+div.ThreadTitleBox {
+	width: 100%;
+	padding: 4px 0px;
+	color:#EEF3F6;
+	border:1px solid #333;
+	text-decoration:none;
+	text-shadow: #555 0px 1px 0px;
+	-moz-border-radius-topright:8px;
+	-khtml-border-top-right-radius:8px;
+	-webkit-border-radius-topright:8px;
+	border-radius-topright:8px;
+	-moz-border-radius-topleft:8px;
+	-khtml-border-top-left-radius:8px;
+	-webkit-border-radius-topleft:8px;
+	border-radius-topright:8px;
+	-moz-border-radius-bottomleft:8px;
+	-khtml-border-bottom-left-radius:8px;
+	-webkit-border-radius-bottomleft:8px;
+	border-radius-bottomleft:8px;
+	-moz-border-radius-bottomright:8px;
+	-khtml-border-bottom-right-radius:8px;
+	-webkit-border-radius-bottomright:8px;
+	border-radius-bottomright:8px;
+	background: #333;
+	text-align:center;
+	font-weight:normal;
+	
+}
+div.ThreadTitleContent {
+	width: 100%;
+	float:left;
+	text-align:center;
+	padding: 0px 5px;
+}

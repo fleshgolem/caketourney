@@ -43,7 +43,7 @@
 			<div class="topmenuebox">
 				<div class="topmenuemaincontentLeft">
 				<div class="containercontentbox">
-					<a href="A">Home</a>
+					<?php echo $this->Html->link('Home',array('controller'=>'pages','action'=>'home'))?>
 				</div>
 				</div>
 			</div>
@@ -125,14 +125,16 @@
                      	</div>
                         <div class="menuebox">
                     	<?php
-                    	if ($this->Session->check('Auth.User')){
+                    	/*if ($this->Session->check('Auth.User')){
 							echo $this->Html->link('My Tournament Settings', array('action'=>'settings',$tournament['SwissTournament']['id']));
-						}
+						}*/
 						?>
                      	</div>
 					</div>
 					</div>
 				</div>
+                <!--
+
                 <div class="containerbox">
 					<div class="containerheader">
                     <?php
@@ -167,6 +169,7 @@
 					</div>
 					</div>
 				</div>
+                -->
 			</div><!-- end leftcol -->
 				
 			<div id="rightcol"><!-- begin rightcol -->
@@ -177,7 +180,8 @@
 					<div class="containercontent">
 					<div class="containercontentbox">
 					<div class="maincontentbox">
-					<?php foreach($matches as $match){?>
+                    SOON<SUP><FONT SIZE="-2">TM</FONT></SUP>
+					<?php /*foreach($matches as $match){?>
 						<?php 
 							if ($match['Player1']!=null)
 								echo $this->Race->small_img($match['Player1']['race']);
@@ -192,7 +196,7 @@
 							if ($match['Player2']!=null)
 								echo $this->Race->small_img($match['Player2']['race']);
 						?>
-                   <?php }?>
+                   <?php }*/?>
 
 					</div>
 					</div>
@@ -205,7 +209,7 @@
 					<div class="containercontent">
 					<div class="containercontentbox">
 					<div class="maincontentbox">
-					*under construction*
+					SOON<SUP><FONT SIZE="-2">TM</FONT></SUP>
 					</div>
 					</div>
 					</div>

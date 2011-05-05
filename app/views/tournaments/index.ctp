@@ -1,6 +1,18 @@
 <div class="tournaments index">
-	<h2><?php __('Tournaments');?></h2>
-	<table cellpadding="0" cellspacing="0">
+<div class="PostBox">
+<div class="ThreadTitleBox">
+	<div class="ThreadTitleContent">
+		<h2><?php __('Tournaments');?></h2>
+	</div> 
+	
+	<p style="clear: both;">  </p>  
+</div>
+</div>
+<div class="PostBox"> 
+	<div class="PostContent">
+		<div class="PostContentBox">
+			<div class="PostMainContentbox">
+				<table cellpadding="0" cellspacing="0">
 	<tr>
 			<th><?php echo $this->Paginator->sort('id');?></th>
 			<th><?php echo $this->Paginator->sort('name');?></th>
@@ -43,6 +55,20 @@
 	</tr>
 <?php endforeach; ?>
 	</table>
+			</div>
+		</div>
+		<p style="clear: both;"> </p>
+	</div>
+	<div class="PostFooter">
+		<div class="bottomaction">
+        <?php if ($this->Session->read('Auth.User.admin')){ 
+			echo $this->Html->link(__('New Tournament', true), array('controller' => 'tournaments','action' => 'add')); 
+		}?> 
+        </div>
+		<p style="clear: both;">  </p>
+	</div>
+</div>	
+	
 	<p>
 	<?php
 	echo $this->Paginator->counter(array(
