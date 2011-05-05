@@ -30,7 +30,7 @@
 	?>
 	<tr<?php echo $class;?>>
 		<td><?php echo $tournament['Tournament']['id']; ?>&nbsp;</td>
-		<td><?php echo $tournament['Tournament']['name']; ?>&nbsp;</td>
+		<td><?php echo $this->Html->link(__($tournament['Tournament']['name'], true), array('action' => 'view', $tournament['Tournament']['id'])); ?>&nbsp;</td>
 		<td><?php echo $tournament['Tournament']['typeField']; ?>&nbsp;</td>
 		<td><?php 
 			if ( $tournament['Tournament']['current_round']==-1)
@@ -40,7 +40,7 @@
 			?>&nbsp;
 		</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('View', true), array('action' => 'view', $tournament['Tournament']['id'])); ?>
+			
 			<?php 
 			//Only show edit and delete if admin
 			if ($this->Session->read('Auth.User.admin')) 

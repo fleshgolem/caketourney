@@ -39,19 +39,21 @@ body {
 }
 a {
 	color: #9A7051;
-	text-decoration: underline;
+	text-decoration: none;
 	font-weight: bold;
+	text-shadow: #555 0px 1px 0px;
 }
 
 .invert a
 {
 	color: #BBCEDD;
-	text-decoration: underline;
+	text-decoration: none;
 	font-weight: bold;
 }
 a:hover {
 	color: #9A7051;
 	text-decoration:none;
+	text-decoration: underline;
 }
 a img {
 	border:none;
@@ -1138,7 +1140,7 @@ div.containerMain {
 	color:#EEF3F6;
 	border:1px solid #333;
 	text-decoration:none;
-	text-shadow: #555 0px 1px 0px;
+	/*text-shadow: #555 0px 1px 0px;*/
 	-moz-border-radius-topleft:8px;
 	-khtml-border-top-left-radius:8px;
 	-webkit-border-radius-topleft:8px;
