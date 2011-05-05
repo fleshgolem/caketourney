@@ -29,9 +29,17 @@
 	//if($match['Match']['open'])
 	{
 	?>
-	
+	<div>
+		<?php echo $this->Form->create('Match',array('action'=>'set_date'));?>
+		<h3>Set Date</h3>
+		<?php echo $this->Form->input('id');?>
+		<?php echo $this->Form->input('date');?>
+		<?php echo $this->Form->end(__('Submit', true));?>
+	</div>
 	<div class="scores">
+		
 		<?php echo $this->Form->create('Match');?>
+		<?php echo $this->Form->input('id');?>
 		<h3>Scores</h3>
 		<div class="score1">
 			<?php echo ($this->Race->small_img($match['Player1']['race']).' '. $match['Player1']['username'])?>
@@ -74,6 +82,7 @@
 		<br>
 	<?php }?>
 	<h3>Comments</h3>
+
 <?php foreach($comments as $comment)
 {?>
 <div class="PostBox"> 
@@ -81,6 +90,7 @@
 		<div class="leftBox">
 			<div class="PostContentBox">
 				<div class="PostMainContentbox">
+
 				<?php echo($this->Html->link($comment['User']['username'], array('controller' => 'users', 'action' => 'view', $comment['User']['id']))); ?>
 				<br>
 				<small>
@@ -109,6 +119,7 @@
 						
 						echo $this->Html->link('Delete', array('controller' => 'comments', 'action' => 'delete', $comment['Comment']['id']), null, sprintf(__('Are you sure you want to delete this Comment?', true)));
 					}?>
+
         </div>
         <div class="bottomaction"> <?php
 				if ($this->Session->read('Auth.User.admin') OR $comment['Comment']['user_id']==$current_user)
@@ -123,6 +134,7 @@
 <?php
 }?>
     
+
 	<?php echo $this->Form->create('Match', array('action'=>'post_comment'));?>
 	<?php echo $this->Form->input('Comment.body', array('label'=>'Post Comment'));?>
 	BBCode is enabled<br>

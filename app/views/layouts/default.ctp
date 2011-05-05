@@ -152,6 +152,7 @@
 						{ 
 							echo $this->Html->link(__('New Tournament', true), array('controller' => 'tournaments','action' => 'add')); 
 						}?>
+
                      	</div>
                         <div class="menuebox">
                     	<?php
@@ -230,6 +231,7 @@
 					</div>
 				</div>
 				</div>
+
 			</div>
 				
 			</div><!-- end centercol -->
