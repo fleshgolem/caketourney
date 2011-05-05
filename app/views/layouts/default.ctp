@@ -181,7 +181,8 @@
 					<div class="containercontent">
 					<div class="containercontentbox">
 					<div class="maincontentbox">
-                    SOON<SUP><FONT SIZE="-2">TM</FONT></SUP>
+                    <!--SOON<SUP><FONT SIZE="-2">TM</FONT></SUP>-->
+					<?php echo($this->element('upcoming_matches'));?>
 					<?php /*foreach($matches as $match){?>
 						<?php 
 							if ($match['Player1']!=null)
