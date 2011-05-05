@@ -3,7 +3,14 @@ App::import('Controller', 'KOTournaments');
 class TournamentsController extends AppController {
 
 	var $name = 'Tournaments';
-	
+	function beforeFilter()
+    {
+		$this->Auth->allow('index');
+		$this->Auth->allow('view');
+		
+        parent::beforeFilter();
+		
+	}
 	function report_match($match_id, $player1_score, $player2_score)
 	{
 		

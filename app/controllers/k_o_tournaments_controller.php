@@ -4,6 +4,12 @@ App::import('Controller', 'Matches');
 class KOTournamentsController extends AppController {
 	var $helpers = array('Race','Bracket');
 	var $name = 'KOTournaments';
+	function beforeFilter()
+    {
+		$this->Auth->allow('view');
+        parent::beforeFilter();
+		
+	}
 	function report_match($match_id, $player1_score, $player2_score)
 	{
 		

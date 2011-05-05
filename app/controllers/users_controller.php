@@ -11,7 +11,7 @@ class UsersController extends AppController {
         $this->Auth->allow('register');
         parent::beforeFilter();
 		
-		}
+	}
  
     /**
      * Registration page for new users
