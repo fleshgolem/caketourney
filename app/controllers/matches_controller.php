@@ -168,7 +168,7 @@ class MatchesController extends AppController {
 				$this->redirect(array('action'=>'view',$id));
 			}
 			if ($this->Match->save($this->data)) {
-				debug($this->data);
+				//debug($this->data);
 				$this->Session->setFlash(__('The date has been saved', true));
 				$this->redirect(array('action'=>'view',$id));
 			}
