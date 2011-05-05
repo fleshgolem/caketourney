@@ -5,6 +5,16 @@
 <h2><?php  echo ($tournament['SwissTournament']['name']);?></h2>
 
 <?php 
+			//Only show edit and delete if admin
+			if ($this->Session->read('Auth.User.admin')) 
+			{
+				echo $this->Html->link(__('Edit', true), array('controller'=>'tournaments', 'action' => 'edit', $tournament['SwissTournament']['id'])); 
+				echo $this->Html->link(__('Delete', true), array('controller'=>'tournaments', 'action' => 'delete', $tournament['SwissTournament']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $tournament['SwissTournament']['id'])); 
+				if ( $tournament['SwissTournament']['current_round']==-1)
+					echo $this->Html->link(__('Start', true), array('controller'=>'tournaments','action' => 'start', $tournament['SwissTournament']['id'])); 
+}?>
+
+<?php 
 if ($in_tournament){?>
 	<div class="buttons">
 		<?php echo $this->Html->link('My Tournament Settings', array('action'=>'settings',$tournament['SwissTournament']['id']));?>

@@ -1,6 +1,7 @@
 <div class="tournaments view">
 	<h2><?php  echo ($name);?></h2>
 	<h3>Sign Ups</h3>
+   
 	<p>
 	<ul>
 	<?php 
