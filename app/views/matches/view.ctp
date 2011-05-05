@@ -29,9 +29,17 @@
 	//if($match['Match']['open'])
 	{
 	?>
-	
+	<div>
+		<?php echo $this->Form->create('Match',array('action'=>'set_date'));?>
+		<h3>Set Date</h3>
+		<?php echo $this->Form->input('id');?>
+		<?php echo $this->Form->input('date');?>
+		<?php echo $this->Form->end(__('Submit', true));?>
+	</div>
 	<div class="scores">
+		
 		<?php echo $this->Form->create('Match');?>
+		<?php echo $this->Form->input('id');?>
 		<h3>Scores</h3>
 		<div class="score1">
 			<?php echo ($this->Race->small_img($match['Player1']['race']).' '. $match['Player1']['username'])?>

@@ -56,7 +56,7 @@ class MatchesController extends AppController {
 		$this->Match->recursive = 0;
 		$this->set('matches', $this->paginate());
 	}
-
+	
 	function view($id = null) {
 		// Get User's id for authentication
         $user_id = $this->Auth->user('id');
@@ -152,6 +152,43 @@ class MatchesController extends AppController {
 		$this->Session->setFlash(__('Match was not deleted', true));
 		$this->redirect(array('action' => 'index'));
 	}
+	function set_date($id) 
+	{
+		
+		if (!$id) {
+			$this->Session->setFlash(__('Invalid match', true));
+			$this->redirect(array('action' => 'index'));
+		}
+		
+		if (!empty($this->data)) {
+			
+			if ((!$this->Session->read('Auth.User.admin')) AND ($this->Match->field('player1_id') != !$this->Session->read('Auth.User.id')) AND ($this->Match->field('player2_id') != !$this->Session->read('Auth.User.id')))
+			{
+				$this->Session->setFlash(__('Access denied', true));
+				$this->redirect(array('action'=>'view',$id));
+			}
+			if ($this->Match->save($this->data)) {
+				debug($this->data);
+				$this->Session->setFlash(__('The date has been saved', true));
+				$this->redirect(array('action'=>'view',$id));
+			}
+		}
+	}
+	function upcoming_matches()
+	{
+		$today = getdate();
+		$matches = $this->Match->find('all',
+			array(
+				'conditions' => array('Match.date >' =>date('Y-m-d')), //array of conditions
+				'recursive' => 1, //int
+				'order' => array('Match.date ASC'), //string or array defining order
+				'limit' => 10 //int
+				));
+		$this->set('matches',$matches);
+	}
+
+		
+		
 	function post_comment($id)
 		{
 		if (!$id) {
