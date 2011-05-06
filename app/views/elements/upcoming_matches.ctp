@@ -2,22 +2,23 @@
 //Get the match data
 $matches = $this->requestAction('/matches/upcoming_matches');
 ?>
-<table>
+
 <?php
 	foreach ($matches as $match)
 	{?>
-		<tr>
-			<td>
+
+	<div class="CompleteSidematchbox">
 			<?php echo $match['Match']['date'];?>
-			</td>
+			<p style="clear: both;">  </p>
+			<div class="Sidematchbox">
+			<div class="Sidenamesbox">
+				<div class="Sidetopbox"> <?php echo $this->Html->link($match['Player1']['username'],array('action'=>'view',$match['Match']['id'])); ?> </div>
+				<div class="Sidebottombox"> <?php echo $this->Html->link($match['Player2']['username'],array('action'=>'view',$match['Match']['id'])); ?> </div>
+    		</div>
+			</div>
+    </div>
+
 			
-			<td>
-			<?php 
-			echo $this->Race->small_img($match['Player1']['race']);
-			echo ($this->Html->link($match['Player1']['username'].' vs '.$match['Player2']['username'],array('action'=>'view',$match['Match']['id'])));
-			echo $this->Race->small_img($match['Player2']['race']);
-			?>
-			</td>
-		</tr>
+
 	<?php }?>
-</table>
+
