@@ -47,6 +47,7 @@
 				</div>
 				</div>
 			</div>
+           
 			<div class="topmenuebox">
 				<div class="topmenuemaincontentMid">
 				<div class="containercontentbox">
@@ -129,6 +130,37 @@
 					</div>
 					</div>
 				</div>
+
+
+                <div class="containerbox">
+					<div class="containerheader">
+                    <?php 
+					if ($this->Session->check('Auth.User')){
+						echo "Stream: online"; 
+                    }
+					else{
+						echo "Stream: offline";
+					}
+					?>
+					</div>
+					<div class="containercontent">
+					<div class="containercontentbox">
+                    	<div class="menuebox">
+                    	<?php
+                    	if ($this->Session->check('Auth.User')){
+							echo $this->Html->link('Watch Stream',array('controller'=>'pages','action'=>'stream')); 
+						}
+						else {
+							?> <a href="http://www.own3d.tv/b4lrog" target="_blank">Watch VOD's</a> <?php ;
+						}
+						?>
+                        </div>
+					</div>
+					</div>
+				</div>
+
+
+
                 <!--
 
                 <div class="containerbox">
@@ -178,8 +210,9 @@
 					<div class="containercontentbox">
 					<div class="maincontentbox">
                     <!--SOON<SUP><FONT SIZE="-2">TM</FONT></SUP>-->
-                   
-					<?php echo($this->element('upcoming_matches'));?>
+                   	<?php
+                    	if ($this->Session->check('Auth.User')){
+					echo($this->element('upcoming_matches'));}?>
 					<?php /*foreach($matches as $match){?>
 						<?php 
 							if ($match['Player1']!=null)
@@ -220,7 +253,10 @@
 				<div class="containerMain">
 				<div class="maincontentbox">
 					<div class="scollbox">
-						<?php echo $this->Session->flash(); ?>
+                    	<div class="PostBox">
+							<?php echo $this->Session->flash(); ?>
+						</div>
+						
 						<?php echo $content_for_layout; ?>
 						
 					</div>

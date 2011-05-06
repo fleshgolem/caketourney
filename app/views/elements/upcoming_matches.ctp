@@ -12,8 +12,16 @@ $matches = $this->requestAction('/matches/upcoming_matches');
 			<p style="clear: both;">  </p>
 			<div class="Sidematchbox">
 			<div class="Sidenamesbox">
-				<div class="Sidetopbox"> <?php echo $this->Html->link($match['Player1']['username'],array('action'=>'view',$match['Match']['id'])); ?> </div>
-				<div class="Sidebottombox"> <?php echo $this->Html->link($match['Player2']['username'],array('action'=>'view',$match['Match']['id'])); ?> </div>
+				<div class="Sidetopbox"> 
+				 
+					<div class="SideContenBox"> <?php echo $this->Race->small_img($match['Player1']['race']); ?>  </div>
+					<div class="SideContenBox"> <?php echo $this->Html->link($match['Player1']['username'],array('controller' => 'matches','action'=>'view',$match['Match']['id']));?></div>
+				 
+                </div>
+				<div class="Sidebottombox"> 
+                	<div class="SideContenBox"> <?php echo $this->Race->small_img($match['Player2']['race']); ?>  </div>
+					<div class="SideContenBox"> <?php echo $this->Html->link($match['Player2']['username'],array('controller' => 'matches','action'=>'view',$match['Match']['id']));?></div>
+                </div>
     		</div>
 			</div>
     </div>
@@ -21,4 +29,3 @@ $matches = $this->requestAction('/matches/upcoming_matches');
 			
 
 	<?php }?>
-

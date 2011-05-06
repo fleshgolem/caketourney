@@ -5,6 +5,11 @@
 	<div class="ThreadTitleContent">
 		<h2><?php echo($thread['Thread']['title']);?></h2>
 	</div> 
+    <div class="bottompages">  
+        	<?php echo $this->Paginator->prev('<< ' . __('previous', true), array(), null, array('class'=>'disabled'));?>
+	  	 | 	<?php echo $this->Paginator->numbers();?> |
+			<?php echo $this->Paginator->next(__('next', true) . ' >>', array(), null, array('class' => 'disabled'));?>
+    </div>
 	<div class="bottomaction"> <?php
 		if ($this->Session->read('Auth.User.admin')){
 			echo $this->Html->link('Delete', array('action' => 'delete', $thread['Thread']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $thread['Thread']['id']));
