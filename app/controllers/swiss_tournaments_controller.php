@@ -37,18 +37,8 @@ class SwissTournamentsController extends AppController {
 		$this->set('tournament', $this->SwissTournament->read(null, $id));
 		$this->set('ranking', $this->SwissTournament->Ranking->find('all',array('conditions'=>array('Ranking.tournament_id'=>$id),'order'=>array('Ranking.match_points DESC','Ranking.elo DESC'))));
 	}
-	function settings($id=null){
-		$current_user = $this->Auth->user('id');
-		if (!empty($this->data)) {
-			if($this->SwissTournament->Ranking->save($this->data))
-			{
-				$this->Session->setFlash(__('Settings saved', true));
-			}
-		}
-		else {
-			$this->data=$this->SwissTournament->Ranking->find('first',array('conditions'=>array('Ranking.user_id'=>$current_user,'Ranking.tournament_id'=>$id)));
-		}
-	}
+	
+	
 	function start($id) {
 		if (!$this->Session->read('Auth.User.admin'))
 		{

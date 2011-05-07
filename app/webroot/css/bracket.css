@@ -264,7 +264,7 @@ div.paging span a {
 dl {
 	line-height: 2em;
 	margin: 0em 0em;
-	width: 50%;
+	width: 100%;
 }
 dl .altrow {
 	background: #92B1C8;
@@ -278,6 +278,7 @@ dd {
 	margin-left: 10em;
 	margin-top: -2em;
 	vertical-align: top;
+	
 }
 
 /** Forms **/
@@ -1401,11 +1402,25 @@ div.leftBox {
 	float:left;
 	
 	
+	padding: 5px 5px;	
+}
+
+div.leftBoxBig {
+	width: 30%;
+	float:left;
+	
+	
 	padding: 5px 5px;
 	
 }
 div.rightBox {
 	width: 75%;
+	float:left;
+	padding: 12px 5px;
+	border-left:1px solid #000000;
+}
+div.rightBoxSmall {
+	width: 65%;
 	float:left;
 	padding: 12px 5px;
 	border-left:1px solid #000000;

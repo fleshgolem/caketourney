@@ -105,8 +105,106 @@ class MatchesController extends AppController {
 		$replays=$this->Match->Replay->find('all',array('conditions'=>array('Replay.match_id'=>$id)));
 		$this->set('replays' , $replays);
 	}
+	
+	function submit($id = null) {
+		// Get User's id for authentication
+        $user_id = $this->Auth->user('id');
+		$this->set('current_user',$user_id);
+		if ($this->Match->field('player1_id') == $user_id OR $this->Match->field('player2_id') == $user_id  OR $this->Session->read('Auth.User.admin'))
+		{
+			$this->set('report',true);
+		}
+		else
+		{
+			$this->set('report',false);
+		}
+		
+		if (!$id) {
+			$this->Session->setFlash(__('Invalid match', true));
+			$this->redirect(array('action' => 'index'));
+		}
+		
+		if (!empty($this->data)) {
 
+			if ((!$this->Session->read('Auth.User.admin')) AND ($this->Match->field('player1_id') != !$this->Session->read('Auth.User.id')) AND ($this->Match->field('player2_id') != !$this->Session->read('Auth.User.id')))
+			{
+				$this->Session->setFlash(__('Access denied', true));
+				//$this->redirect(array('action'=>'index'));
+			}
 
+			$this->data['Match']['open']=0;
+			if ($this->Match->save($this->data)) {
+				$this->Session->setFlash(__('The match has been saved', true));
+				
+				$Tournaments = new TournamentsController;
+				$Tournaments->ConstructClasses();
+			
+				$Tournaments->report_match($this->Match->id, $this->data['Match']['player1_score'],$this->data['Match']['player2_score']);
+				}
+		}
+		
+		if (empty($this->data)) {
+			$this->data = $this->Match->read(null, $id);
+		}
+		$match=$this->Match->read(null, $id);
+		$this->set('match', $match );
+		$round=$this->Match->Round->findById($match['Match']['round_id']);
+		$this->set('round', $round);
+		$comments=$this->Match->Comment->find('all',array('conditions'=>array('Comment.match_id'=>$id),'order'=>array('Comment.date_posted DESC')));
+		$this->set('comments' , $comments);
+		$replays=$this->Match->Replay->find('all',array('conditions'=>array('Replay.match_id'=>$id)));
+		$this->set('replays' , $replays);
+	}
+
+	function submitdate($id = null) {
+		// Get User's id for authentication
+        $user_id = $this->Auth->user('id');
+		$this->set('current_user',$user_id);
+		if ($this->Match->field('player1_id') == $user_id OR $this->Match->field('player2_id') == $user_id  OR $this->Session->read('Auth.User.admin'))
+		{
+			$this->set('report',true);
+		}
+		else
+		{
+			$this->set('report',false);
+		}
+		
+		if (!$id) {
+			$this->Session->setFlash(__('Invalid match', true));
+			$this->redirect(array('action' => 'index'));
+		}
+		
+		if (!empty($this->data)) {
+
+			if ((!$this->Session->read('Auth.User.admin')) AND ($this->Match->field('player1_id') != !$this->Session->read('Auth.User.id')) AND ($this->Match->field('player2_id') != !$this->Session->read('Auth.User.id')))
+			{
+				$this->Session->setFlash(__('Access denied', true));
+				//$this->redirect(array('action'=>'index'));
+			}
+
+			$this->data['Match']['open']=0;
+			if ($this->Match->save($this->data)) {
+				$this->Session->setFlash(__('The match has been saved', true));
+				
+				$Tournaments = new TournamentsController;
+				$Tournaments->ConstructClasses();
+			
+				$Tournaments->report_match($this->Match->id, $this->data['Match']['player1_score'],$this->data['Match']['player2_score']);
+				}
+		}
+		
+		if (empty($this->data)) {
+			$this->data = $this->Match->read(null, $id);
+		}
+		$match=$this->Match->read(null, $id);
+		$this->set('match', $match );
+		$round=$this->Match->Round->findById($match['Match']['round_id']);
+		$this->set('round', $round);
+		$comments=$this->Match->Comment->find('all',array('conditions'=>array('Comment.match_id'=>$id),'order'=>array('Comment.date_posted DESC')));
+		$this->set('comments' , $comments);
+		$replays=$this->Match->Replay->find('all',array('conditions'=>array('Replay.match_id'=>$id)));
+		$this->set('replays' , $replays);
+	}
 
 	function edit($id = null) {
 		if (!$this->Session->read('Auth.User.admin'))
