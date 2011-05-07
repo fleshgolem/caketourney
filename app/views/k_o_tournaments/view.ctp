@@ -27,34 +27,35 @@
 
 
 
-<div class="PostBox"> 
-	<div class="PostContent">
-		<div class="PostContentBox">
-			<div class="PostMainContentbox">
-<?php $m = 0;?>
-<?php foreach ($tournament['Round'] as $round){?>
+			<div class="KOwrapper">
+            	<div class="scollbox">
+					<?php $m = 0;?>
+                    <?php foreach ($tournament['Round'] as $round){?>
+                    
+                    
+                        <div class="tournamentRound">
+                        <?php $max = 0;?>
+                        <?php 
+						foreach ($round['Match'] as $match){
+							$max += 1;
+						}
+                        $this->Bracket->spaceboxes($round['number']);
+						$index = 1;
+                        foreach ($round['Match'] as $match){
+							
+                            $this->Bracket->matchbox($match['Player1'],$match['Player2'],$match['player1_score'],$match['player2_score'],$match['id']);
+							if ($index != $max){
+                            $this->Bracket->dummyboxes($round['number']);
+							}
+							$index += 1;
+                        }?>
+                        </div>
+                    <?php 
+                        $m += 30;
+                    }?>
+                </div>
+            </div>
 
-
-	<div class="tournamentRound">
-	<?php 
-	$this->Bracket->spaceboxes($round['number']);
-	foreach ($round['Match'] as $match){
-		$this->Bracket->matchbox($match['Player1'],$match['Player2'],$match['player1_score'],$match['player2_score'],$match['id']);
-		$this->Bracket->dummyboxes($round['number']);
-	}?>
-	</div>
-<?php 
-	$m += 30;
-}?>
-			</div>
-		</div>
-		<p style="clear: both;"> </p>
-	</div>
-	<div class="PostFooter">
-		<div class="bottomaction">  </div>
-		<p style="clear: both;">  </p>
-	</div>
-</div>
 
 
 

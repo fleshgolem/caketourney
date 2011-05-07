@@ -24,6 +24,19 @@ class SwissTournamentsController extends AppController {
 		$this->set('tournament', $this->SwissTournament->read(null, $id));
 		$this->set('ranking', $this->SwissTournament->Ranking->find('all',array('conditions'=>array('Ranking.tournament_id'=>$id),'order'=>array('Ranking.match_points DESC','Ranking.elo DESC'))));
 	}
+	function score($id = null) {
+		$current_user = $this->Auth->user('id');
+		if (!$id) {
+			$this->Session->setFlash(__('Invalid swiss tournament', true));
+			$this->redirect(array('action' => 'index'));
+		}
+		//Check if user is participating
+		$this->SwissTournament->bindModel(array('hasOne' => array('UsersTournament')));
+		$in_tournament = $this->SwissTournament->find('first',array('conditions'=>array('SwissTournament.id'=>$id,'UsersTournament.user_id'=>$current_user)));
+		$this->set('in_tournament', $in_tournament);
+		$this->set('tournament', $this->SwissTournament->read(null, $id));
+		$this->set('ranking', $this->SwissTournament->Ranking->find('all',array('conditions'=>array('Ranking.tournament_id'=>$id),'order'=>array('Ranking.match_points DESC','Ranking.elo DESC'))));
+	}
 	function settings($id=null){
 		$current_user = $this->Auth->user('id');
 		if (!empty($this->data)) {

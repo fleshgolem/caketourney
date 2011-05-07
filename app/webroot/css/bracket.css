@@ -171,16 +171,14 @@ div.actions h3 {
 	color:#777;
 }
 
-div.scores {
-	margin-top: 10pt;
-	text-align:center;
-	width: 50%;
+div.000000 {
+	
 	}
 div.score1 {
 	float: left;
 	}
 div.score2 {
-	float: right;
+	float: left;
 	}
 
 /** Tables **/
@@ -292,7 +290,7 @@ form {
 fieldset {
 	border: 0px solid #ccc;
 	margin-bottom: 1em;
-	padding: 16px 20px;
+	padding: 5px 5px;
 }
 fieldset legend {
 	background:#9ac2e1;
@@ -320,7 +318,7 @@ form div {
 	vertical-align: text-top;
 }
 
-div.scores input{
+div.000000 input{
 	width: 20%;
 	}
 form .input {
@@ -860,6 +858,18 @@ div.scorebottom {
 	height: 2em;
 }
 
+div.topboxBIG,
+div.bottomboxBIG {
+	width: 150px;
+	height: 2.3em;
+}
+
+div.scoretopBIG,
+div.scorebottomBIG {
+	width: 40px;
+	height: 2.3em;
+}
+
 
 div.topbox h3,
 div.bottombox h3,
@@ -888,7 +898,11 @@ div.scorebottom li {
 div.topbox  a,
 div.bottombox a,
 div.scoretop  a,
-div.scorebottom a {
+div.scorebottom a,
+div.topboxBIG  a,
+div.bottomboxBIG a,
+div.scoretopBIG  a,
+div.scorebottomBIG a {
 	font-weight: normal;
 	display: block;
 	clear: both;
@@ -896,14 +910,22 @@ div.scorebottom a {
 div.topbox a:hover
 div.bottombox a:hover,
 div.scoretop a:hover
-div.scorebottom a:hover {
+div.scorebottom a:hover,
+div.topboxBIG a:hover
+div.bottomboxBIG a:hover,
+div.scoretopBIG a:hover
+div.scorebottomBIG a:hover {
 	text-decoration: underline;
 }
 
 div.topbox a,
 td.topbox a,
 div.bottombox a,
-td.bottombox a {
+td.bottombox a,
+div.topboxBIG a,
+td.topboxBIG a,
+div.bottomboxBIG a,
+td.bottomboxBIG a {
 	font-weight:normal;
 	padding: 4px 8px;
 	background:#888;
@@ -915,10 +937,20 @@ td.bottombox a {
 	text-shadow: #555 0px 1px 0px;
 	min-width: 0;
 }
+
+div.topboxBIG a,
+div.bottomboxBIG a {
+	padding: 5.5px 8px;
+}
+
 div.topbox a:hover,
 td.topbox a:hover,
 div.bottombox a:hover,
-td.bottombox a:hover{
+td.bottombox a:hover,
+div.topboxBIG a:hover,
+td.topboxBIG a:hover,
+div.bottomboxBIG a:hover,
+td.bottomboxBIG a:hover{
 	background: #9d9d9d;
 /*	background: -webkit-gradient(linear, left top, left bottom, from(#BC7E62), to(#CEA18D));
 	background: -moz-linear-gradient(top,#BC7E62, #CEA18D);*/
@@ -927,7 +959,11 @@ td.bottombox a:hover{
 div.scoretop a,
 td.scoretop a,
 div.scorebottom a,
-td.scorebottom a {
+td.scorebottom a,
+div.scoretopBIG a,
+td.scoretopBIG a,
+div.scorebottomBIG a,
+td.scorebottomBIG a {
 	font-weight:normal;
 	text-align:right;
 	padding: 4px 8px;
@@ -944,14 +980,20 @@ td.scorebottom a {
 div.scoretop a:hover,
 td.scoretop a:hover,
 div.scorebottom a:hover,
-td.scorebottom a:hover {
+td.scorebottom a:hover,
+div.scoretopBIG a:hover,
+td.scoretopBIG a:hover,
+div.scorebottomBIG a:hover,
+td.scorebottomBIG a:hover {
 	background: #CEA18D;
 /*	background: -webkit-gradient(linear, left top, left bottom, from(#BC7E62), to(#CEA18D));
 	background: -moz-linear-gradient(top,#BC7E62, #CEA18D);*/
 }
 
 div.topbox  a,
-td.topbox a {
+td.topbox a,
+div.topboxBIG  a,
+td.topboxBIG a {
 	-moz-border-radius-topleft:8px;
 	-khtml-border-top-left-radius:8px;
 	-webkit-border-radius-topleft:8px;
@@ -959,7 +1001,9 @@ td.topbox a {
 }
 
 div.bottombox  a,
-td.bottombox a {
+td.bottombox a,
+div.bottomboxBIG  a,
+td.bottomboxBIG a {
 	-moz-border-radius-bottomleft:8px;
 	-khtml-border-bottom-left-radius:8px;
 	-webkit-border-radius-bottomleft:8px;
@@ -967,7 +1011,9 @@ td.bottombox a {
 }
 
 div.scoretop  a,
-td.scoretop a {
+td.scoretop a,
+div.scoretopBIG  a,
+td.scoretopBIG a {
 	-moz-border-radius-topright:8px;
 	-khtml-border-top-right-radius:8px;
 	-webkit-border-radius-topright:8px;
@@ -975,7 +1021,9 @@ td.scoretop a {
 }
 
 div.scorebottom  a,
-td.scorebottom a {
+td.scorebottom a,
+div.scorebottomBIG  a,
+td.scorebottomBIG a {
 	-moz-border-radius-bottomright:8px;
 	-khtml-border-bottom-right-radius:8px;
 	-webkit-border-radius-bottomright:8px;
@@ -1310,7 +1358,7 @@ div.PostFooter {
 
 div.PostContent {
 	width: 100%;
-	color:#EEF3F6;
+	color:#000000;
 	border:1px solid #333;
 	text-decoration:none;
 	
@@ -1377,6 +1425,10 @@ div.bottomaction {
 	float:right;
 	vertical-align: middle;
 }
+div.bottomactionleft {
+	float:left;
+	vertical-align: middle;
+}
 div.bottompages {
 	float:left;
 	vertical-align: middle;
@@ -1388,7 +1440,8 @@ div.bottompages span.current {
 }
 
 
-div.bottomaction a{
+div.bottomaction a,
+div.bottomactionleft a{
 	font-weight: normal;
 	display: block;
 	padding: 0 8px;
@@ -1556,7 +1609,23 @@ div.CompleteSidematchbox{
 div.Centerbox{
 	padding:  10px 90px;
 	margin:auto;
-
-	
 }
 
+div.Subgroupbox{
+	padding:  10px 90px;
+	float:left;
+	margin:auto;
+}
+
+div.Matchboxwrapper{
+	float:left;
+	margin:auto;
+}
+
+div.KOwrapper{
+	padding:  20px 0px;
+}
+
+div.blackfont{
+	color:#000000;
+}

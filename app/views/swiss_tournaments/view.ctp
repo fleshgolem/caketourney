@@ -28,60 +28,75 @@
 		}
 		?>
      </div>
+     <div class="bottomactionleft">
+     	<?php 
+		echo $this->Html->link('Score', array('action'=>'score',$tournament['SwissTournament']['id']));
+		?>
+     </div>
 	<p style="clear: both;">  </p>  
 </div>
 </div>
 
 
-$this->Bracket->matchbox($match['Player1'],$match['Player2'],$match['player1_score'],$match['player2_score'],$match['id']);
 <?php foreach ($tournament['Round'] as $round){?>
 <div class="PostBox"> 
 	<div class="PostContent">
 		<div class="PostContentBox">
 			<div class="PostMainContentbox">
-<table >
-
-	<tr>
-	<?php foreach ($round['Match'] as $match){?>
-	
-		<td>
-			<?php 
-			if ($match['Player1']!=null)
-			{
-				echo $this->Race->small_img($match['Player1']['race']);
-				echo ('<strong>'.$match['player1_score'].'</strong> ');
-			}?>
-			<?php 
-			//Link to match
-			$matchtitle = '';
-			if ($match['Player1']!=null)
-				$matchtitle .=($match['Player1']['username']);
-			$matchtitle .= ' vs ' ;
-			if ($match['Player2']!=null)
-				$matchtitle .=($match['Player2']['username']);
-			echo $this->Html->link(($matchtitle), array('controller' => 'matches', 'action' => 'view',$match['id'])); 	
-				?>
-			<?php 
-			if ($match['Player2']!=null)
-			{
-				echo (' <strong>'.$match['player2_score'].'</strong>');
-				echo $this->Race->small_img($match['Player2']['race']);
-			}?>
-		</td>
-		
-	<?php
-	} ?>
-	
-	</tr>
-	
-</table>
+            	<div class="Subgroupbox">
+                
+            	<?php foreach ($round['Match'] as $match){?>
+               <div class="Matchboxwrapper">
+                
+                <div class="matchbox">
+                    <div class="namesbox">
+                        <div class="topbox">
+                        <?php
+                        if ($match['Player1']!=null)
+							echo $this->Html->link(($match['Player1']['username']), array('controller' => 'matches', 'action' => 'view',$match['id']));
+						else
+							echo $this->Html->link("-", array('controller' => 'matches', 'action' => 'view',$match['id']));
+						?>
+                        </div>
+                        <div class="bottombox">
+                        <?php
+                        if ($match['Player2']!=null)
+							echo $this->Html->link(($match['Player2']['username']), array('controller' => 'matches', 'action' => 'view',$match['id']));
+						else
+							echo $this->Html->link("-", array('controller' => 'matches', 'action' => 'view',$match['id']));
+						?>
+                        </div>
+                    </div>
+                    <div class="scorebox">
+                        <div class="scoretop"> 
+                        	<?php
+                         	if ($match['player1_score']!=null)
+								echo $this->Html->link(($match['player1_score']), array('controller' => 'matches', 'action' => 'view',$match['id']));
+							else
+								echo $this->Html->link("-", array('controller' => 'matches', 'action' => 'view',$match['id']));
+							?>
+                        </div>
+                        <div class="scorebottom"> 
+                        <?php
+                         	if ($match['player2_score']!=null)
+								echo $this->Html->link(($match['player2_score']), array('controller' => 'matches', 'action' => 'view',$match['id']));
+							else
+								echo $this->Html->link("-", array('controller' => 'matches', 'action' => 'view',$match['id']));
+							?>
+                        </div>
+                    </div>   
+                </div>
+                </div>
+                <?php
+				} ?>
 			</div>
+            </div>
 		</div>
 		<p style="clear: both;"> </p>
 	</div>
 	<div class="PostFooter">
 		<div class="bottomaction">
-        <?php if($this->Session->read('Auth.User.admin'))
+        <?php if($tournament['SwissTournament']['current_round']==$round['number'] AND $this->Session->read('Auth.User.admin'))
 		{
            echo $this->Html->link(__('Finish Round',true), array('controller' => 'swiss_tournaments', 'action' => 'finish_round',$tournament['SwissTournament']['id']));
 		}?> </div>
@@ -91,97 +106,7 @@ $this->Bracket->matchbox($match['Player1'],$match['Player2'],$match['player1_sco
 <?php
 } ?>
 
-<div class="PostBox"> 
-	<div class="PostContent">
-		<div class="PostContentBox">
-			<div class="PostMainContentbox">
-<table >
-<?php foreach ($tournament['Round'] as $round){?>
-	<tr>
-	<?php foreach ($round['Match'] as $match){?>
-	
-		<td>
-			<?php 
-			if ($match['Player1']!=null)
-			{
-				echo $this->Race->small_img($match['Player1']['race']);
-				echo ('<strong>'.$match['player1_score'].'</strong> ');
-			}?>
-			<?php 
-			//Link to match
-			$matchtitle = '';
-			if ($match['Player1']!=null)
-				$matchtitle .=($match['Player1']['username']);
-			$matchtitle .= ' vs ' ;
-			if ($match['Player2']!=null)
-				$matchtitle .=($match['Player2']['username']);
-			echo $this->Html->link(($matchtitle), array('controller' => 'matches', 'action' => 'view',$match['id'])); 	
-				?>
-			<?php 
-			if ($match['Player2']!=null)
-			{
-				echo (' <strong>'.$match['player2_score'].'</strong>');
-				echo $this->Race->small_img($match['Player2']['race']);
-			}?>
-		</td>
-		
-	<?php
-	} ?>
-	
-	</tr>
-<?php
-} ?>	
-</table>
-			</div>
-		</div>
-		<p style="clear: both;"> </p>
-	</div>
-	<div class="PostFooter">
-		<div class="bottomaction">
-        <?php if($this->Session->read('Auth.User.admin'))
-		{
-           echo $this->Html->link(__('Finish Round',true), array('controller' => 'swiss_tournaments', 'action' => 'finish_round',$tournament['SwissTournament']['id']));
-		}?> </div>
-		<p style="clear: both;">  </p>
-	</div>
-</div>
 
-
-
-<div class="PostBox"> 
-	<div class="PostContent">
-		<div class="PostContentBox">
-			<div class="PostMainContentbox">
-<table cellpadding="0" cellspacing="0">
-	<tr>
-    		<th>Place</th>
-			<th>Username</th>
-            <th>Wins</th>
-            <th>Draws</th>
-            <th>Defeats</th>
-            <th>Tournament Elo</th>
-			
-	</tr>
-<?php foreach ($ranking as $i=>$rank){?>
-	<tr>
-		<td><?php echo($i+1);?></td>
-		<td><?php echo($rank['User']['username']);?></td>
-		<td><?php echo($rank['Ranking']['wins']);?></td>
-		<td><?php echo($rank['Ranking']['draws']);?></td>
-		<td><?php echo($rank['Ranking']['defeats']);?></td>
-		<td><?php echo($rank['Ranking']['elo']);?></td>
-	</tr>
-	<?php }?>
-</table>
-			</div>
-		</div>
-		<p style="clear: both;"> </p>
-	</div>
-	<div class="PostFooter">
-		<div class="bottomaction">  </div>
-		<p style="clear: both;">  </p>
-	</div>
-</div>
 
 
 </div>
