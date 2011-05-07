@@ -16,7 +16,7 @@ class NewsController extends AppController {
 		
 	}
 	function index() {
-		$this->News->recursive = 0;
+		$this->News->recursive = 1;
 		$this->set('news', $this->paginate());
 	}
 
@@ -32,6 +32,8 @@ class NewsController extends AppController {
 		if (!empty($this->data)) {
 			$this->News->create();
 			$date = date_create('now');
+			$current_user = $current_user = $this->Auth->user('id');
+			$this->data['News']['user_id']=$current_user;
 			$this->data['News']['date_posted']= $date->format('Y-m-d H:i:s');
 			if ($this->News->save($this->data)) {
 				$this->Session->setFlash(__('The news has been saved', true));
