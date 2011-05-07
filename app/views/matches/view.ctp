@@ -17,7 +17,7 @@
 		<div class="leftBoxBig">
 			<div class="PostContentBox">
 				<div class="PostMainContentbox">
-
+					<div class="spacebox2em"> </div>
 					<div class="matchbox">
                         <div class="namesbox">
                             <div class="topbox"> <a href=""><?php echo ($match['Player1']['username'])?></a> </div>
