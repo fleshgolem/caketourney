@@ -7,7 +7,7 @@
 			<?php echo ($newspost['News']['body']);?>
 		</div>
 		<div>
-			<small><?php echo ($newspost['News']['date_posted']);?></small>
+			<small><?php echo ($newspost['News']['date_posted']. ' '.$newspost['User']['username']);?></small>
 		</div>
 		<?php if ($this->Session->read('Auth.User.admin'))
 		{
