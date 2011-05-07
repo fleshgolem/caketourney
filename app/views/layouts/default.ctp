@@ -43,7 +43,7 @@
 			<div class="topmenuebox">
 				<div class="topmenuemaincontentLeft">
 				<div class="containercontentbox">
-					<?php echo $this->Html->link('Home',array('controller'=>'pages','action'=>'home'))?>
+                	<?php echo $this->Html->link(__('News', true), array('controller' => 'news', 'action' => 'index')); ?>
 				</div>
 				</div>
 			</div>
