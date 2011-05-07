@@ -14,9 +14,16 @@
 	<div class="PostContent">
 		<div class="leftBoxBig">
 			<div class="PostContentBox">
-				<div class="PostMainContentbox">
-
-					asd 
+				<div class="PostMainContentbox" margin-left: auto;  margin-right: auto>
+					 <?php if ($user['User']['division']=='Code A') 
+               		{
+                    	echo $this->Html->image('CodeA-b2.png');
+                	}
+					else
+					{
+						echo $this->Html->image('CodeS-b2.png');
+					}
+					  ?>
 				</div>
 			</div>
 		</div>
