@@ -9,6 +9,12 @@ class NewsController extends AppController {
 			//'Post.date_posted' => 'asc'
 		)
 	);
+	function beforeFilter()
+    {
+		$this->Auth->allow('index');
+        parent::beforeFilter();
+		
+	}
 	function index() {
 		$this->News->recursive = 0;
 		$this->set('news', $this->paginate());
