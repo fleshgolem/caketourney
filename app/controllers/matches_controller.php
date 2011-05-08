@@ -4,7 +4,12 @@ class MatchesController extends AppController {
 
 	var $name = 'Matches';
 	var $helpers = array('Race','Text','Bbcode');
-	
+	function beforeFilter()
+    {
+		$this->Auth->allow('view');
+        parent::beforeFilter();
+		
+	}
 	function generate ($round_id, $number_in_round, $games_per_match)
 	{
 		$this->Match->create();
@@ -259,10 +264,11 @@ class MatchesController extends AppController {
 		}
 		
 		if (!empty($this->data)) {
-			
-			if ((!$this->Session->read('Auth.User.admin')) AND ($this->Match->field('player1_id') != !$this->Session->read('Auth.User.id')) AND ($this->Match->field('player2_id') != !$this->Session->read('Auth.User.id')))
+			$this->Match->id=$id;
+			if ((!$this->Session->read('Auth.User.admin')) AND ($this->Match->field('player1_id') != $this->Session->read('Auth.User.id')) AND ($this->Match->field('player2_id') != $this->Session->read('Auth.User.id')))
 			{
 				$this->Session->setFlash(__('Access denied', true));
+				unset($this->data);
 				$this->redirect(array('action'=>'view',$id));
 			}
 			if ($this->Match->save($this->data)) {

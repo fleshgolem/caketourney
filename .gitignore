@@ -19,4 +19,5 @@ app/webroot/files
 /app/tmp/cache/persistent/cake_core_default_de-de
 /app/tmp/logs/debug.log
 /app/tmp/logs/error.log
+/app/tmp/cache/models/cake_model_default_news
 /app/tmp/cache/persistent/cake_core_default_

@@ -6,6 +6,12 @@ class SwissTournamentsController extends AppController {
 
 	var $name = 'SwissTournaments';
 	var $helpers = array('Race');
+	function beforeFilter()
+    {
+		$this->Auth->allow('view');
+        parent::beforeFilter();
+		
+	}
 	function index() {
 		$this->SwissTournament->recursive = 0;
 		$this->set('swissTournaments', $this->paginate());
