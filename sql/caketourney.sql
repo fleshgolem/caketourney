@@ -64,6 +64,7 @@ CREATE TABLE IF NOT EXISTS `news` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(200) NOT NULL,
   `date_posted` datetime NOT NULL,
+  'user_id' int(11) NOT NULL,
   `body` text NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
