@@ -42,7 +42,9 @@
 				<div class="PostContentBox">
 					<div class="PostMainContentbox">
 					
-					<?php echo ($newspost['News']['body']);?>
+					<?php
+						$body = $this->Bbcode->doshortcode(strip_tags($newspost['News']['body']));
+						echo ( $this->Text->autoLink($body));?>
 					</div>
 				</div>
 			</div>
