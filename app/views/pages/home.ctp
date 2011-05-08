@@ -1,5 +1,12 @@
 <div class="home">
-<h2>Open Physicist Starcraft II League</h2>
+<div class="PostBox">
+<div class="ThreadTitleBox">
+	<div class="ThreadTitleContent">
+		<h2>Open Physicist Starcraft II League</h2>
+	</div> 
+	
+	<p style="clear: both;">  </p>  
+</div>
+</div>
 
-</p>
 </div>

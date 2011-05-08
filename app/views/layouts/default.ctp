@@ -28,7 +28,7 @@
 	<?php
 		echo $this->Html->meta('icon');
 
-		echo $this->Html->css('cake.generic');
+		/*echo $this->Html->css('cake.generic');*/
 		echo $this->Html->css('bracket');
 		echo $scripts_for_layout;
 	?>
@@ -36,52 +36,252 @@
 <body>
 	<div id="container">
 		<div id="header">
-			<div  align="left" width="50%">
-				<?php echo $this->Html->image('OPSL_logo_small.png');?>
+        	<h1></h1>
+            
+            <div class="topmenuemainbox">
+			<div class="topmenuewrapper">
+			<div class="topmenuebox">
+				<div class="topmenuemaincontentLeft">
+				<div class="containercontentbox">
+                	<?php echo $this->Html->link(__('News', true), array('controller' => 'news', 'action' => 'index')); ?>
+				</div>
+				</div>
 			</div>
-			<div  class="buttons" align="right"width="50%">
-				<?php  
-
-				if ($this->Session->check('Auth.User'))
-				{
-					echo $this->Session->read('Auth.User.username'); 
-					echo (' ');
-					echo $this->Html->link(__('Logout', true), array('controller' => 'users', 'action' => 'logout')); 
-					echo (' ');
-					echo $this->Html->link(__('Account Settings', true), array('controller' => 'users', 'action' => 'account')); 
-					echo (' ');
-					echo $this->Html->link(__('My Open Matches', true), array('controller' => 'users', 'action' => 'open_matches'));
-				}
-				else
-				{
-					echo "Not logged in";
-				}
-				?>
+           
+			<div class="topmenuebox">
+				<div class="topmenuemaincontentMid">
+				<div class="containercontentbox">
+					<?php echo $this->Html->link(__('Tournaments', true), array('controller' => 'tournaments', 'action' => 'index')); ?>
+				</div>
+				</div>
 			</div>
+			<div class="topmenuebox">
+				<div class="topmenuemaincontentMid">
+				<div class="containercontentbox">
+                	<?php echo $this->Html->link(__('Forum', true), array('controller' => 'threads', 'action' => 'index')); ?>
+					
+				</div>
+				</div>
+			</div>
+			<div class="topmenuebox">
+				<div class="topmenuemaincontentRight">
+				<div class="containercontentbox">
+					<?php
+						if ($this->Session->check('Auth.User')){	
+							 echo $this->Html->link(__('List Users', true), array('controller' => 'users', 'action' => 'index')); 
+						}else{
+							echo $this->Html->link(__('List Users', true), array('controller' => 'users', 'action' => 'index')); 
+                     }?>
+				</div>
+				</div>
+			</div>
+			</div>
+			</div>
+    
+			
 					
 		</div>
-		<div id="content">
-			
-			<?php echo $this->Session->flash(); ?>
+        <div id="wrapper1"><!-- sets background to white and creates full length leftcol-->
+	
+	
+	
+	<div id="wrapper2"><!-- sets background to white and creates full length rightcol-->
+	
+		<div id="maincol"><!-- begin main content area -->
+				
+			<div id="leftcol"><!-- begin leftcol -->
+				<div class="containerbox">
+					<div class="containerheader">
+                    <?php 
+					if ($this->Session->check('Auth.User')){
+						echo $this->Session->read('Auth.User.username'); 
+                    }
+					else{
+						echo "Not logged in";
+					}
+					?>
+					</div>
+					<div class="containercontent">
+					<div class="containercontentbox">
+                    	<div class="menuebox">
+                    	<?php
+                    	if ($this->Session->check('Auth.User')){
+							echo $this->Html->link(__('Logout', true), array('controller' => 'users', 'action' => 'logout')); 
+						}
+						else
+						{
+							echo $this->Html->link(__('Login', true), array('controller' => 'users', 'action' => 'login')); 
+						}
+						?>
+                     	</div>
+                        <div class="menuebox">
+                    	<?php
+                    	if ($this->Session->check('Auth.User')){
+							echo $this->Html->link(__('Account Settings', true), array('controller' => 'users', 'action' => 'account')); 
+						}
+						?>
+                     	</div>
+                        <div class="menuebox">
+                    	<?php
+                    	if ($this->Session->check('Auth.User')){
+							echo $this->Html->link(__('My Open Matches', true), array('controller' => 'users', 'action' => 'open_matches'));
+						}
+						?>
+                     	</div>
+                        <!--<div class="menuebox">
+                    	<?php echo $this->Html->link(__('Upcoming Matches', true), array('controller' => 'matches', 'action' => 'upcoming_matches')); ?>
+                     	</div>-->
+					</div>
+					</div>
+				</div>
 
-			<?php echo $content_for_layout; ?>
-			<div class="actions">
-				<h3><?php __('Actions'); ?></h3>
-				<ul>
-					<li>
-						<?php if ($this->Session->read('Auth.User.admin'))
+
+                <div class="containerbox">
+					<div class="containerheader">
+                    <!--<?php 
+					if ($this->Session->check('Auth.User')){
+						echo "Stream: online"; 
+                    }
+					else{
+						echo "Stream: offline";
+					}
+					?>-->
+					Stream
+					</div>
+					<div class="containercontent">
+					<div class="containercontentbox">
+                    	<div class="menuebox">
+                    	<?php
+                    	if ($this->Session->check('Auth.User')){
+							echo $this->Html->link('Watch Stream',array('controller'=>'pages','action'=>'stream')); 
+						}
+						else {
+							?> <a href="http://www.own3d.tv/b4lrog" target="_blank">Watch VOD's</a> <?php ;
+						}
+						?>
+                        </div>
+					</div>
+					</div>
+				</div>
+
+
+
+                <!--
+
+                <div class="containerbox">
+					<div class="containerheader">
+                    <?php
+                    	if ($this->Session->check('Auth.User')){
+                   	 		echo"Actions";
+						}
+						else{
+							echo"Not logged in";
+					}?>
+					</div>
+					<div class="containercontent">
+					<div class="containercontentbox">
+                    	<div class="menuebox">
+                    	<?php if ($this->Session->read('Auth.User.admin'))
 						{ 
 							echo $this->Html->link(__('New Tournament', true), array('controller' => 'tournaments','action' => 'add')); 
 						}?>
-					</li>
-					<li><?php echo $this->Html->link(__('List Tournaments', true), array('controller' => 'tournaments', 'action' => 'index')); ?> </li>
-					<li><?php echo $this->Html->link(__('Upcoming Matches', true), array('controller' => 'matches', 'action' => 'upcoming_matches')); ?> </li>
-					<li><?php echo $this->Html->link(__('List Users', true), array('controller' => 'users', 'action' => 'index')); ?> </li>
-					<li><?php echo $this->Html->link(__('View Forum', true), array('controller' => 'threads', 'action' => 'index')); ?> </li>
-				</ul>
-			</div>
 
-		</div>
+                     	</div>
+                        <div class="menuebox">
+                    	<?php
+						if ($this->Session->check('Auth.User')){	
+							 echo $this->Html->link(__('List Users', true), array('controller' => 'users', 'action' => 'index')); 
+                     	}?>
+                        </div>
+                        <div class="menuebox">
+                    	<?php
+                    	if ($this->Session->check('Auth.User')){
+							echo $this->Html->link(__('My Open Matches', true), array('controller' => 'users', 'action' => 'open_matches'));
+						}?>
+						
+                     	</div>
+					</div>
+					</div>
+				</div>
+                -->
+			</div><!-- end leftcol -->
+				
+			<div id="rightcol"><!-- begin rightcol -->
+				<div class="containerbox">
+					<div class="containerheader">
+					Upcoming Matches
+					</div>
+					<div class="containercontent">
+					<div class="containercontentbox">
+					<div class="maincontentbox">
+                    <!--SOON<SUP><FONT SIZE="-2">TM</FONT></SUP>-->
+                   	<?php
+                    	if ($this->Session->check('Auth.User')){
+					echo($this->element('upcoming_matches'));}?>
+					<?php /*foreach($matches as $match){?>
+						<?php 
+							if ($match['Player1']!=null)
+								echo $this->Race->small_img($match['Player1']['race']);
+								//Link to match
+								$matchtitle = '';
+							if ($match['Player1']!=null)
+								$matchtitle .=($match['Player1']['username']);
+								$matchtitle .= ' vs ' ;
+							if ($match['Player2']!=null)
+								$matchtitle .=($match['Player2']['username']);
+								echo $this->Html->link(($matchtitle), array('controller' => 'matches', 'action' => 'view',$match['Match']['id'])); 	
+							if ($match['Player2']!=null)
+								echo $this->Race->small_img($match['Player2']['race']);
+						?>
+                   <?php }*/?>
+
+					</div>
+					</div>
+					</div>
+				</div>
+				<div class="containerbox">
+					<div class="containerheader">
+					Statistic Center
+					</div>
+					<div class="containercontent">
+					<div class="containercontentbox">
+					<div class="maincontentbox">
+					SOON<SUP><FONT SIZE="-2">TM</FONT></SUP>
+					</div>
+					</div>
+					</div>
+				</div>
+			</div><!-- end righttcol -->
+			
+		<div id="centercol"><!-- begin centercol -->
+			<div class="containerbox">
+				<div class="containerMain">
+				<div class="maincontentbox">
+					<div class="scollbox">
+                    	<div class="PostBox">
+							<?php echo $this->Session->flash(); ?>
+						</div>
+						
+						<?php echo $content_for_layout; ?>
+						
+					</div>
+				</div>
+				</div>
+
+			</div>
+				
+			</div><!-- end centercol -->
+				
+		</div><!-- end main content area -->
+				
+		
+	
+	</div><!-- end wrapper1 -->
+
+	
+
+</div><!-- end wrapper2 -->
+		
 		<div id="footer">
 		
 		<div align="left">

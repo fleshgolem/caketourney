@@ -31,8 +31,9 @@
  * @subpackage    cake.app
  */
 class AppController extends Controller {
+	var $helpers = array('Race','Text','Bbcode','Html','Form','Session');
 	var $components = array('Auth','Session','Cookie');
-	
+	//var $helpers = array('Race');
 
 /**
      * Before Render

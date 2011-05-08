@@ -3,7 +3,11 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
+<<<<<<< HEAD
 -- Erstellungszeit: 05. Mai 2011 um 16:14
+=======
+-- Erstellungszeit: 07. Mai 2011 um 15:10
+>>>>>>> carstens
 -- Server Version: 5.5.8
 -- PHP-Version: 5.3.5
 
@@ -29,10 +33,10 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `match_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `body` text NOT NULL,
   `date_posted` datetime NOT NULL,
+  `body` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
 
 -- --------------------------------------------------------
 
@@ -52,7 +56,24 @@ CREATE TABLE IF NOT EXISTS `matches` (
   `number_in_round` int(11) NOT NULL,
   `date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=229 ;
+
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `news`
+--
+
+CREATE TABLE IF NOT EXISTS `news` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(200) NOT NULL,
+  `date_posted` datetime NOT NULL,
+  'user_id' int(11) NOT NULL,
+  `body` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
 
 -- --------------------------------------------------------
 
@@ -67,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `posts` (
   `date_posted` datetime NOT NULL,
   `body` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -83,11 +104,10 @@ CREATE TABLE IF NOT EXISTS `rankings` (
   `elo` int(11) DEFAULT NULL,
   `bye` tinyint(1) NOT NULL,
   `wins` int(11) NOT NULL,
-  `draws` int(11) NOT NULL,
+  `draw` int(11) NOT NULL,
   `defeats` int(11) NOT NULL,
-  `away` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=195 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -102,7 +122,7 @@ CREATE TABLE IF NOT EXISTS `replays` (
   `size` int(11) NOT NULL,
   `match_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -115,7 +135,7 @@ CREATE TABLE IF NOT EXISTS `rounds` (
   `number` int(11) NOT NULL,
   `tournament_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=105 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 -- --------------------------------------------------------
 
@@ -128,7 +148,8 @@ CREATE TABLE IF NOT EXISTS `signups` (
   `tournament_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
 
 -- --------------------------------------------------------
 
@@ -143,7 +164,7 @@ CREATE TABLE IF NOT EXISTS `threads` (
   `original_poster_id` int(11) NOT NULL,
   `last_poster_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -157,9 +178,8 @@ CREATE TABLE IF NOT EXISTS `tournaments` (
   `typeField` varchar(20) NOT NULL,
   `typeAlias` int(11) NOT NULL,
   `current_round` int(11) DEFAULT NULL,
-  `ranked` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=64 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 -- --------------------------------------------------------
 
@@ -180,11 +200,9 @@ CREATE TABLE IF NOT EXISTS `users` (
   `bnetcode` int(3) NOT NULL,
   `race` varchar(20) NOT NULL,
   `admin` tinyint(1) NOT NULL DEFAULT '0',
-  `elo` int(11) NOT NULL DEFAULT '1000',
-  `division` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
 
 -- --------------------------------------------------------
 
@@ -197,4 +215,4 @@ CREATE TABLE IF NOT EXISTS `users_tournaments` (
   `user_id` int(11) NOT NULL,
   `tournament_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=151 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;

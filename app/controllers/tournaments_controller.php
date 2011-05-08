@@ -100,6 +100,8 @@ class TournamentsController extends AppController {
 		$this->set('signups',$signups);
 		$current_user = $this->Session->read('Auth.User.id');
 		$signed_up = $this->Tournament->Signup->find('first',array('conditions'=>array('tournament_id'=>$id,'user_id'=>$current_user)));
+		$tournament = $this->Tournament->findById($id);
+		$this->set('tournament',$tournament);
 		$this->set('signed_up',$signed_up);
 	}
 	
