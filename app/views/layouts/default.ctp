@@ -103,31 +103,44 @@
 					</div>
 					<div class="containercontent">
 					<div class="containercontentbox">
-                    	<div class="menuebox">
                     	<?php
-                    	if ($this->Session->check('Auth.User')){
+                    	if ($this->Session->check('Auth.User')){?>
+                        <div class="menuebox">
+                    	<?php
 							echo $this->Html->link(__('Logout', true), array('controller' => 'users', 'action' => 'logout')); 
+						?>
+                     	</div>
+                        <?php
 						}
 						else
-						{
+						{?>
+							<div class="menuebox"><?php
 							echo $this->Html->link(__('Login', true), array('controller' => 'users', 'action' => 'login')); 
-						}
 						?>
                      	</div>
+                        <?php
+						}
+						
+                    	if ($this->Session->check('Auth.User')){?>
                         <div class="menuebox">
                     	<?php
-                    	if ($this->Session->check('Auth.User')){
-							echo $this->Html->link(__('Account Settings', true), array('controller' => 'users', 'action' => 'account')); 
+							echo $this->Html->link(__('Account Settings', true), array('controller' => 'users', 'action' => 'account')); ?>
+                        </div>
+                        <?php
 						}
-						?>
-                     	</div>
+						
+						
+                     	
+                    	if ($this->Session->check('Auth.User')){?>
                         <div class="menuebox">
                     	<?php
-                    	if ($this->Session->check('Auth.User')){
-							echo $this->Html->link(__('My Open Matches', true), array('controller' => 'users', 'action' => 'open_matches'));
+                  
+							echo $this->Html->link(__('My Open Matches', true), array('controller' => 'users', 'action' => 'open_matches'));?>
+						</div>
+						<?php
 						}
 						?>
-                     	</div>
+                     	
                         <div class="menuebox">
                     	<?php echo $this->Html->link(__('Upcoming Matches', true), array('controller' => 'matches', 'action' => 'upcoming_matches')); ?>
                      	</div>
@@ -153,6 +166,8 @@
                     	<div class="menuebox">
 							<?php echo $this->Html->link('Watch Stream',array('controller'=>'pages','action'=>'stream')); ?>
 							<a href="http://www.own3d.tv/b4lrog" target="_blank">Watch VOD's</a>
+                        </div>
+                        <div class="menuebox">
                     	<!--<?php
                     	if ($this->Session->check('Auth.User')){
 							echo $this->Html->link('Watch Stream',array('controller'=>'pages','action'=>'stream')); 
