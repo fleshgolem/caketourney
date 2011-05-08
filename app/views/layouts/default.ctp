@@ -108,6 +108,10 @@
                     	if ($this->Session->check('Auth.User')){
 							echo $this->Html->link(__('Logout', true), array('controller' => 'users', 'action' => 'logout')); 
 						}
+						else
+						{
+							echo $this->Html->link(__('Login', true), array('controller' => 'users', 'action' => 'login')); 
+						}
 						?>
                      	</div>
                         <div class="menuebox">
@@ -124,9 +128,9 @@
 						}
 						?>
                      	</div>
-                        <div class="menuebox">
+                        <!--<div class="menuebox">
                     	<?php echo $this->Html->link(__('Upcoming Matches', true), array('controller' => 'matches', 'action' => 'upcoming_matches')); ?>
-                     	</div>
+                     	</div>-->
 					</div>
 					</div>
 				</div>
@@ -134,14 +138,15 @@
 
                 <div class="containerbox">
 					<div class="containerheader">
-                    <?php 
+                    <!--<?php 
 					if ($this->Session->check('Auth.User')){
 						echo "Stream: online"; 
                     }
 					else{
 						echo "Stream: offline";
 					}
-					?>
+					?>-->
+					Stream
 					</div>
 					<div class="containercontent">
 					<div class="containercontentbox">
