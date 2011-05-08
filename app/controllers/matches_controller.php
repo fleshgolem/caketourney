@@ -6,7 +6,7 @@ class MatchesController extends AppController {
 	var $helpers = array('Race','Text','Bbcode');
 	function beforeFilter()
     {
-		$this->Auth->allow('view');
+		$this->Auth->allow('view','upcoming_matches');
         parent::beforeFilter();
 		
 	}
@@ -283,7 +283,7 @@ class MatchesController extends AppController {
 		$today = getdate();
 		$matches = $this->Match->find('all',
 			array(
-				'conditions' => array('Match.date >' =>date('Y-m-d')), //array of conditions
+				'conditions' => array('Match.date >' =>date('Y-m-d'), 'Match.open' => 1), //array of conditions
 				'recursive' => 1, //int
 				'order' => array('Match.date ASC'), //string or array defining order
 				'limit' => 10 //int

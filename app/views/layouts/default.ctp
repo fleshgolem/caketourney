@@ -128,9 +128,9 @@
 						}
 						?>
                      	</div>
-                        <!--<div class="menuebox">
+                        <div class="menuebox">
                     	<?php echo $this->Html->link(__('Upcoming Matches', true), array('controller' => 'matches', 'action' => 'upcoming_matches')); ?>
-                     	</div>-->
+                     	</div>
 					</div>
 					</div>
 				</div>
@@ -151,14 +151,16 @@
 					<div class="containercontent">
 					<div class="containercontentbox">
                     	<div class="menuebox">
-                    	<?php
+							<?php echo $this->Html->link('Watch Stream',array('controller'=>'pages','action'=>'stream')); ?>
+							<a href="http://www.own3d.tv/b4lrog" target="_blank">Watch VOD's</a>
+                    	<!--<?php
                     	if ($this->Session->check('Auth.User')){
 							echo $this->Html->link('Watch Stream',array('controller'=>'pages','action'=>'stream')); 
 						}
 						else {
 							?> <a href="http://www.own3d.tv/b4lrog" target="_blank">Watch VOD's</a> <?php ;
 						}
-						?>
+						?>-->
                         </div>
 					</div>
 					</div>
@@ -216,8 +218,7 @@
 					<div class="maincontentbox">
                     <!--SOON<SUP><FONT SIZE="-2">TM</FONT></SUP>-->
                    	<?php
-                    	if ($this->Session->check('Auth.User')){
-					echo($this->element('upcoming_matches'));}?>
+					echo($this->element('upcoming_matches'));?>
 					<?php /*foreach($matches as $match){?>
 						<?php 
 							if ($match['Player1']!=null)
