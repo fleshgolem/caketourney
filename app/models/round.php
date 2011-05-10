@@ -39,7 +39,7 @@ class Round extends AppModel {
 		'Match' => array(
 			'className' => 'Match',
 			'foreignKey' => 'round_id',
-			'dependent' => false,
+			'dependent' => true,
 			'conditions' => '',
 			'fields' => '',
 			'order' => '',
