@@ -190,12 +190,24 @@
 		<div class="leftBox">
 			<div class="PostContentBox">
 				<div class="PostMainContentbox">
-
-				<?php echo($this->Html->link($comment['User']['username'], array('controller' => 'users', 'action' => 'view', $comment['User']['id']))); ?>
-				<br>
-				<small>
-				<?php echo ($comment['Comment']['date_posted']);?>
-				</small>
+				
+                <?php //debug($post);
+				if ($comment['User']['admin']==true)
+				{
+					?><div class="admin"> <?php echo($this->Html->link($comment['User']['username'], array('controller' => 'users', 'action' => 'view', $comment['User']['id']))); ?>
+					<br>
+					<small><?php echo ($comment['Comment']['date_posted']);?></small>
+					</div> <?php
+				}
+				else
+				{
+					echo($this->Html->link($comment['User']['username'], array('controller' => 'users', 'action' => 'view', $comment['User']['id'])));
+					?>	<br>
+					<small><?php echo ($comment['Comment']['date_posted']);?></small><?php
+				}
+				?>
+                
+				
 				</div>
 			</div>
 		</div>
