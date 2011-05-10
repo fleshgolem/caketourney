@@ -84,9 +84,9 @@
 				<div class="containercontentbox">
 					<?php
 						if ($this->Session->check('Auth.User')){	
-							 echo $this->Html->link(__('List Users', true), array('controller' => 'users', 'action' => 'index')); 
+							 echo $this->Html->link(__('Users', true), array('controller' => 'users', 'action' => 'index')); 
 						}else{
-							echo $this->Html->link(__('List Users', true), array('controller' => 'users', 'action' => 'index')); 
+							echo $this->Html->link(__('Users', true), array('controller' => 'users', 'action' => 'index')); 
                      }?>
 				</div>
 				</div>
@@ -223,7 +223,7 @@
                         <div class="menuebox">
                     	<?php
 						if ($this->Session->check('Auth.User')){	
-							 echo $this->Html->link(__('Users', true), array('controller' => 'users', 'action' => 'index')); 
+							 echo $this->Html->link(__('List Users', true), array('controller' => 'users', 'action' => 'index')); 
                      	}?>
                         </div>
                         <div class="menuebox">
