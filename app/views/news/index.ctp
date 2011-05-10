@@ -29,12 +29,23 @@
 			<div class="leftBox">
 				<div class="PostContentBox">
 					<div class="PostMainContentbox">
-	
-					<?php echo($this->Html->link($newspost['User']['username'], array('controller' => 'users', 'action' => 'view', $newspost['User']['id']))); ?>
-					<br>
-					<small>
-					<?php echo ($newspost['News']['date_posted']);?>
-					</small>
+					<?php //debug($post);
+						if ($newspost['User']['admin']==true)
+						{
+							?><div class="admin"> <?php echo($this->Html->link($newspost['User']['username'], array('controller' => 'users', 'action' => 'view', $newspost['User']['id']))); ?> 
+							<br>
+							<small><?php echo ($newspost['News']['date_posted']);?></small>
+							</div> <?php
+						}
+						else
+						{
+							echo($this->Html->link($newspost['User']['username'], array('controller' => 'users', 'action' => 'view', $newspost['User']['id'])));
+							?>	<br>
+							<small><?php echo ($newspost['News']['date_posted']);?></small><?php
+						}
+					?>
+                    
+					
 					</div>
 				</div>
 			</div>
