@@ -316,11 +316,16 @@
 
 </div><!-- end wrapper2 -->
 		
-		<div id="footer">
-		
-		<div align="left">
+		<div id="footer" >
+         <div >
+		StarCraft®: Wings of Liberty™ is the copyrighted product of Blizzard Entertainment, Inc.<br />
+            © 2011 Blizzard Entertainment, Inc. All rights reserved.
+            </div>
+		<div class="bottomactionleft">
 			<?php echo $this->Html->link('Impressum',array('controller'=>'pages','action'=>'impressum'))?>
 		</div>
+      
+        <div class="bottomaction">
 			<?php echo $this->Html->link(
 					$this->Html->image('cake.power.gif', array('alt'=> __('CakePHP: the rapid development php framework', true), 'border' => '0')),
 					'http://www.cakephp.org/',
@@ -328,6 +333,8 @@
 				);
 			?>
 			<!--<?php echo $this->element('sql_dump'); ?>-->
+        </div>
+        <p style="clear: both;">  </p>
 		</div>
 	</div>
 	

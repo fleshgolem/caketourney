@@ -30,7 +30,7 @@ body {
 	/*background: #888; #9ac2e1 #8bc0ea*/
 	/*background: -moz-linear-gradient(top,#BC7E62, #CEA18D);
 	background: -webkit-gradient(linear, left top, left bottom, from(#BC7E62), to(#CEA18D));*/
-	background:url('../img/OPSLbackground_d.png') repeat center;
+	background:url('../img/OPSLbackground_d.png') repeat top left;
 	/*background: #9ac2e1;*/
 	color: #00000;
 	font-family:'lucida grande',verdana,helvetica,arial,sans-serif;
@@ -142,8 +142,9 @@ ul, li {
 	text-align:center;
 	margin:0;
 	padding: 10px 20px;
-	text-align: right;
+	text-align: center;
 	background:#333;
+	color: #EEF3F6;
 /*	-moz-border-radius-bottomleft:32px;
 	-khtml-border-bottom-left-radius:32px;
 	-webkit-border-radius-bottomleft:32px;
@@ -1649,3 +1650,5 @@ div.KOwrapper{
 div.blackfont{
 	color:#000000;
 }
+
+
