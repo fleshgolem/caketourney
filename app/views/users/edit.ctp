@@ -25,7 +25,7 @@
                         echo $this->Form->input('bnetcode');
                         echo $this->Form->input('elo');
                         echo $this->Form->input('race', array('options' => array("Terran","Protoss","Zerg","Random",), 'selected' => $this->data['User']['race']));
-                        echo $this->Form->input('division', array('options' => array("Code S"=>"Code S","Code A"=>"Code A"), 'selected' => $this->data['User']['division']));
+                        echo $this->Form->input('division', array('options' => array("Unranked"=>"Unranked","Code S"=>"Code S","Code A"=>"Code A"), 'selected' => $this->data['User']['division']));
                         echo $this->Form->input('admin');
                         //echo $this->Form->input('password_confirm', array('label' => 'Password', 'type' => 'password'));
                         //echo $this->Form->input('password', array('label' => 'Password Confirm'));
