@@ -50,7 +50,7 @@ class SwissTournament extends Tournament {
 		'Ranking' => array(
 			'className' => 'Ranking',
 			'foreignKey' => 'tournament_id',
-			'dependent' => false,
+			'dependent' => true,
 			'conditions' => '',
 			'fields' => '',
 			'order' => '',
@@ -63,7 +63,7 @@ class SwissTournament extends Tournament {
 		'Round' => array(
 			'className' => 'Round',
 			'foreignKey' => 'tournament_id',
-			'dependent' => false,
+			'dependent' => true,
 			'conditions' => '',
 			'fields' => '',
 			'order' => '',

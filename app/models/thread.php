@@ -56,7 +56,7 @@ class Thread extends AppModel {
 		'Post' => array(
 			'className' => 'Post',
 			'foreignKey' => 'thread_id',
-			'dependent' => false,
+			'dependent' => true,
 			'conditions' => '',
 			'fields' => '',
 			'order' => '',

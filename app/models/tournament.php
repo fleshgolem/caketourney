@@ -39,7 +39,7 @@ class Tournament extends AppModel {
 		'Round' => array(
 			'className' => 'Round',
 			'foreignKey' => 'tournament_id',
-			'dependent' => false,
+			'dependent' => true,
 			'conditions' => '',
 			'fields' => '',
 			'order' => '',
@@ -52,7 +52,7 @@ class Tournament extends AppModel {
 		'Signup' => array(
 			'className' => 'Signup',
 			'foreignKey' => 'tournament_id',
-			'dependent' => false,
+			'dependent' => true,
 			'conditions' => '',
 			'fields' => '',
 			'order' => '',
