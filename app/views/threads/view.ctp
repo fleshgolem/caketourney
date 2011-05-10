@@ -27,8 +27,20 @@
 			<div class="PostContentBox">
 				<div class="PostMainContentbox">
 				<?php //debug($post);
-				echo $this->Html->link($post['User']['username'], array('controller' => 'users', 'action' => 'view', $post['User']['id'])); ?>	<br>
-				<small><?php echo ($post['Post']['date_posted']);?></small>
+				if ($post['User']['admin']==true)
+				{
+					?><div class="admin"> <?php echo $this->Html->link($post['User']['username'], array('controller' => 'users', 'action' => 'view', $post['User']['id'])); ?> 
+					<br>
+					<small><?php echo ($post['Post']['date_posted']);?></small>
+					</div> <?php
+				}
+				else
+				{
+					echo $this->Html->link($post['User']['username'], array('controller' => 'users', 'action' => 'view', $post['User']['id']));
+					?>	<br>
+					<small><?php echo ($post['Post']['date_posted']);?></small><?php
+				}
+				?>
 				</div>
 			</div>
 		</div>

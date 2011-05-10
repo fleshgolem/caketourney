@@ -32,13 +32,13 @@ body {
 	background: -webkit-gradient(linear, left top, left bottom, from(#BC7E62), to(#CEA18D));*/
 	background:url('../img/OPSLbackground_d.png') repeat top left;
 	/*background: #9ac2e1;*/
-	color: #00000;
+	color: #333;
 	font-family:'lucida grande',verdana,helvetica,arial,sans-serif;
 	font-size:90%;
 	margin: 0;
 }
 a {
-	color: #9A7051;
+	color: #333;
 	text-decoration: none;
 	font-weight: bold;
 }
@@ -50,7 +50,7 @@ a {
 	font-weight: bold;
 }
 a:hover {
-	color: #9A7051;
+	color: #333;
 	text-decoration:none;
 	text-decoration: underline;
 }
@@ -114,7 +114,7 @@ ul, li {
 }
 #header h2 {
 	background-color: #333;
-	color: #00000;
+	color: #333;
 }
 #header h1 a {
 	color: #BBCEDD;
@@ -298,7 +298,7 @@ fieldset {
 }
 fieldset legend {
 	background:#9ac2e1;
-	color: #000000;
+	color: #333;
 	font-size: 160%;
 	font-weight: bold;
 }
@@ -326,7 +326,7 @@ div.000000 input{
 	width: 20%;
 	}
 form .input {
-	color: #000000;
+	color: #333;
 }
 
 form .required {
@@ -1365,7 +1365,7 @@ div.PostFooter {
 
 div.PostContent {
 	width: 100%;
-	color:#000000;
+	color:#333;
 	border:1px solid #333;
 	text-decoration:none;
 	
@@ -1385,7 +1385,7 @@ div.PostContent {
 
 div.PostContentBlack {
 	width: 100%;
-	color:#000000;
+	color:#333;
 	border:1px solid #333;
 	text-decoration:none;
 	
@@ -1398,7 +1398,7 @@ div.PostContentBlack {
 	-webkit-border-radius-topleft:8px;
 	border-radius-topright:8px;
 	
-	background: #000000;
+	background: #333;
 	text-align:left;
 	font-weight:normal;
 }
@@ -1422,7 +1422,7 @@ div.leftBoxBig {
 div.rightBox {
 	width: 75%;
 	float:left;
-	padding: 12px 5px;
+	padding: 13px 5px;
 	border-left:1px solid #000000;
 }
 div.rightBoxSmall {
@@ -1603,7 +1603,7 @@ div.Sidebottombox a {
 	
 /*	background: -webkit-gradient(linear, left top, left bottom, from(#444444), to(#757575));
 	background: -moz-linear-gradient(top, #B47050, #C6937B);*/
-	color:#000000;
+	color:#333;
 	
 	text-decoration:none;
 	text-shadow: none;
@@ -1648,7 +1648,20 @@ div.KOwrapper{
 }
 
 div.blackfont{
-	color:#000000;
+	color:#333;
 }
 
 
+
+div.admin a {
+	color: #9A7051;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+
+div.admin a:hover {
+	color: #9A7051;
+	text-decoration:none;
+	text-decoration: underline;
+}

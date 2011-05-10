@@ -239,8 +239,9 @@
 	<div class="PostContent">
 		<div class="PostContentBox">
 			<div class="PostMainContentbox">
-				<fieldset>
- 				<legend><?php echo $this->Form->create('Match', array('action'=>'post_comment'));?></legend>
+				<?php echo $this->Form->create('Match', array('action'=>'post_comment'));?>
+                <fieldset>
+ 				<legend></legend>
 				
 				<?php echo $this->Form->input('Comment.body', array('label'=>'Post Comment'));?>
 				

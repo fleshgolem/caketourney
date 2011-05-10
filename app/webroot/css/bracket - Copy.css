@@ -32,13 +32,13 @@ body {
 	background: -webkit-gradient(linear, left top, left bottom, from(#BC7E62), to(#CEA18D));*/
 	
 	background: #9ac2e1;
-	color: #00000;
+	color: #333;
 	font-family:'lucida grande',verdana,helvetica,arial,sans-serif;
 	font-size:90%;
 	margin: 0;
 }
 a {
-	color: #4B8948;
+	color: #111;
 	text-decoration: underline;
 	font-weight: bold;
 }
@@ -50,7 +50,7 @@ a {
 	font-weight: bold;
 }
 a:hover {
-	color: #367889;
+	color: #333;
 	text-decoration:none;
 }
 a img {
@@ -111,7 +111,7 @@ ul, li {
 }
 #header h2 {
 	background-color: #333;
-	color: #00000;
+	color: #333;
 }
 #header h1 a {
 	color: #BBCEDD;
