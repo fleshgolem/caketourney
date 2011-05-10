@@ -1457,7 +1457,7 @@ div.bottompages {
 }
 
 div.bottompages span.current {
-	color: #9ac2e1;
+	color: #9A7051;
 }
 
 
@@ -1662,6 +1662,19 @@ div.admin a {
 
 div.admin a:hover {
 	color: #9A7051;
+	text-decoration:none;
+	text-decoration: underline;
+}
+
+div.bottompages a {
+	color: #EEF3F6;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+
+div.bottompages a:hover {
+	color: #EEF3F6;
 	text-decoration:none;
 	text-decoration: underline;
 }
