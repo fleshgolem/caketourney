@@ -19,9 +19,13 @@
                		{
                     	echo $this->Html->image('CodeA-b2.png');
                 	}
-					else
+					if ($user['User']['division']=='Code S') 
 					{
 						echo $this->Html->image('CodeS-b2.png');
+					}
+					if ($user['User']['division']!='Code A' && $user['User']['division']!='Code S')
+					{
+						echo $this->Html->image('Unranked.png');
 					}
 					  ?>
 				</div>
