@@ -18,7 +18,7 @@
  * @subpackage    cake.app.webroot.css
  * @since         CakePHP(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
- */
+ background-color:transparent;*/
 
 * {
 	margin:0;
@@ -30,8 +30,8 @@ body {
 	/*background: #888; #9ac2e1 #8bc0ea*/
 	/*background: -moz-linear-gradient(top,#BC7E62, #CEA18D);
 	background: -webkit-gradient(linear, left top, left bottom, from(#BC7E62), to(#CEA18D));*/
-	
-	background: #9ac2e1;
+	background:url('../img/OPSLbackground_d.png') repeat center;
+	/*background: #9ac2e1;*/
 	color: #00000;
 	font-family:'lucida grande',verdana,helvetica,arial,sans-serif;
 	font-size:90%;
@@ -133,6 +133,7 @@ ul, li {
 	color: #333;
 	padding: 10px 20px 40px 20px;
 	overflow: auto;
+	
 }
 
 #footer {
@@ -1050,14 +1051,15 @@ div.playerBox16{
     margin: 0px auto;
 	/*background: -moz-linear-gradient(top,#BC7E62, #CEA18D);
 	background: -webkit-gradient(linear, left top, left bottom, from(#BC7E62), to(#CEA18D));*/
-	background:#9ac2e1 url("../images/rightcolor_bg.gif") repeat-y top right;
+	
 	/*background:#888 #8bc0ea;*/
 	}
 #wrapper2 {
 	position:relative;
 	text-align:left;
 	width:100%;
-	background:url("../images/leftcolor_bg.gif") repeat-y top left;
+	
+	
 	}
 #maincol {
 	position:relative;
@@ -1075,7 +1077,8 @@ div.playerBox16{
 	width:200px; /* actual value */
 	margin:0 0 -10px 0;
 	padding:10px 5px;
-	background: #9ac2e1;
+	background-color:transparent;
+	/*background: #9ac2e1;*/
 	/*background:#888;#9ac2e1 #8bc0ea*/
 	z-index:100;
 	}
@@ -1090,7 +1093,8 @@ div.playerBox16{
 	width:200px; /* actual value */
 	margin:0 0 -10px 0;
 	padding:10px 5px;
-	background: #9ac2e1 ;
+	background-color:transparent;
+	/*background: #9ac2e1 ;*/
 	/*background:#888; #8bc0ea*/
 	z-index:99;
 	}
