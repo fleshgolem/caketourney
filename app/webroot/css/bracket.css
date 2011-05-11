@@ -94,6 +94,7 @@ ul, li {
 	/*padding: 10px 0px;*/
 	/*margin:0;*/
 	text-align:center;
+	
 	background-color:#888;
 
 	
@@ -1236,7 +1237,11 @@ div.menuebox {
 div.topmenuemainbox {
 	width: 100%;
 	height: 50px;
-	background-color:#333;
+	background: -webkit-gradient(linear, left top, left bottom, from(#808080), to(#000));
+	background: -moz-linear-gradient(top,  #808080,  #000);
+	filter:	progid:DXImageTransform.Microsoft.gradient(startColorstr=#808080,endColorstr=#000);
+	-ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr=#808080,endColorstr=#000)";
+	/*background-color:#333;*/
 	/*padding: 0px 50px;*/
 }
 
@@ -1244,6 +1249,7 @@ div.topmenuewrapper {
 	position:relative;
 	width: 800px;
     margin: 0px auto;
+	
 }
 
 div.topmenuemaincontentMid,
