@@ -70,7 +70,7 @@ h2 {
 	/*color: #b56a33;*/
 	font-family:'Gill Sans','lucida grande', helvetica, arial, sans-serif;
 	font-size: 190%;
-	text-shadow: #555 0px 1px 0px;
+	
 }
 h3 {
 	color:#69B088;
@@ -1547,6 +1547,7 @@ div.ThreadTitleBox {
 	font-weight:normal;
 	
 }
+
 div.ThreadTitleContent {
 	width: 100%;
 	float:left;
