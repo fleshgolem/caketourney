@@ -52,6 +52,7 @@
 								 <![endif]-->
 	<div id="container">
 		<div id="header">
+        <div class="headerwrapper">
         	<h1></h1>
             
             <div class="topmenuemainbox">
@@ -95,7 +96,7 @@
 			</div>
     
 			
-					
+		</div>			
 		</div>
         <div id="wrapper1"><!-- sets background to white and creates full length leftcol-->
 	
