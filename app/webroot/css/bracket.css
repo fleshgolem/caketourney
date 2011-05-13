@@ -66,14 +66,14 @@ h1 {
 	font-size: 100%;
 }
 h2 {
-	color: #9A7051;
+	color: #eef8ff;
 	/*color: #b56a33;*/
 	font-family:'Gill Sans','lucida grande', helvetica, arial, sans-serif;
 	font-size: 190%;
 	
 }
 h3 {
-	color:#69B088;
+	color:#eef8ff;
 	font-family:'Gill Sans','lucida grande', helvetica, arial, sans-serif;
 	font-size: 165%;
 }
@@ -1049,7 +1049,7 @@ div.playerBox16{
 #wrapper1 {
 	position:relative;
 	text-align:left;
-	width: 1280px;
+	width: 1200px;
     margin: 0px auto;
 	/*background: -moz-linear-gradient(top,#BC7E62, #CEA18D);
 	background: -webkit-gradient(linear, left top, left bottom, from(#BC7E62), to(#CEA18D));*/
@@ -1393,8 +1393,11 @@ div.PostContent {
 	-khtml-border-top-left-radius:8px;
 	-webkit-border-radius-topleft:8px;
 	border-radius-topright:8px;
-	
-	background: #9ac2e1;
+	background: -webkit-gradient(linear, left top, left bottom, from(#eef8ff), to(#d6eeff));
+	background: -moz-linear-gradient(top,  #eef8ff,  #d6eeff);
+	filter:	progid:DXImageTransform.Microsoft.gradient(startColorstr=#eef8ff,endColorstr=#d6eeff);
+	-ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr=#eef8ff,endColorstr=#d6eeff)";
+	/*background: #9ac2e1;*/
 	text-align:left;
 	font-weight:normal;
 }
