@@ -56,6 +56,30 @@ class SwissTournamentsController extends AppController {
 			$this->data=$this->SwissTournament->Ranking->find('first',array('conditions'=>array('Ranking.user_id'=>$current_user,'Ranking.tournament_id'=>$id)));
 		}
 	}
+	
+	function player_settings($id=null)
+	{
+		if (!$this->Session->read('Auth.User.admin'))
+		{
+			$this->Session->setFlash(__('Access denied', true));
+			$this->redirect(array('action'=>'index'));
+		}
+		if (!empty($this->data)) {
+			if($this->SwissTournament->Ranking->saveAll($this->data['Ranking']))
+			{
+				$this->Session->setFlash(__('Settings saved', true));
+				$this->redirect(array('action'=>'view',$this->data['SwissTournament']['id']));
+			}
+		}
+		else {
+			$rankings = $this->SwissTournament->Ranking->find('all',array('conditions'=>array('Ranking.tournament_id'=>$id)));
+			$this->set('rankings',$rankings);
+			
+		}
+	$this->set('id',$id);
+	$this->data=$this->SwissTournament->Ranking->find('all',array('conditions'=>array('Ranking.tournament_id'=>$id)));
+
+	}
 	function start($id) {
 		if (!$this->Session->read('Auth.User.admin'))
 		{
