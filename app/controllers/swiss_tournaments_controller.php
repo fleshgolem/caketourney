@@ -172,7 +172,7 @@ class SwissTournamentsController extends AppController {
 		{
 			//Move on to next round
 			$this->pair_round($current_round,$tournament_id);
-			$this->redirect(array('action' => 'view',$tournament_id));
+			//$this->redirect(array('action' => 'view',$tournament_id));
 		}
 		else
 		{
@@ -350,17 +350,29 @@ class SwissTournamentsController extends AppController {
 			//player floats, find next lower scoregroup
 			while($score>=0)
 			{
+				debug('a');
 				$score--;
 				$scoregroup=$this->SwissTournament->Ranking->find('all',array('conditions'=>array('Ranking.away'=>'0','Ranking.match_points'=>$score,'Ranking.tournament_id'=>$tournament_id)));
 				if(count($scoregroup)>0)
 				{
+					debug('b');
 					shuffle($scoregroup);
 					//find opponent in scoregroup
 					foreach($scoregroup as $opponent)
 					{			
 						//check if match already played or player already paired
-						$match1 = $this->SwissTournament->Round->Match->find('first',array('conditions'=>array('Match.round_id'=>$round_id,'Match.player1_id'=>$player_to_pair['Ranking']['user_id'],'player2_id'=>$opponent['Ranking']['user_id'])));
-						$match2 = $this->SwissTournament->Round->Match->find('first',array('conditions'=>array('Match.round_id'=>$round_id,'Match.player2_id'=>$player_to_pair['Ranking']['user_id'],'player1_id'=>$opponent['Ranking']['user_id'])));
+						$options['joins'] = array(
+										array('table' => 'rounds',
+										'alias' => 'Round1',
+										'type' => 'LEFT',
+										'conditions' => array(
+											'Round1.id = Match.round_id',
+										)));
+										
+						$options['conditions'] = array('Round1.tournament_id'=>$tournament_id,'Match.player1_id'=>$player_to_pair['Ranking']['user_id'],'player2_id'=>$opponent['Ranking']['user_id']);
+						$match1 = $this->SwissTournament->Round->Match->find('first',$options);
+						$options['conditions'] = array('Round1.tournament_id'=>$tournament_id,'Match.player2_id'=>$player_to_pair['Ranking']['user_id'],'player1_id'=>$opponent['Ranking']['user_id']);
+						$match2 = $this->SwissTournament->Round->Match->find('first',$options);
 						if(!$match1 AND !$match2 AND in_array($opponent,$unpaired_players))
 						{
 							$opp_key = array_search($opponent,$unpaired_players);
@@ -390,8 +402,18 @@ class SwissTournamentsController extends AppController {
 		foreach($scoregroup as $opponent)
 		{			
 			//check if match already played or player already paired
-			$match1 = $this->SwissTournament->Round->Match->find('first',array('conditions'=>array('Match.round_id'=>$round_id,'Match.player1_id'=>$player_to_pair['Ranking']['user_id'],'player2_id'=>$opponent['Ranking']['user_id'])));
-			$match2 = $this->SwissTournament->Round->Match->find('first',array('conditions'=>array('Match.round_id'=>$round_id,'Match.player2_id'=>$player_to_pair['Ranking']['user_id'],'player1_id'=>$opponent['Ranking']['user_id'])));
+			$options['joins'] = array(
+							array('table' => 'rounds',
+							'alias' => 'Round1',
+							'type' => 'LEFT',
+							'conditions' => array(
+								'Round1.id = Match.round_id',
+							)));
+							
+			$options['conditions'] = array('Round1.tournament_id'=>$tournament_id,'Match.player1_id'=>$player_to_pair['Ranking']['user_id'],'player2_id'=>$opponent['Ranking']['user_id']);
+			$match1 = $this->SwissTournament->Round->Match->find('first',$options);
+			$options['conditions'] = array('Round1.tournament_id'=>$tournament_id,'Match.player2_id'=>$player_to_pair['Ranking']['user_id'],'player1_id'=>$opponent['Ranking']['user_id']);
+			$match2 = $this->SwissTournament->Round->Match->find('first',$options);
 			if(!$match1 AND !$match2 AND in_array($opponent,$unpaired_players))
 			{
 				$opp_key = array_search($opponent,$unpaired_players);
@@ -413,7 +435,55 @@ class SwissTournamentsController extends AppController {
 			}
 			
 		}
-		//All possible pairings failed -> backtrack
+		//All possible pairings failed ->  find next lower scoregroup
+		
+		while($score>=0)
+		{
+			debug('a');
+			$score--;
+			$scoregroup=$this->SwissTournament->Ranking->find('all',array('conditions'=>array('Ranking.away'=>'0','Ranking.match_points'=>$score,'Ranking.tournament_id'=>$tournament_id)));
+			if(count($scoregroup)>0)
+			{
+				shuffle($scoregroup);
+				//find opponent in scoregroup
+				foreach($scoregroup as $opponent)
+				{			
+					//check if match already played or player already paired
+					$options['joins'] = array(
+									array('table' => 'rounds',
+									'alias' => 'Round1',
+									'type' => 'LEFT',
+									'conditions' => array(
+										'Round1.id = Match.round_id',
+									)));
+									
+					$options['conditions'] = array('Round1.tournament_id'=>$tournament_id,'Match.player1_id'=>$player_to_pair['Ranking']['user_id'],'player2_id'=>$opponent['Ranking']['user_id']);
+					$match1 = $this->SwissTournament->Round->Match->find('first',$options);
+					$options['conditions'] = array('Round1.tournament_id'=>$tournament_id,'Match.player2_id'=>$player_to_pair['Ranking']['user_id'],'player1_id'=>$opponent['Ranking']['user_id']);
+					$match2 = $this->SwissTournament->Round->Match->find('first',$options);
+					if(!$match1 AND !$match2 AND in_array($opponent,$unpaired_players))
+					{
+						$opp_key = array_search($opponent,$unpaired_players);
+						unset($unpaired_players[$opp_key]);
+						$matchups = $this->pair_rest($unpaired_players,$round_id,$tournament_id);
+						if ($matchups)
+						{
+							//pairing successful, pair this match
+							$matchup=array();
+							$matchup[0]=$player_to_pair['Ranking']['user_id'];
+							$matchup[1]=$opponent['Ranking']['user_id'];
+							array_push($matchups,$matchup);
+							return $matchups;
+						}
+						else
+						{
+							$unpaired_players[$opp_key]=$opponent;
+						}
+					}
+					
+				}
+			}
+		}
 		return false;
 	}
 	
