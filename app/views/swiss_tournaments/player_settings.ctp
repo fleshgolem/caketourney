@@ -18,7 +18,6 @@
                         <fieldset>
                             <legend></legend>
                         <?php
-							debug($this->data);
 							echo $this->Form->input('id',array('value'=>$id));
 							foreach ($this->data as $i=>$ranking)
 							{

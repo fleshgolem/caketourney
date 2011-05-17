@@ -65,11 +65,10 @@ class SwissTournamentsController extends AppController {
 			$this->redirect(array('action'=>'index'));
 		}
 		if (!empty($this->data)) {
-			debug($this->data);
-			if($this->SwissTournament->Ranking->saveAll($this->data))
+			if($this->SwissTournament->Ranking->saveAll($this->data['Ranking']))
 			{
 				$this->Session->setFlash(__('Settings saved', true));
-				//$this->redirect(array('action'=>'index'));
+				$this->redirect(array('action'=>'view',$this->data['SwissTournament']['id']));
 			}
 		}
 		else {

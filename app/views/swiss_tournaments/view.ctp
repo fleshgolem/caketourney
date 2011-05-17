@@ -28,6 +28,13 @@
 		}
 		?>
      </div>
+	 <div class="bottomaction">
+     	<?php 
+		if ($this->Session->read('Auth.User.admin')){
+		echo $this->Html->link('Player Settings', array('action'=>'player_settings',$tournament['SwissTournament']['id']));
+		}
+		?>
+     </div>
      <div class="bottomactionleft">
      	<?php 
 		echo $this->Html->link('Score', array('action'=>'score',$tournament['SwissTournament']['id']));
