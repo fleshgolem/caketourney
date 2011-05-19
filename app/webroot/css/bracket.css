@@ -1484,7 +1484,7 @@ div.PostContent {
 	-webkit-border-radius-topleft:8px;
 	border-radius-topright:8px;
 	background: -webkit-gradient(linear, left top, left bottom, from(#eef8ff), to(#b5bbbf));
-	background: -moz-linear-gradient(top,  #eef8ff,  #b5bbbf);
+	background: -moz-linear-gradient(top,  #f6f6f6,  #e4e5e7);
 	filter:	progid:DXImageTransform.Microsoft.gradient(startColorstr=#eef8ff,endColorstr=#b5bbbf ) 
 	-ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr=#eef8ff,endColorstr=#b5bbbf)";
 	/*background: #9ac2e1;*/
@@ -1616,7 +1616,8 @@ div.ThreadTitleBox {
 	color:#EEF3F6;
 	border:1px solid #333;
 	text-decoration:none;
-	text-shadow: #555 0px 1px 0px;
+	text-shadow: 1px 1px 0px #606060, -1px -1px 0px #202020;
+	/*text-shadow: #555 0px 1px 0px;*/
 	-moz-border-radius-topright:8px;
 	-khtml-border-top-right-radius:8px;
 	-webkit-border-radius-topright:8px;
