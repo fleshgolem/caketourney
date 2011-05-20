@@ -246,33 +246,35 @@
 <?php
 }?>
     
-
+<?php
+if ($this->Session->read('Auth.User'))
+{?>
 <div class="PostBox"> 
 	<div class="PostContent">
 		<div class="PostContentBox">
 			<div class="PostMainContentbox">
 				<?php echo $this->Form->create('Match', array('action'=>'post_comment'));?>
-                <fieldset>
- 				<legend></legend>
-				
-				<?php echo $this->Form->input('Comment.body', array('label'=>'Post Comment'));?>
-				
-				BBCode is enabled<br>
-				Embedding images is disabled
-				</fieldset>
+					<fieldset>
+					<legend></legend>
+					
+					<?php echo $this->Form->input('Comment.body', array('label'=>'Post Comment'));?>
+					
+					BBCode is enabled<br>
+					Embedding images is disabled
+					</fieldset>
 				
 				
 			</div>
 		</div>
-		<p style="clear: both;"> </p>
-	</div>
-	<div class="PostFooter">
-    	<div class="bottomaction"> <?php echo $this->Form->end(__('Submit', true));?>   </p></div>
-       
+			<p style="clear: both;"> </p>
+		</div>
+		<div class="PostFooter">
+			<div class="bottomaction"> <?php echo $this->Form->end(__('Submit', true));?>   </p></div>
+		   
 		<p style="clear: both;">  </p>
 	</div>
 </div>
-
+<?php }?>
 	
 	
 	
