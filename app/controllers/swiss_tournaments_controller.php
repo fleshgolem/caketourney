@@ -172,7 +172,7 @@ class SwissTournamentsController extends AppController {
 		{
 			//Move on to next round
 			$this->pair_round($current_round,$tournament_id);
-			//$this->redirect(array('action' => 'view',$tournament_id));
+			$this->redirect(array('action' => 'view',$tournament_id));
 		}
 		else
 		{
