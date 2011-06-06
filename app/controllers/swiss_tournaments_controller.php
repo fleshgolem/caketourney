@@ -161,9 +161,9 @@ class SwissTournamentsController extends AppController {
 		
 		//Calculate tiebreakers
 
-		$this->calculate_oppscore($ranking,$tournament_id);
+		$this->calculate_oppscore($tournament_id);
 
-		$this->calculate_oppoppscore($ranking,$tournament_id);
+		$this->calculate_oppoppscore($tournament_id);
 
 		//check if max number of rounds played
 		$this->SwissTournament->User->bindModel(array('hasOne' => array('UsersTournament')));
