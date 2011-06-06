@@ -51,8 +51,8 @@
             <th>Draws</th>
             <th>Defeats</th>
             <th>Score</th>
-			<th>Opponent Score</th>
-			<th>Opponent Opponent Score</th>
+			<th>O Score</th>
+			<th>OO Score</th>
 			
 	</tr>
 <?php foreach ($ranking as $i=>$rank){?>
