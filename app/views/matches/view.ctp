@@ -20,8 +20,25 @@
 					<div class="spacebox2em"> </div>
 					<div class="matchbox">
                         <div class="namesbox">
-                            <div class="topbox"> <?php echo $this->Html->link(__($match['Player1']['username'], true), array('controller' => 'users', 'action' => 'view', $match['Player1']['id']));?> </div>
-                            <div class="bottombox"> <?php echo $this->Html->link(__($match['Player2']['username'], true), array('controller' => 'users', 'action' => 'view', $match['Player2']['id']));?></div>
+                            <div class="topbox">
+                             <?php
+								if ($match['Player1']['username']!=null){
+                              		echo $this->Html->link(__($match['Player1']['username'], true), array('controller' => 'users', 'action' => 'view', $match['Player1']['id']));
+								}
+								else{
+									?> <a href=""> <?php echo "-";?> </a><?php }
+								?>
+                             </div>
+                            <div class="bottombox"> 
+                            <?php
+								if ($match['Player2']['username']!=null){
+                              		echo $this->Html->link(__($match['Player2']['username'], true), array('controller' => 'users', 'action' => 'view', $match['Player2']['id']));
+								}
+								else{
+									?> <a href=""> <?php echo "-";?> </a><?php }
+								?>
+							
+                            </div>
                         </div>
                         <div class="scorebox">
                             <div class="scoretop"> 
