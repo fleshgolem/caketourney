@@ -50,7 +50,9 @@
             <th>Wins</th>
             <th>Draws</th>
             <th>Defeats</th>
-            <th>Tournament Elo</th>
+            <th>Score</th>
+			<th>Opponent Score</th>
+			<th>Opponent Opponent Score</th>
 			
 	</tr>
 <?php foreach ($ranking as $i=>$rank){?>
@@ -60,7 +62,9 @@
 		<td><?php echo($rank['Ranking']['wins']);?></td>
 		<td><?php echo($rank['Ranking']['draws']);?></td>
 		<td><?php echo($rank['Ranking']['defeats']);?></td>
-		<td><?php echo($rank['Ranking']['elo']);?></td>
+		<td><?php echo($rank['Ranking']['match_points']);?></td>
+		<td><?php echo($rank['Ranking']['oppscore']);?></td>
+		<td><?php echo($rank['Ranking']['oppoppscore']);?></td>
 	</tr>
 	<?php }?>
 </table>
