@@ -15,7 +15,7 @@
 				<table cellpadding="0" cellspacing="0">
 	<tr>
 			<th><?php echo $this->Paginator->sort('username');?></th>
-			<th><?php echo $this->Paginator->sort('name');?></th>
+			
 			<!--<th><?php echo $this->Paginator->sort('email');?></th>-->
 			<th><?php echo $this->Paginator->sort('Battle.net Name', 'bnetaccount');?></th>
 			<th><?php echo $this->Paginator->sort('Battle.net Code', 'bnetcode');?></th>
@@ -34,7 +34,7 @@
 	?>
 	<tr<?php echo $class;?>>
 		<td><?php echo $this->Html->link(__($user['User']['username'], true), array('action' => 'view', $user['User']['id'])); ?> &nbsp;</td>
-		<td><?php echo $user['User']['name']; ?>&nbsp;</td>
+		
 		<!--<td><?php echo $user['User']['email']; ?>&nbsp;</td>-->
 		<td><?php echo $user['User']['bnetaccount']; ?>&nbsp;</td>
 		<td><?php echo $user['User']['bnetcode']; ?>&nbsp;</td>
