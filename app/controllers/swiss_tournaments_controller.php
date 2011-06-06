@@ -8,7 +8,7 @@ class SwissTournamentsController extends AppController {
 	var $helpers = array('Race');
 	function beforeFilter()
     {
-		$this->Auth->allow('view');
+		$this->Auth->allow('view','score');
         parent::beforeFilter();
 		
 	}
@@ -28,7 +28,7 @@ class SwissTournamentsController extends AppController {
 		$in_tournament = $this->SwissTournament->find('first',array('conditions'=>array('SwissTournament.id'=>$id,'UsersTournament.user_id'=>$current_user)));
 		$this->set('in_tournament', $in_tournament);
 		$this->set('tournament', $this->SwissTournament->read(null, $id));
-		$this->set('ranking', $this->SwissTournament->Ranking->find('all',array('conditions'=>array('Ranking.tournament_id'=>$id),'order'=>array('Ranking.match_points DESC','Ranking.elo DESC'))));
+		$this->set('ranking', $this->SwissTournament->Ranking->find('all',array('conditions'=>array('Ranking.tournament_id'=>$id),'order'=>array('Ranking.match_points DESC','Ranking.oppscore DESC', 'Ranking.oppoppscore DESC'))));
 	}
 	function score($id = null) {
 		$current_user = $this->Auth->user('id');
@@ -41,7 +41,7 @@ class SwissTournamentsController extends AppController {
 		$in_tournament = $this->SwissTournament->find('first',array('conditions'=>array('SwissTournament.id'=>$id,'UsersTournament.user_id'=>$current_user)));
 		$this->set('in_tournament', $in_tournament);
 		$this->set('tournament', $this->SwissTournament->read(null, $id));
-		$this->set('ranking', $this->SwissTournament->Ranking->find('all',array('conditions'=>array('Ranking.tournament_id'=>$id),'order'=>array('Ranking.match_points DESC','Ranking.elo DESC'))));
+		$this->set('ranking', $this->SwissTournament->Ranking->find('all',array('conditions'=>array('Ranking.tournament_id'=>$id),'order'=>array('Ranking.match_points DESC','Ranking.oppscore DESC', 'Ranking.oppoppscore DESC'))));
 	}
 	
 	function settings($id=null){
@@ -159,6 +159,12 @@ class SwissTournamentsController extends AppController {
 			}
 		}
 		
+		//Calculate tiebreakers
+
+		$this->calculate_oppscore($ranking,$tournament_id);
+
+		$this->calculate_oppoppscore($ranking,$tournament_id);
+
 		//check if max number of rounds played
 		$this->SwissTournament->User->bindModel(array('hasOne' => array('UsersTournament')));
 		$players = $this->SwissTournament->User->find('all',array('conditions'=>array('UsersTournament.tournament_id'=>$tournament_id)));
@@ -178,6 +184,104 @@ class SwissTournamentsController extends AppController {
 		{
 			//generate playoffs
 			$this->redirect(array('action' => 'playoffs',$tournament_id));
+		}
+	}
+	function calculate_oppscore($tournament_id)
+	{
+		$rankings = $this->SwissTournament->Ranking->findAllByTournamentId($tournament_id);
+		foreach ($rankings as $ranking)
+		{
+			//find matches with player as player1
+			$score = 0;
+			$options['joins'] = array(
+											array('table' => 'rounds',
+											'alias' => 'Round1',
+											'type' => 'LEFT',
+											'conditions' => array(
+												'Round1.id = Match.round_id',
+											)));
+											
+			$options['conditions'] = array('Round1.tournament_id'=>$tournament_id,'Match.player1_id'=>$ranking['User']['id'],'Match.open'=>0);
+			$options['recursive'] =0;
+			$matches = $this->SwissTournament->Round->Match->find('all',$options);
+			foreach($matches as $match)
+			{
+				$player2 = $match['Match']['player2_id'];
+				$rank = $this->SwissTournament->Ranking->find('first',array('recursive'=>0, 'conditions'=>array('user_id'=>$player2, 'tournament_id'=>$tournament_id)));
+				$score += $rank['Ranking']['match_points'];
+			}
+			
+			//find matches with player as player2
+			$options['joins'] = array(
+											array('table' => 'rounds',
+											'alias' => 'Round1',
+											'type' => 'LEFT',
+											'conditions' => array(
+												'Round1.id = Match.round_id',
+											)));
+											
+			$options['conditions'] = array('Round1.tournament_id'=>$tournament_id,'Match.player2_id'=>$ranking['User']['id'],'Match.open'=>0);
+			$options['recursive'] =0;
+			$matches = $this->SwissTournament->Round->Match->find('all',$options);
+			foreach($matches as $match)
+			{
+				$player1 = $match['Match']['player1_id'];
+				$rank = $this->SwissTournament->Ranking->find('first',array('recursive'=>0, 'conditions'=>array('user_id'=>$player1, 'tournament_id'=>$tournament_id)));
+				$score += $rank['Ranking']['match_points'];
+			}
+			
+			//Save oppscore
+			$this->SwissTournament->Ranking->id = $ranking['Ranking']['id'];
+			$this->SwissTournament->Ranking->saveField('oppscore', $score);
+		}
+	}
+	function calculate_oppoppscore($tournament_id)
+	{
+		$rankings = $this->SwissTournament->Ranking->findAllByTournamentId($tournament_id);
+		foreach ($rankings as $ranking)
+		{
+			//find matches with player as player1
+			$score = 0;
+			$options['joins'] = array(
+											array('table' => 'rounds',
+											'alias' => 'Round1',
+											'type' => 'LEFT',
+											'conditions' => array(
+												'Round1.id = Match.round_id',
+											)));
+											
+			$options['conditions'] = array('Round1.tournament_id'=>$tournament_id,'Match.player1_id'=>$ranking['User']['id'],'Match.open'=>0);
+			$options['recursive'] =0;
+			$matches = $this->SwissTournament->Round->Match->find('all',$options);
+			foreach($matches as $match)
+			{
+				$player2 = $match['Match']['player2_id'];
+				$rank = $this->SwissTournament->Ranking->find('first',array('recursive'=>0, 'conditions'=>array('user_id'=>$player2, 'tournament_id'=>$tournament_id)));
+				$score += $rank['Ranking']['oppscore'];
+			}
+			
+			//find matches with player as player2
+			$options['joins'] = array(
+											array('table' => 'rounds',
+											'alias' => 'Round1',
+											'type' => 'LEFT',
+											'conditions' => array(
+												'Round1.id = Match.round_id',
+											)));
+											
+			$options['conditions'] = array('Round1.tournament_id'=>$tournament_id,'Match.player2_id'=>$ranking['User']['id'],'Match.open'=>0);
+			$options['recursive'] =0;
+			$matches = $this->SwissTournament->Round->Match->find('all',$options);
+			foreach($matches as $match)
+			{
+				$player1 = $match['Match']['player1_id'];
+				$rank = $this->SwissTournament->Ranking->find('first',array('recursive'=>0, 'conditions'=>array('user_id'=>$player1, 'tournament_id'=>$tournament_id)));
+				$score += $rank['Ranking']['oppscore'];
+			}
+			
+			//Save oppscore
+			$this->SwissTournament->Ranking->id = $ranking['Ranking']['id'];
+			$this->SwissTournament->Ranking->saveField('oppoppscore', $score);
 		}
 	}
 	function playoffs($id)
@@ -439,7 +543,6 @@ class SwissTournamentsController extends AppController {
 		
 		while($score>=0)
 		{
-			debug('a');
 			$score--;
 			$scoregroup=$this->SwissTournament->Ranking->find('all',array('conditions'=>array('Ranking.away'=>'0','Ranking.match_points'=>$score,'Ranking.tournament_id'=>$tournament_id)));
 			if(count($scoregroup)>0)
