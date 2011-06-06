@@ -24,8 +24,9 @@
 <div class="PostBox"> 
 	<div class="PostContent">
 		<div class="leftBox">
-			<div class="PostContentBox">
+			<div class="PostUserContentBox">
 				<div class="PostMainContentbox">
+                <?php echo $this->Html->image('avatar_l.png', array('width' => '125')); ?> 
 				<?php //debug($post);
 				if ($post['User']['admin']==true)
 				{
@@ -57,6 +58,10 @@
 	</div>
                             
 	<div class="PostFooter">
+    	<div class="bottompages">
+    	<?php echo ($post['Post']['date_posted']);?>
+        </div>
+        
 		<div class="bottomaction"> <?php
 				if ($this->Session->read('Auth.User.admin') OR $post['Post']['user_id']==$current_user)
 				{

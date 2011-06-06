@@ -27,7 +27,7 @@
 	<div class="PostBox"> 
 		<div class="PostContent">
 			<div class="leftBox">
-				<div class="PostContentBox">
+				<div class="PostUserContentBox">
 					<div class="PostMainContentbox">
 					<?php //debug($post);
 						if ($newspost['User']['admin']==true)

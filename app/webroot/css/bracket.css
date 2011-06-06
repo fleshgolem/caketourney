@@ -188,8 +188,9 @@ div.topmenuemainbox {
 #footer {
 	text-align:center;
 	position:relative;
-	width: 1190px;
+	width: 1090px;
     margin: 0px auto;
+	clear: both;
 	background-color:clear;
 	background: -webkit-gradient(linear, left top, left bottom, from(#555555), to(#000));
 	background: -moz-linear-gradient(top,  #555555,  #000);
@@ -218,6 +219,7 @@ div.topmenuemainbox {
 	-webkit-border-radius-bottomright:8px;
 	border-radius-bottomright:8px;	
 	color: #EEF3F6;
+	padding: 10px 50px;
 
 }
 
@@ -253,6 +255,7 @@ div.footerwrapper{
 	-webkit-border-radius-bottomright:8px;
 	border-radius-bottomright:8px;	
 	color: #EEF3F6;
+	
 }
 
 
@@ -288,7 +291,7 @@ div.score2 {
 
 /** Tables **/
 table {
-	background: #eef8ff;
+	/*background: #eef8ff;*/
 	border-right:0;
 	clear: both;
 	color: #333;
@@ -313,17 +316,17 @@ th a.desc:after {
 	content: ' ⇡';
 }
 table tr td {
-	background: #eef8ff;
+	/*background: #eef8ff;*/
 	padding: 6px;
 	text-align: left;
 	vertical-align: top;
 	border-bottom:1px solid #ddd;
 }
 table tr:nth-child(2n) td {
-	background: #e7f5ff;
+	/*background: #e7f5ff;*/
 }
 table .altrow td {
-	background: #eef8ff;
+	/*background: #eef8ff;*/
 }
 td.actions {
 	text-align: left;
@@ -1533,7 +1536,7 @@ div.rightBox {
 	width: 75%;
 	float:left;
 	padding: 13px 5px;
-	border-left:1px solid #000000;
+	/*border-left:1px solid #000000;*/
 }
 div.rightBoxSmall {
 	width: 65%;
@@ -1547,10 +1550,20 @@ div.PostContentBox {
 	padding: 5px 0px;
 	
 }
+div.PostUserContentBox {
+	background: -webkit-gradient(linear, left top, left bottom, from(#e1e1e1), to(#d3d4d5));
+	background: -moz-linear-gradient(top,  #e1e1e1,  #d3d4d5);
+	filter:	progid:DXImageTransform.Microsoft.gradient(startColorstr=#e1e1e1,endColorstr=#d3d4d5 ) 
+	-ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr=#e1e1e1,endColorstr=#d3d4d5)";
+	padding: 5px 0px;
+	-moz-border-radius:4px;
+	-khtml-border-radius:4px;
+	-webkit-border-radius:4px;
+	border-radius:4px;
+}
 
 div.PostMainContentbox {
 	padding: 5px 10px;
-	
 }
 
 div.bottomaction {
@@ -1678,10 +1691,10 @@ div.Sidetopbox{
 	-webkit-border-radius-topright:8px;
 	border-radius-topright:8px;
 	border:1px solid #333;
-	background: -webkit-gradient(linear, left top, left bottom, from(#eef8ff), to(#b5bbbf));
-	background: -moz-linear-gradient(top,  #eef8ff,  #b5bbbf);
-	filter:	progid:DXImageTransform.Microsoft.gradient(startColorstr=#eef8ff,endColorstr=#b5bbbf ) 
-	-ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr=#eef8ff,endColorstr=#b5bbbf)";
+	background: -webkit-gradient(linear, left top, left bottom, from(#eef8ff), to(#d1d8de));
+	background: -moz-linear-gradient(top,  #eef8ff,  #d1d8de);
+	filter:	progid:DXImageTransform.Microsoft.gradient(startColorstr=#eef8ff,endColorstr=#d1d8de ) 
+	-ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr=#eef8ff,endColorstr=#d1d8de)";
 	
 }
 
@@ -1698,10 +1711,10 @@ div.Sidebottombox {
 	-webkit-border-radius-bottomright:8px;
 	border-radius-topright:8px;
 	border:1px solid #333;
-	background: -webkit-gradient(linear, left top, left bottom, from(#b5bbbf), to(#eef8ff));
-	background: -moz-linear-gradient(top,  #b5bbbf,  #eef8ff);
-	filter:	progid:DXImageTransform.Microsoft.gradient(startColorstr=#b5bbbf,endColorstr=#eef8ff ) 
-	-ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr=#b5bbbf,endColorstr=#eef8ff)";
+	background: -webkit-gradient(linear, left top, left bottom, from(#d1d8de), to(#b5bbbf));
+	background: -moz-linear-gradient(top,  #d1d8de,  #b5bbbf);
+	filter:	progid:DXImageTransform.Microsoft.gradient(startColorstr=#d1d8de,endColorstr=#b5bbbf ) 
+	-ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr=#d1d8de,endColorstr=#b5bbbf)";
 }
 
 div.SideContenBox {
