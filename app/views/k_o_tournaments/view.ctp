@@ -26,8 +26,12 @@
 </div>
 
 
-
-			<div class="KOwrapper">
+<div class="PostBox"> 
+	<div class="PostContent">
+		<div class="PostContentBox">
+			<div class="PostMainContentbox">
+				
+<div class="KOwrapper">
             	<div class="scollbox">
 					<?php $m = 0;?>
                     <?php foreach ($tournament['Round'] as $round){?>
@@ -55,6 +59,20 @@
                     }?>
                 </div>
             </div>
+				
+			</div>
+		</div>
+		<p style="clear: both;"> </p>
+	</div>
+	<div class="PostFooter">
+    	<div class="bottomaction">   </p></div>
+       
+		<p style="clear: both;">  </p>
+	</div>
+</div>
+
+
+			
 
 
 

@@ -24,18 +24,43 @@
                             <div class="bottombox"> <?php echo $this->Html->link(__($match['Player2']['username'], true), array('controller' => 'users', 'action' => 'view', $match['Player2']['id']));?></div>
                         </div>
                         <div class="scorebox">
-                            <div class="scoretop"> <a href=""><?php 
-								if ($match['Match']['player1_score']!=null)
-									echo $match['Match']['player1_score'];
-								else
-									echo "-";
-								?></a> </div>
-                            <div class="scorebottom"> <a href=""><?php 
-								if ($match['Match']['player2_score']!=null)
-									echo $match['Match']['player2_score'];
-								else
-									echo "-";
-								?></a> </div>
+                            <div class="scoretop"> 
+                             <?php
+								if ($match['Match']['player1_score']!=null){
+									if ($match['Match']['player1_score']>=$match['Match']['player2_score']){?>
+										<div class="scorewin"><a href="">
+										<?php echo $match['Match']['player1_score'];?>
+										</a></div><?php
+									}
+									if ($match['Match']['player1_score']<$match['Match']['player2_score']){?>
+										<a href="">
+										<?php echo $match['Match']['player1_score'];?>
+										</a><?php
+									}
+								}
+								else{
+									?> <a href=""> <?php echo "-";?> </a><?php }
+							?>
+                            
+                            </div>
+                            <div class="scorebottom"> 
+                            <?php
+								if ($match['Match']['player2_score']!=null){
+									if ($match['Match']['player2_score']>=$match['Match']['player1_score']){?>
+										<div class="scorewin"><a href="">
+										<?php echo $match['Match']['player2_score'];?>
+										</a></div><?php
+									}
+									if ($match['Match']['player2_score']<$match['Match']['player1_score']){?>
+										<a href="">
+										<?php echo $match['Match']['player2_score'];?>
+										</a><?php
+									}
+								}
+								else{
+									?> <a href=""> <?php echo "-";?> </a><?php }
+							?>
+                             </div>
                         </div>
                     </div> 
 				</div>

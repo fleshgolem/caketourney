@@ -27,16 +27,36 @@ class BracketHelper extends AppHelper {
     		<div class="scorebox">
     			<div class="scoretop">
 					<?php
-					if ($player1_score!=null)
-						echo $this->Html->link(($player1_score), array('controller' => 'matches', 'action' => 'view',$match_id));
+					if ($player1_score!=null){
+						if ($player1_score>=$player2_score){?>
+                        	<div class="scorewin">
+							<?php echo $this->Html->link(($player1_score), array('controller' => 'matches', 'action' => 'view',$match_id));?>
+                            </div><?php
+						}
+						if ($player1_score<$player2_score){?>
+                        	
+							<?php echo $this->Html->link(($player1_score), array('controller' => 'matches', 'action' => 'view',$match_id));?>
+                            <?php
+						}
+					}
 					else
 						echo $this->Html->link(('-'), array('controller' => 'matches', 'action' => 'view',$match_id));
 					?>
 				</div>
 				<div class="scorebottom">
 					<?php
-					if ($player2_score!=null)
-						echo $this->Html->link(($player2_score), array('controller' => 'matches', 'action' => 'view',$match_id));
+					if ($player2_score!=null){
+						if ($player1_score<=$player2_score){?>
+                        	<div class="scorewin">
+							<?php echo $this->Html->link(($player2_score), array('controller' => 'matches', 'action' => 'view',$match_id));?>
+                            </div><?php
+						}
+						if ($player1_score>$player2_score){?>
+                        	
+							<?php echo $this->Html->link(($player2_score), array('controller' => 'matches', 'action' => 'view',$match_id));?>
+                            <?php
+						}
+					}
 					else
 						echo $this->Html->link(('-'), array('controller' => 'matches', 'action' => 'view',$match_id));
 					?>

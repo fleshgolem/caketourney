@@ -58,9 +58,7 @@
 	</div>
                             
 	<div class="PostFooter">
-    	<div class="bottompages">
-    	<?php echo ($post['Post']['date_posted']);?>
-        </div>
+    	
         
 		<div class="bottomaction"> <?php
 				if ($this->Session->read('Auth.User.admin') OR $post['Post']['user_id']==$current_user)
