@@ -11,7 +11,7 @@
 <div class="PostBox"> 
 	<div class="PostContent">
 		<div class="PostContentBox">
-			<div class="PostMainContentbox">
+			
 				<table cellpadding="0" cellspacing="0">
 	<tr>
 			<th><?php echo $this->Paginator->sort('username');?></th>
@@ -46,7 +46,7 @@
 	</tr>
 <?php endforeach; ?>
 	</table>
-			</div>
+			
 		</div>
 		<p style="clear: both;"> </p>
 	</div>

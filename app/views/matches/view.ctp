@@ -20,22 +20,64 @@
 					<div class="spacebox2em"> </div>
 					<div class="matchbox">
                         <div class="namesbox">
-                            <div class="topbox"> <?php echo $this->Html->link(__($match['Player1']['username'], true), array('controller' => 'users', 'action' => 'view', $match['Player1']['id']));?> </div>
-                            <div class="bottombox"> <?php echo $this->Html->link(__($match['Player2']['username'], true), array('controller' => 'users', 'action' => 'view', $match['Player2']['id']));?></div>
+                            <div class="topbox">
+                             <?php
+								if ($match['Player1']['username']!=null){
+                              		echo $this->Html->link(__($match['Player1']['username'], true), array('controller' => 'users', 'action' => 'view', $match['Player1']['id']));
+								}
+								else{
+									?> <a href=""> <?php echo "-";?> </a><?php }
+								?>
+                             </div>
+                            <div class="bottombox"> 
+                            <?php
+								if ($match['Player2']['username']!=null){
+                              		echo $this->Html->link(__($match['Player2']['username'], true), array('controller' => 'users', 'action' => 'view', $match['Player2']['id']));
+								}
+								else{
+									?> <a href=""> <?php echo "-";?> </a><?php }
+								?>
+							
+                            </div>
                         </div>
                         <div class="scorebox">
-                            <div class="scoretop"> <a href=""><?php 
-								if ($match['Match']['player1_score']!=null)
-									echo $match['Match']['player1_score'];
-								else
-									echo "-";
-								?></a> </div>
-                            <div class="scorebottom"> <a href=""><?php 
-								if ($match['Match']['player2_score']!=null)
-									echo $match['Match']['player2_score'];
-								else
-									echo "-";
-								?></a> </div>
+                            <div class="scoretop"> 
+                             <?php
+								if ($match['Match']['player1_score']!=null){
+									if ($match['Match']['player1_score']>=$match['Match']['player2_score']){?>
+										<div class="scorewin"><a href="">
+										<?php echo $match['Match']['player1_score'];?>
+										</a></div><?php
+									}
+									if ($match['Match']['player1_score']<$match['Match']['player2_score']){?>
+										<a href="">
+										<?php echo $match['Match']['player1_score'];?>
+										</a><?php
+									}
+								}
+								else{
+									?> <a href=""> <?php echo "-";?> </a><?php }
+							?>
+                            
+                            </div>
+                            <div class="scorebottom"> 
+                            <?php
+								if ($match['Match']['player2_score']!=null){
+									if ($match['Match']['player2_score']>=$match['Match']['player1_score']){?>
+										<div class="scorewin"><a href="">
+										<?php echo $match['Match']['player2_score'];?>
+										</a></div><?php
+									}
+									if ($match['Match']['player2_score']<$match['Match']['player1_score']){?>
+										<a href="">
+										<?php echo $match['Match']['player2_score'];?>
+										</a><?php
+									}
+								}
+								else{
+									?> <a href=""> <?php echo "-";?> </a><?php }
+							?>
+                             </div>
                         </div>
                     </div> 
 				</div>
@@ -124,7 +166,7 @@
 <div class="PostBox"> 
 	<div class="PostContent">
 		<div class="PostContentBox">
-			<div class="PostMainContentbox">
+			
 				
                 <table cellpadding="0" cellspacing="0">
                     <tr>
@@ -149,7 +191,7 @@
                     </tr>
                     <?php }?>
                 </table>
-			</div>
+			
 		</div>
 		<p style="clear: both;"> </p>
 	</div>

@@ -76,20 +76,41 @@
                     </div>
                     <div class="scorebox">
                         <div class="scoretop"> 
-                        	<?php
-                         	if ($match['player1_score']!=null)
-								echo $this->Html->link(($match['player1_score']), array('controller' => 'matches', 'action' => 'view',$match['id']));
+                        <?php
+							if ($match['player1_score']!=null){
+								if ($match['player1_score']>=$match['player2_score']){?>
+									<div class="scorewin">
+									<?php echo $this->Html->link(($match['player1_score']), array('controller' => 'matches', 'action' => 'view',$match['id']));?>
+									</div><?php
+								}
+								if ($match['player1_score']<$match['player2_score']){?>
+									
+									<?php echo $this->Html->link(($match['player1_score']), array('controller' => 'matches', 'action' => 'view',$match['id']));?>
+									<?php
+								}
+							}
 							else
-								echo $this->Html->link("-", array('controller' => 'matches', 'action' => 'view',$match['id']));
-							?>
+								echo $this->Html->link(('-'), array('controller' => 'matches', 'action' => 'view',$match['id']));
+						?>
+                        	
                         </div>
                         <div class="scorebottom"> 
-                        <?php
-                         	if ($match['player2_score']!=null)
-								echo $this->Html->link(($match['player2_score']), array('controller' => 'matches', 'action' => 'view',$match['id']));
+                         <?php
+							if ($match['player2_score']!=null){
+								if ($match['player1_score']<=$match['player2_score']){?>
+									<div class="scorewin">
+									<?php echo $this->Html->link(($match['player2_score']), array('controller' => 'matches', 'action' => 'view',$match['id']));?>
+									</div><?php
+								}
+								if ($match['player1_score']>$match['player2_score']){?>
+									
+									<?php echo $this->Html->link(($match['player2_score']), array('controller' => 'matches', 'action' => 'view',$match['id']));?>
+									<?php
+								}
+							}
 							else
-								echo $this->Html->link("-", array('controller' => 'matches', 'action' => 'view',$match['id']));
-							?>
+								echo $this->Html->link(('-'), array('controller' => 'matches', 'action' => 'view',$match['id']));
+						?>
                         </div>
                     </div>   
                 </div>

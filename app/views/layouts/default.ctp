@@ -52,7 +52,8 @@
 								 <![endif]-->
 	<div id="container">
 		<div id="header">
-        	<h1></h1>
+        <div class="headerwrapper">
+        	<h1><?php echo $this->Html->image('logo7.png');?></h1>
             
             <div class="topmenuemainbox">
 			<div class="topmenuewrapper">
@@ -95,7 +96,7 @@
 			</div>
     
 			
-					
+		</div>			
 		</div>
         <div id="wrapper1"><!-- sets background to white and creates full length leftcol-->
 	
@@ -317,6 +318,7 @@
 </div><!-- end wrapper2 -->
 		
 		<div id="footer" >
+        <div id="footerwrapper" >
          <div >
 		StarCraft®: Wings of Liberty™ is the copyrighted product of Blizzard Entertainment, Inc.<br />
             © 2011 Blizzard Entertainment, Inc. All rights reserved.
@@ -336,6 +338,7 @@
         </div>
         <p style="clear: both;">  </p>
 		</div>
+        </div>
 	</div>
 	
 </body>
