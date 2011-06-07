@@ -363,7 +363,7 @@ div.paging span.disabled {
 	display: inline;
 }
 div.paging span.current {
-	color: #c73e14;
+	color: #4077d1;
 }
 div.paging span a {
 }
@@ -1582,6 +1582,9 @@ div.bottomaction {
 	float:right;
 	vertical-align: middle;
 }
+
+
+
 div.bottomactionleft {
 	float:left;
 	vertical-align: middle;
@@ -1593,7 +1596,7 @@ div.bottompages {
 }
 
 div.bottompages span.current {
-	color: #9A7051;
+	color: #4077d1;
 }
 
 
@@ -1612,9 +1615,11 @@ div.bottomactionleft a{
 	text-decoration:none;
 	text-shadow: #555 0px 1px 0px;
 	min-width: 0;
-	
+		
 	
 }
+
+
 
 input[type=submit] {
 	font-weight:normal;
@@ -1630,8 +1635,13 @@ input[type=submit] {
 	padding: 0px 8px;
 	maging:0;
 }
-input[type=submit]:hover {
 
+
+div.bottomaction a:hover,
+div.bottomactionleft a:hover,
+input[type=submit]:hover  {
+	color: #4077d1;
+	
 }
 
 

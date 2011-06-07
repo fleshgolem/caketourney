@@ -87,13 +87,25 @@
 	}?>
     
     
-	
-	<div class="paging">
-		<?php echo $this->Paginator->prev('<< ' . __('previous', true), array(), null, array('class'=>'disabled'));?>
-	  	<?php echo $this->Paginator->numbers();?>
- 
-		<?php echo $this->Paginator->next(__('next', true) . ' >>', array(), null, array('class' => 'disabled'));?>
-	</div>
+<div class="PostBox">
+<div class="ThreadTitleBox">
+	<div class="bottompages">  
+        	<?php echo $this->Paginator->prev('<< ' . __('previous', true), array(), null, array('class'=>'disabled'));?>
+	  	 | 	<?php echo $this->Paginator->numbers();?> |
+			<?php echo $this->Paginator->next(__('next', true) . ' >>', array(), null, array('class' => 'disabled'));?>
+    </div>
+            <div class="bottomaction", style="padding:0 8px"> <?php
+        echo $this->Paginator->counter(array(
+        'format' => __('Page %page% of %pages%, showing %current% posts out of %count% total', true)
+        ));
+        ?>	
+         </div> 
+
+   <p style="clear: both;">  </p>
+</div>
+</div>
+
+
 	<?php if ($this->Session->read('Auth.User.admin'))
 	{?>
     

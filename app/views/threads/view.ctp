@@ -80,20 +80,30 @@
 <?php
 }?>
 
+<div class="PostBox">
+<div class="ThreadTitleBox">
+	
+   
+     
 
-<?php
-	echo $this->Paginator->counter(array(
-	'format' => __('Page %page% of %pages%, showing %current% posts out of %count% total', true)
-	));
-	?>	</p>
+	<div class="bottompages">  
+        	<?php echo $this->Paginator->prev('<< ' . __('previous', true), array(), null, array('class'=>'disabled'));?>
+	  	 | 	<?php echo $this->Paginator->numbers();?> |
+			<?php echo $this->Paginator->next(__('next', true) . ' >>', array(), null, array('class' => 'disabled'));?>
+    </div>
+            <div class="bottomaction", style="padding:0 8px"> <?php
+        echo $this->Paginator->counter(array(
+        'format' => __('Page %page% of %pages%, showing %current% posts out of %count% total', true)
+        ));
+        ?>	
+         </div> 
 
-	<div class="paging">
-		<?php echo $this->Paginator->prev('<< ' . __('previous', true), array(), null, array('class'=>'disabled'));?>
-	  	<?php echo $this->Paginator->numbers();?>
- 
-		<?php echo $this->Paginator->next(__('next', true) . ' >>', array(), null, array('class' => 'disabled'));?>
-	</div>
    <p style="clear: both;">  </p>
+
+   
+	
+</div>
+</div>
 <div class="PostBox"> 
 	<div class="PostContent">
 		<div class="PostContentBox">
