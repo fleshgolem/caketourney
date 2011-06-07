@@ -126,7 +126,8 @@ class MatchesController extends AppController {
 		
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid match', true));
-			$this->redirect(array('action' => 'index'));
+			
+			$this->redirect(array('action'=>'view',$id));
 		}
 		
 		if (!empty($this->data)) {
@@ -143,7 +144,7 @@ class MatchesController extends AppController {
 				
 				$Tournaments = new TournamentsController;
 				$Tournaments->ConstructClasses();
-			
+				$this->redirect(array('action'=>'view',$id));
 				$Tournaments->report_match($this->Match->id, $this->data['Match']['player1_score'],$this->data['Match']['player2_score']);
 				}
 		}
