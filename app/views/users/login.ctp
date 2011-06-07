@@ -18,8 +18,7 @@
 					echo $this->Form->create(array('action' => 'login'));
 					echo $this->Form->input('username');
 					echo $this->Form->input('password');
-					echo $form->input('remember_me', array('label' => 'Remember Me', 'type' => 'checkbox'));
-				?>
+					echo $this->Form->input('auto_login', array('type' => 'checkbox', 'label' => 'Remember me')); ?>			
 			</div>
 		</div>
 		<p style="clear: both;"> </p>
