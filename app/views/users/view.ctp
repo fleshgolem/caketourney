@@ -15,19 +15,7 @@
 		<div class="leftBoxBig">
 			<div class="PostContentBox">
 				<div class="PostMainContentbox" margin-left: auto;  margin-right: auto>
-					 <?php if ($user['User']['division']=='Code A') 
-               		{
-                    	echo $this->Html->image('CodeA-b2.png');
-                	}
-					if ($user['User']['division']=='Code S') 
-					{
-						echo $this->Html->image('CodeS-b2.png');
-					}
-					if ($user['User']['division']!='Code A' && $user['User']['division']!='Code S')
-					{
-						echo $this->Html->image('Unranked.png');
-					}
-					  ?>
+					<?php echo $this->Html->image('avatar_l.png', array('width' => '200')); ?> 
 				</div>
 			</div>
 		</div>
@@ -107,6 +95,95 @@
 	</div>
 </div>
 
+
+<div class="PostBox">
+<div class="ThreadTitleBox">
+	<div class="ThreadTitleContent">
+		<h3><?php echo $user['User']['username']; ?>'s Achievements </h3>
+	</div> 
+
+	<p style="clear: both;">  </p>  
+</div>
+</div>
+
+
+<div class="PostBox"> 
+	<div class="PostContent">
+		
+			<div class="PostContentBox">
+				<div class="PostMainContentbox" margin-left: auto;  margin-right: auto>
+					 <?php if ($user['User']['division']=='Code A') 
+               		{
+                    	echo $this->Html->image('CodeA-b2.png');
+                	}
+					if ($user['User']['division']=='Code S') 
+					{
+						echo $this->Html->image('CodeS-b2.png');
+					}
+					if ($user['User']['division']!='Code A' && $user['User']['division']!='Code S')
+					{
+						echo $this->Html->image('Unranked.png');
+					}
+					  ?>
+				</div>
+			</div>
+		
+		
+		
+	</div>
+                            
+        <div class="PostFooter">
+            
+            <div class="bottomaction">
+            
+        </div>
+       
+        <p style="clear: both;">  </p>
+	</div>
+</div>
+
+
+<div class="PostBox">
+<div class="ThreadTitleBox">
+	<div class="ThreadTitleContent">
+		<h3><?php echo $user['User']['username']; ?>'s Recent Matches </h3>
+	</div> 
+
+	<p style="clear: both;">  </p>  
+</div>
+</div>
+
+
+<div class="PostBox"> 
+	<div class="PostContent">
+		
+			<div class="PostContentBox">
+				
+					<table cellpadding="0" cellspacing="0">
+                    <tr>
+                        <th>Player 1</th>
+                        <th>Player 2</th>
+                        <th>Score</th>
+                    </tr>
+                    
+                    
+                </table>
+				
+			</div>
+		
+		
+		
+	</div>
+                            
+        <div class="PostFooter">
+            
+            <div class="bottomaction">
+            
+        </div>
+       
+        <p style="clear: both;">  </p>
+	</div>
+</div>
 
 </div>
 

@@ -230,9 +230,9 @@
 <div class="PostBox"> 
 	<div class="PostContent">
 		<div class="leftBox">
-			<div class="PostContentBox">
+			<div class="PostUserContentBox">
 				<div class="PostMainContentbox">
-				
+				 <?php echo $this->Html->image('avatar_l.png', array('width' => '125')); ?> 
                 <?php //debug($post);
 				if ($comment['User']['admin']==true)
 				{
