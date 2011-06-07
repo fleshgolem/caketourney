@@ -29,6 +29,7 @@
 			<div class="leftBox">
 				<div class="PostUserContentBox">
 					<div class="PostMainContentbox">
+                    <?php echo $this->Html->image('avatar_l.png', array('width' => '125')); ?> 
 					<?php //debug($post);
 						if ($newspost['User']['admin']==true)
 						{
