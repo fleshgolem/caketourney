@@ -291,7 +291,7 @@ class SwissTournamentsController extends AppController {
 			$KO = new KOTournamentsController;
 			$KO->ConstructClasses();
 			$seeds=array();
-			$ranked_players = $this->SwissTournament->Ranking->find('all',array('conditions'=>array('Ranking.tournament_id'=>$id),'order'=>array('Ranking.match_points DESC','Ranking.elo DESC')));
+			$ranked_players = $this->SwissTournament->Ranking->find('all',array('conditions'=>array('Ranking.tournament_id'=>$id),'order'=>array('Ranking.match_points DESC','Ranking.oppscore DESC', 'Ranking.oppoppscore DESC')));
 			for($i=0;$i<$this->data['SwissTournament']['cutoff'];$i++)
 			{
 				$seeds[$i]=$ranked_players[$i]['Ranking']['user_id'];
