@@ -164,9 +164,44 @@
                         <th>Player 1</th>
                         <th>Player 2</th>
                         <th>Score</th>
+                        <th>Tournament</th>
                     </tr>
                     
+                    <?php foreach ($matches as $match){?>
                     
+                    <tr>
+                        <td>
+                        <?php
+                        if ($match['Player1']!=null)
+                            {
+                                echo $this->Race->small_img($match['Player1']['race']);
+								echo $this->Html->link(($match['Player1']['username']),array('controller' => 'users', 'action' => 'view', $match['Player1']['id']));
+                            }?>
+                        </td>
+                        <td>
+                        <?php
+                        if ($match['Player2']!=null)
+                            {
+                                echo $this->Race->small_img($match['Player2']['race']);
+                                echo $this->Html->link(($match['Player2']['username']),array('controller' => 'users', 'action' => 'view', $match['Player2']['id']));
+                            }?>
+                        </td>
+                        <td>
+                        	
+                        	<?php
+								$scorelink = '';
+								$scorelink .=($match['Match']['player1_score']);
+								$scorelink .= ' : ' ;
+								$scorelink .=($match['Match']['player2_score']);
+								
+							 echo $this->Html->link(($scorelink),array('controller' => 'matches', 'action' => 'view',$match['Match']['id']))?>
+                           
+                        </td>
+                        <td>
+                           <?php echo $this->Html->link(($match['Round']['Tournament']['name']),array('controller' => 'tournaments', 'action' => 'view',$match['Round']['Tournament']['id']))?>
+                        </td>
+                    </tr>
+                    <?}?>
                 </table>
 				
 			</div>
