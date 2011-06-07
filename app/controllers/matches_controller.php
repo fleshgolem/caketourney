@@ -144,7 +144,6 @@ class MatchesController extends AppController {
 				
 				$Tournaments = new TournamentsController;
 				$Tournaments->ConstructClasses();
-				$this->redirect(array('action'=>'view',$id));
 				$Tournaments->report_match($this->Match->id, $this->data['Match']['player1_score'],$this->data['Match']['player2_score']);
 				}
 		}

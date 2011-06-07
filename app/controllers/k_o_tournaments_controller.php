@@ -40,7 +40,7 @@ class KOTournamentsController extends AppController {
 		//Advance Winner
 		$roundnumber=$match['Round']['number'];
 		$nextround=$this->KOTournament->Round->find('first',array('conditions'=>array('Round.number'=>$roundnumber+1,'Round.tournament_id'=>$tournament_id)));
-		if($nextround)
+		if(!empty($nextround))
 		{
 			$nextmatchnumber=floor($match['Match']['number_in_round']/2);
 			$nextplayernumber=$match['Match']['number_in_round']%2+1;
