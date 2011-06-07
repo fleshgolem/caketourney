@@ -1498,10 +1498,10 @@ div.PostContent {
 	-khtml-border-top-left-radius:8px;
 	-webkit-border-radius-topleft:8px;
 	border-radius-topright:8px;
-	background: -webkit-gradient(linear, left top, left bottom, from(#eef8ff), to(#b5bbbf));
+	background: -webkit-gradient(linear, left top, left bottom, from(#f6f6f6), to(#e4e5e7));
 	background: -moz-linear-gradient(top,  #f6f6f6,  #e4e5e7);
-	filter:	progid:DXImageTransform.Microsoft.gradient(startColorstr=#eef8ff,endColorstr=#b5bbbf ) 
-	-ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr=#eef8ff,endColorstr=#b5bbbf)";
+	filter:	progid:DXImageTransform.Microsoft.gradient(startColorstr=#f6f6f6,endColorstr=#e4e5e7 ) 
+	-ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr=#f6f6f6,endColorstr=#e4e5e7)";
 	/*background: #9ac2e1;*/
 	/*background: #eef8ff;*/
 	text-align:left;
