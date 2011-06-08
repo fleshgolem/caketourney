@@ -32,7 +32,7 @@
  */
 class AppController extends Controller {
 	var $helpers = array('Race','Text','Bbcode','Html','Form','Session');
-	var $components = array('Auth','Session','Cookie');
+	var $components = array('Auth','Session','Cookie','AutoLogin');
 	//var $helpers = array('Race');
 
 /**
@@ -45,6 +45,12 @@ class AppController extends Controller {
     }
 	function beforeFilter()
 	{
-		
+		$this->AutoLogin->cookieName = 'rememberMe';
+		$this->AutoLogin->expires = '+1 month';
+		$this->AutoLogin->settings = array(
+        'controller' => 'Users',
+        'loginAction' => 'login',
+        'logoutAction' => 'logout'
+    );
 	}
 }
