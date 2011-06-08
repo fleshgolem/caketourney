@@ -215,16 +215,16 @@ class MatchesController extends AppController {
 		if (!$this->Session->read('Auth.User.admin'))
 		{
 			$this->Session->setFlash(__('Access denied', true));
-			$this->redirect(array('action'=>'index'));
+			$this->redirect(array('action'=>'view',$id));
 		}
 		if (!$id && empty($this->data)) {
 			$this->Session->setFlash(__('Invalid match', true));
-			$this->redirect(array('action' => 'index'));
+			$this->redirect(array('action'=>'view',$id));
 		}
 		if (!empty($this->data)) {
 			if ($this->Match->save($this->data)) {
 				$this->Session->setFlash(__('The match has been saved', true));
-				$this->redirect(array('action' => 'index'));
+				$this->redirect(array('action'=>'view',$id));
 			} else {
 				$this->Session->setFlash(__('The match could not be saved. Please, try again.', true));
 			}
@@ -242,18 +242,18 @@ class MatchesController extends AppController {
 	if (!$this->Session->read('Auth.User.admin'))
 		{
 			$this->Session->setFlash(__('Access denied', true));
-			$this->redirect(array('action'=>'index'));
+			$this->redirect(array('action'=>'view',$id));
 		}
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid id for match', true));
-			$this->redirect(array('action'=>'index'));
+			$this->redirect(array('action'=>'view',$id));
 		}
 		if ($this->Match->delete($id)) {
 			$this->Session->setFlash(__('Match deleted', true));
-			$this->redirect(array('action'=>'index'));
+			$this->redirect(array('action'=>'view',$id));
 		}
 		$this->Session->setFlash(__('Match was not deleted', true));
-		$this->redirect(array('action' => 'index'));
+		$this->redirect(array('action'=>'view',$id));
 	}
 	function set_date($id) 
 	{

@@ -82,10 +82,6 @@
 
 <div class="PostBox">
 <div class="ThreadTitleBox">
-	
-   
-     
-
 	<div class="bottompages">  
         	<?php echo $this->Paginator->prev('<< ' . __('previous', true), array(), null, array('class'=>'disabled'));?>
 	  	 | 	<?php echo $this->Paginator->numbers();?> |
@@ -99,11 +95,9 @@
          </div> 
 
    <p style="clear: both;">  </p>
+</div>
+</div>
 
-   
-	
-</div>
-</div>
 <div class="PostBox"> 
 	<div class="PostContent">
 		<div class="PostContentBox">
