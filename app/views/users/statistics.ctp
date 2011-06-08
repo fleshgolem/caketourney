@@ -103,6 +103,15 @@
                     <?php echo 'total win vs P: '; echo $XvP; echo ' out of: '; echo $totalXvP; ?> <br>
                     <?php echo 'total win vs Z: '; echo $XvZ; echo ' out of: '; echo $totalXvZ; ?> <br>
                     <?php echo 'total win vs R: '; echo $XvR; echo ' out of: '; echo $totalXvR; ?> <br>
+                    
+					<?php
+	echo $flashChart->begin();
+	$flashChart->setTitle('Win/Loss Ratio','{color:#333333;font-size:16px;}');
+	$flashChart->setData(array($totalWin,$total-$totalWin));
+	$flashChart->setBgColour('dedede');
+	echo $flashChart->pie(); 
+	echo $flashChart->render(200,200);
+?>
 				</div>
 			</div>
 		

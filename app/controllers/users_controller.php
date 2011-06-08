@@ -2,7 +2,7 @@
 class UsersController extends AppController {
 
 	var $name = 'Users';
-	var $helpers = array('Race');
+	var $helpers = array('Race','FlashChart');
     /**
      * Runs automatically before the controller action is called
      */
