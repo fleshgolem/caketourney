@@ -1,5 +1,8 @@
 <?php
+
+
 class User extends AppModel {
+	var $displayField = 'username';
 	var $name = 'User';
 	var $hasAndBelongsToMany = array(
 		'Tournament' => array(
