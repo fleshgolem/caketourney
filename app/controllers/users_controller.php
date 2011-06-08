@@ -161,6 +161,7 @@ class UsersController extends AppController {
 		
 		$matches = $this->User->Match->find('all',array('recursive'=>2,'conditions'=>array('Match.open'=>0,'OR'=>array('Match.player1_id'=>$id,'Match.player2_id'=>$id)),'order'=>array('Match.date DESC')));
 		$this->set('matches',$matches);
+		
 	}
 	
 
