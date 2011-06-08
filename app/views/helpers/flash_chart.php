@@ -712,9 +712,15 @@ class FlashChartHelper extends AppHelper {
 				$pies[] = $value;
 			}
 		}
+		$pie->set_tooltip( '#val# of #total#<br>#percent# of 100%' );
 		$pie->set_values($pies);
 		$this->Chart->add_element($pie);
+		$pie->set_start_angle( 90 );
+		$pie->set_colours( array('#4db849','#e84940') );
+		$pie->set_alpha(0.75);
+		$pie->add_animation( new pie_fade() );
 		return $this->renderData($chartId);
+		
 	}
 	
 	/**
