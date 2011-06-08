@@ -4,7 +4,10 @@
 	<div class="ThreadTitleContent">
 		<h2><?php echo $user['User']['username']; ?>'s Page</h2>
 	</div> 
-
+	<div class="bottomaction"> <?php
+		echo $this->Html->link(__('Statistics', true), array('action' => 'statistics', $user['User']['id'])); 
+		?>
+     </div>
 	<p style="clear: both;">  </p>  
 </div>
 </div>
