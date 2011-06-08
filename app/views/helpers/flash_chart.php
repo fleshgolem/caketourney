@@ -689,7 +689,7 @@ class FlashChartHelper extends AppHelper {
 	 * @param string $chartId Name of chart. Use for seperate charts.
 	 * @return string
 	 */
-	public function pie($options = array(), $datasetName = 'default', $chartId = 'default') {
+	public function pie($options = array(), $PieRadius ,  $datasetName = 'default', $chartId = 'default') {
 		if (empty($this->data[$datasetName])) {
 			return false;
 		}
@@ -702,6 +702,11 @@ class FlashChartHelper extends AppHelper {
 		if (!empty($this->tooltip)) {
 			$pie->set_tooltip($this->tooltip);
 		}
+		
+		if (!empty($PieRadius)) {
+			$pie->radius($PieRadius);
+		}
+		
 		$pies = array();
 		$labels = Set::extract($this->data, $this->labelsPath);
 		$numbers = $this->getNumbers($datasetName);
@@ -712,10 +717,10 @@ class FlashChartHelper extends AppHelper {
 				$pies[] = $value;
 			}
 		}
-		$pie->set_tooltip( '#val# of #total#<br>#percent# of 100%' );
+		
 		$pie->set_values($pies);
 		$this->Chart->add_element($pie);
-		$pie->set_start_angle( 90 );
+		
 		$pie->set_colours( array('#4db849','#e84940') );
 		$pie->set_alpha(0.75);
 		$pie->add_animation( new pie_fade() );

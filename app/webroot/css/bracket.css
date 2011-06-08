@@ -1562,6 +1562,13 @@ div.PostContentBox {
 	padding: 5px 0px;
 	
 }
+div.PostChartPaddingBox {
+	float:left;
+	padding: 5px 5px;
+	
+}
+
+
 div.PostUserContentBox {
 	background: -webkit-gradient(linear, left top, left bottom, from(#e1e1e1), to(#d3d4d5));
 	background: -moz-linear-gradient(top,  #e1e1e1,  #d3d4d5);
@@ -1575,7 +1582,7 @@ div.PostUserContentBox {
 }
 
 div.PostChartContentBox {
-	width: 220px;
+	
 	background: #d3d4d5;
 	padding: 5px 0px;
 	-moz-border-radius:4px;
