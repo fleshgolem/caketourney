@@ -159,8 +159,11 @@ class UsersController extends AppController {
 		$user = $this->User->read(null, $id);
 		$this->set('user', $user);
 		
-		$tournaments = $this->User->Tournament->find('all');
+		$this->User->Tournament->bindModel(array('hasOne' => array('UsersTournament')));
+		$tournaments = $this->User->Tournament->find('all',array('recursive'=>3,'conditions'=>array('UsersTournament.user_id'=>$id)));
 		$this->set('tournaments',$tournaments);
+		
+		
 		
 		$matches = $this->User->Match->find('all',array('recursive'=>2,'conditions'=>array('Match.open'=>0,'OR'=>array('Match.player1_id'=>$id,'Match.player2_id'=>$id)),'order'=>array('Match.date DESC')));
 		$this->set('matches',$matches);
@@ -277,12 +280,14 @@ class UsersController extends AppController {
 						$totalXvR_sperate = 0;
 						$total_sperate = 0;
 						$totalWin_sperate = 0;
+						foreach($tournament['Round'] as $round){
+						foreach ($round['Match'] as $match){
+
 						
-						foreach ($matches as $match){
 							echo $tournament['Tournament']['id'];
 							echo $match['Round']['Tournament']['id'];
 							
-							if ($match['Player2']['username']!=null && $match['Player1']['username']==$user['User']['username'] && $tournament['Tournament']['id']==$match['Round']['Tournament']['id'] )
+							if ($match['Player2']['username']!=null && $match['Player1']['username']==$user['User']['username'] )
 								{
 									$total+=1;
 									if($match['Player2']['race']==0){
@@ -315,7 +320,7 @@ class UsersController extends AppController {
 								}
 						   
 							
-							if ($match['Player1']['username']!=null && $match['Player2']['username']==$user['User']['username'] && $tournament['Tournament']['id']==$match['Round']['Tournament']['id'])
+							if ($match['Player1']['username']!=null && $match['Player2']['username']==$user['User']['username'] )
 								{
 									$total+=1;
 									if($match['Player1']['race']==0){
@@ -346,7 +351,7 @@ class UsersController extends AppController {
 										$totalWin_sperate+=1;
 									}
 								}
-								
+								}
 								
 						  
 								
