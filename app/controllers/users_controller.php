@@ -268,87 +268,89 @@ class UsersController extends AppController {
 					$totalXvR_array = array();
 					$total_array = array();
 					$totalWin_array = array();
+					$tournament_names_array = array();
 					
 					foreach ($tournaments as $tournament){
-						$XvT_sperate = 0;
-						$XvP_sperate = 0;
-						$XvZ_sperate = 0;
-						$XvR_sperate = 0;
-						$totalXvT_sperate = 0;
-						$totalXvP_sperate = 0;
-						$totalXvZ_sperate = 0;
-						$totalXvR_sperate = 0;
-						$total_sperate = 0;
-						$totalWin_sperate = 0;
+						$tournament_names_array[]=$tournament['Tournament']['name'];
+						$XvT_seperate = 0;
+						$XvP_seperate = 0;
+						$XvZ_seperate = 0;
+						$XvR_seperate = 0;
+						$totalXvT_seperate = 0;
+						$totalXvP_seperate = 0;
+						$totalXvZ_seperate = 0;
+						$totalXvR_seperate = 0;
+						$total_seperate = 0;
+						$totalWin_seperate = 0;
+						
 						foreach($tournament['Round'] as $round){
 						foreach ($round['Match'] as $match){
 
 						
-							echo $tournament['Tournament']['id'];
-							echo $match['Round']['Tournament']['id'];
 							
-							if ($match['Player2']['username']!=null && $match['Player1']['username']==$user['User']['username'] )
+							
+							if ($match['Player2']!=null && $match['player1_id'] == $user['User']['id'] )
 								{
-									$total+=1;
+									$total_seperate+=1;
 									if($match['Player2']['race']==0){
-										$totalXvT+=1;
-										if($match['Match']['player1_score']>$match['Match']['player2_score']){
-											$XvT_sperate+=1;
+										$totalXvT_seperate+=1;
+										if($match['player1_score']>$match['player2_score']){
+											$XvT_seperate+=1;
 										}
 									}
 									if($match['Player2']['race']==1){
-										$totalXvP+=1;
-										if($match['Match']['player1_score']>$match['Match']['player2_score']){
-											$XvP_sperate+=1;
+										$totalXvP_seperate+=1;
+										if($match['player1_score']>$match['player2_score']){
+											$XvP_seperate+=1;
 										}
 									}
 									if($match['Player2']['race']==2){
-										$totalXvZ+=1;
-										if($match['Match']['player1_score']>$match['Match']['player2_score']){
-											$XvZ_sperate+=1;
+										$totalXvZ_seperate+=1;
+										if($match['player1_score']>$match['player2_score']){
+											$XvZ_seperate+=1;
 										}
 									}
 									if($match['Player2']['race']==3){
-										$totalXvR+=1;
-										if($match['Match']['player1_score']>$match['Match']['player2_score']){
-											$XvR_sperate+=1;
+										$totalXvR_seperate+=1;
+										if($match['player1_score']>$match['player2_score']){
+											$XvR_seperate+=1;
 										}
 									}
-									if($match['Match']['player1_score']>$match['Match']['player2_score']){
-										$totalWin_sperate+=1;
+									if($match['player1_score']>$match['player2_score']){
+										$totalWin_seperate+=1;
 									}
 								}
 						   
 							
-							if ($match['Player1']['username']!=null && $match['Player2']['username']==$user['User']['username'] )
+							if ($match['Player1']!=null && $match['player2_id'] == $user['User']['id'] )
 								{
-									$total+=1;
+									$total_seperate+=1;
 									if($match['Player1']['race']==0){
-										$totalXvT+=1;
-										if($match['Match']['player2_score']>$match['Match']['player1_score']){
-											$XvT_sperate+=1;
+										$totalXvT_seperate+=1;
+										if($match['player2_score']>$match['player1_score']){
+											$XvT_seperate+=1;
 										}
 									}
 									if($match['Player1']['race']==1){
-										$totalXvP+=1;
-										if($match['Match']['player2_score']>$match['Match']['player1_score']){
-											$XvP_sperate+=1;
+										$totalXvP_seperate+=1;
+										if($match['player2_score']>$match['player1_score']){
+											$XvP_seperate+=1;
 										}
 									}
 									if($match['Player1']['race']==2){
-										$totalXvZ+=1;
-										if($match['Match']['player2_score']>$match['Match']['player1_score']){
-											$XvZ_sperate+=1;
+										$totalXvZ_seperate+=1;
+										if($match['player2_score']>$match['player1_score']){
+											$XvZ_seperate+=1;
 										}
 									}
 									if($match['Player1']['race']==3){
-										$totalXvR+=1;
-										if($match['Match']['player2_score']>$match['Match']['player1_score']){
-											$XvR_sperate+=1;
+										$totalXvR_seperate+=1;
+										if($match['player2_score']>$match['player1_score']){
+											$XvR_seperate+=1;
 										}
 									}
-									if($match['Match']['player2_score']>$match['Match']['player1_score']){
-										$totalWin_sperate+=1;
+									if($match['player2_score']>$match['player1_score']){
+										$totalWin_seperate+=1;
 									}
 								}
 								}
@@ -358,16 +360,32 @@ class UsersController extends AppController {
 								
 						 }
 					
-					$XvT_array[] = $XvT_sperate;
-					$XvP_array[] =$XvP_sperate;
-					$XvZ_array[] =$XvZ_sperate;
-					$XvR_array[] =$totalXvT_sperate;
-					$totalXvT_array[] =$totalXvT_sperate;
-					$totalXvP_array[] =$totalXvP_sperate;
-					$totalXvZ_array[] =$totalXvZ_sperate;
-					$totalXvR_array[] =$totalXvR_sperate;
-					$total_array[] = $total_sperate;
-					$totalWin_array[] = $totalWin_sperate;
+					if($totalXvT_seperate!=0){
+					$XvT_array[] = $XvT_seperate/$totalXvT_seperate;}
+					else{
+					$XvT_array[] = 0;}
+					if($totalXvP_seperate!=0){
+					$XvP_array[] = $XvP_seperate/$totalXvP_seperate;}
+					else{
+					$XvP_array[] = 0;}
+					if($totalXvZ_seperate!=0){
+					$XvZ_array[] = $XvZ_seperate/$totalXvZ_seperate;}
+					else{
+					$XvZ_array[] = 0;}
+					if($totalXvR_seperate!=0){
+					$XvR_array[] = $XvR_seperate/$totalXvR_seperate;}
+					else{
+					$XvR_array[] = 0;}
+					
+					
+					
+					
+					$totalXvT_array[] =$totalXvT_seperate;
+					$totalXvP_array[] =$totalXvP_seperate;
+					$totalXvZ_array[] =$totalXvZ_seperate;
+					$totalXvR_array[] =$totalXvR_seperate;
+					$total_array[] = $total_seperate;
+					$totalWin_array[] = $totalWin_seperate/$total_seperate;
 
 					}
 					
@@ -381,6 +399,8 @@ class UsersController extends AppController {
 					$this->set('totalXvR_array',$totalXvR_array);
 					$this->set('total_array',$total_array);
 					$this->set('totalWin_array',$totalWin_array);
+					$this->set('tournament_names_array',$tournament_names_array);
+					
 					
 	}
 	

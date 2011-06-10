@@ -471,7 +471,14 @@ class FlashChartHelper extends AppHelper {
 				if (!empty($this->tooltip) ) {
 					$element->set_tooltip($this->tooltip);
 				}
+				$d = new solid_dot();
+				$d->size(3)->halo_size(1);
+				$element->set_default_dot_style($d);
+				
+				
+				
 				$numbers = $this->getNumbers($datasetName);
+				
 				$element->set_values($numbers);
 				$this->Chart->add_element($element);
 				

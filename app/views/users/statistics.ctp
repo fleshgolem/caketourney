@@ -142,17 +142,40 @@
 			<div class="PostContentBox">
 				<div class="PostMainContentbox" margin-left: auto;  margin-right: auto>
 					
-                    
-                    <?php
-						echo $flashChart->begin();
-						$flashChart->setTitle('History');
-						$flashChart->setData($totalWin_array,'{n}',false,'Apples','dig');
-						echo $flashChart->chart('line',array('colour'=>'#33cc33'),'Apples','dig');
-						echo $flashChart->render(500,500,'dig');
-					?>
-                     
-                   <?php debug($XvP_array); ?>
-                  
+                    <div class="PostChartPaddingBox">
+                    <div class="PostChartContentBox">
+                        <div class="PostMainContentbox">
+							<?php
+								$test = array();
+								for ($i = 0; $i < count($totalWin_array); $i++) {
+									$test[$i]['label']=$tournament_names_array[$i];
+									$test[$i]['count']=$XvT_array[$i];
+									echo $tournament_names_array[$i];
+								
+								}
+                                echo $flashChart->begin();
+                                $flashChart->setTitle('History');
+                                $flashChart->setData($totalWin_array,'{n}',false,'Total','dig');
+                                $flashChart->setData($XvT_array,'{n}',false,'XvT','dig');
+                                $flashChart->setData($XvP_array,'{n}',false,'XvP','dig');
+                                $flashChart->setData($XvZ_array,'{n}',false,'XvZ','dig');
+                                $flashChart->setData($XvR_array,'{n}',false,'XvR','dig');
+                                /*$flashChart->axis('y',array('range' => array(0, count($totalWin_array), 1),'labels' => $tournament_names_array));*/
+								$flashChart->axis('y',array('range' => array(0, 1, 0.1)));
+                                $flashChart->axis('x',array('labels'=>$tournament_names_array),array('vertical'=>true));
+                                $flashChart->setLegend('x','Tournament');
+                                $flashChart->setLegend('y','Winratio' );
+                                echo $flashChart->chart('line',array('colour'=>'#3e76d1','tooltip'=>'bla'),'Total','dig');
+                                echo $flashChart->chart('line',array('colour'=>'#f70c0c','tooltip'=>'#x_label#:#val#'),'XvT','dig');
+                                echo $flashChart->chart('line',array('colour'=>'#33cc33','tooltip'=>'#x_label#:#val#'),'XvP','dig');
+                                echo $flashChart->chart('line',array('colour'=>'#d70aef','tooltip'=>'#x_label#:#val#'),'XvZ','dig');
+                                echo $flashChart->chart('line',array('colour'=>'#b2e9fd','tooltip'=>'#x_label#:#val#'),'XvR','dig');
+                                echo $flashChart->render(685,400,'dig');
+                            ?>
+                     	</div>
+					</div>
+                    </div>
+                 
                    <p style="clear: both;">  </p>  
 					
 				</div>
