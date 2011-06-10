@@ -158,9 +158,64 @@ class UsersController extends AppController {
 		}
 		$this->set('user', $this->User->read(null, $id));
 		
+		$tournaments = $this->User->Tournament->find('all');
+		$this->set('tournaments',$tournaments);
 		
 		$matches = $this->User->Match->find('all',array('recursive'=>2,'conditions'=>array('Match.open'=>0,'OR'=>array('Match.player1_id'=>$id,'Match.player2_id'=>$id)),'order'=>array('Match.date DESC')));
 		$this->set('matches',$matches);
+		
+		$options['joins'] = array(array('table' => 'users', 'alias' => 'P2', 'type' => 'INNER', 'conditions' => array( 'P2.id = Match.player2_id', 'P2.race = 0' )));
+        $options['conditions']= array('Match.player1_id' => $id, 'Match.player1_score >' => 'Match.player2_score');
+        $winsVsTerranAs1 = $this->User->Match->find('count', $options);
+ 
+        $options['joins'] = array(array('table' => 'users','alias' => 'P1','type' => 'INNER','conditions' => array( 'P1.id = Match.player1_id','P1.race = 0' )));
+		$options['conditions']= array('Match.player2_id' => $id, 'Match.player2_score >' => 'Match.player1_score');
+        $winsVsTerranAs2 = $this->User->Match->find('count', $options);
+ 
+ 		$options['joins'] = array(array('table' => 'users', 'alias' => 'P2', 'type' => 'INNER', 'conditions' => array( 'P2.id = Match.player2_id', 'P2.race = 0' )));
+        $options['conditions']= array('Match.player1_id' => $id, 'Match.player1_score <' => 'Match.player2_score');
+        $lossVsTerranAs1 = $this->User->Match->find('count', $options);
+		
+        $options['joins'] = array(array('table' => 'users','alias' => 'P1','type' => 'INNER','conditions' => array( 'P1.id = Match.player1_id','P1.race = 0' )));
+		$options['conditions']= array('Match.player2_id' => $id, 'Match.player2_score <' => 'Match.player1_score');
+        $lossVsTerranAs2 = $this->User->Match->find('count', $options);
+		
+		$options['joins'] = array(array('table' => 'users', 'alias' => 'P2', 'type' => 'INNER', 'conditions' => array( 'P2.id = Match.player2_id', 'P2.race = 1' )));
+        $options['conditions']= array('Match.player1_id' => $id, 'Match.player1_score >' => 'Match.player2_score');
+        $winsVsProtossAs1 = $this->User->Match->find('count', $options);
+ 
+        $options['joins'] = array(array('table' => 'users','alias' => 'P1','type' => 'INNER','conditions' => array( 'P1.id = Match.player1_id','P1.race = 1' )));
+		$options['conditions']= array('Match.player2_id' => $id, 'Match.player2_score >' => 'Match.player1_score');
+        $winsVsProtossAs2 = $this->User->Match->find('count', $options);
+ 
+ 		$options['joins'] = array(array('table' => 'users', 'alias' => 'P2', 'type' => 'INNER', 'conditions' => array( 'P2.id = Match.player2_id', 'P2.race = 1' )));
+        $options['conditions']= array('Match.player1_id' => $id, 'Match.player1_score <' => 'Match.player2_score');
+        $lossVsProtossAs1 = $this->User->Match->find('count', $options);
+		
+        $options['joins'] = array(array('table' => 'users','alias' => 'P1','type' => 'INNER','conditions' => array( 'P1.id = Match.player1_id','P1.race = 1' )));
+		$options['conditions']= array('Match.player2_id' => $id, 'Match.player2_score <' => 'Match.player1_score');
+        $lossVsProtossAs2 = $this->User->Match->find('count', $options);
+ 
+        $winsVsTerran = $winsVsTerranAs1 + $winsVsTerranAs2;
+        $lossVsTerran = $lossVsTerranAs1 + $lossVsTerranAs2;
+		$this->set('XvT_win',$winsVsTerran);
+		$this->set('XvT_loss',$lossVsTerran);
+		
+		$winsVsProtoss = $winsVsProtossAs1 + $winsVsProtossAs2;
+        $lossVsProtoss = $lossVsProtossAs1 + $lossVsProtossAs2;
+		$this->set('XvP_win',$winsVsProtoss);
+		$this->set('XvP_loss',$lossVsProtoss);
+		/*
+		$options['joins'] = array(array('table' => 'players',
+								'alias' => 'Player2',
+								'type' => 'LEFT',
+								'conditions' => array(
+									'Player2.id = Match.player2_id',
+									'Player2.race = 2'
+								)));
+
+		$option['condition']= array('Match.player1_id' => $id, 'Match.player1_score >' => 'Match.player2_score');
+		$winsVsProtossAs1 = $this->User->Match->find('count', $options);*/
 		
 	}
 	
