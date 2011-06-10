@@ -19,93 +19,7 @@
 		
 			<div class="PostContentBox">
 				<div class="PostMainContentbox" margin-left: auto;  margin-right: auto>
-					<?php 
-					$XvT = 0;
-					$XvP = 0;
-					$XvZ = 0;
-					$XvR = 0;
-					$totalXvT = 0;
-					$totalXvP = 0;
-					$totalXvZ = 0;
-					$totalXvR = 0;
-					$total = 0;
-					$totalWin = 0;
 					
-					foreach ($matches as $match){?>
-                    
-                        <?php
-                        if ($match['Player2']['username']!=null && $match['Player1']['username']==$user['User']['username'])
-                            {
-								$total+=1;
-								if($match['Player2']['race']==0){
-									$totalXvT+=1;
-									if($match['Match']['player1_score']>$match['Match']['player2_score']){
-										$XvT+=1;
-									}
-								}
-								if($match['Player2']['race']==1){
-									$totalXvP+=1;
-									if($match['Match']['player1_score']>$match['Match']['player2_score']){
-										$XvP+=1;
-									}
-								}
-								if($match['Player2']['race']==2){
-									$totalXvZ+=1;
-									if($match['Match']['player1_score']>$match['Match']['player2_score']){
-										$XvZ+=1;
-									}
-								}
-								if($match['Player2']['race']==3){
-									$totalXvR+=1;
-									if($match['Match']['player1_score']>$match['Match']['player2_score']){
-										$XvR+=1;
-									}
-								}
-								if($match['Match']['player1_score']>$match['Match']['player2_score']){
-									$totalWin+=1;
-								}
-                            }?>
-                       
-                        <?php
-                        if ($match['Player1']['username']!=null && $match['Player2']['username']==$user['User']['username'])
-                            {
-                                $total+=1;
-								if($match['Player1']['race']==0){
-									$totalXvT+=1;
-									if($match['Match']['player2_score']>$match['Match']['player1_score']){
-										$XvT+=1;
-									}
-								}
-								if($match['Player1']['race']==1){
-									$totalXvP+=1;
-									if($match['Match']['player2_score']>$match['Match']['player1_score']){
-										$XvP+=1;
-									}
-								}
-								if($match['Player1']['race']==2){
-									$totalXvZ+=1;
-									if($match['Match']['player2_score']>$match['Match']['player1_score']){
-										$XvZ+=1;
-									}
-								}
-								if($match['Player1']['race']==3){
-									$totalXvR+=1;
-									if($match['Match']['player2_score']>$match['Match']['player1_score']){
-										$XvR+=1;
-									}
-								}
-								if($match['Match']['player2_score']>$match['Match']['player1_score']){
-									$totalWin+=1;
-								}
-                            }
-							?>
-                      
-                        	
-                        	
-                    <? }
-					
-					?>
-                    
                     
                     <div class="PostChartPaddingBox">
                         <div class="PostChartContentBox">
@@ -227,106 +141,18 @@
 		
 			<div class="PostContentBox">
 				<div class="PostMainContentbox" margin-left: auto;  margin-right: auto>
-					<?php
-					foreach ($tournaments as $tournament){
-					 	echo $tournament['Tournament']['id'];
-						$XvT = 0;
-						$XvP = 0;
-						$XvZ = 0;
-						$XvR = 0;
-						$totalXvT = 0;
-						$totalXvP = 0;
-						$totalXvZ = 0;
-						$totalXvR = 0;
-						$total = 0;
-						$totalWin = 0;
-						
-						foreach ($matches as $match){?>
-						
-							<?php
-							if ($match['Player2']['username']!=null && $match['Player1']['username']==$user['User']['username'] )
-								{
-									$total+=1;
-									if($match['Player2']['race']==0){
-										$totalXvT+=1;
-										if($match['Match']['player1_score']>$match['Match']['player2_score']){
-											$XvT+=1;
-										}
-									}
-									if($match['Player2']['race']==1){
-										$totalXvP+=1;
-										if($match['Match']['player1_score']>$match['Match']['player2_score']){
-											$XvP+=1;
-										}
-									}
-									if($match['Player2']['race']==2){
-										$totalXvZ+=1;
-										if($match['Match']['player1_score']>$match['Match']['player2_score']){
-											$XvZ+=1;
-										}
-									}
-									if($match['Player2']['race']==3){
-										$totalXvR+=1;
-										if($match['Match']['player1_score']>$match['Match']['player2_score']){
-											$XvR+=1;
-										}
-									}
-									if($match['Match']['player1_score']>$match['Match']['player2_score']){
-										$totalWin+=1;
-									}
-								}?>
-						   
-							<?php
-							if ($match['Player1']['username']!=null && $match['Player2']['username']==$user['User']['username'])
-								{
-									$total+=1;
-									if($match['Player1']['race']==0){
-										$totalXvT+=1;
-										if($match['Match']['player2_score']>$match['Match']['player1_score']){
-											$XvT+=1;
-										}
-									}
-									if($match['Player1']['race']==1){
-										$totalXvP+=1;
-										if($match['Match']['player2_score']>$match['Match']['player1_score']){
-											$XvP+=1;
-										}
-									}
-									if($match['Player1']['race']==2){
-										$totalXvZ+=1;
-										if($match['Match']['player2_score']>$match['Match']['player1_score']){
-											$XvZ+=1;
-										}
-									}
-									if($match['Player1']['race']==3){
-										$totalXvR+=1;
-										if($match['Match']['player2_score']>$match['Match']['player1_score']){
-											$XvR+=1;
-										}
-									}
-									if($match['Match']['player2_score']>$match['Match']['player1_score']){
-										$totalWin+=1;
-									}
-								}
-								echo $match['Round']['Tournament']['id'];
-								?>
-						  
-								
-								
-						<? }
-						
-					}
+					
+                    
+                    <?php
+						echo $flashChart->begin();
+						$flashChart->setTitle('History');
+						$flashChart->setData($totalWin_array,'{n}',false,'Apples','dig');
+						echo $flashChart->chart('line',array('colour'=>'#33cc33'),'Apples','dig');
+						echo $flashChart->render(500,500,'dig');
 					?>
-                    
-                    
                      
-                    
-                    
-                    <?php debug($XvT_win); ?>
-                    <?php debug($XvT_loss); ?>
-                    <?php debug($XvP_win); ?>
-                    <?php debug($XvP_loss); ?>
-                    <?php /*echo $winsVsProtossAs1 */?>
+                   <?php debug($XvP_array); ?>
+                  
                    <p style="clear: both;">  </p>  
 					
 				</div>

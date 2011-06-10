@@ -156,7 +156,8 @@ class UsersController extends AppController {
 			$this->Session->setFlash(__('Invalid User', true));
 			$this->redirect(array('action' => 'index'));
 		}
-		$this->set('user', $this->User->read(null, $id));
+		$user = $this->User->read(null, $id);
+		$this->set('user', $user);
 		
 		$tournaments = $this->User->Tournament->find('all');
 		$this->set('tournaments',$tournaments);
@@ -164,59 +165,218 @@ class UsersController extends AppController {
 		$matches = $this->User->Match->find('all',array('recursive'=>2,'conditions'=>array('Match.open'=>0,'OR'=>array('Match.player1_id'=>$id,'Match.player2_id'=>$id)),'order'=>array('Match.date DESC')));
 		$this->set('matches',$matches);
 		
-		$options['joins'] = array(array('table' => 'users', 'alias' => 'P2', 'type' => 'INNER', 'conditions' => array( 'P2.id = Match.player2_id', 'P2.race = 0' )));
-        $options['conditions']= array('Match.player1_id' => $id, 'Match.player1_score >' => 'Match.player2_score');
-        $winsVsTerranAs1 = $this->User->Match->find('count', $options);
- 
-        $options['joins'] = array(array('table' => 'users','alias' => 'P1','type' => 'INNER','conditions' => array( 'P1.id = Match.player1_id','P1.race = 0' )));
-		$options['conditions']= array('Match.player2_id' => $id, 'Match.player2_score >' => 'Match.player1_score');
-        $winsVsTerranAs2 = $this->User->Match->find('count', $options);
- 
- 		$options['joins'] = array(array('table' => 'users', 'alias' => 'P2', 'type' => 'INNER', 'conditions' => array( 'P2.id = Match.player2_id', 'P2.race = 0' )));
-        $options['conditions']= array('Match.player1_id' => $id, 'Match.player1_score <' => 'Match.player2_score');
-        $lossVsTerranAs1 = $this->User->Match->find('count', $options);
-		
-        $options['joins'] = array(array('table' => 'users','alias' => 'P1','type' => 'INNER','conditions' => array( 'P1.id = Match.player1_id','P1.race = 0' )));
-		$options['conditions']= array('Match.player2_id' => $id, 'Match.player2_score <' => 'Match.player1_score');
-        $lossVsTerranAs2 = $this->User->Match->find('count', $options);
-		
-		$options['joins'] = array(array('table' => 'users', 'alias' => 'P2', 'type' => 'INNER', 'conditions' => array( 'P2.id = Match.player2_id', 'P2.race = 1' )));
-        $options['conditions']= array('Match.player1_id' => $id, 'Match.player1_score >' => 'Match.player2_score');
-        $winsVsProtossAs1 = $this->User->Match->find('count', $options);
- 
-        $options['joins'] = array(array('table' => 'users','alias' => 'P1','type' => 'INNER','conditions' => array( 'P1.id = Match.player1_id','P1.race = 1' )));
-		$options['conditions']= array('Match.player2_id' => $id, 'Match.player2_score >' => 'Match.player1_score');
-        $winsVsProtossAs2 = $this->User->Match->find('count', $options);
- 
- 		$options['joins'] = array(array('table' => 'users', 'alias' => 'P2', 'type' => 'INNER', 'conditions' => array( 'P2.id = Match.player2_id', 'P2.race = 1' )));
-        $options['conditions']= array('Match.player1_id' => $id, 'Match.player1_score <' => 'Match.player2_score');
-        $lossVsProtossAs1 = $this->User->Match->find('count', $options);
-		
-        $options['joins'] = array(array('table' => 'users','alias' => 'P1','type' => 'INNER','conditions' => array( 'P1.id = Match.player1_id','P1.race = 1' )));
-		$options['conditions']= array('Match.player2_id' => $id, 'Match.player2_score <' => 'Match.player1_score');
-        $lossVsProtossAs2 = $this->User->Match->find('count', $options);
- 
-        $winsVsTerran = $winsVsTerranAs1 + $winsVsTerranAs2;
-        $lossVsTerran = $lossVsTerranAs1 + $lossVsTerranAs2;
-		$this->set('XvT_win',$winsVsTerran);
-		$this->set('XvT_loss',$lossVsTerran);
-		
-		$winsVsProtoss = $winsVsProtossAs1 + $winsVsProtossAs2;
-        $lossVsProtoss = $lossVsProtossAs1 + $lossVsProtossAs2;
-		$this->set('XvP_win',$winsVsProtoss);
-		$this->set('XvP_loss',$lossVsProtoss);
-		/*
-		$options['joins'] = array(array('table' => 'players',
-								'alias' => 'Player2',
-								'type' => 'LEFT',
-								'conditions' => array(
-									'Player2.id = Match.player2_id',
-									'Player2.race = 2'
-								)));
+					
+					$XvT = 0;
+					$XvP = 0;
+					$XvZ = 0;
+					$XvR = 0;
+					$totalXvT = 0;
+					$totalXvP = 0;
+					$totalXvZ = 0;
+					$totalXvR = 0;
+					$total = 0;
+					$totalWin = 0;
+					
+					foreach ($matches as $match){
+                        if ($match['Player2']['username']!=null && $match['Player1']['username']==$user['User']['username'])
+                            {
+								$total+=1;
+								if($match['Player2']['race']==0){
+									$totalXvT+=1;
+									if($match['Match']['player1_score']>$match['Match']['player2_score']){
+										$XvT+=1;
+									}
+								}
+								if($match['Player2']['race']==1){
+									$totalXvP+=1;
+									if($match['Match']['player1_score']>$match['Match']['player2_score']){
+										$XvP+=1;
+									}
+								}
+								if($match['Player2']['race']==2){
+									$totalXvZ+=1;
+									if($match['Match']['player1_score']>$match['Match']['player2_score']){
+										$XvZ+=1;
+									}
+								}
+								if($match['Player2']['race']==3){
+									$totalXvR+=1;
+									if($match['Match']['player1_score']>$match['Match']['player2_score']){
+										$XvR+=1;
+									}
+								}
+								if($match['Match']['player1_score']>$match['Match']['player2_score']){
+									$totalWin+=1;
+								}
+                            }
+							
+                        if ($match['Player1']['username']!=null && $match['Player2']['username']==$user['User']['username'])
+                            {
+                                $total+=1;
+								if($match['Player1']['race']==0){
+									$totalXvT+=1;
+									if($match['Match']['player2_score']>$match['Match']['player1_score']){
+										$XvT+=1;
+									}
+								}
+								if($match['Player1']['race']==1){
+									$totalXvP+=1;
+									if($match['Match']['player2_score']>$match['Match']['player1_score']){
+										$XvP+=1;
+									}
+								}
+								if($match['Player1']['race']==2){
+									$totalXvZ+=1;
+									if($match['Match']['player2_score']>$match['Match']['player1_score']){
+										$XvZ+=1;
+									}
+								}
+								if($match['Player1']['race']==3){
+									$totalXvR+=1;
+									if($match['Match']['player2_score']>$match['Match']['player1_score']){
+										$XvR+=1;
+									}
+								}
+								if($match['Match']['player2_score']>$match['Match']['player1_score']){
+									$totalWin+=1;
+								}
+                            }
+					}
+					
+					$this->set('XvT',$XvT);
+					$this->set('XvP',$XvP);
+					$this->set('XvZ',$XvZ);
+					$this->set('XvR',$XvR);
+					$this->set('totalXvT',$totalXvT);
+					$this->set('totalXvP',$totalXvP);
+					$this->set('totalXvZ',$totalXvZ);
+					$this->set('totalXvR',$totalXvR);
+					$this->set('total',$total);
+					$this->set('totalWin',$totalWin);
+					
+				
+					$XvT_array = array();
+					$XvP_array = array();
+					$XvZ_array = array();
+					$XvR_array = array();
+					$totalXvT_array = array();
+					$totalXvP_array = array();
+					$totalXvZ_array = array();
+					$totalXvR_array = array();
+					$total_array = array();
+					$totalWin_array = array();
+					
+					foreach ($tournaments as $tournament){
+						$XvT_sperate = 0;
+						$XvP_sperate = 0;
+						$XvZ_sperate = 0;
+						$XvR_sperate = 0;
+						$totalXvT_sperate = 0;
+						$totalXvP_sperate = 0;
+						$totalXvZ_sperate = 0;
+						$totalXvR_sperate = 0;
+						$total_sperate = 0;
+						$totalWin_sperate = 0;
+						
+						foreach ($matches as $match){
+							echo $tournament['Tournament']['id'];
+							echo $match['Round']['Tournament']['id'];
+							
+							if ($match['Player2']['username']!=null && $match['Player1']['username']==$user['User']['username'] && $tournament['Tournament']['id']==$match['Round']['Tournament']['id'] )
+								{
+									$total+=1;
+									if($match['Player2']['race']==0){
+										$totalXvT+=1;
+										if($match['Match']['player1_score']>$match['Match']['player2_score']){
+											$XvT_sperate+=1;
+										}
+									}
+									if($match['Player2']['race']==1){
+										$totalXvP+=1;
+										if($match['Match']['player1_score']>$match['Match']['player2_score']){
+											$XvP_sperate+=1;
+										}
+									}
+									if($match['Player2']['race']==2){
+										$totalXvZ+=1;
+										if($match['Match']['player1_score']>$match['Match']['player2_score']){
+											$XvZ_sperate+=1;
+										}
+									}
+									if($match['Player2']['race']==3){
+										$totalXvR+=1;
+										if($match['Match']['player1_score']>$match['Match']['player2_score']){
+											$XvR_sperate+=1;
+										}
+									}
+									if($match['Match']['player1_score']>$match['Match']['player2_score']){
+										$totalWin_sperate+=1;
+									}
+								}
+						   
+							
+							if ($match['Player1']['username']!=null && $match['Player2']['username']==$user['User']['username'] && $tournament['Tournament']['id']==$match['Round']['Tournament']['id'])
+								{
+									$total+=1;
+									if($match['Player1']['race']==0){
+										$totalXvT+=1;
+										if($match['Match']['player2_score']>$match['Match']['player1_score']){
+											$XvT_sperate+=1;
+										}
+									}
+									if($match['Player1']['race']==1){
+										$totalXvP+=1;
+										if($match['Match']['player2_score']>$match['Match']['player1_score']){
+											$XvP_sperate+=1;
+										}
+									}
+									if($match['Player1']['race']==2){
+										$totalXvZ+=1;
+										if($match['Match']['player2_score']>$match['Match']['player1_score']){
+											$XvZ_sperate+=1;
+										}
+									}
+									if($match['Player1']['race']==3){
+										$totalXvR+=1;
+										if($match['Match']['player2_score']>$match['Match']['player1_score']){
+											$XvR_sperate+=1;
+										}
+									}
+									if($match['Match']['player2_score']>$match['Match']['player1_score']){
+										$totalWin_sperate+=1;
+									}
+								}
+								
+								
+						  
+								
+								
+						 }
+					
+					$XvT_array[] = $XvT_sperate;
+					$XvP_array[] =$XvP_sperate;
+					$XvZ_array[] =$XvZ_sperate;
+					$XvR_array[] =$totalXvT_sperate;
+					$totalXvT_array[] =$totalXvT_sperate;
+					$totalXvP_array[] =$totalXvP_sperate;
+					$totalXvZ_array[] =$totalXvZ_sperate;
+					$totalXvR_array[] =$totalXvR_sperate;
+					$total_array[] = $total_sperate;
+					$totalWin_array[] = $totalWin_sperate;
 
-		$option['condition']= array('Match.player1_id' => $id, 'Match.player1_score >' => 'Match.player2_score');
-		$winsVsProtossAs1 = $this->User->Match->find('count', $options);*/
-		
+					}
+					
+					$this->set('XvT_array',$XvT_array);
+					$this->set('XvP_array',$XvP_array);
+					$this->set('XvZ_array',$XvZ_array);
+					$this->set('XvR_array',$XvR_array);
+					$this->set('totalXvT_array',$totalXvT_array);
+					$this->set('totalXvP_array',$totalXvP_array);
+					$this->set('totalXvZ_array',$totalXvZ_array);
+					$this->set('totalXvR_array',$totalXvR_array);
+					$this->set('total_array',$total_array);
+					$this->set('totalWin_array',$totalWin_array);
+					
 	}
 	
 
