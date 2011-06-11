@@ -418,7 +418,7 @@ class FlashChartHelper extends AppHelper {
 	 * @param string $chartId Name of chart. Use for seperate charts.
 	 * @return string
 	 */
-	public function chart($type = 'bar', $options = array(), $datasetName = 'default', $chartId = 'default', $key_value = 'default', $annimation_style = 'default' , $annimation_cascade= 0 ,  $annimation_delay= 0 ) {	
+	public function chart($type = 'bar', $options = array(), $datasetName = 'default', $chartId = 'default', $key_value = 'default', $annimation_style = 'default' , $annimation_cascade= 0 ,  $annimation_delay= 0, $tooltip_string ='' ) {	
 		switch ($type){
 			case 'pie':
 				return $this->pie($options, $datasetName, $chartId);
@@ -473,15 +473,19 @@ class FlashChartHelper extends AppHelper {
 				}
 				$d = new solid_dot();
 				$d->size(3)->halo_size(1);
-				$d->tooltip('#x_label#:#val#');
+				$d->tooltip($tooltip_string);
 				$element->set_default_dot_style($d);
 				$element->set_key($key_value, 10 );
 				
 				$element->on_show(new line_on_show($annimation_style, $annimation_cascade, $annimation_delay));
 				
+				
+				
+				
 				$numbers = $this->getNumbers($datasetName);
 				
 				$element->set_values($numbers);
+				
 				$this->Chart->add_element($element);
 				
 				return $this->renderData($chartId);
@@ -824,7 +828,19 @@ class FlashChartHelper extends AppHelper {
 	 * @param array $options
 	 * @param array $labelsOptions used to customize x axis labels
 	 */
-	public function axis($axis, $options = array(), $labelsOptions = array()) {
+	 public function axis($axis, $labels= array(),$range=array()){
+		 if($axis=='x'){
+			 $axis_object = new x_axis();
+			 $x_axis_label = new x_axis_labels;
+			 $x_axis_label->set_labels($labels);
+			 $x_axis_label->rotate(0);
+			 $axis_object->set_labels($x_axis_label);
+			 $this->Chart->set_x_axis($axis_object);
+		 }
+		 
+	 }
+	 
+	/*public function axis($axis, $options = array(), $labelsOptions = array()) {
 		$axis_object_name = $axis . '_axis';
 		$axis_set_method = 'set_' . $axis . '_axis';
 		$axis_object = new $axis_object_name();
@@ -904,12 +920,30 @@ class FlashChartHelper extends AppHelper {
                 $axis_object->set_labels($x_axis_label);
             } else {
                 $axis_object->set_labels_from_array($options['labels']);
+				
             }			
 		} elseif (isset($options['labels'])) {
 			$axis_object->set_labels($options['labels']);
-		}		
+		}
+			
 		$this->Chart->$axis_set_method($axis_object);
+		
+		//, $annimation_cascade= 0 ,  $annimation_delay= 0, $label_array = array(), $rotate_angle = 0
+		//$x = new x_axis();
+		//		$labels = new x_axis_labels();
+		//		// tell the labels to render the number as a date:
+		//		$labels->set_labels($label_array);
+		//		// generate labels for every day
+		//		//$labels->set_steps(86400);
+		//		// only display every other label (every other day)
+		//		//$labels->visible_steps(2);
+		//		$labels->rotate($rotate_angle);
+		//		
+		//		// finally attach the label definition to the x axis
+		//		$x->set_labels($labels);
+		
 	}
+	*/
 	
 	/**
 	 * When using multiple charts in one diagram, it may be useful to have a second

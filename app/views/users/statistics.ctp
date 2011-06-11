@@ -161,7 +161,7 @@
                                 $flashChart->axis('x',array('labels'=>$tournament_names_array),array('vertical'=>true));
                                 $flashChart->setLegend('x','Tournament');
                                 $flashChart->setLegend('y','Winratio' );
-                                echo $flashChart->chart('line',array('colour'=>'#3e76d1'),'Total','Overall_Hist','versus All', 'mid-slide', 1, 0);
+                                echo $flashChart->chart('line',array('colour'=>'#3e76d1'),'Total','Overall_Hist','versus All', 'mid-slide', 1, 0, '#x_label#: #val#;');
                                 echo $flashChart->render(685,400,'Overall_Hist');
                             ?>
                      	</div>
@@ -181,14 +181,15 @@
                                 $flashChart->setData($XvZ_array,'{n}',false,'XvZ','Matchup_Hist');
                                 $flashChart->setData($XvR_array,'{n}',false,'XvR','Matchup_Hist');
                                 /*$flashChart->axis('y',array('range' => array(0, count($totalWin_array), 1),'labels' => $tournament_names_array));*/
-								$flashChart->axis('y',array('range' => array(0, 1, 0.1)));
-                                $flashChart->axis('x',array('labels'=>$tournament_names_array),array('vertical'=>true));
+								/*$flashChart->axis('y',array('range' => array(0, 1, 0.1)));
+                                $flashChart->axis('x',array('labels'=>$tournament_names_array));*/
+								$flashChart->axis('x',$tournament_names_array);
                                 $flashChart->setLegend('x','Tournament');
                                 $flashChart->setLegend('y','Winratio' );
-                                echo $flashChart->chart('line',array('colour'=>'#bc1b23'),'XvT','Matchup_Hist','versus Terran', 'mid-slide', 1, 0);
-                                echo $flashChart->chart('line',array('colour'=>'#f4d153'),'XvP','Matchup_Hist','versus Protoss', 'mid-slide', 1, 0);
-                                echo $flashChart->chart('line',array('colour'=>'#7a278f'),'XvZ','Matchup_Hist','versus Zerg', 'mid-slide', 1, 0);
-                                echo $flashChart->chart('line',array('colour'=>'#3498e2'),'XvR','Matchup_Hist','versus Random', 'mid-slide', 1, 0);
+                                echo $flashChart->chart('line',array('colour'=>'#bc1b23'),'XvT','Matchup_Hist','versus Terran', 'mid-slide', 1, 0, '#x_label#: #val#;');
+                                echo $flashChart->chart('line',array('colour'=>'#f4d153'),'XvP','Matchup_Hist','versus Protoss', 'mid-slide', 1, 0, '#x_label#: #val#;');
+                                echo $flashChart->chart('line',array('colour'=>'#7a278f'),'XvZ','Matchup_Hist','versus Zerg', 'mid-slide', 1, 0, '#x_label#: #val#;');
+                                echo $flashChart->chart('line',array('colour'=>'#3498e2'),'XvR','Matchup_Hist','versus Random', 'mid-slide', 1, 0, '#x_label#: #val#;');
                                 echo $flashChart->render(685,400,'Matchup_Hist');
                             ?>
                      	</div>
