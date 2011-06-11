@@ -17,7 +17,7 @@
 			<th><?php echo $this->Paginator->sort('id');?></th>
 			<th><?php echo $this->Paginator->sort('sender_id');?></th>
 			<th><?php echo $this->Paginator->sort('title');?></th>
-			<th><?php echo $this->Paginator->sort('body');?></th>
+			
             <th><?php echo $this->Paginator->sort('date');?></th>
 	</tr>
 	<?php
@@ -28,8 +28,8 @@
 	<tr>
 		<td><?php echo $inbox['Message']['id']; ?>&nbsp;</td>
 		<td><?php echo $inbox['Message']['sender_id']; ?>&nbsp;</td>
-		<td><?php echo $inbox['Message']['title']; ?>&nbsp;</td>
-		<td><?php echo $inbox['Message']['body']; ?>&nbsp;</td>
+		<td><?php echo $this->Html->link(__(($inbox['Message']['title']), true), array('controller' => 'messages', 'action' => 'view',$inbox['Message']['id'])); ?>&nbsp;</td>
+		
 		<td><?php echo $inbox['Message']['date']; ?>&nbsp;</td>
 		
 	</tr>
@@ -71,7 +71,7 @@
 			<th><?php echo $this->Paginator->sort('id');?></th>
 			<th><?php echo $this->Paginator->sort('recipient_id');?></th>
 			<th><?php echo $this->Paginator->sort('title');?></th>
-			<th><?php echo $this->Paginator->sort('body');?></th>
+			
             <th><?php echo $this->Paginator->sort('date');?></th>
 	</tr>
 	<?php
@@ -81,9 +81,9 @@
 	?>
 	<tr>
 		<td><?php echo $outbox['Message']['id']; ?>&nbsp;</td>
-		<td><?php echo $outbox['Message']['recipient_id']; ?>&nbsp;</td>
-		<td><?php echo $outbox['Message']['title']; ?>&nbsp;</td>
-		<td><?php echo $outbox['Message']['body']; ?>&nbsp;</td>
+		<td><?php echo $outbox['Message']['sender_id']; ?>&nbsp;</td>
+		<td><?php echo $this->Html->link(__(($outbox['Message']['title']), true), array('controller' => 'messages', 'action' => 'view',$outbox['Message']['id'])); ?>&nbsp;</td>
+		
 		<td><?php echo $outbox['Message']['date']; ?>&nbsp;</td>
 		
 	</tr>

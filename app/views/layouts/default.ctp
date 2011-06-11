@@ -146,7 +146,7 @@
                         </div>
                         <?php
 						}
-						echo( $this->element('unread_messages'));
+						
 						
                      	
                     	if ($this->Session->check('Auth.User')){?>
@@ -162,6 +162,43 @@
                         <div class="menuebox">
                     	<?php echo $this->Html->link(__('Upcoming Matches', true), array('controller' => 'matches', 'action' => 'upcoming_matches')); ?>
                      	</div>
+					</div>
+					</div>
+				</div>
+                
+                
+                <div class="containerbox">
+					<div class="containerheader">
+                    <?php 
+						echo "Message Center";
+					?>
+					</div>
+					<div class="containercontent">
+					<div class="containercontentbox">
+                    	<?php
+                    	if ($this->Session->check('Auth.User')){?>
+                        <div class="menuebox">
+                    	<?php
+							echo $this->Html->link(__($this->element('unread_messages'), true), array('controller' => 'messages', 'action' => 'index')); 
+						?>
+                     	</div>
+                        <?php
+						}
+						?>
+							
+                        <?php
+						
+						
+                    	if ($this->Session->check('Auth.User')){?>
+                        <div class="menuebox">
+                    	<?php
+							echo $this->Html->link(__(('New Message'), true), array('controller' => 'messages', 'action' => 'add')); 
+							?>
+                        </div>
+                        <?php
+						}
+						?>
+                     	
 					</div>
 					</div>
 				</div>

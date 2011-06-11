@@ -14,7 +14,7 @@ class MessagesController extends AppController {
 			
 			$this->Message->create();
 			$date = date_create('now');
-			$this->data['Message']['sender'] =  $this->Session->read('Auth.User.id');
+			$this->data['Message']['sender_id'] =  $this->Session->read('Auth.User.id');
 			$this->data['Message']['date']= $date->format('Y-m-d H:i:s');
 			$this->Message->save($this->data);
 			
@@ -47,11 +47,13 @@ class MessagesController extends AppController {
 		$outbox = $this->paginate('Message');
 		$this->set('inbox',$inbox);
 		$this->set('outbox',$outbox);
+		
 	}
 	function view($id = null)
 	{
+		$message = $this->Message->findById($id);
 		$current_user = $this->Session->read('Auth.User.id');
-		if  ($message['Message']['recipient_id']!=$current_user AND $message['Message']['sender_id']!= $current_user)
+		if  ($message['Message']['recipient_id']!=$current_user OR $message['Message']['sender_id']!= $current_user)
 		{
 			$this->Session->setFlash(__('Access Denied', true));
 			$this->redirect(array('action' => 'index'));
@@ -61,12 +63,13 @@ class MessagesController extends AppController {
 			$this->Session->setFlash(__('Invalid Message', true));
 			$this->redirect(array('action' => 'index'));
 		}
-		$message = $this->Message->findById($id);
-		if($message['Message']['recipient_id']==$this->Auth('Auth.User.id'));
+		
+		if($message['Message']['recipient_id']==$this->Session->read('Auth.User.id'));
 		{
 			$this->Message->id=$id;
 			$this->Message->saveField('read',1);
 		}
+		$this->set('message',$message);
 	}
 	function delete($id = null)
 	{
