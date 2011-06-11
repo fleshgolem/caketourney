@@ -10,24 +10,33 @@ class MessagesController extends AppController {
 		{
 			$this->Message->create();
 			$date = date_create('now');
-			$this->data['Message']['sender'] = $this->Auth('Auth.User.id');
+			$this->data['Message']['sender'] =  $this->Session->read('Auth.User.id');
 			$this->data['Message']['date']= $date->format('Y-m-d H:i:s');
 			$this->Message->save($this->data);
+			
+			if ($this->Message->save($this->data)) {
+				$this->Session->setFlash(__('The Message has been sent', true));
+				$this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('The Message could not be sent. Please, try again.', true));
+			}
 		}
+		
 		
 		
 		
 	}
 	function index()
 	{
+		
 		$this->paginate = array(
-			'conditions' => array('Message.recipient_id' => $this->Auth('Auth.User.id')),
+			'conditions' => array('Message.recipient_id' => $this->Session->read('Auth.User.id')),
 			'order'=>array('date desc') ,
 			'recursive' => 2,
 			'limit' => 20);
 		$inbox = $this->paginate('Message');
 		$this->paginate = array(
-			'conditions' => array('Message.sender_id' => $this->Auth('Auth.User.id')),
+			'conditions' => array('Message.sender_id' => $this->Session->read('Auth.User.id')),
 			'order'=>array('date desc') ,
 			'recursive' => 2,
 			'limit' => 20);
