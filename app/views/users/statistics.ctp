@@ -135,6 +135,16 @@
 	</div>
 </div>
 
+<div class="PostBox">
+<div class="ThreadTitleBox">
+	<div class="ThreadTitleContent">
+		<h3><?php echo $user['User']['username']; ?>'s History </h3>
+	</div> 
+	
+	<p style="clear: both;">  </p>  
+</div>
+</div>
+
 
 <div class="PostBox"> 
 	<div class="PostContent">
@@ -146,23 +156,19 @@
                     <div class="PostChartContentBox">
                         <div class="PostMainContentbox">
 							<?php
-								$test = array();
-								for ($i = 0; $i < count($totalWin_array); $i++) {
-									$test[$i]['label']=$tournament_names_array[$i];
-									$test[$i]['count']=$XvT_array[$i];
-									echo $tournament_names_array[$i];
 								
-								}
                                 echo $flashChart->begin();
-                                $flashChart->setTitle('Overall History');
+								$flashChart->setTitle('Overall History','{color:#333333;font-size:16px;padding:0 0 0px 0px;}');
                                 $flashChart->setData($totalWin_array,'{n}',false,'Total','Overall_Hist');
                                 /*$flashChart->axis('y',array('range' => array(0, count($totalWin_array), 1),'labels' => $tournament_names_array));*/
-								$flashChart->axis('y',array('range' => array(0, 1, 0.1)));
-                                $flashChart->axis('x',array('labels'=>$tournament_names_array),array('vertical'=>true));
-                                $flashChart->setLegend('x','Tournament');
-                                $flashChart->setLegend('y','Winratio' );
+								//$flashChart->axis('y',array('range' => array(0, 1, 0.1)));
+                                //$flashChart->axis('x',array('labels'=>$tournament_names_array),array('vertical'=>true));
+								$flashChart->axis('x',$tournament_names_array, 0, array(0,count($tournament_names_array)-1,1));
+								$flashChart->axis('y',array(), 0, array(0,1,0.2));
+                                $flashChart->setLegend('x','Tournament','{color:#333333;font-size:16px;padding:0 0 0px 0px;}');
+                                $flashChart->setLegend('y','Winratio','{color:#333333;font-size:16px;padding:0 0 0px 0px;}' );
                                 echo $flashChart->chart('line',array('colour'=>'#3e76d1'),'Total','Overall_Hist','versus All', 'mid-slide', 1, 0, '#x_label#: #val#;');
-                                echo $flashChart->render(685,400,'Overall_Hist');
+                                echo $flashChart->render(685,350,'Overall_Hist');
                             ?>
                      	</div>
 					</div>
@@ -175,7 +181,7 @@
 							<?php
 								
                                 echo $flashChart->begin();
-                                $flashChart->setTitle('Matchup History');
+								$flashChart->setTitle('Matchup History','{color:#333333;font-size:16px;padding:0 0 0px 0px;}');
                                 $flashChart->setData($XvT_array,'{n}',false,'XvT','Matchup_Hist');
                                 $flashChart->setData($XvP_array,'{n}',false,'XvP','Matchup_Hist');
                                 $flashChart->setData($XvZ_array,'{n}',false,'XvZ','Matchup_Hist');
@@ -183,14 +189,15 @@
                                 /*$flashChart->axis('y',array('range' => array(0, count($totalWin_array), 1),'labels' => $tournament_names_array));*/
 								/*$flashChart->axis('y',array('range' => array(0, 1, 0.1)));
                                 $flashChart->axis('x',array('labels'=>$tournament_names_array));*/
-								$flashChart->axis('x',$tournament_names_array);
-                                $flashChart->setLegend('x','Tournament');
-                                $flashChart->setLegend('y','Winratio' );
+								$flashChart->axis('x',$tournament_names_array, 0, array(0,count($tournament_names_array)-1,1));
+								$flashChart->axis('y',array(), 0, array(0,1,0.2));
+                                $flashChart->setLegend('x','Tournament','{color:#333333;font-size:16px;padding:0 0 0px 0px;}');
+                                $flashChart->setLegend('y','Winratio','{color:#333333;font-size:16px;padding:0 0 0px 0px;}' );
                                 echo $flashChart->chart('line',array('colour'=>'#bc1b23'),'XvT','Matchup_Hist','versus Terran', 'mid-slide', 1, 0, '#x_label#: #val#;');
-                                echo $flashChart->chart('line',array('colour'=>'#f4d153'),'XvP','Matchup_Hist','versus Protoss', 'mid-slide', 1, 0, '#x_label#: #val#;');
+                                echo $flashChart->chart('line',array('colour'=>'#ca970d'),'XvP','Matchup_Hist','versus Protoss', 'mid-slide', 1, 0, '#x_label#: #val#;');
                                 echo $flashChart->chart('line',array('colour'=>'#7a278f'),'XvZ','Matchup_Hist','versus Zerg', 'mid-slide', 1, 0, '#x_label#: #val#;');
                                 echo $flashChart->chart('line',array('colour'=>'#3498e2'),'XvR','Matchup_Hist','versus Random', 'mid-slide', 1, 0, '#x_label#: #val#;');
-                                echo $flashChart->render(685,400,'Matchup_Hist');
+                                echo $flashChart->render(685,350,'Matchup_Hist');
                             ?>
                      	</div>
 					</div>
@@ -215,83 +222,6 @@
 	</div>
 </div>
 
-
-<div class="PostBox">
-<div class="ThreadTitleBox">
-	<div class="ThreadTitleContent">
-		<h3><?php echo $user['User']['username']; ?>'s Recent Matches </h3>
-	</div> 
-
-	<p style="clear: both;">  </p>  
-</div>
-</div>
-
-
-<div class="PostBox"> 
-	<div class="PostContent">
-		
-			<div class="PostContentBox">
-				
-					<table cellpadding="0" cellspacing="0">
-                    <tr>
-                        <th>Player 1</th>
-                        <th>Player 2</th>
-                        <th>Score</th>
-                        <th>Tournament</th>
-                    </tr>
-                    
-                    <?php foreach ($matches as $match){?>
-                    
-                    <tr>
-                        <td>
-                        <?php
-                        if ($match['Player1']!=null)
-                            {
-                                echo $this->Race->small_img($match['Player1']['race']);
-								echo $this->Html->link(($match['Player1']['username']),array('controller' => 'users', 'action' => 'view', $match['Player1']['id']));
-                            }?>
-                        </td>
-                        <td>
-                        <?php
-                        if ($match['Player2']!=null)
-                            {
-                                echo $this->Race->small_img($match['Player2']['race']);
-                                echo $this->Html->link(($match['Player2']['username']),array('controller' => 'users', 'action' => 'view', $match['Player2']['id']));
-                            }?>
-                        </td>
-                        <td>
-                        	
-                        	<?php
-								$scorelink = '';
-								$scorelink .=($match['Match']['player1_score']);
-								$scorelink .= ' : ' ;
-								$scorelink .=($match['Match']['player2_score']);
-								
-							 echo $this->Html->link(($scorelink),array('controller' => 'matches', 'action' => 'view',$match['Match']['id']))?>
-                           
-                        </td>
-                        <td>
-                           <?php echo $this->Html->link(($match['Round']['Tournament']['name']),array('controller' => 'tournaments', 'action' => 'view',$match['Round']['Tournament']['id']))?>
-                        </td>
-                    </tr>
-                    <?}?>
-                </table>
-				
-			</div>
-		
-		
-		
-	</div>
-                            
-        <div class="PostFooter">
-            
-            <div class="bottomaction">
-            
-        </div>
-       
-        <p style="clear: both;">  </p>
-	</div>
-</div>
 
 
 </div>

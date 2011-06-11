@@ -828,14 +828,40 @@ class FlashChartHelper extends AppHelper {
 	 * @param array $options
 	 * @param array $labelsOptions used to customize x axis labels
 	 */
-	 public function axis($axis, $labels= array(),$range=array()){
+	 public function axis($axis, $labels= array(),$angle=0,$range=array()){
+		 $colour='#7b7b7c';
+		 $grid_colour='#7b7b7c';
 		 if($axis=='x'){
 			 $axis_object = new x_axis();
 			 $x_axis_label = new x_axis_labels;
-			 $x_axis_label->set_labels($labels);
-			 $x_axis_label->rotate(0);
+			 if(count($labels)!=0){
+				 $x_axis_label->set_labels($labels);
+			 }
+			 $x_axis_label->rotate($angle);
+			 
+			 $axis_object->set_range($range[0], $range[1]);
+			 $axis_object->set_steps($range[2]);
+			 
+			 $axis_object->set_colours($colour,$grid_colour);
+			 
 			 $axis_object->set_labels($x_axis_label);
 			 $this->Chart->set_x_axis($axis_object);
+		 }
+		 if($axis=='y'){
+			 $axis_object = new y_axis();
+			 $y_axis_label = new y_axis_labels;
+			 if(count($labels)!=0){
+				 $y_axis_label->set_labels($labels);
+			 }
+			 $y_axis_label->rotate($angle);
+			 
+			 $axis_object->set_range($range[0], $range[1]);
+			 $axis_object->set_steps($range[2]);
+			 
+			 $axis_object->set_colours($colour,$grid_colour);
+			 
+			 $axis_object->set_labels($y_axis_label);
+			 $this->Chart->set_y_axis($axis_object);
 		 }
 		 
 	 }
