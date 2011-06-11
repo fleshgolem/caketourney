@@ -5,9 +5,13 @@ class MessagesController extends AppController {
 
 	function add()
 	{
-
+		$recipients = $this->Message->Recipient->find('list',array('order' => array('Recipient.username asc')));
+		$this->set(compact('recipients'));
+		
 		if(!empty($this->data))
 		{
+			
+			
 			$this->Message->create();
 			$date = date_create('now');
 			$this->data['Message']['sender'] =  $this->Session->read('Auth.User.id');
