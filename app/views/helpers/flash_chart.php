@@ -418,7 +418,7 @@ class FlashChartHelper extends AppHelper {
 	 * @param string $chartId Name of chart. Use for seperate charts.
 	 * @return string
 	 */
-	public function chart($type = 'bar', $options = array(), $datasetName = 'default', $chartId = 'default') {	
+	public function chart($type = 'bar', $options = array(), $datasetName = 'default', $chartId = 'default', $key_value = 'default', $annimation_style = 'default' , $annimation_cascade= 0 ,  $annimation_delay= 0 ) {	
 		switch ($type){
 			case 'pie':
 				return $this->pie($options, $datasetName, $chartId);
@@ -473,9 +473,11 @@ class FlashChartHelper extends AppHelper {
 				}
 				$d = new solid_dot();
 				$d->size(3)->halo_size(1);
+				$d->tooltip('#x_label#:#val#');
 				$element->set_default_dot_style($d);
+				$element->set_key($key_value, 10 );
 				
-				
+				$element->on_show(new line_on_show($annimation_style, $annimation_cascade, $annimation_delay));
 				
 				$numbers = $this->getNumbers($datasetName);
 				
@@ -728,7 +730,7 @@ class FlashChartHelper extends AppHelper {
 		$pie->set_values($pies);
 		$this->Chart->add_element($pie);
 		
-		$pie->set_colours( array('#4db849','#e84940') );
+		$pie->set_colours( array('#3e76d1','#5e5e5e') );
 		$pie->set_alpha(0.75);
 		$pie->add_animation( new pie_fade() );
 		return $this->renderData($chartId);

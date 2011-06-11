@@ -154,23 +154,42 @@
 								
 								}
                                 echo $flashChart->begin();
-                                $flashChart->setTitle('History');
-                                $flashChart->setData($totalWin_array,'{n}',false,'Total','dig');
-                                $flashChart->setData($XvT_array,'{n}',false,'XvT','dig');
-                                $flashChart->setData($XvP_array,'{n}',false,'XvP','dig');
-                                $flashChart->setData($XvZ_array,'{n}',false,'XvZ','dig');
-                                $flashChart->setData($XvR_array,'{n}',false,'XvR','dig');
+                                $flashChart->setTitle('Overall History');
+                                $flashChart->setData($totalWin_array,'{n}',false,'Total','Overall_Hist');
                                 /*$flashChart->axis('y',array('range' => array(0, count($totalWin_array), 1),'labels' => $tournament_names_array));*/
 								$flashChart->axis('y',array('range' => array(0, 1, 0.1)));
                                 $flashChart->axis('x',array('labels'=>$tournament_names_array),array('vertical'=>true));
                                 $flashChart->setLegend('x','Tournament');
                                 $flashChart->setLegend('y','Winratio' );
-                                echo $flashChart->chart('line',array('colour'=>'#3e76d1','tooltip'=>'bla'),'Total','dig');
-                                echo $flashChart->chart('line',array('colour'=>'#f70c0c','tooltip'=>'#x_label#:#val#'),'XvT','dig');
-                                echo $flashChart->chart('line',array('colour'=>'#33cc33','tooltip'=>'#x_label#:#val#'),'XvP','dig');
-                                echo $flashChart->chart('line',array('colour'=>'#d70aef','tooltip'=>'#x_label#:#val#'),'XvZ','dig');
-                                echo $flashChart->chart('line',array('colour'=>'#b2e9fd','tooltip'=>'#x_label#:#val#'),'XvR','dig');
-                                echo $flashChart->render(685,400,'dig');
+                                echo $flashChart->chart('line',array('colour'=>'#3e76d1'),'Total','Overall_Hist','versus All', 'mid-slide', 1, 0);
+                                echo $flashChart->render(685,400,'Overall_Hist');
+                            ?>
+                     	</div>
+					</div>
+                    </div>
+                    
+                    
+                    <div class="PostChartPaddingBox">
+                    <div class="PostChartContentBox">
+                        <div class="PostMainContentbox">
+							<?php
+								
+                                echo $flashChart->begin();
+                                $flashChart->setTitle('Matchup History');
+                                $flashChart->setData($XvT_array,'{n}',false,'XvT','Matchup_Hist');
+                                $flashChart->setData($XvP_array,'{n}',false,'XvP','Matchup_Hist');
+                                $flashChart->setData($XvZ_array,'{n}',false,'XvZ','Matchup_Hist');
+                                $flashChart->setData($XvR_array,'{n}',false,'XvR','Matchup_Hist');
+                                /*$flashChart->axis('y',array('range' => array(0, count($totalWin_array), 1),'labels' => $tournament_names_array));*/
+								$flashChart->axis('y',array('range' => array(0, 1, 0.1)));
+                                $flashChart->axis('x',array('labels'=>$tournament_names_array),array('vertical'=>true));
+                                $flashChart->setLegend('x','Tournament');
+                                $flashChart->setLegend('y','Winratio' );
+                                echo $flashChart->chart('line',array('colour'=>'#bc1b23'),'XvT','Matchup_Hist','versus Terran', 'mid-slide', 1, 0);
+                                echo $flashChart->chart('line',array('colour'=>'#f4d153'),'XvP','Matchup_Hist','versus Protoss', 'mid-slide', 1, 0);
+                                echo $flashChart->chart('line',array('colour'=>'#7a278f'),'XvZ','Matchup_Hist','versus Zerg', 'mid-slide', 1, 0);
+                                echo $flashChart->chart('line',array('colour'=>'#3498e2'),'XvR','Matchup_Hist','versus Random', 'mid-slide', 1, 0);
+                                echo $flashChart->render(685,400,'Matchup_Hist');
                             ?>
                      	</div>
 					</div>
