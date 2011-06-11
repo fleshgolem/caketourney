@@ -22,6 +22,9 @@
 				echo $this->Form->input('bnetaccount', array('label' => 'Battle.net Account', 'default' => $current_user['User']['bnetaccount']));
 				echo $this->Form->input('bnetcode', array('label' => 'Battle.net Character Code', 'default' => $current_user['User']['bnetcode']));
 				echo $this->Form->input('race', array('options' => array("Terran","Protoss","Zerg","Random",), 'selected' => $current_user['User']['race']));
+				
+				echo $this->Form->input('subscribe_own_comments', array('label' => 'Subscribe to comments of my matches'));
+				echo $this->Form->input('subscribe_own_posts', array('label' => 'Subscribe to threads I posted in'));
 				?>
 			</div>
 		</div>

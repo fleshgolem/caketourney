@@ -33,6 +33,32 @@ class ThreadsController extends AppController {
 			$this->data['Thread']['date_modified']=$date->format('Y-m-d H:i:s');
 			$this->data['Thread']['last_poster_id']=$current_user;
 			$this->Thread->save($this->data);
+			
+			//find subscribers and message them
+			$subscribers=array();
+			$thread = $this->Thread->find('first',array('recursive'=>2, 'conditions'=> array('Thread.id' =>$id)));
+			//debug($thread);
+			foreach ($thread['Post'] as $post){
+				if($post['User']['subscribe_own_comments'] AND !in_array($post['User'],$subscribers))
+				{
+					array_push($subscribers,$post['User']);
+				}
+			}
+			
+			foreach($subscribers as $subscriber)
+			{
+				$this->Thread->Post->User->Message->create();
+				$this->data['Message']['sender_id']=null;
+				$this->data['Message']['recipient_id']=$subscriber['id'];
+				$this->data['Message']['date']= $date->format('Y-m-d H:i:s');
+				$this->data['Message']['title']= 'New post in thread '. $thread['Thread']['title'];
+				
+				//TODO: machen! ;)
+				$this->data['Message']['body']= '';
+				$this->Thread->Post->User->Message->save($this->data);
+				
+			}
+			$this->redirect(array('action' => 'view',$id));
 		}
 		if(empty($this->data))
 		{

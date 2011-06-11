@@ -141,11 +141,12 @@
                     	if ($this->Session->check('Auth.User')){?>
                         <div class="menuebox">
                     	<?php
-							echo $this->Html->link(__('Account Settings', true), array('controller' => 'users', 'action' => 'account')); ?>
+							echo $this->Html->link(__('Account Settings', true), array('controller' => 'users', 'action' => 'account')); 
+							?>
                         </div>
                         <?php
 						}
-						
+						echo( $this->element('unread_messages'));
 						
                      	
                     	if ($this->Session->check('Auth.User')){?>

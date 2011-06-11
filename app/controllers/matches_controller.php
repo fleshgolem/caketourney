@@ -312,6 +312,33 @@ class MatchesController extends AppController {
 			$date = date_create('now');
 
 			$this->data['Comment']['date_posted']=$date->format('Y-m-d H:i:s');
+			
+			//find subscribers and message them
+			$subscribers=array();
+			$match = $this->Match->read(null,$id);
+			if($match['Player1']['subscribe_own_comments'])
+			{
+				array_push($subscribers,$match['Player1']);
+			}
+			if($match['Player2']['subscribe_own_comments'])
+			{
+				array_push($subscribers,$match['Player2']);
+			}
+			
+			foreach($subscribers as $subscriber)
+			{
+				$this->Match->Player1->Message->create();
+				$date = date_create('now');
+				$this->data['Message']['sender_id']=null;
+				$this->data['Message']['recipient_id']=$subscriber['id'];
+				$this->data['Message']['date']= $date->format('Y-m-d H:i:s');
+				$this->data['Message']['title']= 'New comment in match '. $match['Player1']['username']. ' vs '. $match['Player2']['username'];
+				
+				//TODO: machen! ;)
+				$this->data['Message']['body']= '';
+				$this->Match->Player1->Message->save($this->data);
+				
+			}
 			$this->Match->Comment->save($this->data);
 			$this->redirect(array('action' => 'view',$id));
 		}

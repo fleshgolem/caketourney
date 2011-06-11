@@ -90,7 +90,7 @@ class UsersController extends AppController {
     {
 		// Set User's ID in model which is needed for validation
         $this->User->id = $this->Auth->user('id');
- 
+		
         // Load the user (avoid populating $this->data)
         $current_user = $this->User->findById($this->User->id);
 		$this->set('current_user', $current_user);
@@ -105,6 +105,8 @@ class UsersController extends AppController {
 			$this->User->saveField('bnetaccount', $this->data['User']['bnetaccount']);
 			$this->User->saveField('bnetcode', $this->data['User']['bnetcode']);
 			$this->User->saveField('race', $this->data['User']['race']);
+			$this->User->saveField('subscribe_own_comments', $this->data['User']['subscribe_own_comments']);
+			$this->User->saveField('subscribe_own_posts', $this->data['User']['subscribe_own_posts']);
             $this->Session->setFlash('Your data has been updated');
             $this->redirect(array('controller'=>'tournaments' , 'action' => 'index'));
         }
@@ -115,9 +117,15 @@ class UsersController extends AppController {
 			$this->User->saveField('bnetaccount', $this->data['User']['bnetaccount']);
 			$this->User->saveField('bnetcode', $this->data['User']['bnetcode']);
 			$this->User->saveField('race', $this->data['User']['race']);
+			$this->User->saveField('subscribe_own_comments', $this->data['User']['subscribe_own_comments']);
+			$this->User->saveField('subscribe_own_posts', $this->data['User']['subscribe_own_posts']);
             $this->Session->setFlash('Your data has been updated');
             $this->redirect(array('controller'=>'tournaments' , 'action' => 'index'));
         }
+		if (empty($this->data))
+		{
+			$this->data = $this->User->read(null, $id);
+		}
     }
     /**
      * Log a user out

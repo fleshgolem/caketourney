@@ -76,6 +76,19 @@ class User extends AppModel {
 			'finderQuery' => '',
 			'counterQuery' => ''
 		),
+		'Message' => array(
+			'className' => 'Message',
+			'foreignKey' => 'recipient_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
 		/*'Ranking' => array(
 			'className' => 'Ranking',
 			'foreignKey' => 'user_id',
