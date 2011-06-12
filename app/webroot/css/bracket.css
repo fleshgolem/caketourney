@@ -1581,6 +1581,7 @@ div.PostMainContentbox {
 div.bottomaction {
 	float:right;
 	vertical-align: middle;
+	padding: 0 4px;
 }
 
 
@@ -1588,11 +1589,13 @@ div.bottomaction {
 div.bottomactionleft {
 	float:left;
 	vertical-align: middle;
+	padding: 0 4px;
 }
 div.bottompages {
 	float:left;
 	vertical-align: middle;
 	padding: 0px 5px;
+	
 }
 
 div.bottompages span.current {
@@ -1607,17 +1610,23 @@ div.bottomactionleft a{
 	padding: 0 8px;
 	/*clear: both;*/
 	/*background:#333;*/
-	background:clear;
+	/*background:clear;*/
 /*	background: -webkit-gradient(linear, left top, left bottom, from(#444444), to(#757575));
 	background: -moz-linear-gradient(top, #B47050, #C6937B);*/
+	background: rgba(255, 255, 255, 0.1);
 	color:#EEF3F6;
-	/*border:1px solid #333;*/
+	border:1px solid #2a2a2a;
 	text-decoration:none;
+	-moz-border-radius:4px;
+	-khtml-border-radius:4px;
+	-webkit-border-radius:4px;
+	border-radius:4px;
 	text-shadow: #555 0px 1px 0px;
 	min-width: 0;
 		
 	
 }
+
 
 
 
@@ -1628,10 +1637,14 @@ input[type=submit] {
 	/*background:#333;*/
 	/*background:clear;*/
 	color:#EEF3F6;
+	border:1px solid #333;
 	text-decoration:none;
+	-moz-border-radius:4px;
+	-khtml-border-radius:4px;
+	-webkit-border-radius:4px;
 	text-shadow: #555 0px 1px 0px;
 	min-width: 0;
-	border:none;
+	
 	padding: 0px 8px;
 	maging:0;
 }
