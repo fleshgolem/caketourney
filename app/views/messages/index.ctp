@@ -14,7 +14,7 @@
 			
 				<table cellpadding="0" cellspacing="0">
 	<tr>
-			<th><?php echo $this->Paginator->sort('id');?></th>
+			
 			<th><?php echo $this->Paginator->sort('sender_id');?></th>
 			<th><?php echo $this->Paginator->sort('title');?></th>
 			
@@ -26,8 +26,27 @@
 		
 	?>
 	<tr>
-		<td><?php echo $inbox['Message']['id']; ?>&nbsp;</td>
-		<td><?php echo $inbox['Message']['sender_id']; ?>&nbsp;</td>
+		
+		<td><?php  
+		if ( !$inbox['Message']['sender_id']){
+					?><div class="admin"> <a href="">Overmind</a>
+						
+						</div> <?php
+				}
+				else{
+					if ($inbox['Sender']['admin']==true)
+					{
+						?><div class="admin"> <?php echo $this->Html->link($inbox['Sender']['username'], array('controller' => 'users', 'action' => 'view', $inbox['Sender']['id'])); ?> 
+						
+						</div> <?php
+					}
+					else
+					{
+						echo $this->Html->link($inbox['Sender']['username'], array('controller' => 'users', 'action' => 'view', $inbox['Sender']['id']));
+						?>	<?php
+					}
+				}
+		 ?> &nbsp;</td>
 		<td><?php 
 			if($inbox['Message']['read']==1)
 			{?>
@@ -79,7 +98,7 @@
 			
 				<table cellpadding="0" cellspacing="0">
 	<tr>
-			<th><?php echo $this->Paginator->sort('id');?></th>
+			
 			<th><?php echo $this->Paginator->sort('recipient_id');?></th>
 			<th><?php echo $this->Paginator->sort('title');?></th>
 			
@@ -91,8 +110,27 @@
 		
 	?>
 	<tr>
-		<td><?php echo $outbox['Message']['id']; ?>&nbsp;</td>
-		<td><?php echo $outbox['Message']['sender_id']; ?>&nbsp;</td>
+		
+		<td><?php  
+		if ( !$outbox['Message']['sender_id']){
+					?><div class="admin"> <a href="">Overmind</a>
+						
+						</div> <?php
+				}
+				else{
+					if ($outbox['Recipient']['admin']==true)
+					{
+						?><div class="admin"> <?php echo $this->Html->link($outbox['Recipient']['username'], array('controller' => 'users', 'action' => 'view', $outbox['Recipient']['id'])); ?> 
+						
+						</div> <?php
+					}
+					else
+					{
+						echo $this->Html->link($outbox['Recipient']['username'], array('controller' => 'users', 'action' => 'view', $outbox['Recipient']['id']));
+						?>	<?php
+					}
+				}
+		 ?> &nbsp;</td>
         <td><?php 
 			if($outbox['Message']['read']==1)
 			{?>

@@ -45,7 +45,7 @@
 					}
 					else
 					{
-						echo $this->Html->link($message['Sender']['username'], array('controller' => 'users', 'action' => 'view', $message['User']['id']));
+						echo $this->Html->link($message['Sender']['username'], array('controller' => 'users', 'action' => 'view', $message['Sender']['id']));
 						?>	<br>
 						<small><?php echo ($message['Message']['date']);?></small><?php
 					}
@@ -94,8 +94,8 @@
                 <legend><?php __('Send Reply'); ?></legend>   
                 <?php
      				echo $this->Form->input('id');             
-                    echo $this->Form->input('title');
-                    echo $this->Form->input('Message.body');
+                   
+                    echo $this->Form->input('body');
                 ?>
                 </fieldset>
 			</div>

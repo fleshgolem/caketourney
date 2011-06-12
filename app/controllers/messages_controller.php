@@ -64,12 +64,14 @@ class MessagesController extends AppController {
 		debug($id);
 		if(!empty($this->data))
 		{
-			
+			$this->Message->create();
 			$date = date_create('now');
 			debug($id);
 			$this->data['Message']['sender_id'] =  $this->Session->read('Auth.User.id');
-			//$this->data['Message']['recipient_id'] = ;
+			$this->data['Message']['recipient_id'] = $reciver;
 			$this->data['Message']['date']= $date->format('Y-m-d H:i:s');
+			$this->data['Message']['read']= 0;
+			$this->data['Message']['title']= 'RE: '.$message['Message']['title'];
 			$this->Message->save($this->data);
 			
 			
@@ -81,6 +83,7 @@ class MessagesController extends AppController {
 				$this->Session->setFlash(__('The Message could not be sent. Please, try again.', true));
 			}
 		}
+
 		
 		
 		if(empty($this->data)){
@@ -100,8 +103,10 @@ class MessagesController extends AppController {
 				$this->Message->id=$id;
 				$this->Message->saveField('read',1);
 			}
-			$this->set('message',$message);
+			
+			$this->data = $this->Message->read(null, $id);
 		}
+		$this->set('message',$message);
 	}
 	function delete($id = null)
 	{
