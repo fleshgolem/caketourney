@@ -1839,3 +1839,21 @@ div.bottompages a:hover {
 	text-decoration:none;
 	text-decoration: underline;
 }
+
+div.MessageRead a {
+	color: #333;
+	text-decoration: none;
+	font-weight:normal;
+}
+
+div.MessageRead .invert a
+{
+	color: #BBCEDD;
+	text-decoration: none;
+	font-weight: bold;
+}
+div.MessageRead a:hover {
+	color: #333;
+	text-decoration:none;
+	text-decoration: underline;
+}

@@ -17,5 +17,5 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 ?>
-    Dear <?php echo $User['User']['first']. ' ' . $User['User']['last'] ?>,
+    Dear <?php echo $User['User']['username'] ?>,
     Thank you for your interest.

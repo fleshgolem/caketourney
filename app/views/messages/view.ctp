@@ -17,20 +17,38 @@
 		<div class="leftBox">
 			<div class="PostUserContentBox">
 				<div class="PostMainContentbox">
-                <?php echo $this->Html->image('avatar_l.png', array('width' => '125')); ?> 
-				<?php //debug($post);
-				if ($message['Sender']['admin']==true)
-				{
-					?><div class="admin"> <?php echo $this->Html->link($message['Sender']['username'], array('controller' => 'users', 'action' => 'view', $message['Sender']['id'])); ?> 
-					<br>
-					<small><?php echo ($message['Message']['date']);?></small>
-					</div> <?php
+                <?php 
+				if ( !$message['Message']['sender_id']){
+					echo $this->Html->image('Overmind.png', array('width' => '125')); 
 				}
-				else
-				{
-					echo $this->Html->link($message['Sender']['username'], array('controller' => 'users', 'action' => 'view', $message['User']['id']));
-					?>	<br>
-					<small><?php echo ($message['Message']['date']);?></small><?php
+				else{
+					echo $this->Html->image('avatar_l.png', array('width' => '125')); 	
+				}
+				
+				
+				?> 
+				<?php //debug($post);
+				
+				if ( !$message['Message']['sender_id']){
+					?><div class="admin"> <a href="">Overmind</a>
+						<br>
+						<small><?php echo ($message['Message']['date']);?></small>
+						</div> <?php
+				}
+				else{
+					if ($message['Sender']['admin']==true)
+					{
+						?><div class="admin"> <?php echo $this->Html->link($message['Sender']['username'], array('controller' => 'users', 'action' => 'view', $message['Sender']['id'])); ?> 
+						<br>
+						<small><?php echo ($message['Message']['date']);?></small>
+						</div> <?php
+					}
+					else
+					{
+						echo $this->Html->link($message['Sender']['username'], array('controller' => 'users', 'action' => 'view', $message['User']['id']));
+						?>	<br>
+						<small><?php echo ($message['Message']['date']);?></small><?php
+					}
 				}
 				?>
 				</div>

@@ -28,7 +28,18 @@
 	<tr>
 		<td><?php echo $inbox['Message']['id']; ?>&nbsp;</td>
 		<td><?php echo $inbox['Message']['sender_id']; ?>&nbsp;</td>
-		<td><?php echo $this->Html->link(__(($inbox['Message']['title']), true), array('controller' => 'messages', 'action' => 'view',$inbox['Message']['id'])); ?>&nbsp;</td>
+		<td><?php 
+			if($inbox['Message']['read']==1)
+			{?>
+				<div class="MessageRead"> 
+				<?php echo $this->Html->link(__(($inbox['Message']['title']), true), array('controller' => 'messages', 'action' => 'view',$inbox['Message']['id'])); ?>
+                </div>
+			<?php }
+			else
+			{
+				echo $this->Html->link(__(($inbox['Message']['title']), true), array('controller' => 'messages', 'action' => 'view',$inbox['Message']['id'])); 
+			}
+			?>&nbsp;</td>
 		
 		<td><?php echo $inbox['Message']['date']; ?>&nbsp;</td>
 		
@@ -82,7 +93,19 @@
 	<tr>
 		<td><?php echo $outbox['Message']['id']; ?>&nbsp;</td>
 		<td><?php echo $outbox['Message']['sender_id']; ?>&nbsp;</td>
-		<td><?php echo $this->Html->link(__(($outbox['Message']['title']), true), array('controller' => 'messages', 'action' => 'view',$outbox['Message']['id'])); ?>&nbsp;</td>
+        <td><?php 
+			if($outbox['Message']['read']==1)
+			{?>
+				<div class="MessageRead"> 
+				<?php echo $this->Html->link(__(($outbox['Message']['title']), true), array('controller' => 'messages', 'action' => 'view',$outbox['Message']['id'])); ?>
+                </div>
+			<?php }
+			else
+			{
+				echo $this->Html->link(__(($outbox['Message']['title']), true), array('controller' => 'messages', 'action' => 'view',$outbox['Message']['id'])); 
+			}
+			?>&nbsp;</td>
+		
 		
 		<td><?php echo $outbox['Message']['date']; ?>&nbsp;</td>
 		
