@@ -333,7 +333,7 @@ class MatchesController extends AppController {
 					$this->data['Message']['sender_id']=null;
 					$this->data['Message']['recipient_id']=$subscriber['id'];
 					$this->data['Message']['date']= $date->format('Y-m-d H:i:s');
-					$this->data['Message']['title']= 'New comment in match '. $match['Player1']['username']. ' vs '. $match['Player2']['username'];
+					$this->data['Message']['title']= 'New comment in match "'. $match['Player1']['username']. ' vs '. $match['Player2']['username'].'"';
 					
 					//TODO: machen! ;)
 					$this->data['Message']['body']= 'A new comment has been added. Read the comment at:

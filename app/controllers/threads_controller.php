@@ -33,7 +33,7 @@ class ThreadsController extends AppController {
 		//Do not pass any args to send()
 		$this->Email->delivery = 'debug';
 		//$this->Email->delivery = 'mail';
-		$this->Email->send();
+		//$this->Email->send();
 	}
 	
 	function view($id = null) 
@@ -74,7 +74,7 @@ class ThreadsController extends AppController {
 					$this->data['Message']['sender_id']=null;
 					$this->data['Message']['recipient_id']=$subscriber['id'];
 					$this->data['Message']['date']= $date->format('Y-m-d H:i:s');
-					$this->data['Message']['title']= 'New post in thread '. $thread['Thread']['title'];
+					$this->data['Message']['title']= 'New post in thread "'. $thread['Thread']['title'].'"';
 					
 					//TODO: machen! ;)
 					$this->data['Message']['body']= 'A new post has been added. Read the post at:
