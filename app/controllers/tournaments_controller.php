@@ -160,6 +160,35 @@ class TournamentsController extends AppController {
 			$this->redirect(array('action'=>'index'));
 		}
 		if (!empty($this->data)) {
+			//find subscribers and message them
+			$subscribers=array();
+			$tournament = $this->Tournament->read(null,$id);
+			$users = $this->Tournament->Match->Users->find('all');
+			foreach ($users as $users){
+				if($users['User']['subscribe_tournament'])
+				{
+					array_push($subscribers,$post['User']);
+				}
+			}
+			
+			
+			foreach($subscribers as $subscriber)
+			{
+				if($subscriber['id']!=$current_user){
+					$this->Match->Player1->Message->create();
+					$date = date_create('now');
+					$this->data['Message']['sender_id']=null;
+					$this->data['Message']['recipient_id']=$subscriber['id'];
+					$this->data['Message']['date']= $date->format('Y-m-d H:i:s');
+					$this->data['Message']['title']= 'New comment in match '. $match['Player1']['username']. ' vs '. $match['Player2']['username'];
+					
+					//TODO: machen! ;)
+					$this->data['Message']['body']= 'A new comment has been added. Read the comment at:
+													 http://'.$_SERVER['SERVER_NAME'].'/caketourney/matches/view/'.$match['Match']['id'];
+					$this->Match->Player1->Message->save($this->data);
+						
+				}
+			}
 		//debug($this->data);
 			$this->Tournament->create();
 			$this->data['Tournament']['current_round']=-1;

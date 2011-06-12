@@ -6,7 +6,8 @@
 		<h2><?php echo($message['Message']['title']);?></h2>
 	</div> 
    
-	
+
+    
 	<p style="clear: both;">  </p>  
 </div>
 </div>
@@ -83,30 +84,41 @@
 </div>
 
 
+<?php
+				
+if ( !$message['Message']['sender_id']){?>
+	
+<?php				
+}else{?>
+	<div class="PostBox"> 
+        <div class="PostContent">
+            <div class="PostContentBox">
+                <div class="PostMainContentbox">
+                	
+                    <?php echo $this->Form->create('Message');
+					echo 'hier';?>
+                    <fieldset>
+                    <legend><?php __('Send Reply'); ?></legend>   
+                    <?php
+                         
+                       
+                        echo $this->Form->input('body');
+                    ?>
+                    </fieldset>
+                </div>
+            </div>
+            <p style="clear: both;"> </p>
+        </div>
+        <div class="PostFooter">
+            <div class="bottomaction"><?php echo $this->Form->end(__('Submit', true));?> </div>
+            <p style="clear: both;">  </p>
+        </div>
+    </div>
+<?php }
+
+?>
 
 
-<div class="PostBox"> 
-	<div class="PostContent">
-		<div class="PostContentBox">
-			<div class="PostMainContentbox">
-				<?php echo $this->Form->create('Message');?>
-                <fieldset>
-                <legend><?php __('Send Reply'); ?></legend>   
-                <?php
-     				 
-                   
-                    echo $this->Form->input('body');
-                ?>
-                </fieldset>
-			</div>
-		</div>
-		<p style="clear: both;"> </p>
-	</div>
-	<div class="PostFooter">
-		<div class="bottomaction"><?php echo $this->Form->end(__('Submit', true));?> </div>
-		<p style="clear: both;">  </p>
-	</div>
-</div>
 
 
 </div>

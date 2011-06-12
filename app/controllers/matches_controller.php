@@ -297,8 +297,8 @@ class MatchesController extends AppController {
 
 		
 		
-	function post_comment($id)
-		{
+	function post_comment($id){
+		$current_user = $current_user = $this->Auth->user('id');
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid id for match', true));
 			$this->redirect(array('action'=>'index'));
@@ -336,8 +336,10 @@ class MatchesController extends AppController {
 					$this->data['Message']['title']= 'New comment in match '. $match['Player1']['username']. ' vs '. $match['Player2']['username'];
 					
 					//TODO: machen! ;)
-					$this->data['Message']['body']= 'TODO';
+					$this->data['Message']['body']= 'A new comment has been added. Read the comment at:
+													 http://'.$_SERVER['SERVER_NAME'].'/caketourney/matches/view/'.$match['Match']['id'];
 					$this->Match->Player1->Message->save($this->data);
+						
 				}
 			}
 			$this->Match->Comment->save($this->data);

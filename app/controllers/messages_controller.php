@@ -61,12 +61,12 @@ class MessagesController extends AppController {
 		
 		$recipients = $this->Message->Recipient->find('list',array('order' => array('Recipient.username asc')));
 		$this->set(compact('recipients'));
-		debug($id);
+		
 		if(!empty($this->data))
 		{
 			$this->Message->create();
 			$date = date_create('now');
-			debug($id);
+			
 			$this->data['Message']['sender_id'] =  $this->Session->read('Auth.User.id');
 			$this->data['Message']['recipient_id'] = $reciver;
 			$this->data['Message']['date']= $date->format('Y-m-d H:i:s');

@@ -31,8 +31,8 @@ class ThreadsController extends AppController {
 		//$this->Email->_createboundary();
 		//$this->Email->__header[] = 'MIME-Version: 1.0';
 		//Do not pass any args to send()
-		//$this->Email->delivery = 'debug';
-		$this->Email->delivery = 'mail';
+		$this->Email->delivery = 'debug';
+		//$this->Email->delivery = 'mail';
 		$this->Email->send();
 	}
 	
@@ -77,7 +77,8 @@ class ThreadsController extends AppController {
 					$this->data['Message']['title']= 'New post in thread '. $thread['Thread']['title'];
 					
 					//TODO: machen! ;)
-					$this->data['Message']['body']= 'TODO';
+					$this->data['Message']['body']= 'A new post has been added. Read the post at:
+													 http://'.$_SERVER['SERVER_NAME'].'/caketourney/threads/view/'.$thread['Thread']['id'];
 					$this->Thread->Post->User->Message->save($this->data);
 				}
 				

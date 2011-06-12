@@ -107,6 +107,7 @@ class UsersController extends AppController {
 			$this->User->saveField('race', $this->data['User']['race']);
 			$this->User->saveField('subscribe_own_comments', $this->data['User']['subscribe_own_comments']);
 			$this->User->saveField('subscribe_own_posts', $this->data['User']['subscribe_own_posts']);
+			$this->User->saveField('subscribe_tournaments', $this->data['User']['subscribe_tournaments']);
             $this->Session->setFlash('Your data has been updated');
             $this->redirect(array('controller'=>'tournaments' , 'action' => 'index'));
         }
@@ -119,12 +120,13 @@ class UsersController extends AppController {
 			$this->User->saveField('race', $this->data['User']['race']);
 			$this->User->saveField('subscribe_own_comments', $this->data['User']['subscribe_own_comments']);
 			$this->User->saveField('subscribe_own_posts', $this->data['User']['subscribe_own_posts']);
+			$this->User->saveField('subscribe_tournaments', $this->data['User']['subscribe_tournaments']);
             $this->Session->setFlash('Your data has been updated');
             $this->redirect(array('controller'=>'tournaments' , 'action' => 'index'));
         }
 		if (empty($this->data))
 		{
-			$this->data = $this->User->read(null, $id);
+			$this->data = $this->User->read(null, $this->Auth->user('id'));
 		}
     }
     /**
