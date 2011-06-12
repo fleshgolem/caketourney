@@ -71,7 +71,7 @@
     	
         
 		<div class="bottomaction"> <?php
-				if ($this->Session->read('Auth.User.admin') OR $message['Message']['recipient_id']==$current_user OR $message['Message']['sender_id']==$current_user)
+				if ($this->Session->read('Auth.User.admin') OR $message['Message']['recipient_id']==$current_user )
 				{
 					
 					echo $this->Html->link('Delete', array('controller' => 'messages', 'action' => 'delete', $message['Message']['id']), null, sprintf(__('Are you sure you want to delete the Message?', true)));
@@ -86,7 +86,7 @@
 
 <?php
 				
-if ( !$message['Message']['sender_id']){?>
+if ( !$message['Message']['sender_id']||$message['Message']['sender_id']==$this->Session->read('Auth.User.id')){?>
 	
 <?php				
 }else{?>

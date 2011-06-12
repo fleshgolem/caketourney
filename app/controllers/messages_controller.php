@@ -40,16 +40,45 @@ class MessagesController extends AppController {
 			'recursive' => 2,
 			'limit' => 20);
 		$inbox = $this->paginate('Message');
+		/*$this->paginate = array(
+			'conditions' => array('Message.sender_id' => $this->Session->read('Auth.User.id')),
+			'order'=>array('date desc') ,
+			'recursive' => 2,
+			'limit' => 20);
+		$outbox = $this->paginate('Message');*/
+		$this->set('inbox',$inbox);
+		//$this->set('outbox',$outbox);
+		
+	}
+	
+	function inbox()
+	{
+		
+		$this->paginate = array(
+			'conditions' => array('Message.recipient_id' => $this->Session->read('Auth.User.id')),
+			'order'=>array('date desc') ,
+			'recursive' => 2,
+			'limit' => 20);
+		$inbox = $this->paginate('Message');
+		
+		$this->set('inbox',$inbox);
+		
+		
+	}
+	
+	function outbox()
+	{
+		
 		$this->paginate = array(
 			'conditions' => array('Message.sender_id' => $this->Session->read('Auth.User.id')),
 			'order'=>array('date desc') ,
 			'recursive' => 2,
 			'limit' => 20);
 		$outbox = $this->paginate('Message');
-		$this->set('inbox',$inbox);
 		$this->set('outbox',$outbox);
 		
 	}
+	
 	function view($id = null)
 	{
 		

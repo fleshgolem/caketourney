@@ -179,7 +179,17 @@
                     	if ($this->Session->check('Auth.User')){?>
                         <div class="menuebox">
                     	<?php
-							echo $this->Html->link(__($this->element('unread_messages'), true), array('controller' => 'messages', 'action' => 'index')); 
+							echo $this->Html->link(__($this->element('unread_messages'), true), array('controller' => 'messages', 'action' => 'inbox')); 
+						?>
+                     	</div>
+                        <?php
+						}
+						?>
+                        <?php
+                    	if ($this->Session->check('Auth.User')){?>
+                        <div class="menuebox">
+                    	<?php
+							echo $this->Html->link(__('Outbox', true), array('controller' => 'messages', 'action' => 'outbox')); 
 						?>
                      	</div>
                         <?php
