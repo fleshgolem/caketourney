@@ -20,11 +20,11 @@ class ThreadsController extends AppController {
 	function _sendNewUserMail($id) {
 		$User = $this->Thread->Post->User->read(null,$id);
 		$this->set('User', $User);
-		$this->Email->to = 'b4lrog@gmx.de';//$User['User']['email'];
+		$this->Email->to = 'fleshgolem@gmx.net';//$User['User']['email'];
 		$this->Email->bcc = array('secret@example.com');
 		$this->Email->subject = 'Welcome to our really cool thing';
 		$this->Email->replyTo = 'support@example.com';
-		$this->Email->from = 'Admin <b4lrog@gmx.de>';
+		$this->Email->from = 'Admin <b4lrog@sesu.org>';
 		$this->Email->template = 'simple_message'; // note no '.ctp'
 		//Send as 'html', 'text' or 'both' (default is 'text')
 		$this->Email->sendAs = 'both'; // because we like to send pretty mail
