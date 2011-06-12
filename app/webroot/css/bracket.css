@@ -1650,7 +1650,7 @@ div.bottomactionleft a{
 input[type=submit] {
 	font-weight:normal;
 	display: block;
-	background: transparent;
+	background: rgba(255, 255, 255, 0.1);
 	/*background:#333;*/
 	/*background:clear;*/
 	color:#EEF3F6;
