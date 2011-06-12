@@ -95,7 +95,7 @@
                 <?php
      				echo $this->Form->input('id');             
                     echo $this->Form->input('title');
-                    echo $this->Form->input('Message.body');
+                    echo $this->Form->input('body');
                 ?>
                 </fieldset>
 			</div>

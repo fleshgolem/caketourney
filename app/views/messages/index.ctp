@@ -27,7 +27,7 @@
 	?>
 	<tr>
 		<td><?php echo $inbox['Message']['id']; ?>&nbsp;</td>
-		<td><?php echo $inbox['Message']['sender_id']; ?>&nbsp;</td>
+		<td><?php echo $inbox['Sender']['username']; ?>&nbsp;</td>
 		<td><?php 
 			if($inbox['Message']['read']==1)
 			{?>
@@ -92,7 +92,7 @@
 	?>
 	<tr>
 		<td><?php echo $outbox['Message']['id']; ?>&nbsp;</td>
-		<td><?php echo $outbox['Message']['sender_id']; ?>&nbsp;</td>
+		<td><?php echo $outbox['Recipient']['username']; ?>&nbsp;</td>
         <td><?php 
 			if($outbox['Message']['read']==1)
 			{?>

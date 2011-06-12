@@ -81,6 +81,7 @@ class MessagesController extends AppController {
 				$this->Session->setFlash(__('The Message could not be sent. Please, try again.', true));
 			}
 		}
+
 		
 		
 		if(empty($this->data)){
@@ -100,8 +101,10 @@ class MessagesController extends AppController {
 				$this->Message->id=$id;
 				$this->Message->saveField('read',1);
 			}
-			$this->set('message',$message);
+			
+			$this->data = $this->Message->read(null, $id);
 		}
+		$this->set('message',$message);
 	}
 	function delete($id = null)
 	{
