@@ -2,6 +2,7 @@
 class ThreadsController extends AppController {
 
 	var $name = 'Threads';
+	var $components = array('Email');
 	var $helpers = array('Text','Bbcode');
 	var $paginate = array(
 		'limit' => 25,
@@ -14,7 +15,24 @@ class ThreadsController extends AppController {
 		$this->Thread->recursive = 1;
 		$this->set('threads', $this->paginate());
 	}
-
+	
+	
+	function _sendNewUserMail($id) {
+		//$User = $this->Thread->Post->User->read(null,$id);
+		
+		$this->Email->to = 'b4lrog@gmx.de';//$User['User']['email'];
+		$this->Email->bcc = array('secret@example.com');
+		$this->Email->subject = 'Welcome to our really cool thing';
+		$this->Email->replyTo = 'support@example.com';
+		$this->Email->from = 'Cool Web App <app@example.com>';
+		$this->Email->template = 'simple_message'; // note no '.ctp'
+		//Send as 'html', 'text' or 'both' (default is 'text')
+		$this->Email->sendAs = 'both'; // because we like to send pretty mail
+		debug($this->Email);
+		//Do not pass any args to send()
+		$this->Email->send();
+	}
+	
 	function view($id = null) 
 	{
 		$this->Thread->recursive = 1;
@@ -22,6 +40,7 @@ class ThreadsController extends AppController {
 		$this->set('current_user',$current_user);
 		if(!empty($this->data))
 		{
+			$this->_sendNewUserMail( $this->Session->read('Auth.User.id') );
 			
 			$date = date_create('now');
 			$this->data['Post']['user_id']=$current_user;
@@ -47,18 +66,20 @@ class ThreadsController extends AppController {
 			
 			foreach($subscribers as $subscriber)
 			{
-				$this->Thread->Post->User->Message->create();
-				$this->data['Message']['sender_id']=null;
-				$this->data['Message']['recipient_id']=$subscriber['id'];
-				$this->data['Message']['date']= $date->format('Y-m-d H:i:s');
-				$this->data['Message']['title']= 'New post in thread '. $thread['Thread']['title'];
-				
-				//TODO: machen! ;)
-				$this->data['Message']['body']= '';
-				$this->Thread->Post->User->Message->save($this->data);
+				if($subscriber['id']!=$current_user){
+					$this->Thread->Post->User->Message->create();
+					$this->data['Message']['sender_id']=null;
+					$this->data['Message']['recipient_id']=$subscriber['id'];
+					$this->data['Message']['date']= $date->format('Y-m-d H:i:s');
+					$this->data['Message']['title']= 'New post in thread '. $thread['Thread']['title'];
+					
+					//TODO: machen! ;)
+					$this->data['Message']['body']= 'TODO';
+					$this->Thread->Post->User->Message->save($this->data);
+				}
 				
 			}
-			$this->redirect(array('action' => 'view',$id));
+			//$this->redirect(array('action' => 'view',$id));
 		}
 		if(empty($this->data))
 		{

@@ -327,17 +327,18 @@ class MatchesController extends AppController {
 			
 			foreach($subscribers as $subscriber)
 			{
-				$this->Match->Player1->Message->create();
-				$date = date_create('now');
-				$this->data['Message']['sender_id']=null;
-				$this->data['Message']['recipient_id']=$subscriber['id'];
-				$this->data['Message']['date']= $date->format('Y-m-d H:i:s');
-				$this->data['Message']['title']= 'New comment in match '. $match['Player1']['username']. ' vs '. $match['Player2']['username'];
-				
-				//TODO: machen! ;)
-				$this->data['Message']['body']= '';
-				$this->Match->Player1->Message->save($this->data);
-				
+				if($subscriber['id']!=$current_user){
+					$this->Match->Player1->Message->create();
+					$date = date_create('now');
+					$this->data['Message']['sender_id']=null;
+					$this->data['Message']['recipient_id']=$subscriber['id'];
+					$this->data['Message']['date']= $date->format('Y-m-d H:i:s');
+					$this->data['Message']['title']= 'New comment in match '. $match['Player1']['username']. ' vs '. $match['Player2']['username'];
+					
+					//TODO: machen! ;)
+					$this->data['Message']['body']= 'TODO';
+					$this->Match->Player1->Message->save($this->data);
+				}
 			}
 			$this->Match->Comment->save($this->data);
 			$this->redirect(array('action' => 'view',$id));

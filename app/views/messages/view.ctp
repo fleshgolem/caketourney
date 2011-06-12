@@ -71,22 +71,21 @@
 	<div class="PostContent">
 		<div class="PostContentBox">
 			<div class="PostMainContentbox">
-				<?php echo $this->Form->create('Thread');?>
-				<fieldset>
- 				<legend><?php __('Post Reply'); ?></legend>
-				<?php
-				echo $this->Form->input('id');
-				echo $this->Form->input('Post.body');
-				?>
-				BBCode is enabled<br>
-				Embedding images is disabled
-				</fieldset>
+				<?php echo $this->Form->create('Message');?>
+                <fieldset>
+                <legend><?php __('Send Reply'); ?></legend>   
+                <?php
+     				echo $this->Form->input('id');             
+                    echo $this->Form->input('title');
+                    echo $this->Form->input('Message.body');
+                ?>
+                </fieldset>
 			</div>
 		</div>
 		<p style="clear: both;"> </p>
 	</div>
 	<div class="PostFooter">
-		<div class="bottomaction"> <?php echo $this->Form->end(__('Submit', true));?> </div>
+		<div class="bottomaction"><?php echo $this->Form->end(__('Submit', true));?> </div>
 		<p style="clear: both;">  </p>
 	</div>
 </div>
