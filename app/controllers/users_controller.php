@@ -2,7 +2,7 @@
 class UsersController extends AppController {
 
 	var $name = 'Users';
-	var $helpers = array('Race');
+	var $helpers = array('Race','FlashChart');
     /**
      * Runs automatically before the controller action is called
      */
@@ -166,11 +166,252 @@ class UsersController extends AppController {
 			$this->Session->setFlash(__('Invalid User', true));
 			$this->redirect(array('action' => 'index'));
 		}
-		$this->set('user', $this->User->read(null, $id));
+		$user = $this->User->read(null, $id);
+		$this->set('user', $user);
+		
+		$this->User->Tournament->bindModel(array('hasOne' => array('UsersTournament')));
+		$tournaments = $this->User->Tournament->find('all',array('recursive'=>3,'conditions'=>array('UsersTournament.user_id'=>$id)));
+		$this->set('tournaments',$tournaments);
+		
 		
 		
 		$matches = $this->User->Match->find('all',array('recursive'=>2,'conditions'=>array('Match.open'=>0,'OR'=>array('Match.player1_id'=>$id,'Match.player2_id'=>$id)),'order'=>array('Match.date DESC')));
 		$this->set('matches',$matches);
+		
+					
+					$XvT = 0;
+					$XvP = 0;
+					$XvZ = 0;
+					$XvR = 0;
+					$totalXvT = 0;
+					$totalXvP = 0;
+					$totalXvZ = 0;
+					$totalXvR = 0;
+					$total = 0;
+					$totalWin = 0;
+					
+					foreach ($matches as $match){
+                        if ($match['Player2']['username']!=null && $match['Player1']['username']==$user['User']['username'])
+                            {
+								$total+=1;
+								if($match['Player2']['race']==0){
+									$totalXvT+=1;
+									if($match['Match']['player1_score']>$match['Match']['player2_score']){
+										$XvT+=1;
+									}
+								}
+								if($match['Player2']['race']==1){
+									$totalXvP+=1;
+									if($match['Match']['player1_score']>$match['Match']['player2_score']){
+										$XvP+=1;
+									}
+								}
+								if($match['Player2']['race']==2){
+									$totalXvZ+=1;
+									if($match['Match']['player1_score']>$match['Match']['player2_score']){
+										$XvZ+=1;
+									}
+								}
+								if($match['Player2']['race']==3){
+									$totalXvR+=1;
+									if($match['Match']['player1_score']>$match['Match']['player2_score']){
+										$XvR+=1;
+									}
+								}
+								if($match['Match']['player1_score']>$match['Match']['player2_score']){
+									$totalWin+=1;
+								}
+                            }
+							
+                        if ($match['Player1']['username']!=null && $match['Player2']['username']==$user['User']['username'])
+                            {
+                                $total+=1;
+								if($match['Player1']['race']==0){
+									$totalXvT+=1;
+									if($match['Match']['player2_score']>$match['Match']['player1_score']){
+										$XvT+=1;
+									}
+								}
+								if($match['Player1']['race']==1){
+									$totalXvP+=1;
+									if($match['Match']['player2_score']>$match['Match']['player1_score']){
+										$XvP+=1;
+									}
+								}
+								if($match['Player1']['race']==2){
+									$totalXvZ+=1;
+									if($match['Match']['player2_score']>$match['Match']['player1_score']){
+										$XvZ+=1;
+									}
+								}
+								if($match['Player1']['race']==3){
+									$totalXvR+=1;
+									if($match['Match']['player2_score']>$match['Match']['player1_score']){
+										$XvR+=1;
+									}
+								}
+								if($match['Match']['player2_score']>$match['Match']['player1_score']){
+									$totalWin+=1;
+								}
+                            }
+					}
+					
+					$this->set('XvT',$XvT);
+					$this->set('XvP',$XvP);
+					$this->set('XvZ',$XvZ);
+					$this->set('XvR',$XvR);
+					$this->set('totalXvT',$totalXvT);
+					$this->set('totalXvP',$totalXvP);
+					$this->set('totalXvZ',$totalXvZ);
+					$this->set('totalXvR',$totalXvR);
+					$this->set('total',$total);
+					$this->set('totalWin',$totalWin);
+					
+				
+					$XvT_array = array();
+					$XvP_array = array();
+					$XvZ_array = array();
+					$XvR_array = array();
+					$totalXvT_array = array();
+					$totalXvP_array = array();
+					$totalXvZ_array = array();
+					$totalXvR_array = array();
+					$total_array = array();
+					$totalWin_array = array();
+					$tournament_names_array = array();
+					
+					foreach ($tournaments as $tournament){
+						$tournament_names_array[]=$tournament['Tournament']['name'];
+						$XvT_seperate = 0;
+						$XvP_seperate = 0;
+						$XvZ_seperate = 0;
+						$XvR_seperate = 0;
+						$totalXvT_seperate = 0;
+						$totalXvP_seperate = 0;
+						$totalXvZ_seperate = 0;
+						$totalXvR_seperate = 0;
+						$total_seperate = 0;
+						$totalWin_seperate = 0;
+						
+						foreach($tournament['Round'] as $round){
+						foreach ($round['Match'] as $match){
+
+						
+							
+							
+							if ($match['Player2']!=null && $match['player1_id'] == $user['User']['id'] )
+								{
+									$total_seperate+=1;
+									if($match['Player2']['race']==0){
+										$totalXvT_seperate+=1;
+										if($match['player1_score']>$match['player2_score']){
+											$XvT_seperate+=1;
+										}
+									}
+									if($match['Player2']['race']==1){
+										$totalXvP_seperate+=1;
+										if($match['player1_score']>$match['player2_score']){
+											$XvP_seperate+=1;
+										}
+									}
+									if($match['Player2']['race']==2){
+										$totalXvZ_seperate+=1;
+										if($match['player1_score']>$match['player2_score']){
+											$XvZ_seperate+=1;
+										}
+									}
+									if($match['Player2']['race']==3){
+										$totalXvR_seperate+=1;
+										if($match['player1_score']>$match['player2_score']){
+											$XvR_seperate+=1;
+										}
+									}
+									if($match['player1_score']>$match['player2_score']){
+										$totalWin_seperate+=1;
+									}
+								}
+						   
+							
+							if ($match['Player1']!=null && $match['player2_id'] == $user['User']['id'] )
+								{
+									$total_seperate+=1;
+									if($match['Player1']['race']==0){
+										$totalXvT_seperate+=1;
+										if($match['player2_score']>$match['player1_score']){
+											$XvT_seperate+=1;
+										}
+									}
+									if($match['Player1']['race']==1){
+										$totalXvP_seperate+=1;
+										if($match['player2_score']>$match['player1_score']){
+											$XvP_seperate+=1;
+										}
+									}
+									if($match['Player1']['race']==2){
+										$totalXvZ_seperate+=1;
+										if($match['player2_score']>$match['player1_score']){
+											$XvZ_seperate+=1;
+										}
+									}
+									if($match['Player1']['race']==3){
+										$totalXvR_seperate+=1;
+										if($match['player2_score']>$match['player1_score']){
+											$XvR_seperate+=1;
+										}
+									}
+									if($match['player2_score']>$match['player1_score']){
+										$totalWin_seperate+=1;
+									}
+								}
+								}
+								
+						  
+								
+								
+						 }
+					
+					if($totalXvT_seperate!=0){
+					$XvT_array[] = $XvT_seperate/$totalXvT_seperate;}
+					else{
+					$XvT_array[] = 0;}
+					if($totalXvP_seperate!=0){
+					$XvP_array[] = $XvP_seperate/$totalXvP_seperate;}
+					else{
+					$XvP_array[] = 0;}
+					if($totalXvZ_seperate!=0){
+					$XvZ_array[] = $XvZ_seperate/$totalXvZ_seperate;}
+					else{
+					$XvZ_array[] = 0;}
+					if($totalXvR_seperate!=0){
+					$XvR_array[] = $XvR_seperate/$totalXvR_seperate;}
+					else{
+					$XvR_array[] = 0;}
+					
+					
+					
+					
+					$totalXvT_array[] =$totalXvT_seperate;
+					$totalXvP_array[] =$totalXvP_seperate;
+					$totalXvZ_array[] =$totalXvZ_seperate;
+					$totalXvR_array[] =$totalXvR_seperate;
+					$total_array[] = $total_seperate;
+					$totalWin_array[] = $totalWin_seperate/$total_seperate;
+
+					}
+					
+					$this->set('XvT_array',$XvT_array);
+					$this->set('XvP_array',$XvP_array);
+					$this->set('XvZ_array',$XvZ_array);
+					$this->set('XvR_array',$XvR_array);
+					$this->set('totalXvT_array',$totalXvT_array);
+					$this->set('totalXvP_array',$totalXvP_array);
+					$this->set('totalXvZ_array',$totalXvZ_array);
+					$this->set('totalXvR_array',$totalXvR_array);
+					$this->set('total_array',$total_array);
+					$this->set('totalWin_array',$totalWin_array);
+					$this->set('tournament_names_array',$tournament_names_array);
+					
+					
 	}
 	
 
