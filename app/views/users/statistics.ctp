@@ -5,6 +5,14 @@
 	<div class="ThreadTitleContent">
 		<h3><?php echo $user['User']['username']; ?>'s Statistics </h3>
 	</div> 
+	
+	<p style="clear: both;">  </p>  
+</div>
+</div>
+
+<div class="PostBox">
+<div class="ThreadTitleBox">
+	
 	<div class="bottomaction"> <?php
 		echo $this->Html->link(__('User Page', true), array('action' => 'view', $user['User']['id'])); 
 		?>
@@ -12,6 +20,7 @@
 	<p style="clear: both;">  </p>  
 </div>
 </div>
+
 
 
 <div class="PostBox"> 
