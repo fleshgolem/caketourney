@@ -93,7 +93,7 @@
                 <fieldset>
                 <legend><?php __('Send Reply'); ?></legend>   
                 <?php
-     				echo $this->Form->input('id');             
+     				 
                    
                     echo $this->Form->input('body');
                 ?>
