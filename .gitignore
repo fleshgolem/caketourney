@@ -21,3 +21,4 @@ app/webroot/files
 /app/tmp/logs/error.log
 /app/tmp/cache/models/cake_model_default_news
 /app/tmp/cache/persistent/cake_core_default_
+/app/tmp/cache/models/cake_model_default_messages
