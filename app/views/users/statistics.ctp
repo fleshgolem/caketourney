@@ -160,24 +160,26 @@
 		
 			<div class="PostContentBox">
 				<div class="PostMainContentbox" margin-left: auto;  margin-right: auto>
-					
+					<?php
+								if(count($totalWin_array)!=0){?>
                     <div class="PostChartPaddingBox">
                     <div class="PostChartContentBox">
                         <div class="PostMainContentbox">
 							<?php
 								
-                                echo $flashChart->begin();
-								$flashChart->setTitle('Overall History','{color:#333333;font-size:16px;padding:0 0 0px 0px;}');
-                                $flashChart->setData($totalWin_array,'{n}',false,'Total','Overall_Hist');
-                                /*$flashChart->axis('y',array('range' => array(0, count($totalWin_array), 1),'labels' => $tournament_names_array));*/
-								//$flashChart->axis('y',array('range' => array(0, 1, 0.1)));
-                                //$flashChart->axis('x',array('labels'=>$tournament_names_array),array('vertical'=>true));
-								$flashChart->axis('x',$tournament_names_array, 0, array(0,count($tournament_names_array)-1,1));
-								$flashChart->axis('y',array(), 0, array(0,1,0.2));
-                                $flashChart->setLegend('x','Tournament','{color:#333333;font-size:16px;padding:0 0 0px 0px;}');
-                                $flashChart->setLegend('y','Winratio','{color:#333333;font-size:16px;padding:0 0 0px 0px;}' );
-                                echo $flashChart->chart('line',array('colour'=>'#3e76d1'),'Total','Overall_Hist','versus All', 'mid-slide', 1, 0, '#x_label#: #val#;');
-                                echo $flashChart->render(685,350,'Overall_Hist');
+									echo $flashChart->begin();
+									$flashChart->setTitle('Overall History','{color:#333333;font-size:16px;padding:0 0 0px 0px;}');
+									$flashChart->setData($totalWin_array,'{n}',false,'Total','Overall_Hist');
+									/*$flashChart->axis('y',array('range' => array(0, count($totalWin_array), 1),'labels' => $tournament_names_array));*/
+									//$flashChart->axis('y',array('range' => array(0, 1, 0.1)));
+									//$flashChart->axis('x',array('labels'=>$tournament_names_array),array('vertical'=>true));
+									$flashChart->axis('x',$tournament_names_array, 0, array(0,count($tournament_names_array)-1,1));
+									$flashChart->axis('y',array(), 0, array(0,1,0.2));
+									$flashChart->setLegend('x','Tournament','{color:#333333;font-size:16px;padding:0 0 0px 0px;}');
+									$flashChart->setLegend('y','Winratio','{color:#333333;font-size:16px;padding:0 0 0px 0px;}' );
+									echo $flashChart->chart('line',array('colour'=>'#3e76d1'),'Total','Overall_Hist','versus All', 'mid-slide', 1, 0, '#x_label#: #val#;');
+									echo $flashChart->render(685,350,'Overall_Hist');
+								
                             ?>
                      	</div>
 					</div>
@@ -211,7 +213,9 @@
                      	</div>
 					</div>
                     </div>
-                 
+                 	<?php
+                    }
+                    ?>
                    <p style="clear: both;">  </p>  
 					
 				</div>

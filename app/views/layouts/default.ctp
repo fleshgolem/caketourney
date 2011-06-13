@@ -326,9 +326,19 @@
 					</div>
 					<div class="containercontent">
 					<div class="containercontentbox">
-					<div class="maincontentbox">
-					SOON<SUP><FONT SIZE="-2">TM</FONT></SUP>
-					</div>
+					
+					<?php	
+                    	if ($this->Session->check('Auth.User')){?>
+                        <div class="menuebox">
+                    	<?php
+							
+							echo $this->Html->link(__(('My Statistics'), true), array('controller' => 'users', 'action' => 'statistics',$this->Session->read('Auth.User.id'))); 
+							?>
+                        </div>
+                        <?php
+						}
+						?>
+					
 					</div>
 					</div>
 				</div>

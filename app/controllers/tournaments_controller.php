@@ -206,7 +206,10 @@ class TournamentsController extends AppController {
 						
 						//TODO: machen! ;)
 						$this->data['Message']['body']= 'A new comment has been added. Sign up for the tournament at:
-														 http://'.$_SERVER['SERVER_NAME'].'/caketourney/tournaments/view/'.$this->Tournament->getLastInsertId();;
+														 http://'.$_SERVER['SERVER_NAME'].'/caketourney/tournaments/view/'.$this->Tournament->getLastInsertId().'
+													 
+													 To unsubscribe from this automated message, change you account settings at:
+													 http://'.$_SERVER['SERVER_NAME'].'/caketourney/users/account/'.$current_user;
 						$this->Tournament->User->Message->save($this->data);
 							
 					}

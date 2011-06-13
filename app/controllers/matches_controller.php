@@ -337,7 +337,10 @@ class MatchesController extends AppController {
 					
 					//TODO: machen! ;)
 					$this->data['Message']['body']= 'A new comment has been added. Read the comment at:
-													 http://'.$_SERVER['SERVER_NAME'].'/caketourney/matches/view/'.$match['Match']['id'];
+													 http://'.$_SERVER['SERVER_NAME'].'/caketourney/matches/view/'.$match['Match']['id'].'
+													 
+													 To unsubscribe from this automated message, change you account settings at:
+													 http://'.$_SERVER['SERVER_NAME'].'/caketourney/users/account/'.$current_user;
 					$this->Match->Player1->Message->save($this->data);
 						
 				}

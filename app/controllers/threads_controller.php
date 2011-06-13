@@ -78,7 +78,10 @@ class ThreadsController extends AppController {
 					
 					//TODO: machen! ;)
 					$this->data['Message']['body']= 'A new post has been added. Read the post at:
-													 http://'.$_SERVER['SERVER_NAME'].'/caketourney/threads/view/'.$thread['Thread']['id'];
+													 http://'.$_SERVER['SERVER_NAME'].'/caketourney/threads/view/'.$thread['Thread']['id'].'
+													 
+													 To unsubscribe from this automated message, change you account settings at:
+													 http://'.$_SERVER['SERVER_NAME'].'/caketourney/users/account/'.$current_user;
 					$this->Thread->Post->User->Message->save($this->data);
 				}
 				
