@@ -244,7 +244,14 @@
 		<div class="leftBox">
 			<div class="PostUserContentBox">
 				<div class="PostMainContentbox">
-				 <?php echo $this->Html->image('avatar_l.png', array('width' => '125')); ?> 
+				 <?php
+				 if($comment['User']['avatar_name']=='default'){
+						echo $this->Html->image('avatar_l.png', array('width' => '125'));
+					}
+					else{
+						echo $this->Html->image('/img/avatar/'.$comment['User']['avatar_name'], array('width' => '125', 'height' => '125'));
+					}?> 
+				  
                 <?php //debug($post);
 				if ($comment['User']['admin']==true)
 				{

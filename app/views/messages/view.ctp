@@ -23,7 +23,12 @@
 					echo $this->Html->image('Overmind.png', array('width' => '125')); 
 				}
 				else{
-					echo $this->Html->image('avatar_l.png', array('width' => '125')); 	
+					if($message['Sender']['avatar_name']=='default'){
+						echo $this->Html->image('avatar_l.png', array('width' => '125'));
+					}
+					else{
+						echo $this->Html->image('/img/avatar/'.$message['Sender']['avatar_name'], array('width' => '125', 'height' => '125'));
+					}	
 				}
 				
 				

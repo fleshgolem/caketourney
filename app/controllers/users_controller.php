@@ -106,7 +106,7 @@ class UsersController extends AppController {
 				$this->Session->setFlash('Invalid File');
 			
 
-           // $this->redirect(array('controller' => 'news', 'action' => 'index'));
+            $this->redirect(array('controller' => 'users', 'action' => 'view',$this->User->id ));
         }
 		
 		if (empty($this->data))
@@ -182,6 +182,8 @@ class UsersController extends AppController {
 	}
 
 	function view($id = null) {
+		$user_id = $this->Auth->user('id');
+		$this->set('current_user',$user_id);
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid User', true));
 			$this->redirect(array('action' => 'index'));

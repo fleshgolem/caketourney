@@ -13,7 +13,7 @@
 <div class="PostBox">
 <div class="ThreadTitleBox">
 	
-	<div class="bottomaction"> <?php
+	<div class="bottomactionleft"> <?php
 		echo $this->Html->link(__('User Page', true), array('action' => 'view', $user['User']['id'])); 
 		?>
      </div>
