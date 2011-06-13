@@ -96,12 +96,16 @@ class UsersController extends AppController {
 		
 		if (!empty($this->data)) {
            	//debug($this->data);
-			debug($this->data);
 			/*$this->User->saveField('avatar_name', $this->data['User']['file']['name']);
 			$this->User->saveField('avatar_type', $this->data['User']['file']['type']);
 			$this->User->saveField('avatar_size', $this->data['User']['file']['size']);*/
-			$this->User->save($this->data, false);
-            $this->Session->setFlash('Your avatar has been updated');
+
+			if ($this->User->save($this->data,false))
+				$this->Session->setFlash('Your avatar has been updated');
+            else
+				$this->Session->setFlash('Invalid File');
+			
+
            // $this->redirect(array('controller' => 'news', 'action' => 'index'));
         }
 		

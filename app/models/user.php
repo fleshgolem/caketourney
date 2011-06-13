@@ -2,8 +2,26 @@
 
 
 class User extends AppModel {
-	var $displayField = 'username';
 	var $name = 'User';
+	var $actsAs = array(
+                    'FileUpload.FileUpload' => array(
+                        'uploadDir' => 'files',
+                        'forceWebroot' => true,  //if false, files will be upload to the exact path of uploadDir
+                        'fields' => array('name'=>'avatar_name','type'=>'avatar_type','size'=>'avatar_size'),
+                        'allowedTypes' => array(
+												  'jpg' => array('image/jpeg', 'image/pjpeg'),
+												  'jpeg' => array('image/jpeg', 'image/pjpeg'), 
+												  'gif' => array('image/gif'),
+												  'png' => array('image/png','image/x-png'),
+												),
+                        'required' => false, //default is false, if true a validation error would occur if a file wsan't uploaded.
+                        'maxFileSize' => '500000', //bytes OR false to turn off maxFileSize (default false)
+                        'unique' => true, //filenames will overwrite existing files of the same name. (default true)
+                        'fileNameFunction' => false //execute the Sha1 function on a filename before saving it (default false)
+                    )
+    );
+	var $displayField = 'username';
+	
 	var $hasAndBelongsToMany = array(
 		'Tournament' => array(
 			'className' => 'Tournament',
@@ -22,23 +40,7 @@ class User extends AppModel {
 		)
 	);
 	
-	var $actsAs = array(
-                    'FileUpload.FileUpload' => array(
-                        'uploadDir' => 'files',
-                        'forceWebroot' => true,  //if false, files will be upload to the exact path of uploadDir
-                        'fields' => array('name'=>'avatar_name','type'=>'avatar_type','size'=>'avatar_size'),
-                        'allowedTypes' => array(
-												  'jpg' => array('image/jpeg', 'image/pjpeg'),
-												  'jpeg' => array('image/jpeg', 'image/pjpeg'), 
-												  'gif' => array('image/gif'),
-												  'png' => array('image/png','image/x-png'),
-												),
-                        'required' => false, //default is false, if true a validation error would occur if a file wsan't uploaded.
-                        'maxFileSize' => '500000', //bytes OR false to turn off maxFileSize (default false)
-                        'unique' => true, //filenames will overwrite existing files of the same name. (default true)
-                        'fileNameFunction' => 'createFileName' //execute the Sha1 function on a filename before saving it (default false)
-                    )
-    );
+	
 
 	var $hasMany = array(
 		//Do not associate comments with users, to keep db queries low
