@@ -143,6 +143,8 @@
         	<p style="clear: both;">  </p>
 	</div>
 </div>
+<?php
+if(count($totalWin_array)!=0){?>
 
 <div class="PostBox">
 <div class="ThreadTitleBox">
@@ -160,8 +162,7 @@
 		
 			<div class="PostContentBox">
 				<div class="PostMainContentbox" margin-left: auto;  margin-right: auto>
-					<?php
-								if(count($totalWin_array)!=0){?>
+					
                     <div class="PostChartPaddingBox">
                     <div class="PostChartContentBox">
                         <div class="PostMainContentbox">
@@ -213,9 +214,7 @@
                      	</div>
 					</div>
                     </div>
-                 	<?php
-                    }
-                    ?>
+                 	
                    <p style="clear: both;">  </p>  
 					
 				</div>
@@ -235,7 +234,9 @@
 	</div>
 </div>
 
-
+<?php
+                    }
+                    ?>
 
 </div>
 

@@ -86,6 +86,31 @@ class UsersController extends AppController {
 		}
     }
  
+ 	function upload_avatar()
+	{	
+		// Set User's ID in model which is needed for validation
+        $this->User->id = $this->Auth->user('id');
+		
+        // Load the user (avoid populating $this->data)
+        $current_user = $this->User->findById($this->User->id);
+		
+		if (!empty($this->data)) {
+           	//debug($this->data);
+			debug($this->data);
+			/*$this->User->saveField('avatar_name', $this->data['User']['file']['name']);
+			$this->User->saveField('avatar_type', $this->data['User']['file']['type']);
+			$this->User->saveField('avatar_size', $this->data['User']['file']['size']);*/
+			$this->User->save($this->data);
+            $this->Session->setFlash('Your avatar has been updated');
+           // $this->redirect(array('controller' => 'news', 'action' => 'index'));
+        }
+		
+		if (empty($this->data))
+		{
+			$this->data = $this->User->read(null, $this->Auth->user('id'));
+		}
+	}
+	
 	function account()
     {
 		// Set User's ID in model which is needed for validation
@@ -101,18 +126,20 @@ class UsersController extends AppController {
         $this->User->set($this->data);
 		
 		if (!empty($this->data) && empty($this->data['User']['password'] )) {
-           
+           	//debug($this->data);
 			$this->User->saveField('bnetaccount', $this->data['User']['bnetaccount']);
 			$this->User->saveField('bnetcode', $this->data['User']['bnetcode']);
 			$this->User->saveField('race', $this->data['User']['race']);
 			$this->User->saveField('subscribe_own_comments', $this->data['User']['subscribe_own_comments']);
 			$this->User->saveField('subscribe_own_posts', $this->data['User']['subscribe_own_posts']);
 			$this->User->saveField('subscribe_tournaments', $this->data['User']['subscribe_tournaments']);
+			
             $this->Session->setFlash('Your data has been updated');
-            $this->redirect(array('controller'=>'tournaments' , 'action' => 'index'));
+            $this->redirect(array('controller' => 'news', 'action' => 'index'));
         }
 		
         if (!empty($this->data) && $this->User->validates()) {
+			//debug($this->data);
             $password = $this->Auth->password($this->data['User']['password']);
             $this->User->saveField('password', $password);
 			$this->User->saveField('bnetaccount', $this->data['User']['bnetaccount']);
@@ -121,8 +148,9 @@ class UsersController extends AppController {
 			$this->User->saveField('subscribe_own_comments', $this->data['User']['subscribe_own_comments']);
 			$this->User->saveField('subscribe_own_posts', $this->data['User']['subscribe_own_posts']);
 			$this->User->saveField('subscribe_tournaments', $this->data['User']['subscribe_tournaments']);
+			
             $this->Session->setFlash('Your data has been updated');
-            $this->redirect(array('controller'=>'tournaments' , 'action' => 'index'));
+            $this->redirect(array('controller' => 'news', 'action' => 'index'));
         }
 		if (empty($this->data))
 		{

@@ -361,6 +361,7 @@ class MatchesController extends AppController {
 		}
 		if(!empty($this->data))
 		{
+			debug($this->data);
 			$this->data['Replay']['match_id']=$id;
 			foreach ($this->data['Replay'] as $i=>$replay)
 			{
@@ -372,7 +373,7 @@ class MatchesController extends AppController {
 					$this->Match->Replay->save($this->data);
 				}
 			}
-			$this->redirect(array('action' => 'view',$id));
+			//$this->redirect(array('action' => 'view',$id));
 			
 		}
 		if (empty($this->data)) {
