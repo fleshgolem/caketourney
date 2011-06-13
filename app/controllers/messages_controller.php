@@ -21,7 +21,7 @@ class MessagesController extends AppController {
 			
 			if ($this->Message->save($this->data)) {
 				$this->Session->setFlash(__('The Message has been sent', true));
-				$this->redirect(array('action' => 'index'));
+				$this->redirect(array('action' => 'inbox'));
 			} else {
 				$this->Session->setFlash(__('The Message could not be sent. Please, try again.', true));
 			}
@@ -107,7 +107,7 @@ class MessagesController extends AppController {
 			
 			if ($this->Message->save($this->data)) {
 				$this->Session->setFlash(__('The Message has been sent', true));
-				//$this->redirect(array('action' => 'index'));
+				$this->redirect(array('action' => 'inbox'));
 			} else {
 				$this->Session->setFlash(__('The Message could not be sent. Please, try again.', true));
 			}
@@ -144,11 +144,11 @@ class MessagesController extends AppController {
 		if (!$this->Session->read('Auth.User.admin') AND $message['Message']['recipient_id']!=$current_user)
 		{
 			$this->Session->setFlash(__('Access Denies', true));
-			$this->redirect(array('action' => 'index'));
+			$this->redirect(array('action' => 'inbox'));
 		}
 		if ($this->Message->delete($id)) {
 			$this->Session->setFlash(__('Message deleted', true));
-			$this->redirect(array('action'=>'index'));
+			$this->redirect(array('action'=>'inbox'));
 		}
 
 	}
