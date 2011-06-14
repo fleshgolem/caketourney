@@ -163,8 +163,9 @@
         	<p style="clear: both;">  </p>
 	</div>
 </div>
+
 <?php
-if(count($totalWin_array)!=0){?>
+if(($total)!=0){?>
 
 <div class="PostBox">
 <div class="ThreadTitleBox">
