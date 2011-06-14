@@ -35,6 +35,13 @@
 	</div>
 	<div class="PostFooter">
 		<div class="bottomaction"> <?php echo $this->Form->end('Update');?> </div>
+         <div class="bottomaction"> <?php
+		 
+				 
+				echo $this->Html->link(__('Upload Avatar', true), array('action' => 'upload_avatar')); 
+		 
+		?>
+     </div>
 		<p style="clear: both;">  </p>
 	</div>
 </div>
