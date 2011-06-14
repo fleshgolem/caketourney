@@ -39,14 +39,22 @@
 	<div class="PostContent">
 		<div class="PostContentBox">
 			<div class="PostMainContentbox">
-				
+			
 <div class="KOwrapper">
-            	<div class="scollbox">
+            	<div class="scrollbox" ">	
+                <?php
+				$maxrounds=0; 
+				foreach ($tournament['Round'] as $round){
+					$maxrounds+=1;
+				}
+				echo $maxrounds;?>
+                <div class="PostContentBox" style="width:<?php echo ($maxrounds-1)*250 ?>px;>
+                	 <div style="width:1000px;>
 					<?php $m = 0;?>
                     <?php foreach ($tournament['Round'] as $round){?>
                     
                     
-                        <div class="tournamentRound">
+                        <div class="tournamentRound" >
                         <?php $max = 0;?>
                         <?php 
 						foreach ($round['Match'] as $match){
@@ -63,12 +71,19 @@
 							$index += 1;
                         }?>
                         </div>
+                        
+                        
+                        
                     <?php 
                         $m += 30;
                     }?>
+                </div>    
+                
+                
                 </div>
+                
             </div>
-				
+			
 			</div>
 		</div>
 		<p style="clear: both;"> </p>
@@ -80,50 +95,12 @@
 	</div>
 </div>
 
-
+</div>
 			
 
 
 
 
-<!--
-<table>
-<?php foreach ($tournament['Round'] as $round){?>
-	<tr>
-	<?php foreach ($round['Match'] as $match){?>
-	
-		<td>
-			<?php 
-			if ($match['Player1']!=null)
-			{
-				echo $this->Race->small_img($match['Player1']['race']);
-				echo ('<strong>'.$match['player1_score'].'</strong> ');
-			}?>
-			<?php 
-			//Link to match
-			$matchtitle = '';
-			if ($match['Player1']!=null)
-				
-				$matchtitle .=($match['Player1']['username']) ;
-			$matchtitle .= ' vs ' ;
-			if ($match['Player2']!=null)
-				
-				$matchtitle .=($match['Player2']['username']);
-			echo $this->Html->link(($matchtitle), array('controller' => 'matches', 'action' => 'view',$match['id'])); 	
-				?>
-			<?php 
-			if ($match['Player2']!=null)
-			{
-				echo (' <strong>'.$match['player2_score'].'</strong>');
-				echo $this->Race->small_img($match['Player2']['race']);
-			}?>
-		</td>
 
-	<?php
-	} ?>
-	</tr>
-<?php
-} ?>
--->	
 </div>
 

@@ -1223,6 +1223,9 @@ div.playerBox16{
 div.scollbox{
 overflow:auto;
 }
+div.scrollbox{
+overflow:auto;
+}
 
 div.round1lines {
 height:80px;
