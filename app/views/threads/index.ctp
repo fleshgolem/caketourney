@@ -36,13 +36,13 @@
         	<?php //debug($post);
 				if ($thread['OriginalPoster']['admin']==true)
 				{
-					?><div class="admin"> <?php echo $this->Html->link($thread['OriginalPoster']['username'], array('controller' => 'users', 'action' => 'view', $thread['LastPoster']['id'])); ?> 
+					?><div class="admin"> <?php echo $this->Html->link($thread['OriginalPoster']['username'], array('controller' => 'users', 'action' => 'view', $thread['OriginalPoster']['id'])); ?> 
 					
 					</div> <?php
 				}
 				else
 				{
-					echo $this->Html->link($thread['OriginalPoster']['username'], array('controller' => 'users', 'action' => 'view', $thread['LastPoster']['id']));
+					echo $this->Html->link($thread['OriginalPoster']['username'], array('controller' => 'users', 'action' => 'view', $thread['OriginalPoster']['id']));
 					?>	
 					<?php ?><?php
 				}
