@@ -101,7 +101,7 @@ if ( !$message['Message']['sender_id']||$message['Message']['sender_id']==$this-
                 <div class="PostMainContentbox">
                 	
                     <?php echo $this->Form->create('Message');
-					echo 'hier';?>
+					?>
                     <fieldset>
                     <legend><?php __('Send Reply'); ?></legend>   
                     <?php
