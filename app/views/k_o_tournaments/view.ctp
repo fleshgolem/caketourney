@@ -47,7 +47,7 @@
 				foreach ($tournament['Round'] as $round){
 					$maxrounds+=1;
 				}
-				echo $maxrounds;?>
+				?>
                 <div class="PostContentBox" style="width:<?php echo ($maxrounds-1)*250 ?>px;>
                 	 <div style="width:1000px;>
 					<?php $m = 0;?>
