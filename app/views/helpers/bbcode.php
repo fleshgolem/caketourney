@@ -68,7 +68,10 @@ class BbcodeHelper extends Shortcode{
     } 
 
     function shortcode_image( $atts = array(), $content = NULL ) { 
-        return '<img src="' . $content . '" alt="" />'; 
+        //return '<img src="' . $this->do_shortcode($content) . '" alt="" />'; 
+		//return '<em>' . $this->do_shortcode( $content ) . '</em>'; 
+		//return '<a href="' . $this->do_shortcode( $content ) . '">' . $this->do_shortcode( $content ) . '</a>'; 
+		return $html->link('Page name', 'http://example.com/page.php');
     } 
 
     function shortcode_quote( $atts = array(), $content = NULL ) { 
