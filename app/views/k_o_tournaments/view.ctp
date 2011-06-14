@@ -49,7 +49,7 @@
 				}
 				
 				?>
-                <div class="PostContentBox" style="width:<?php echo ($maxrounds)*250 ?>px;>
+                <div class="PostContentBox" style="width:<?php echo ($maxrounds)*210 ?>px;>
                 	 <div style="width:1000px;>
 					<?php $m = 0;?>
                     <?php foreach ($tournament['Round'] as $round){?>
