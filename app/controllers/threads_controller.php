@@ -2,6 +2,7 @@
 class ThreadsController extends AppController {
 
 	var $name = 'Threads';
+	var $components = array('Email');
 	var $helpers = array('Text','Bbcode');
 	var $paginate = array(
 		'limit' => 25,
@@ -14,7 +15,27 @@ class ThreadsController extends AppController {
 		$this->Thread->recursive = 1;
 		$this->set('threads', $this->paginate());
 	}
-
+	
+	
+	function _sendNewUserMail($id) {
+		$User = $this->Thread->Post->User->read(null,$id);
+		$this->set('User', $User);
+		$this->Email->to = 'fleshgolem@gmx.net';//$User['User']['email'];
+		$this->Email->bcc = array('secret@example.com');
+		$this->Email->subject = 'Welcome to our really cool thing';
+		$this->Email->replyTo = 'support@example.com';
+		$this->Email->from = 'Admin <b4lrog@sesu.org>';
+		$this->Email->template = 'simple_message'; // note no '.ctp'
+		//Send as 'html', 'text' or 'both' (default is 'text')
+		$this->Email->sendAs = 'both'; // because we like to send pretty mail
+		//$this->Email->_createboundary();
+		//$this->Email->__header[] = 'MIME-Version: 1.0';
+		//Do not pass any args to send()
+		$this->Email->delivery = 'debug';
+		//$this->Email->delivery = 'mail';
+		//$this->Email->send();
+	}
+	
 	function view($id = null) 
 	{
 		$this->Thread->recursive = 1;
@@ -22,6 +43,7 @@ class ThreadsController extends AppController {
 		$this->set('current_user',$current_user);
 		if(!empty($this->data))
 		{
+			$this->_sendNewUserMail( $this->Session->read('Auth.User.id') );
 			
 			$date = date_create('now');
 			$this->data['Post']['user_id']=$current_user;
@@ -33,6 +55,38 @@ class ThreadsController extends AppController {
 			$this->data['Thread']['date_modified']=$date->format('Y-m-d H:i:s');
 			$this->data['Thread']['last_poster_id']=$current_user;
 			$this->Thread->save($this->data);
+			
+			//find subscribers and message them
+			$subscribers=array();
+			$thread = $this->Thread->find('first',array('recursive'=>2, 'conditions'=> array('Thread.id' =>$id)));
+			//debug($thread);
+			foreach ($thread['Post'] as $post){
+				if($post['User']['subscribe_own_comments'] AND !in_array($post['User'],$subscribers))
+				{
+					array_push($subscribers,$post['User']);
+				}
+			}
+			
+			foreach($subscribers as $subscriber)
+			{
+				if($subscriber['id']!=$current_user){
+					$this->Thread->Post->User->Message->create();
+					$this->data['Message']['sender_id']=null;
+					$this->data['Message']['recipient_id']=$subscriber['id'];
+					$this->data['Message']['date']= $date->format('Y-m-d H:i:s');
+					$this->data['Message']['title']= 'New post in thread "'. $thread['Thread']['title'].'"';
+					
+					//TODO: machen! ;)
+					$this->data['Message']['body']= 'A new post has been added. Read the post at:
+													 http://'.$_SERVER['SERVER_NAME'].'/caketourney/threads/view/'.$thread['Thread']['id'].'
+													 
+													 To unsubscribe from this automated message, change you account settings at:
+													 http://'.$_SERVER['SERVER_NAME'].'/caketourney/users/account/'.$current_user;
+					$this->Thread->Post->User->Message->save($this->data);
+				}
+				
+			}
+			//$this->redirect(array('action' => 'view',$id));
 		}
 		if(empty($this->data))
 		{

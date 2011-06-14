@@ -141,7 +141,8 @@
                     	if ($this->Session->check('Auth.User')){?>
                         <div class="menuebox">
                     	<?php
-							echo $this->Html->link(__('Account Settings', true), array('controller' => 'users', 'action' => 'account')); ?>
+							echo $this->Html->link(__('Account Settings', true), array('controller' => 'users', 'action' => 'account')); 
+							?>
                         </div>
                         <?php
 						}
@@ -161,6 +162,53 @@
                         <div class="menuebox">
                     	<?php echo $this->Html->link(__('Upcoming Matches', true), array('controller' => 'matches', 'action' => 'upcoming_matches')); ?>
                      	</div>
+					</div>
+					</div>
+				</div>
+                
+                
+                <div class="containerbox">
+					<div class="containerheader">
+                    <?php 
+						echo "Message Center";
+					?>
+					</div>
+					<div class="containercontent">
+					<div class="containercontentbox">
+                    	<?php
+                    	if ($this->Session->check('Auth.User')){?>
+                        <div class="menuebox">
+                    	<?php
+							echo $this->Html->link(__($this->element('unread_messages'), true), array('controller' => 'messages', 'action' => 'inbox')); 
+						?>
+                     	</div>
+                        <?php
+						}
+						?>
+                        <?php
+                    	if ($this->Session->check('Auth.User')){?>
+                        <div class="menuebox">
+                    	<?php
+							echo $this->Html->link(__('Outbox', true), array('controller' => 'messages', 'action' => 'outbox')); 
+						?>
+                     	</div>
+                        <?php
+						}
+						?>
+							
+                        <?php
+						
+						
+                    	if ($this->Session->check('Auth.User')){?>
+                        <div class="menuebox">
+                    	<?php
+							echo $this->Html->link(__(('New Message'), true), array('controller' => 'messages', 'action' => 'add')); 
+							?>
+                        </div>
+                        <?php
+						}
+						?>
+                     	
 					</div>
 					</div>
 				</div>
@@ -278,9 +326,19 @@
 					</div>
 					<div class="containercontent">
 					<div class="containercontentbox">
-					<div class="maincontentbox">
-					SOON<SUP><FONT SIZE="-2">TM</FONT></SUP>
-					</div>
+					
+					<?php	
+                    	if ($this->Session->check('Auth.User')){?>
+                        <div class="menuebox">
+                    	<?php
+							
+							echo $this->Html->link(__(('My Statistics'), true), array('controller' => 'users', 'action' => 'statistics',$this->Session->read('Auth.User.id'))); 
+							?>
+                        </div>
+                        <?php
+						}
+						?>
+					
 					</div>
 					</div>
 				</div>
@@ -293,7 +351,7 @@
 					<div class="scollbox">
                     	<div class="PostBox">
 							<?php echo $this->Session->flash(); ?>
-							  
+							 <?php echo $this->Session->flash('email'); ?>
 
 						</div>
 						

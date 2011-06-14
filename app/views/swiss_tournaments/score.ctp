@@ -5,6 +5,15 @@
 	<div class="ThreadTitleContent">
 		<h2><?php  echo ($tournament['SwissTournament']['name']);?></h2>
 	</div> 
+	
+	<p style="clear: both;">  </p>  
+</div>
+</div>
+
+
+<div class="PostBox">
+<div class="ThreadTitleBox">
+	
 	<div class="bottomaction"> <?php
 		if ($this->Session->read('Auth.User.admin')){
 			echo $this->Html->link(__('Edit', true), array('controller'=>'tournaments', 'action' => 'edit', $tournament['SwissTournament']['id'])); 
@@ -42,7 +51,7 @@
 <div class="PostBox"> 
 	<div class="PostContent">
 		<div class="PostContentBox">
-			<div class="PostMainContentbox">
+			
 <table cellpadding="0" cellspacing="0">
 	<tr>
     		<th>Place</th>
@@ -68,7 +77,7 @@
 	</tr>
 	<?php }?>
 </table>
-			</div>
+			
 		</div>
 		<p style="clear: both;"> </p>
 	</div>

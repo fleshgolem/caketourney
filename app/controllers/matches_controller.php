@@ -297,8 +297,8 @@ class MatchesController extends AppController {
 
 		
 		
-	function post_comment($id)
-		{
+	function post_comment($id){
+		$current_user = $current_user = $this->Auth->user('id');
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid id for match', true));
 			$this->redirect(array('action'=>'index'));
@@ -312,6 +312,39 @@ class MatchesController extends AppController {
 			$date = date_create('now');
 
 			$this->data['Comment']['date_posted']=$date->format('Y-m-d H:i:s');
+			
+			//find subscribers and message them
+			$subscribers=array();
+			$match = $this->Match->read(null,$id);
+			if($match['Player1']['subscribe_own_comments'])
+			{
+				array_push($subscribers,$match['Player1']);
+			}
+			if($match['Player2']['subscribe_own_comments'])
+			{
+				array_push($subscribers,$match['Player2']);
+			}
+			
+			foreach($subscribers as $subscriber)
+			{
+				if($subscriber['id']!=$current_user){
+					$this->Match->Player1->Message->create();
+					$date = date_create('now');
+					$this->data['Message']['sender_id']=null;
+					$this->data['Message']['recipient_id']=$subscriber['id'];
+					$this->data['Message']['date']= $date->format('Y-m-d H:i:s');
+					$this->data['Message']['title']= 'New comment in match "'. $match['Player1']['username']. ' vs '. $match['Player2']['username'].'"';
+					
+					//TODO: machen! ;)
+					$this->data['Message']['body']= 'A new comment has been added. Read the comment at:
+													 http://'.$_SERVER['SERVER_NAME'].'/caketourney/matches/view/'.$match['Match']['id'].'
+													 
+													 To unsubscribe from this automated message, change you account settings at:
+													 http://'.$_SERVER['SERVER_NAME'].'/caketourney/users/account/'.$current_user;
+					$this->Match->Player1->Message->save($this->data);
+						
+				}
+			}
 			$this->Match->Comment->save($this->data);
 			$this->redirect(array('action' => 'view',$id));
 		}
@@ -328,6 +361,7 @@ class MatchesController extends AppController {
 		}
 		if(!empty($this->data))
 		{
+			debug($this->data);
 			$this->data['Replay']['match_id']=$id;
 			foreach ($this->data['Replay'] as $i=>$replay)
 			{
@@ -339,7 +373,7 @@ class MatchesController extends AppController {
 					$this->Match->Replay->save($this->data);
 				}
 			}
-			$this->redirect(array('action' => 'view',$id));
+			//$this->redirect(array('action' => 'view',$id));
 			
 		}
 		if (empty($this->data)) {

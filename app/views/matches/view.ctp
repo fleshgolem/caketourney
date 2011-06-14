@@ -5,6 +5,14 @@
 	<div class="ThreadTitleContent">
 		<h2><?php echo ($this->Race->small_img($match['Player1']['race']).' '. $match['Player1']['username'] .' vs '.$match['Player2']['username'].' '.$this->Race->small_img($match['Player2']['race']));?></h2>
 	</div> 
+	
+     <p style="clear: both;"></p>  
+</div>
+</div>
+
+<div class="PostBox">
+<div class="ThreadTitleBox">
+	 
 	<div class="bottomaction"> <?php
 		if ($this->Session->read('Auth.User.admin')){
 			echo $this->Html->link("Edit", array('action' => 'edit',$match['Match']['id']));
@@ -236,7 +244,14 @@
 		<div class="leftBox">
 			<div class="PostUserContentBox">
 				<div class="PostMainContentbox">
-				 <?php echo $this->Html->image('avatar_l.png', array('width' => '125')); ?> 
+				 <?php
+				 if($comment['User']['avatar_name']=='default'){
+						echo $this->Html->image('avatar_l.png', array('width' => '125'));
+					}
+					else{
+						echo $this->Html->image('/img/avatar/'.$comment['User']['avatar_name'], array('width' => '125', 'height' => '125'));
+					}?> 
+				  
                 <?php //debug($post);
 				if ($comment['User']['admin']==true)
 				{

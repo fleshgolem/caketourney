@@ -5,6 +5,14 @@
 	<div class="ThreadTitleContent">
 		<h2><?php echo($thread['Thread']['title']);?></h2>
 	</div> 
+   
+	<p style="clear: both;">  </p>  
+</div>
+</div>
+
+<div class="PostBox">
+<div class="ThreadTitleBox">
+	
     <div class="bottompages">  
         	<?php echo $this->Paginator->prev('<< ' . __('previous', true), array(), null, array('class'=>'disabled'));?>
 	  	 | 	<?php echo $this->Paginator->numbers();?> |
@@ -26,7 +34,14 @@
 		<div class="leftBox">
 			<div class="PostUserContentBox">
 				<div class="PostMainContentbox">
-                <?php echo $this->Html->image('avatar_l.png', array('width' => '125')); ?> 
+                <?php 
+					if($post['User']['avatar_name']=='default'){
+						echo $this->Html->image('avatar_l.png', array('width' => '125'));
+					}
+					else{
+						echo $this->Html->image('/img/avatar/'.$post['User']['avatar_name'], array('width' => '125', 'height' => '125'));
+					}?> 
+               
 				<?php //debug($post);
 				if ($post['User']['admin']==true)
 				{

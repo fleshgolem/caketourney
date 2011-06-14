@@ -4,10 +4,20 @@
 	<div class="ThreadTitleContent">
 		<h2><?php echo $user['User']['username']; ?>'s Page</h2>
 	</div> 
-	<div class="bottomaction"> <?php
+	
+	<p style="clear: both;">  </p>  
+</div>
+</div>
+
+<div class="users view">
+<div class="PostBox">
+<div class="ThreadTitleBox">
+	
+	<div class="bottomactionleft"> <?php
 		echo $this->Html->link(__('Statistics', true), array('action' => 'statistics', $user['User']['id'])); 
 		?>
      </div>
+    
 	<p style="clear: both;">  </p>  
 </div>
 </div>
@@ -18,7 +28,13 @@
 		<div class="leftBoxBig">
 			<div class="PostContentBox">
 				<div class="PostMainContentbox" margin-left: auto;  margin-right: auto>
-					<?php echo $this->Html->image('avatar_l.png', array('width' => '200')); ?> 
+					<?php 
+					if($user['User']['avatar_name']=='default'){
+						echo $this->Html->image('avatar_l.png', array('width' => '200'));
+					}
+					else{
+						echo $this->Html->image('/img/avatar/'.$user['User']['avatar_name'], array('width' => '200', 'height' => '200'));
+					}?> 
 				</div>
 			</div>
 		</div>
@@ -94,6 +110,13 @@
                 }
             ?>
         </div>
+         <div class="bottomaction"> <?php
+		  if ($user['User']['id']==$current_user){
+				 
+				echo $this->Html->link(__('Upload Avatar', true), array('action' => 'upload_avatar')); 
+		  }
+		?>
+     </div>
         <p style="clear: both;">  </p>
 	</div>
 </div>

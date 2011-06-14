@@ -154,18 +154,22 @@ class TournamentsController extends AppController {
 		
 	}
 	function add() {
+		$current_user=$this->Auth->user('id');
 		if (!$this->Session->read('Auth.User.admin'))
 		{
 			$this->Session->setFlash(__('Access denied', true));
 			$this->redirect(array('action'=>'index'));
 		}
 		if (!empty($this->data)) {
+			
 		//debug($this->data);
 			$this->Tournament->create();
+			
 			$this->data['Tournament']['current_round']=-1;
 			switch ($this->data['Tournament']['typeAlias']){
 				case 0:
 					$this->data['Tournament']['typeField']='KO';
+					
 					break;
 				case 1:
 					$this->data['Tournament']['typeField']='SKO';
@@ -174,9 +178,42 @@ class TournamentsController extends AppController {
 					$this->data['Tournament']['typeField']='Swiss';
 			}
 			
+			
 			if ($this->Tournament->save($this->data)) {
 				$this->Session->setFlash(__('The tournament has been saved', true));
 				//$this->redirect(array('action' => 'index'));
+				//find subscribers and message them
+				$subscribers=array();
+				//$tournament = $this->Tournament->read(null,$id);
+				$users = $this->Tournament->User->find('all');
+				foreach ($users as $users){
+					if($users['User']['subscribe_tournaments'])
+					{
+						array_push($subscribers,$users['User']);
+					}
+				}
+				
+				
+				foreach($subscribers as $subscriber)
+				{
+					if($subscriber['id']!=$current_user){
+						$this->Tournament->User->Message->create();
+						$date = date_create('now');
+						$this->data['Message']['sender_id']=null;
+						$this->data['Message']['recipient_id']=$subscriber['id'];
+						$this->data['Message']['date']= $date->format('Y-m-d H:i:s');
+						$this->data['Message']['title']= 'The tournament "'. $this->data['Tournament']['name']. '" has beed added.';
+						
+						//TODO: machen! ;)
+						$this->data['Message']['body']= 'A new comment has been added. Sign up for the tournament at:
+														 http://'.$_SERVER['SERVER_NAME'].'/caketourney/tournaments/view/'.$this->Tournament->getLastInsertId().'
+													 
+													 To unsubscribe from this automated message, change you account settings at:
+													 http://'.$_SERVER['SERVER_NAME'].'/caketourney/users/account/'.$current_user;
+						$this->Tournament->User->Message->save($this->data);
+							
+					}
+				}
 			} else {
 				$this->Session->setFlash(__('The tournament could not be saved. Please, try again.', true));
 			}
