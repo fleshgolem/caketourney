@@ -67,7 +67,7 @@
 <?php foreach ($ranking as $i=>$rank){?>
 	<tr>
 		<td><?php echo($i+1);?></td>
-		<td><?php echo($rank['User']['username']);?></td>
+		<td><?php echo $this->Html->link(__($rank['User']['username'], true), array('controller' => 'users','action' => 'view', $rank['User']['id'])); ?></td>
 		<td><?php echo($rank['Ranking']['wins']);?></td>
 		<td><?php echo($rank['Ranking']['draws']);?></td>
 		<td><?php echo($rank['Ranking']['defeats']);?></td>
