@@ -5,6 +5,13 @@
 	<div class="ThreadTitleContent">
 		<h2><?php  echo ($name);?>: Sign Ups</h2>
 	</div> 
+	
+	<p style="clear: both;">  </p>  
+</div>
+</div>
+<div class="PostBox">
+<div class="ThreadTitleBox">
+	
 	<div class="bottomaction"> <?php
 		if ($this->Session->read('Auth.User.admin')){
 			echo $this->Html->link(__('Edit', true), array('action' => 'edit', $tournament['Tournament']['id']));
