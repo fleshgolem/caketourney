@@ -29,7 +29,8 @@
 			<div class="PostContentBox">
 				<div class="PostMainContentbox" margin-left: auto;  margin-right: auto>
 					
-                    
+                    <?php
+					if($total!=0){?>
                     <div class="PostChartPaddingBox">
                         <div class="PostChartContentBox">
                             <div class="PostMainContentbox">
@@ -50,6 +51,11 @@
                             </div>
                         </div>
                     </div> 
+                    <?php
+                    }
+                    ?>
+                     <?php
+					if($totalXvT!=0){?>
                     <div class="PostChartPaddingBox">    
   					<div class="PostChartContentBox">
                         <div class="PostMainContentbox">
@@ -67,7 +73,11 @@
                         </div>
 					</div>
                    	</div>
-                    
+                    <?php
+                    }
+                    ?>
+                     <?php
+					if($totalXvP!=0){?>
                     <div class="PostChartPaddingBox"> 
                     <div class="PostChartContentBox">
                         <div class="PostMainContentbox">
@@ -85,7 +95,11 @@
                         </div>
 					</div>
                     </div>
-                   
+                   <?php
+                    }
+                    ?>
+                    <?php
+					if($totalXvZ!=0){?>
                    <div class="PostChartPaddingBox">
                    <div class="PostChartContentBox">
                         <div class="PostMainContentbox">
@@ -103,7 +117,11 @@
                         </div>
 					</div>
                     </div>
-                    
+                     <?php
+                    }
+                    ?> 
+                    <?php
+					if($totalXvR!=0){?>
                     <div class="PostChartPaddingBox">
                     <div class="PostChartContentBox">
                         <div class="PostMainContentbox">
@@ -121,7 +139,9 @@
                         </div>
 					</div>
                     </div>
-                    
+                    <?php
+                    }
+                    ?> 
                     
                     
                     <?php /*echo $winsVsProtossAs1 */?>
@@ -194,10 +214,18 @@ if(count($totalWin_array)!=0){?>
 								
                                 echo $flashChart->begin();
 								$flashChart->setTitle('Matchup History','{color:#333333;font-size:16px;padding:0 0 0px 0px;}');
-                                $flashChart->setData($XvT_array,'{n}',false,'XvT','Matchup_Hist');
-                                $flashChart->setData($XvP_array,'{n}',false,'XvP','Matchup_Hist');
-                                $flashChart->setData($XvZ_array,'{n}',false,'XvZ','Matchup_Hist');
-                                $flashChart->setData($XvR_array,'{n}',false,'XvR','Matchup_Hist');
+								if(count($XvT_array)!=0){
+                                	$flashChart->setData($XvT_array,'{n}',false,'XvT','Matchup_Hist');
+								}
+								if(count($XvP_array)!=0){
+                                	$flashChart->setData($XvP_array,'{n}',false,'XvP','Matchup_Hist');
+								}
+								if(count($XvZ_array)!=0){
+                               	 	$flashChart->setData($XvZ_array,'{n}',false,'XvZ','Matchup_Hist');
+								}
+								if(count($XvR_array)!=0){
+                               		$flashChart->setData($XvR_array,'{n}',false,'XvR','Matchup_Hist');
+								}
                                 /*$flashChart->axis('y',array('range' => array(0, count($totalWin_array), 1),'labels' => $tournament_names_array));*/
 								/*$flashChart->axis('y',array('range' => array(0, 1, 0.1)));
                                 $flashChart->axis('x',array('labels'=>$tournament_names_array));*/
@@ -205,10 +233,18 @@ if(count($totalWin_array)!=0){?>
 								$flashChart->axis('y',array(), 0, array(0,1,0.2));
                                 $flashChart->setLegend('x','Tournament','{color:#333333;font-size:16px;padding:0 0 0px 0px;}');
                                 $flashChart->setLegend('y','Winratio','{color:#333333;font-size:16px;padding:0 0 0px 0px;}' );
-                                echo $flashChart->chart('line',array('colour'=>'#bc1b23'),'XvT','Matchup_Hist','versus Terran', 'mid-slide', 1, 0, '#x_label#: #val#;');
-                                echo $flashChart->chart('line',array('colour'=>'#ca970d'),'XvP','Matchup_Hist','versus Protoss', 'mid-slide', 1, 0, '#x_label#: #val#;');
-                                echo $flashChart->chart('line',array('colour'=>'#7a278f'),'XvZ','Matchup_Hist','versus Zerg', 'mid-slide', 1, 0, '#x_label#: #val#;');
-                                echo $flashChart->chart('line',array('colour'=>'#3498e2'),'XvR','Matchup_Hist','versus Random', 'mid-slide', 1, 0, '#x_label#: #val#;');
+								if(count($XvT_array)!=0){
+                                	echo $flashChart->chart('line',array('colour'=>'#bc1b23'),'XvT','Matchup_Hist','versus Terran', 'mid-slide', 1, 0, '#x_label#: #val#;');
+								}
+								if(count($XvP_array)!=0){
+                                	echo $flashChart->chart('line',array('colour'=>'#ca970d'),'XvP','Matchup_Hist','versus Protoss', 'mid-slide', 1, 0, '#x_label#: #val#;');
+								}
+								if(count($XvZ_array)!=0){
+                                	echo $flashChart->chart('line',array('colour'=>'#7a278f'),'XvZ','Matchup_Hist','versus Zerg', 'mid-slide', 1, 0, '#x_label#: #val#;');
+								}
+								if(count($XvR_array)!=0){
+                                	echo $flashChart->chart('line',array('colour'=>'#3498e2'),'XvR','Matchup_Hist','versus Random', 'mid-slide', 1, 0, '#x_label#: #val#;');
+								}
                                 echo $flashChart->render(685,350,'Matchup_Hist');
                             ?>
                      	</div>
