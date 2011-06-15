@@ -12,7 +12,11 @@
 
 <div class="PostBox">
 <div class="ThreadTitleBox">
-	 
+	 <div class="bottomactionleft"> <?php
+		
+			echo $this->Html->link("Back to Tournament",  array('controller' => 'tournaments', 'action' => 'view', $match['Round']['tournament_id']));
+		?>
+     </div>
 	<div class="bottomaction"> <?php
 		if ($this->Session->read('Auth.User.admin')){
 			echo $this->Html->link("Edit", array('action' => 'edit',$match['Match']['id']));
