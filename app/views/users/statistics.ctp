@@ -165,7 +165,8 @@
 </div>
 
 <?php
-if(($total)!=0){?>
+
+if(count($totalWin_array)>1){?>
 
 <div class="PostBox">
 <div class="ThreadTitleBox">
