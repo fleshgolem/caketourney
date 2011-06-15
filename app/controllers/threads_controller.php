@@ -61,7 +61,7 @@ class ThreadsController extends AppController {
 			$thread = $this->Thread->find('first',array('recursive'=>2, 'conditions'=> array('Thread.id' =>$id)));
 			//debug($thread);
 			foreach ($thread['Post'] as $post){
-				if($post['User']['subscribe_own_comments'] AND !in_array($post['User'],$subscribers))
+				if($post['User']['subscribe_own_posts'] AND !in_array($post['User'],$subscribers))
 				{
 					array_push($subscribers,$post['User']);
 				}
