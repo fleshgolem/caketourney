@@ -370,7 +370,7 @@ class TournamentsController extends AppController {
 				}
 			}
 			$names_tournament_array[] = $tournament['Tournament']['name'];
-			debug($TvP_array);
+			//debug($TvP_array);
 			if(($TvP_array_temp[1]+$TvP_array_temp[2])!=0){
 			$TvP_tournament_array[] = $TvP_array_temp[1]/($TvP_array_temp[1]+$TvP_array_temp[2]);
 			}
