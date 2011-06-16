@@ -338,7 +338,9 @@
                         <?php
 						}
 						?>
-					
+						<div class="menuebox">
+							<?php echo $this->Html->link(__('Global Statistics', true), array('controller' => 'tournaments', 'action' => 'statistics')); ?>
+                        </div>
 					</div>
 					</div>
 				</div>
