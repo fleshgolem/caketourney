@@ -5,6 +5,7 @@
 	<div class="ThreadTitleContent">
 		<h2><?php  echo ($tournament['KOTournament']['name']);?></h2>
 	</div> 
+    
     <p style="clear: both;"></p>  
 	
 </div>
@@ -28,6 +29,11 @@
 			if ( $tournament['KOTournament']['current_round']==-1)
 					echo $this->Html->link(__('Start', true), array('controller'=>'tournaments','action' => 'start', $tournament['KOTournament']['id'])); 
 		}?>
+     </div>
+     <div class="bottomactionleft">
+     	<?php 
+		echo $this->Html->link('Statistics', array('action'=>'statistics',$tournament['KOTournament']['id']));
+		?>
      </div>
 	<p style="clear: both;">  </p>  
 </div>
