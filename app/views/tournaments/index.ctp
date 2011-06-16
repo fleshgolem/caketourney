@@ -8,6 +8,21 @@
 	<p style="clear: both;">  </p>  
 </div>
 </div>
+
+<div class="PostBox">
+<div class="ThreadTitleBox">
+	
+	
+      <div class="bottomactionleft">
+     	<?php 
+		echo $this->Html->link('Tournament Statistics', array('action'=>'statistics'));
+		?>
+     </div>
+     
+	<p style="clear: both;">  </p>  
+</div>
+</div>
+
 <div class="PostBox"> 
 	<div class="PostContent">
 		<div class="PostContentBox">
