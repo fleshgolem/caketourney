@@ -77,6 +77,8 @@ class TournamentsController extends AppController {
 		$this->Tournament->recursive = 0;
 		$this->set('tournaments', $this->paginate());
 	}
+	
+	
 
 	function view($id = null) {
 		//redirect to right tourney type

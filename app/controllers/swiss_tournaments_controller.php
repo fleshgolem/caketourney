@@ -5,7 +5,7 @@ App::import('Controller', 'KOTournaments');
 class SwissTournamentsController extends AppController {
 
 	var $name = 'SwissTournaments';
-	var $helpers = array('Race');
+	var $helpers = array('Race','FlashChart');
 	function beforeFilter()
     {
 		$this->Auth->allow('view','score');
@@ -30,6 +30,278 @@ class SwissTournamentsController extends AppController {
 		$this->set('tournament', $this->SwissTournament->read(null, $id));
 		$this->set('ranking', $this->SwissTournament->Ranking->find('all',array('conditions'=>array('Ranking.tournament_id'=>$id),'order'=>array('Ranking.match_points DESC','Ranking.oppscore DESC', 'Ranking.oppoppscore DESC'))));
 	}
+	function statistics($tournament_id = null) {
+		$tournament=$this->SwissTournament->read(null, $tournament_id);
+		$current_user = $this->Auth->user('id');
+		$number_matches=0;
+		$TvP_array = array(); //0=total;win;loss;draw
+		$TvP_array[0]=0;
+		$TvP_array[1]=0;
+		$TvP_array[2]=0;
+		$TvP_array[3]=0;
+		$PvZ_array = array(); //0=total;win;loss;draw
+		$PvZ_array[0]=0;
+		$PvZ_array[1]=0;
+		$PvZ_array[2]=0;
+		$PvZ_array[3]=0;
+		$ZvT_array = array(); //0=total;win;loss;draw
+		$ZvT_array[0]=0;
+		$ZvT_array[1]=0;
+		$ZvT_array[2]=0;
+		$ZvT_array[3]=0;
+		$RvT_array = array(); //0=total;win;loss;draw
+		$RvT_array[0]=0;
+		$RvT_array[1]=0;
+		$RvT_array[2]=0;
+		$RvT_array[3]=0;
+		$RvP_array = array(); //0=total;win;loss;draw
+		$RvP_array[0]=0;
+		$RvP_array[1]=0;
+		$RvP_array[2]=0;
+		$RvP_array[3]=0;
+		$RvZ_array = array(); //0=total;win;loss;draw
+		$RvZ_array[0]=0;
+		$RvZ_array[1]=0;
+		$RvZ_array[2]=0;
+		$RvZ_array[3]=0;
+		
+		$this->set('tournament',$tournament );
+		foreach ($tournament['Round'] as $round){
+            foreach ($round['Match'] as $match){
+					
+					//debug(count($match['Player2']));
+					if(count($match['Player2'])!=0&&count($match['Player1'])!=0){
+						$number_matches++;
+						//TvP array with player 1 as Terran
+						if($match['Player1']['race']==0 && $match['Player2']['race']==1){
+							
+							$TvP_array[0]+=1;
+							if($match['player1_score']>$match['player2_score']){
+								
+								$TvP_array[1]+=1;
+							}
+							if($match['player2_score']>$match['player1_score']){
+								
+								$TvP_array[2]+=1;
+							}
+							if($match['player2_score']==$match['player1_score']){
+								
+								$TvP_array[3]+=1;
+							}
+						}
+						//TvP array with player 2 as Terran
+						if($match['Player2']['race']==0 && $match['Player1']['race']==1){
+							
+							$TvP_array[0]+=1;
+							if($match['player2_score']>$match['player1_score']){
+								
+								$TvP_array[1]+=1;
+							}
+							if($match['player1_score']>$match['player2_score']){
+								
+								$TvP_array[2]+=1;
+							}
+							if($match['player1_score']==$match['player2_score']){
+								
+								$TvP_array[3]+=1;
+							}
+						}
+						//PvZ array with player 1 as Protoss
+						if($match['Player1']['race']==1 && $match['Player2']['race']==2){
+							
+							$PvZ_array[0]+=1;
+							if($match['player1_score']>$match['player2_score']){
+								
+								$PvZ_array[1]+=1;
+							}
+							if($match['player2_score']>$match['player1_score']){
+								
+								$PvZ_array[2]+=1;
+							}
+							if($match['player2_score']==$match['player1_score']){
+								
+								$PvZ_array[3]+=1;
+							}
+						}
+						//PvZ array with player 2 as Protoss
+						if($match['Player2']['race']==1 && $match['Player1']['race']==2){
+							
+							$PvZ_array[0]+=1;
+							if($match['player2_score']>$match['player1_score']){
+								
+								$PvZ_array[1]+=1;
+							}
+							if($match['player1_score']>$match['player2_score']){
+								
+								$PvZ_array[2]+=1;
+							}
+							if($match['player1_score']==$match['player2_score']){
+								
+								$PvZ_array[3]+=1;
+							}
+						}
+						//ZvT array with player 1 as zerg
+						if($match['Player1']['race']==2 && $match['Player2']['race']==0){
+							
+							$ZvT_array[0]+=1;
+							if($match['player1_score']>$match['player2_score']){
+								
+								$ZvT_array[1]+=1;
+							}
+							if($match['player2_score']>$match['player1_score']){
+								
+								$ZvT_array[2]+=1;
+							}
+							if($match['player2_score']==$match['player1_score']){
+								
+								$ZvT_array[3]+=1;
+							}
+						}
+						//ZvT array with player 2 as zerg
+						if($match['Player2']['race']==2 && $match['Player1']['race']==0){
+							
+							$ZvT_array[0]+=1;
+							if($match['player2_score']>$match['player1_score']){
+								
+								$ZvT_array[1]+=1;
+							}
+							if($match['player1_score']>$match['player2_score']){
+								
+								$ZvT_array[2]+=1;
+							}
+							if($match['player1_score']==$match['player2_score']){
+								
+								$ZvT_array[3]+=1;
+							}
+						}
+						
+						//RvT array with player 1 as Random
+						if($match['Player1']['race']==3 && $match['Player2']['race']==0){
+							
+							$RvT_array[0]+=1;
+							if($match['player1_score']>$match['player2_score']){
+								
+								$RvT_array[1]+=1;
+							}
+							if($match['player2_score']>$match['player1_score']){
+								
+								$RvT_array[2]+=1;
+							}
+							if($match['player2_score']==$match['player1_score']){
+								
+								$RvT_array[3]+=1;
+							}
+						}
+						//RvT array with player 2 as Random
+						if($match['Player2']['race']==3 && $match['Player1']['race']==0){
+							
+							$RvT_array[0]+=1;
+							if($match['player2_score']>$match['player1_score']){
+								
+								$RvT_array[1]+=1;
+							}
+							if($match['player1_score']>$match['player2_score']){
+								
+								$RvT_array[2]+=1;
+							}
+							if($match['player1_score']==$match['player2_score']){
+								
+								$RvT_array[3]+=1;
+							}
+						}
+						//RvP array with player 1 as Random
+						if($match['Player1']['race']==3 && $match['Player2']['race']==1){
+							
+							$RvP_array[0]+=1;
+							if($match['player1_score']>$match['player2_score']){
+								
+								$RvP_array[1]+=1;
+							}
+							if($match['player2_score']>$match['player1_score']){
+								
+								$RvP_array[2]+=1;
+							}
+							if($match['player2_score']==$match['player1_score']){
+								
+								$RvP_array[3]+=1;
+							}
+						}
+						//RvP array with player 2 as Random
+						if($match['Player2']['race']==3 && $match['Player1']['race']==1){
+							
+							$RvP_array[0]+=1;
+							if($match['player2_score']>$match['player1_score']){
+								
+								$RvP_array[1]+=1;
+							}
+							if($match['player1_score']>$match['player2_score']){
+								
+								$RvP_array[2]+=1;
+							}
+							if($match['player1_score']==$match['player2_score']){
+								
+								$RvP_array[3]+=1;
+							}
+						}
+						//RvZ array with player 1 as Random
+						if($match['Player1']['race']==3 && $match['Player2']['race']==2){
+							
+							$RvZ_array[0]+=1;
+							if($match['player1_score']>$match['player2_score']){
+								
+								$RvZ_array[1]+=1;
+							}
+							if($match['player2_score']>$match['player1_score']){
+								
+								$RvZ_array[2]+=1;
+							}
+							if($match['player2_score']==$match['player1_score']){
+								
+								$RvZ_array[3]+=1;
+							}
+						}
+						//RvZ array with player 2 as Random
+						if($match['Player2']['race']==3 && $match['Player1']['race']==2){
+							
+							$RvZ_array[0]+=1;
+							if($match['player2_score']>$match['player1_score']){
+								
+								$RvZ_array[1]+=1;
+							}
+							if($match['player1_score']>$match['player2_score']){
+								
+								$RvZ_array[2]+=1;
+							}
+							if($match['player1_score']==$match['player2_score']){
+								
+								$RvZ_array[3]+=1;
+							}
+						}
+						
+					}
+					
+				
+								
+				
+			}
+		} 
+		
+		$this->set('TvP_array', $TvP_array);
+		$this->set('PvZ_array', $PvZ_array);
+		$this->set('ZvT_array', $ZvT_array);
+		$this->set('RvT_array', $RvT_array);
+		$this->set('RvP_array', $RvP_array);
+		$this->set('RvZ_array', $RvZ_array);
+		
+		/*debug ($TvP_array);
+		debug ($PvZ_array);
+		debug ($ZvT_array);
+		debug ($RvT_array);
+		debug ($RvP_array);
+		debug ($RvZ_array);*/
+		
+	}
+	
 	function score($id = null) {
 		$current_user = $this->Auth->user('id');
 		if (!$id) {

@@ -49,6 +49,11 @@
 		echo $this->Html->link('Score', array('action'=>'score',$tournament['SwissTournament']['id']));
 		?>
      </div>
+     <div class="bottomactionleft">
+     	<?php 
+		echo $this->Html->link('Statistics', array('action'=>'statistics',$tournament['SwissTournament']['id']));
+		?>
+     </div>
 	<p style="clear: both;">  </p>  
 </div>
 </div>
