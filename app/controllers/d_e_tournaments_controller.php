@@ -63,7 +63,7 @@ class DETournamentsController extends AppController {
 					$nextloosermatchnumber=floor($match['Match']['number_in_round']/2);
 					$nextlooserplayernumber=$match['Match']['number_in_round']%2+1;
 					$nextloosermatch=$this->DETournament->Round->Match->find('first',array('conditions'=>array('Match.round_id'=>$nextlooserround['Round']['id'],'Match.number_in_round'=>$nextloosermatchnumber)));
-					
+					debug($nextloosermatch);
 					$this->DETournament->Round->Match->id=$nextloosermatch['Match']['id'];
 					$this->DETournament->Round->Match->saveField('player'.$nextlooserplayernumber.'_id',$looser_id);
 					
@@ -75,7 +75,7 @@ class DETournamentsController extends AppController {
 					$nextmatch=$this->DETournament->Round->Match->find('first',array('conditions'=>array('Match.round_id'=>$nextround['Round']['id'],'Match.number_in_round'=>$nextmatchnumber)));
 					
 					//carefull first looser round is special
-					
+					debug($nextloosermatch);
 					$nextloosermatchnumber=floor($match['Match']['number_in_round']/2);
 					$nextlooserplayernumber=$match['Match']['number_in_round']%2+1;
 					$nextloosermatch=$this->DETournament->Round->Match->find('first',array('conditions'=>array('Match.round_id'=>$nextround['Round']['id'],'Match.number_in_round'=>$nextmatchnumber)));
@@ -87,7 +87,7 @@ class DETournamentsController extends AppController {
 					$this->DETournament->Round->Match->saveField('player'.$nextplayernumber.'_id',$winner_id);
 				}
 			}
-			$this->redirect(array('controller' => 'DETournaments', 'action' => 'view',$tournament_id));
+			//$this->redirect(array('controller' => 'DETournaments', 'action' => 'view',$tournament_id));
 			}
 		else{
 			$nextlooserround=$this->DETournament->Round->find('first',array('conditions'=>array('Round.number'=>((($roundnumber+1)*2)),'Round.tournament_id'=>$tournament_id)));
@@ -303,10 +303,10 @@ class DETournamentsController extends AppController {
 		//Create further Rounds for looser bracket
 		for($i=1;$i<=($roundnumber-1)*2;$i++)
 		{
-			if(i%2==0){
+			if($i%2==0){
 				$Rounds->generate($this->DETournament->id,-$i,(pow(2,(($roundnumber-1)-($i-2)/2)))/2,1);
 			}
-			if(i%2==1){
+			if($i%2==1){
 				$Rounds->generate($this->DETournament->id,-$i,(pow(2,(($roundnumber-1)-($i-1)/2)))/2,1);
 			}
 		}

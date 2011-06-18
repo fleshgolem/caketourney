@@ -1,5 +1,5 @@
 <?php
-App::import('Controller', 'KOTournaments');
+App::import('Controller', 'KOTournaments', 'DETournaments');
 class TournamentsController extends AppController {
 	var $helpers = array('FlashChart');
 	var $name = 'Tournaments';
@@ -30,6 +30,14 @@ class TournamentsController extends AppController {
 			$KOTournaments->ConstructClasses();
 			
 			$KOTournaments->report_match($match_id,$player1_score,$player2_score);
+		}
+		
+		if($tournament['Tournament']['typeAlias']==3)
+		{
+			$DETournaments = new DETournamentsController;
+			$DETournaments->ConstructClasses();
+			
+			$DETournaments->report_match($match_id,$player1_score,$player2_score);
 		}
 	}
 	
@@ -442,7 +450,7 @@ class TournamentsController extends AppController {
 
 	function view($id = null) {
 		//redirect to right tourney type
-		if ($this->Tournament->field('current_round')==-1)
+		if ($this->Tournament->field('current_round')==NULL)
 		{
 			$this->redirect(array('action' => 'view_signups',$id));
 		}
@@ -535,7 +543,7 @@ class TournamentsController extends AppController {
 		//debug($this->data);
 			$this->Tournament->create();
 			
-			$this->data['Tournament']['current_round']=-1;
+			
 			switch ($this->data['Tournament']['typeAlias']){
 				case 0:
 					$this->data['Tournament']['typeField']='KO';
@@ -546,6 +554,7 @@ class TournamentsController extends AppController {
 					break;
 				case 2:
 					$this->data['Tournament']['typeField']='Swiss';
+					break;
 				case 3:
 					$this->data['Tournament']['typeField']='DE';
 			}

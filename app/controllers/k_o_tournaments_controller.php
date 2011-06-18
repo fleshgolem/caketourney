@@ -423,6 +423,7 @@ class KOTournamentsController extends AppController {
 		$this->KOTournament->create();
 		$this->data['KOTournament']['typeField']='KO';
 		$this->data['KOTournament']['typeAlias']=0;
+		$this->data['KOTournament']['current_round']=0;
 		$this->data['KOTournament']['name']=$name;
 		if ($this->KOTournament->save($this->data)) {
 			$this->create_matchups($seeded_players);
