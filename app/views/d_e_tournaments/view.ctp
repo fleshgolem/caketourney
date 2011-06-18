@@ -49,17 +49,22 @@
 <div class="KOwrapper">
             	<div class="scrollbox" ">	
                 <?php
-				$maxrounds=0; 
+				$maxrounds=2; 
 				foreach ($tournament['Round'] as $round){
+					if($round['number']<=(count($tournament['Round'])-2)/3 && $round['number']>=0){
 					$maxrounds+=1;
+					}
+					
 				}
 				
 				?>
                 <div class="PostContentBox" style="width:<?php echo ($maxrounds)*210 ?>px;>
                 	 <div style="width:1000px;>
 					<?php $m = 0;?>
-                    <?php foreach ($tournament['Round'] as $round){?>
-                    
+                    <?php foreach ($tournament['Round'] as $round){
+						
+						if($round['number']<=(count($tournament['Round'])-2)/3 && $round['number']>=0){?>
+                    	
                     
                         <div class="tournamentRound" >
                         <?php $max = 0;?>
@@ -83,7 +88,98 @@
                         
                     <?php 
                         $m += 30;
-                    }?>
+                    }}?>
+                    
+                     
+                   <?php $m = 0;?>
+                    <?php foreach ($tournament['Round'] as $round){
+						
+						if($round['number']>(count($tournament['Round'])-2)/3){?>
+                    	
+                    
+                        <div class="tournamentRound" >
+                        <?php $max = 0;?>
+                        <?php 
+						foreach ($round['Match'] as $match){
+							$max += 1;
+						}
+                        $this->Bracket->spaceboxes($round['number']);
+						$index = 1;
+                        foreach ($round['Match'] as $match){
+							
+                            
+							if ($index != $max){
+                            $this->Bracket->dummyboxes($round['number']);
+							}
+							$index += 1;
+                        }?>
+                        </div>
+                        
+                        
+                        
+                    <?php 
+                        $m += 30;
+                    }}?>
+                    <?php foreach ($tournament['Round'] as $round){
+						
+						if($round['number']>(count($tournament['Round'])-2)/3){?>
+                    	
+                    
+                        <div class="tournamentRound" >
+                        <?php $max = 0;?>
+                        <?php 
+						foreach ($round['Match'] as $match){
+							$max += 1;
+						}
+                        $this->Bracket->spaceboxes($round['number']);
+						$index = 1;
+                        foreach ($round['Match'] as $match){
+							
+                            $this->Bracket->matchbox($match['Player1'],$match['Player2'],$match['player1_score'],$match['player2_score'],$match['id']);
+							if ($index != $max){
+                            $this->Bracket->dummyboxes($round['number']);
+							}
+							$index += 1;
+                        }?>
+                        </div>
+                        
+                        
+                        
+                    <?php 
+                        $m += 30;
+                    }}?>
+                   
+                    
+                    <?php $m = 0;?>
+                    <?php foreach ($tournament['Round'] as $round){
+						
+						if($round['number']<0){?>
+                    	
+                    
+                        <div class="tournamentRound" >
+                        <?php $max = 0;?>
+                        <?php 
+						foreach ($round['Match'] as $match){
+							$max += 1;
+						}
+                        $this->Bracket->spaceboxes($round['number']);
+						$index = 1;
+                        foreach ($round['Match'] as $match){
+							
+                            $this->Bracket->matchbox($match['Player1'],$match['Player2'],$match['player1_score'],$match['player2_score'],$match['id']);
+							if ($index != $max){
+                            $this->Bracket->dummyboxes($round['number']);
+							}
+							$index += 1;
+                        }?>
+                        </div>
+                        
+                        
+                        
+                    <?php 
+                        $m += 30;
+                    }}?>
+                    
                 </div>    
                 
                 
