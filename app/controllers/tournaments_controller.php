@@ -467,6 +467,10 @@ class TournamentsController extends AppController {
 		{
 			$this->redirect(array('controller'=> 'DETournaments','action' => 'view',$id));
 		}
+		if ($this->Tournament->field('typeField') == 'SDE')
+		{
+			$this->redirect(array('controller'=> 'DETournaments','action' => 'view',$id));
+		}
 		/*if (!$id) {
 			$this->Session->setFlash(__('Invalid tournament', true));
 			$this->redirect(array('action' => 'index'));
@@ -530,6 +534,10 @@ class TournamentsController extends AppController {
 		{
 			$this->redirect(array('controller'=> 'DETournaments','action' => 'start_random',$id));
 		}
+		if($this->Tournament->field('typeField') == 'SDE')
+		{
+			$this->redirect(array('controller'=> 'DETournaments','action' => 'start_seeded',$id));
+		}
 		
 	}
 	function add() {
@@ -558,6 +566,9 @@ class TournamentsController extends AppController {
 					break;
 				case 3:
 					$this->data['Tournament']['typeField']='DE';
+					break;
+				case 4:
+					$this->data['Tournament']['typeField']='SDE';
 			}
 			
 			

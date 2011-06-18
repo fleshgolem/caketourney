@@ -51,7 +51,7 @@ class KOTournamentsController extends AppController {
 		foreach ($tournament['Round'] as $round){
 		 
             foreach ($round['Match'] as $match){
-					
+					if($match['open']==0){
 					//debug(count($match['Player2']));
 					if(count($match['Player2'])!=0&&count($match['Player1'])!=0){
 						$number_matches++;
@@ -262,7 +262,7 @@ class KOTournamentsController extends AppController {
 						}
 						
 					}
-					
+					}
 				
 								
 				
