@@ -454,6 +454,10 @@ class TournamentsController extends AppController {
 		{
 			$this->redirect(array('controller'=> 'SwissTournaments','action' => 'view',$id));
 		}
+		if ($this->Tournament->field('typeField') == 'DE')
+		{
+			$this->redirect(array('controller'=> 'DETournaments','action' => 'view',$id));
+		}
 		/*if (!$id) {
 			$this->Session->setFlash(__('Invalid tournament', true));
 			$this->redirect(array('action' => 'index'));
@@ -513,6 +517,10 @@ class TournamentsController extends AppController {
 		{
 			$this->redirect(array('controller'=> 'SwissTournaments','action' => 'start',$id));
 		}
+		if($this->Tournament->field('typeField') == 'DE')
+		{
+			$this->redirect(array('controller'=> 'DETournaments','action' => 'start_random',$id));
+		}
 		
 	}
 	function add() {
@@ -538,6 +546,8 @@ class TournamentsController extends AppController {
 					break;
 				case 2:
 					$this->data['Tournament']['typeField']='Swiss';
+				case 3:
+					$this->data['Tournament']['typeField']='DE';
 			}
 			
 			
@@ -573,7 +583,7 @@ class TournamentsController extends AppController {
 													 To unsubscribe from this automated message, change you account settings at:
 													 http://'.$_SERVER['SERVER_NAME'].'/caketourney/users/account/'.$current_user;
 						$this->Tournament->User->Message->save($this->data);
-							
+						$this->redirect(array('action'=>'index'));
 					}
 				}
 			} else {
