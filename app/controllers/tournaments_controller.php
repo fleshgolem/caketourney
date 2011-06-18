@@ -1,5 +1,6 @@
 <?php
-App::import('Controller', 'KOTournaments', 'DETournaments');
+App::import('Controller', 'KOTournaments');
+App::import('Controller', 'DETournaments');
 class TournamentsController extends AppController {
 	var $helpers = array('FlashChart');
 	var $name = 'Tournaments';
