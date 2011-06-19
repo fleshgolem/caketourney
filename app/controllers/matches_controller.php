@@ -361,7 +361,6 @@ class MatchesController extends AppController {
 		}
 		if(!empty($this->data))
 		{
-			debug($this->data);
 			$this->data['Replay']['match_id']=$id;
 			foreach ($this->data['Replay'] as $i=>$replay)
 			{
