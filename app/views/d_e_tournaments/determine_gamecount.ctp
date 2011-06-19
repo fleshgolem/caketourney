@@ -19,7 +19,15 @@
                         <legend></legend>
                         <?php foreach($tournament['Round'] as $round)
                         {
-                            echo $this->Form->input('bestof.'.$round['number'], array('options' => array(1=>1,3=>3,5=>5,7=>7,9=>9),'label' => 'Round '.$round['number'])); 
+							if($round['number']>(count($tournament['Round'])-2)/3){
+                           		echo $this->Form->input('bestof.'.$round['number'], array('options' => array(1=>1,3=>3,5=>5,7=>7,9=>9),'label' => 'Winnerbracket vs Looserbracket Final')); 
+							}
+							if($round['number']>=0 && $round['number']<=(count($tournament['Round'])-2)/3){
+                           		echo $this->Form->input('bestof.'.$round['number'], array('options' => array(1=>1,3=>3,5=>5,7=>7,9=>9),'label' => 'Winnerbracket Round '.$round['number'])); 
+							}
+							if($round['number']<0){
+                           		echo $this->Form->input('bestof.'.$round['number'], array('options' => array(1=>1,3=>3,5=>5,7=>7,9=>9),'label' => 'Looserbracket Round '.-$round['number'])); 
+							}
                         }?>
                     </fieldset>
                                 
