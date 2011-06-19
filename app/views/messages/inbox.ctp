@@ -19,6 +19,7 @@
 			<th><?php echo $this->Paginator->sort('title');?></th>
 			
             <th><?php echo $this->Paginator->sort('date');?></th>
+            <th><?php echo ' ';?></th>
 	</tr>
 	<?php
 	
@@ -61,6 +62,7 @@
 			?>&nbsp;</td>
 		
 		<td><?php echo $inbox['Message']['date']; ?>&nbsp;</td>
+        <td><?php echo $this->Html->link('Delete', array('controller' => 'messages', 'action' => 'delete', $inbox['Message']['id']), null, sprintf(__('Are you sure you want to delete the Message?', true))); ?>&nbsp;</td>
 		
 	</tr>
 <?php endforeach; ?>
