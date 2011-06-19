@@ -63,9 +63,9 @@
 				}
 				
 				?>
-                    <div class="PostContentBox" style="width:<?php echo ($maxrounds*2)*200 ?>px; height:<?php echo ($firstroundmatches/2)*200 ?>px">
+                    <div class="PostContentBox" style="width:<?php echo ($maxrounds*2)*200 ?>px; height:<?php echo ($firstroundmatches/2)*180 ?>px">
                     
-                    	<div class="PostContentBox" style="width:<?php echo ($maxrounds*2-1)*200 ?>px; height:<?php echo ($firstroundmatches)*100 ?>px;float:left">
+                    	<div class="PostContentBox" style="width:<?php echo ($maxrounds*2-1)*200 ?>px; height:<?php echo ($firstroundmatches)*90 ?>px;float:left">
                         <!-- upper bracket --> 
                         <?php $m = 0;?>
                         <?php foreach ($tournament['Round'] as $round){
@@ -103,7 +103,7 @@
                         }}?>
                         </div>
                         
-                        <div class="PostContentBox" style="width:<?php echo 1*200 ?>px; height:<?php echo ($firstroundmatches)*100 ?>px;float:left">
+                        <div class="PostContentBox" style="width:<?php echo 1*200 ?>px; height:<?php echo ($firstroundmatches)*90 ?>px;float:left">
                         <!-- final game spacebox  
                        <?php $m = 0;?>
                         <?php foreach ($tournament['Round'] as $round){
@@ -168,7 +168,7 @@
                         </div>
                         
                         
-                        <div class="PostContentBox" style="width:<?php echo ($maxrounds*2-1)*200 ?>px; height:<?php echo ($firstroundmatches/2)*100 ?>px;float:left">
+                        <div class="PostContentBox" style="width:<?php echo ($maxrounds*2-1)*200 ?>px; height:<?php echo ($firstroundmatches/2)*90 ?>px;float:left">
                         <!-- looser bracket -->  
                         <?php $m = 0;?>
                         
