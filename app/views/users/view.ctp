@@ -138,6 +138,7 @@
 		
 			<div class="PostContentBox">
 				<div class="PostMainContentbox" margin-left: auto;  margin-right: auto>
+                	<div style="float:left;width:190px;heigth:190px;padding:5px">
 					 <?php if ($user['User']['division']=='Code A') 
                		{
                     	echo $this->Html->image('CodeA-b2.png');
@@ -151,6 +152,23 @@
 						echo $this->Html->image('Unranked.png');
 					}
 					  ?>
+                     </div> 
+                     <?php 
+					 for($i = 0; $i <count($tournament_place); $i++){?>
+						
+                        <?php
+					 		if($tournament_place[$i]==1){?>
+                            	<div style="float:left;width:190px;heigth:190px;padding:5px">
+								<?php echo 'Winner of '.$tournament_name[$i];?>
+                                </div>
+							<?php }
+								
+					 	?>
+                     	
+                      <?php
+					 }
+					 ?>
+                     <p style="clear: both;">  </p>
 				</div>
 			</div>
 		

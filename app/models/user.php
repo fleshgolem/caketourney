@@ -37,6 +37,21 @@ class User extends AppModel {
 			'finderQuery' => '',
 			'deleteQuery' => '',
 			'insertQuery' => ''
+		),
+		'SwissTournament' => array(
+			'className' => 'SwissTournament',
+			'joinTable' => 'users_tournaments',
+			'foreignKey' => 'user_id',
+			'associationForeignKey' => 'tournament_id',
+			'unique' => true,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'finderQuery' => '',
+			'deleteQuery' => '',
+			'insertQuery' => ''
 		)
 	);
 	

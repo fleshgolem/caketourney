@@ -74,6 +74,8 @@ class SwissTournament extends Tournament {
 			'counterQuery' => ''
 		));
     var $recursive = 3;
+	
+	
 
 } 
 ?>

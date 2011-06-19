@@ -188,11 +188,31 @@ class UsersController extends AppController {
 			$this->Session->setFlash(__('Invalid User', true));
 			$this->redirect(array('action' => 'index'));
 		}
-		$this->set('user', $this->User->read(null, $id));
+		$user=$this->User->read(null, $id);
+		$this->set('user',$user );
 		
 		
 		$matches = $this->User->Match->find('all',array('recursive'=>2,'conditions'=>array('Match.open'=>0,'OR'=>array('Match.player1_id'=>$id,'Match.player2_id'=>$id)),'order'=>array('Match.date DESC')));
 		$this->set('matches',$matches);
+		
+		$this->User->Tournament->bindModel(array('hasOne' => array('UsersTournament')));
+		$tournaments = $this->User->Tournament->find('all',array('recursive'=>0,'conditions'=>array('UsersTournament.user_id'=>$id)));
+		$tournament_place = array();
+		$tournament_name = array();
+		foreach ($tournaments as $tournament){
+			$ranking=$this->User->SwissTournament->Ranking->find('all',array('conditions'=>array('Ranking.tournament_id'=>$tournament['Tournament']['id']),'order'=>array('Ranking.match_points DESC','Ranking.oppscore DESC', 'Ranking.oppoppscore DESC')));
+			foreach ($ranking as $i=>$rank){
+				if($rank['User']['username']==$user['User']['username']){
+					$tournament_place[]=($i+1);
+					$tournament_name[]=$tournament['Tournament']['name'];
+				}
+			}
+			//debug( $tournament);
+		}
+		
+		
+		$this->set('tournament_place', $tournament_place);
+		$this->set('tournament_name', $tournament_name);
 	}
 	
 	function statistics($id = null) {
@@ -204,7 +224,7 @@ class UsersController extends AppController {
 		$this->set('user', $user);
 		
 		$this->User->Tournament->bindModel(array('hasOne' => array('UsersTournament')));
-		$tournaments = $this->User->Tournament->find('all',array('recursive'=>3,'conditions'=>array('UsersTournament.user_id'=>$id)));
+		$tournaments = $this->User->Tournament->find('all',array('recursive'=>2,'conditions'=>array('UsersTournament.user_id'=>$id)));
 		$this->set('tournaments',$tournaments);
 		
 		
