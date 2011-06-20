@@ -171,7 +171,7 @@
 					 ?>
                      
                      <?php 
-					 
+					 debug($firstplace_array);
 					 for($i = 0; $i <count($firstplace_array); $i++){?>
 						
                         <?php
@@ -190,7 +190,7 @@
 					 }
 					 ?>
                      <?php 
-					 
+					 debug($secondplace_array);
 					 for($i = 0; $i <count($secondplace_array); $i++){?>
 						
                         <?php
@@ -198,7 +198,7 @@
                             	<div style="float:left;width:190px;heigth:190px;padding:5px;text-align:center;">
 								<?php 
 								echo $this->Html->image('Achievement_secondPlace.png' , array('width' => '160', 'height' => '160'));
-								echo $this->Html->link(('First Place in '.$secondplace_array[$i]),array('controller' => 'tournaments', 'action' => 'view',$secondplace_tournamentid_array[$i]));
+								echo $this->Html->link(('Second Place in '.$secondplace_array[$i]),array('controller' => 'tournaments', 'action' => 'view',$secondplace_tournamentid_array[$i]));
 								?>
                                 </div>
 							<?php 
