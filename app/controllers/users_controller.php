@@ -196,7 +196,27 @@ class UsersController extends AppController {
 		$this->set('matches',$matches);
 		
 		$this->User->Tournament->bindModel(array('hasOne' => array('UsersTournament')));
-		$tournaments = $this->User->Tournament->find('all',array('recursive'=>0,'conditions'=>array('UsersTournament.user_id'=>$id)));
+		$tournaments = $this->User->Tournament->find('all', array(
+							'contain'=>array(
+								
+								'UsersTournament'=> array(
+									'conditions' => array('UsersTournament.user_id'=>$id),
+								),
+								'Round' => array(
+											'Match' => array(
+													'Player1' => array(
+															'fields' => array('id', 'username', 'race')
+													),
+													'Player2' => array(
+															'fields' => array('id', 'username', 'race')
+													),
+													'conditions'=>array('Match.open'=>0,'OR'=>array('Match.player1_id'=>$id,'Match.player2_id'=>$id)
+												)
+											)
+											
+											)
+								)
+							));
 		
 		$tournament_place = array();
 		$tournament_name = array();
@@ -208,7 +228,43 @@ class UsersController extends AppController {
 					$tournament_name[]=$tournament['Tournament']['name'];
 				}
 			}
-			//debug( $tournament);
+			
+				
+				
+			if($tournament['Tournament']['typeField']=='KO'||$tournament['Tournament']['typeField']=='SKO'){
+				$totalrounds = (count($tournament['Round']));
+				
+				
+				if(!empty($tournament['Round'][$totalrounds-1]['Match'])){
+					if($tournament['Round'][$totalrounds-1]['Match'][0]['Player1']['username']==$user['User']['username']||$tournament['Round'][$totalrounds-1]['Match'][0]['Player2']['username']==$user['User']['username']){
+						if($tournament['Round'][$totalrounds-1]['Match'][0]['player1_score']>$tournament['Round'][$totalrounds-1]['Match'][0]['player2_score'] &&
+							$tournament['Round'][$totalrounds-1]['Match'][0]['Player1']['username']==$user['User']['username']){
+								
+							echo '1st Place in ';
+							echo $tournament['Tournament']['name'];
+						}
+						if($tournament['Round'][$totalrounds-1]['Match'][0]['player1_score']<$tournament['Round'][$totalrounds-1]['Match'][0]['player2_score'] &&
+							$tournament['Round'][$totalrounds-1]['Match'][0]['Player1']['username']==$user['User']['username']){
+								
+							echo '2nd Place in ';
+							echo $tournament['Tournament']['name'];
+						}
+						if($tournament['Round'][$totalrounds-1]['Match'][0]['player1_score']>$tournament['Round'][$totalrounds-1]['Match'][0]['player2_score'] &&
+							$tournament['Round'][$totalrounds-1]['Match'][0]['Player2']['username']==$user['User']['username']){
+								
+							echo '2nd Place in ';
+							echo $tournament['Tournament']['name'];
+						}
+						if($tournament['Round'][$totalrounds-1]['Match'][0]['player1_score']<$tournament['Round'][$totalrounds-1]['Match'][0]['player2_score'] &&
+							$tournament['Round'][$totalrounds-1]['Match'][0]['Player2']['username']==$user['User']['username']){
+								
+							echo '1st Place in ';
+							echo $tournament['Tournament']['name'];
+						}
+					}
+				}
+			}
+					
 		}
 		
 		

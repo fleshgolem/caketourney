@@ -159,7 +159,7 @@
                         <?php
 					 		if($tournament_place[$i]==1){?>
                             	<div style="float:left;width:190px;heigth:190px;padding:5px">
-								<?php echo 'Winner of '.$tournament_name[$i];?>
+								<?php echo 'First ranked in '.$tournament_name[$i];?>
                                 </div>
 							<?php }
 								
