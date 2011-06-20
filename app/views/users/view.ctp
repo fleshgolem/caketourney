@@ -154,6 +154,7 @@
 					  ?>
                      </div> 
                      <?php 
+					
 					 for($i = 0; $i <count($tournament_place); $i++){?>
 						
                         <?php
@@ -162,6 +163,45 @@
 								<?php echo 'First ranked in '.$tournament_name[$i];?>
                                 </div>
 							<?php }
+								
+					 	?>
+                     	
+                      <?php
+					 }
+					 ?>
+                     
+                     <?php 
+					 
+					 for($i = 0; $i <count($firstplace_array); $i++){?>
+						
+                        <?php
+					 		?>
+                            	<div style="float:left;width:190px;heigth:190px;padding:5px;text-align:center;">
+								<?php 
+								echo $this->Html->image('Achievement_firstPlace.png' , array('width' => '160', 'height' => '160'));
+								echo $this->Html->link(('First Place in '.$firstplace_array[$i]),array('controller' => 'tournaments', 'action' => 'view',$firstplace_tournamentid_array[$i]));
+								?>
+                                </div>
+							<?php 
+								
+					 	?>
+                     	
+                      <?php
+					 }
+					 ?>
+                     <?php 
+					 
+					 for($i = 0; $i <count($secondplace_array); $i++){?>
+						
+                        <?php
+					 		?>
+                            	<div style="float:left;width:190px;heigth:190px;padding:5px;text-align:center;">
+								<?php 
+								echo $this->Html->image('Achievement_secondPlace.png' , array('width' => '160', 'height' => '160'));
+								echo $this->Html->link(('First Place in '.$secondplace_array[$i]),array('controller' => 'tournaments', 'action' => 'view',$secondplace_tournamentid_array[$i]));
+								?>
+                                </div>
+							<?php 
 								
 					 	?>
                      	

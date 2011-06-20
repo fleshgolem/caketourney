@@ -220,6 +220,11 @@ class UsersController extends AppController {
 		
 		$tournament_place = array();
 		$tournament_name = array();
+		
+		$firstplace_array = array();
+		$secondplace_array = array();
+		$firstplace_tournamentid_array = array();
+		$secondplace_tournamentid_array = array();
 		foreach ($tournaments as $tournament){
 			$ranking=$this->User->Ranking->find('all',array('conditions'=>array('Ranking.tournament_id'=>$tournament['Tournament']['id']),'order'=>array('Ranking.match_points DESC','Ranking.oppscore DESC', 'Ranking.oppoppscore DESC')));
 			foreach ($ranking as $i=>$rank){
@@ -239,30 +244,61 @@ class UsersController extends AppController {
 					if($tournament['Round'][$totalrounds-1]['Match'][0]['Player1']['username']==$user['User']['username']||$tournament['Round'][$totalrounds-1]['Match'][0]['Player2']['username']==$user['User']['username']){
 						if($tournament['Round'][$totalrounds-1]['Match'][0]['player1_score']>$tournament['Round'][$totalrounds-1]['Match'][0]['player2_score'] &&
 							$tournament['Round'][$totalrounds-1]['Match'][0]['Player1']['username']==$user['User']['username']){
+							$firstplace_array[] = $tournament['Tournament']['name'];
+							$firstplace_tournamentid_array[]= $tournament['Tournament']['id'];
+						}
+						if($tournament['Round'][$totalrounds-1]['Match'][0]['player1_score']<$tournament['Round'][$totalrounds-1]['Match'][0]['player2_score'] &&
+							$tournament['Round'][$totalrounds-1]['Match'][0]['Player1']['username']==$user['User']['username']){
+							$secondplace_array[] = $tournament['Tournament']['name'];	
+							$secondplace_tournamentid_array[]= $tournament['Tournament']['id'];
+						}
+						if($tournament['Round'][$totalrounds-1]['Match'][0]['player1_score']>$tournament['Round'][$totalrounds-1]['Match'][0]['player2_score'] &&
+							$tournament['Round'][$totalrounds-1]['Match'][0]['Player2']['username']==$user['User']['username']){
+							$secondplace_array[] = $tournament['Tournament']['name'];	
+							$secondplace_tournamentid_array[]= $tournament['Tournament']['id'];
+						}
+						if($tournament['Round'][$totalrounds-1]['Match'][0]['player1_score']<$tournament['Round'][$totalrounds-1]['Match'][0]['player2_score'] &&
+							$tournament['Round'][$totalrounds-1]['Match'][0]['Player2']['username']==$user['User']['username']){
+							$firstplace_array[] = $tournament['Tournament']['name'];	
+							$firstplace_tournamentid_array[]= $tournament['Tournament']['id'];
+						}
+					}
+				}
+			}
+			
+			if($tournament['Tournament']['typeField']=='DE'||$tournament['Tournament']['typeField']=='SDE'){
+				$totalrounds = ((count($tournament['Round']))-2)/3+1;
+				
+				
+				if(!empty($tournament['Round'][$totalrounds-1]['Match'])){
+					if($tournament['Round'][$totalrounds-1]['Match'][0]['Player1']['username']==$user['User']['username']||$tournament['Round'][$totalrounds-1]['Match'][0]['Player2']['username']==$user['User']['username']){
+						if($tournament['Round'][$totalrounds-1]['Match'][0]['player1_score']>$tournament['Round'][$totalrounds-1]['Match'][0]['player2_score'] &&
+							$tournament['Round'][$totalrounds-1]['Match'][0]['Player1']['username']==$user['User']['username']){
 								
-							echo '1st Place in ';
-							echo $tournament['Tournament']['name'];
+							$firstplace_array[] = $tournament['Tournament']['name'];
+							$firstplace_tournamentid_array[]= $tournament['Tournament']['id'];
 						}
 						if($tournament['Round'][$totalrounds-1]['Match'][0]['player1_score']<$tournament['Round'][$totalrounds-1]['Match'][0]['player2_score'] &&
 							$tournament['Round'][$totalrounds-1]['Match'][0]['Player1']['username']==$user['User']['username']){
 								
-							echo '2nd Place in ';
-							echo $tournament['Tournament']['name'];
+							$secondplace_array[] = $tournament['Tournament']['name'];
+							$secondtplace_tournamentid_array[]= $tournament['Tournament']['id'];
 						}
 						if($tournament['Round'][$totalrounds-1]['Match'][0]['player1_score']>$tournament['Round'][$totalrounds-1]['Match'][0]['player2_score'] &&
 							$tournament['Round'][$totalrounds-1]['Match'][0]['Player2']['username']==$user['User']['username']){
 								
-							echo '2nd Place in ';
-							echo $tournament['Tournament']['name'];
+							$secondplace_array[] = $tournament['Tournament']['name'];
+							$secondplace_tournamentid_array[]= $tournament['Tournament']['id'];
 						}
 						if($tournament['Round'][$totalrounds-1]['Match'][0]['player1_score']<$tournament['Round'][$totalrounds-1]['Match'][0]['player2_score'] &&
 							$tournament['Round'][$totalrounds-1]['Match'][0]['Player2']['username']==$user['User']['username']){
 								
-							echo '1st Place in ';
-							echo $tournament['Tournament']['name'];
+							$firstplace_array[] = $tournament['Tournament']['name'];
+							$firstplace_tournamentid_array[]= $tournament['Tournament']['id'];
 						}
 					}
 				}
+				
 			}
 					
 		}
@@ -270,6 +306,10 @@ class UsersController extends AppController {
 		
 		$this->set('tournament_place', $tournament_place);
 		$this->set('tournament_name', $tournament_name);
+		$this->set('firstplace_array', $firstplace_array);
+		$this->set('secondplace_array', $secondplace_array);
+		$this->set('firstplace_tournamentid_array', $firstplace_tournamentid_array);
+		$this->set('secondplace_tournamentid_array', $secondplace_tournamentid_array);
 	}
 	
 	function statistics($id = null) {
