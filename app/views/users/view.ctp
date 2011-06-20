@@ -138,18 +138,18 @@
 		
 			<div class="PostContentBox">
 				<div class="PostMainContentbox" margin-left: auto;  margin-right: auto>
-                	<div style="float:left;width:190px;heigth:190px;padding:5px">
+                	<div style="float:left;width:168px;height:168px;padding:5px;text-align:center;">
 					 <?php if ($user['User']['division']=='Code A') 
                		{
-                    	echo $this->Html->image('CodeA-b2.png');
+                    	echo $this->Html->image('CodeA-b2.png' , array('width' => '158', 'height' => '158'));
                 	}
 					if ($user['User']['division']=='Code S') 
 					{
-						echo $this->Html->image('CodeS-b2.png');
+						echo $this->Html->image('CodeS-b2.png' , array('width' => '158', 'height' => '158'));
 					}
 					if ($user['User']['division']!='Code A' && $user['User']['division']!='Code S')
 					{
-						echo $this->Html->image('Unranked.png');
+						echo $this->Html->image('Unranked.png' , array('width' => '158', 'height' => '158'));
 					}
 					  ?>
                      </div> 
@@ -158,11 +158,35 @@
 					 for($i = 0; $i <count($tournament_place); $i++){?>
 						
                         <?php
+						
 					 		if($tournament_place[$i]==1){?>
-                            	<div style="float:left;width:190px;heigth:190px;padding:5px">
+                            	<div style="float:left;width:168px;height:168px;padding:5px;text-align:center;">
 								<?php echo 'First ranked in '.$tournament_name[$i];?>
                                 </div>
 							<?php }
+							else{
+								if($tournament_place[$i]<4){
+									?> <div style="float:left;width:168px;height:168px;padding:5px;text-align:center;"><?php
+									 echo 'Top Three in '.$tournament_name[$i];
+									?>  </div> <?php
+								}
+								else
+								{
+									if($tournament_place[$i]<6){
+										?> <div style="float:left;width:168px;height:168px;padding:5px;text-align:center;"><?php
+									 	echo 'Top Five in '.$tournament_name[$i];
+										?>  </div> <?php
+									}
+									else{
+										if($tournament_place[$i]<11){
+											?> <div style="float:left;width:168px;height:168px;padding:5px;text-align:center;"><?php
+									 		echo 'Top Ten in '.$tournament_name[$i];
+											?>  </div> <?php
+										}
+									}
+								}
+								
+							}
 								
 					 	?>
                      	
@@ -171,16 +195,19 @@
 					 ?>
                      
                      <?php 
-					 debug($firstplace_array);
+					 
 					 for($i = 0; $i <count($firstplace_array); $i++){?>
 						
                         <?php
 					 		?>
-                            	<div style="float:left;width:190px;heigth:190px;padding:5px;text-align:center;">
-								<?php 
-								echo $this->Html->image('Achievement_firstPlace.png' , array('width' => '160', 'height' => '160'));
-								echo $this->Html->link(('First Place in '.$firstplace_array[$i]),array('controller' => 'tournaments', 'action' => 'view',$firstplace_tournamentid_array[$i]));
-								?>
+                            	<div style="float:left;width:168px;height:168px;padding:5px;text-align:center;">
+                                	<div style="float:left;padding:0px 24px">
+									<?php 
+                                    echo $this->Html->image('Achievement_firstPlace.png' , array('width' => '120', 'height' => '120'));
+                                    ?>
+                               		</div>
+								<?php echo $this->Html->link(('First Place in '.$firstplace_array[$i]),array('controller' => 'tournaments', 'action' => 'view',$firstplace_tournamentid_array[$i]));?>
+								
                                 </div>
 							<?php 
 								
@@ -190,14 +217,17 @@
 					 }
 					 ?>
                      <?php 
-					 debug($secondplace_array);
+					
 					 for($i = 0; $i <count($secondplace_array); $i++){?>
 						
                         <?php
 					 		?>
-                            	<div style="float:left;width:190px;heigth:190px;padding:5px;text-align:center;">
+                            	<div style="float:left;width:168px;height:168px;padding:5px;text-align:center;">
+								<div style="float:left;padding:0px 24px">
 								<?php 
-								echo $this->Html->image('Achievement_secondPlace.png' , array('width' => '160', 'height' => '160'));
+								echo $this->Html->image('Achievement_secondPlace.png' , array('width' => '120', 'height' => '120'));?>
+                                </div>
+                                <?php 
 								echo $this->Html->link(('Second Place in '.$secondplace_array[$i]),array('controller' => 'tournaments', 'action' => 'view',$secondplace_tournamentid_array[$i]));
 								?>
                                 </div>
