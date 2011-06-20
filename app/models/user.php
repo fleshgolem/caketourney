@@ -17,7 +17,8 @@ class User extends AppModel {
                         'required' => false, //default is false, if true a validation error would occur if a file wsan't uploaded.
                         'maxFileSize' => '500000', //bytes OR false to turn off maxFileSize (default false)
                         'unique' => true, //filenames will overwrite existing files of the same name. (default true)
-                        'fileNameFunction' => false //execute the Sha1 function on a filename before saving it (default false)
+                        'fileNameFunction' => false, //execute the Sha1 function on a filename before saving it (default false)
+						'Containable'
                     )
     );
 	var $displayField = 'username';
@@ -38,21 +39,7 @@ class User extends AppModel {
 			'deleteQuery' => '',
 			'insertQuery' => ''
 		),
-		'SwissTournament' => array(
-			'className' => 'SwissTournament',
-			'joinTable' => 'users_tournaments',
-			'foreignKey' => 'user_id',
-			'associationForeignKey' => 'tournament_id',
-			'unique' => true,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'finderQuery' => '',
-			'deleteQuery' => '',
-			'insertQuery' => ''
-		)
+		
 	);
 	
 	
@@ -124,7 +111,7 @@ class User extends AppModel {
 			'finderQuery' => '',
 			'counterQuery' => ''
 		),
-		/*'Ranking' => array(
+		'Ranking' => array(
 			'className' => 'Ranking',
 			'foreignKey' => 'user_id',
 			'dependent' => false,
@@ -136,7 +123,7 @@ class User extends AppModel {
 			'exclusive' => '',
 			'finderQuery' => '',
 			'counterQuery' => ''
-		)*/
+		)
 	);
 	var $validate = array(
 	

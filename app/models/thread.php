@@ -1,6 +1,7 @@
 <?php
 class Thread extends AppModel {
 	var $name = 'Thread';
+	var $actsAs = array('Containable');
 	var $validate = array(
 		'title' => array(
 			'notempty' => array(

@@ -10,7 +10,8 @@ class Replay extends AppModel {
                         'required' => false, //default is false, if true a validation error would occur if a file wsan't uploaded.
                         'maxFileSize' => '500000', //bytes OR false to turn off maxFileSize (default false)
                         'unique' => true, //filenames will overwrite existing files of the same name. (default true)
-                        'fileNameFunction' => 'createFileName' //execute the Sha1 function on a filename before saving it (default false)
+                        'fileNameFunction' => 'createFileName', //execute the Sha1 function on a filename before saving it (default false)
+						'Containable'
                     )
                 );
 	var $validate = array(

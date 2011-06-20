@@ -1,7 +1,7 @@
 <?php
 class Ranking extends AppModel {
 	var $name = 'Ranking';
-	
+	var $actsAs = array('Containable');
 	var $validate = array(
 		'tournament_id' => array(
 			'numeric' => array(

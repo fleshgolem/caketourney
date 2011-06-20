@@ -197,10 +197,11 @@ class UsersController extends AppController {
 		
 		$this->User->Tournament->bindModel(array('hasOne' => array('UsersTournament')));
 		$tournaments = $this->User->Tournament->find('all',array('recursive'=>0,'conditions'=>array('UsersTournament.user_id'=>$id)));
+		
 		$tournament_place = array();
 		$tournament_name = array();
 		foreach ($tournaments as $tournament){
-			$ranking=$this->User->SwissTournament->Ranking->find('all',array('conditions'=>array('Ranking.tournament_id'=>$tournament['Tournament']['id']),'order'=>array('Ranking.match_points DESC','Ranking.oppscore DESC', 'Ranking.oppoppscore DESC')));
+			$ranking=$this->User->Ranking->find('all',array('conditions'=>array('Ranking.tournament_id'=>$tournament['Tournament']['id']),'order'=>array('Ranking.match_points DESC','Ranking.oppscore DESC', 'Ranking.oppoppscore DESC')));
 			foreach ($ranking as $i=>$rank){
 				if($rank['User']['username']==$user['User']['username']){
 					$tournament_place[]=($i+1);
@@ -223,11 +224,46 @@ class UsersController extends AppController {
 		$user = $this->User->read(null, $id);
 		$this->set('user', $user);
 		
-		$this->User->Tournament->bindModel(array('hasOne' => array('UsersTournament')));
-		$tournaments = $this->User->Tournament->find('all',array('recursive'=>2,'conditions'=>array('UsersTournament.user_id'=>$id)));
+		//$this->User->Tournament->bindModel(array('hasOne' => array('UsersTournament')));
+		//$tournaments = $this->User->Tournament->find('all',array('recursive'=>3,'conditions'=>array('UsersTournament.user_id'=>$id)));
+		$tournaments = $this->User->Tournament->find('all', array(
+							'contain'=>array(
+								
+								'UsersTournament'=> array(
+									'conditions' => array('UsersTournament.user_id'=>$id),
+								),
+								'Round' => array(
+											'Match' => array(
+													'Player1' => array(
+															'fields' => array('id', 'username', 'race')
+													),
+													'Player2' => array(
+															'fields' => array('id', 'username', 'race')
+													),
+													'conditions'=>array('Match.open'=>0,'OR'=>array('Match.player1_id'=>$id,'Match.player2_id'=>$id)
+												)
+											)
+											
+											)
+								)
+							));
+		/*$tournaments = $this->User->Tournament->find('all' , array(
+							'contain'=>array(
+								'Tournament',
+								'UsersTournament'=> array(
+									'conditions' => array('UsersTournament.user_id'=>$id),
+								),
+								'Round' ,
+								'User' => array(
+									'conditions' => array('User.id =' => 17),
+								)
+								)
+							));*/
+		//$tournaments = $this->User->Tournament->find('all', array('contain' => 'Tournament.name'));
+
 		$this->set('tournaments',$tournaments);
 		
-		
+		//debug($tournaments);
 		
 		$matches = $this->User->Match->find('all',array('recursive'=>2,'conditions'=>array('Match.open'=>0,'OR'=>array('Match.player1_id'=>$id,'Match.player2_id'=>$id)),'order'=>array('Match.date DESC')));
 		$this->set('matches',$matches);
@@ -449,7 +485,10 @@ class UsersController extends AppController {
 					$totalXvZ_array[] =$totalXvZ_seperate;
 					$totalXvR_array[] =$totalXvR_seperate;
 					$total_array[] = $total_seperate;
-					$totalWin_array[] = $totalWin_seperate/$total_seperate;
+					if($total_seperate!=0)
+						$totalWin_array[] = $totalWin_seperate/$total_seperate;
+					else
+						$totalWin_array[] = 0;
 
 					}
 					

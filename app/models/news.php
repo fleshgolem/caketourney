@@ -1,6 +1,7 @@
 <?php
 class News extends AppModel {
 	var $name = 'News';
+	var $actsAs = array('Containable');
 	var $validate = array(
 		'title' => array(
 			'notempty' => array(

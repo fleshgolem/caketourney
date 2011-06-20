@@ -1,6 +1,8 @@
 <?php
 class Tournament extends AppModel {
 	var $name = 'Tournament';
+	var $actsAs = array('Containable');
+	
 	var $validate = array(
 		'name' => array(
 			'notempty' => array(

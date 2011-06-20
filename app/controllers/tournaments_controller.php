@@ -88,7 +88,26 @@ class TournamentsController extends AppController {
 	}
 	
 	function statistics() {
-		$tournament= $this->Tournament->find('all', array('recursive' => 3));
+		//$tournament= $this->Tournament->find('all', array('recursive' => 3));
+		$tournament = $this->Tournament->find('all', array(
+							'contain'=>array(
+								
+								'UsersTournament',
+								'Round' => array(
+											'Match' => array(
+													'Player1' => array(
+															'fields' => array('id', 'username', 'race')
+													),
+													'Player2' => array(
+															'fields' => array('id', 'username', 'race')
+													),
+													'conditions'=>array('Match.open'=>0
+												)
+											)
+											
+											)
+								)
+							));
 		$current_user = $this->Auth->user('id');
 		$number_matches=0;
 		$TvP_array = array(); //0=total;win;loss;draw

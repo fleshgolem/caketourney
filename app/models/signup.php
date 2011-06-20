@@ -1,6 +1,7 @@
 <?php
 class Signup extends AppModel {
 	var $name = 'Signup';
+	var $actsAs = array('Containable');
 	var $validate = array(
 		'tournament_id' => array(
 			'numeric' => array(

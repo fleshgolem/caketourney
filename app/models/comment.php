@@ -1,6 +1,7 @@
 <?php
 class Comment extends AppModel {
 	var $name = 'Comment';
+	var $actsAs = array('Containable');
 	var $validate = array(
 		'body' => array(
 			'notempty' => array(

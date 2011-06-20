@@ -12,7 +12,30 @@ class DETournamentsController extends AppController {
 	}
 	
 	function statistics($tournament_id = null) {
-		$tournament=$this->DETournament->find('first', array('conditions'=>array('id' => $tournament_id), 'recursive' => 3));
+		//$tournament=$this->DETournament->find('first', array('conditions'=>array('id' => $tournament_id), 'recursive' => 3));
+		
+		$tournament = $this->DETournament->find('first', array(
+							'conditions'=>array('id' => $tournament_id),
+							'contain'=>array(
+								
+								'UsersTournament',
+								'Round' => array(
+											'Match' => array(
+													'Player1' => array(
+															'fields' => array('id', 'username', 'race')
+													),
+													'Player2' => array(
+															'fields' => array('id', 'username', 'race')
+													),
+													'conditions'=>array('Match.open'=>0
+												)
+											)
+											
+											)
+								)
+							));
+		//debug($tournament);
+		
 		$current_user = $this->Auth->user('id');
 		$number_matches=0;
 		$TvP_array = array(); //0=total;win;loss;draw
@@ -434,7 +457,27 @@ class DETournamentsController extends AppController {
 			$this->Session->setFlash(__('Invalid tournament', true));
 			$this->redirect(array('action' => 'index'));
 		}
-		$this->set('tournament', $this->DETournament->find('first', array('conditions'=>array('id' => $id), 'recursive' => 3)));
+		$tournament = $this->DETournament->find('first', array(
+							'conditions'=>array('id' => $id),
+							'contain'=>array(
+								
+								'UsersTournament',
+								'Round' => array(
+											'Match' => array(
+													'Player1' => array(
+															'fields' => array('id', 'username', 'race')
+													),
+													'Player2' => array(
+															'fields' => array('id', 'username', 'race')
+													)
+											)
+											
+											)
+								)
+							));
+		//$this->set('tournament', $this->DETournament->find('first', array('conditions'=>array('id' => $id), 'recursive' => 3)));
+		//debug($tournament);
+		$this->set('tournament', $tournament);
 	}
 
 	function start_random($id) {

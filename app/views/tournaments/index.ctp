@@ -49,8 +49,12 @@
 		<td><?php 
 			if ( $tournament['Tournament']['current_round']==NULL)
 				echo ('Sign Ups open');
-			else
-				echo ($tournament['Tournament']['current_round']); 
+			else{
+				if ( $tournament['Tournament']['typeField']=='Swiss')
+					echo ($tournament['Tournament']['current_round']);
+				else
+					echo $tournament['Tournament']['typeField'].'-Type';
+			}
 			?>&nbsp;
 		</td>
 		

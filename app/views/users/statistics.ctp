@@ -196,7 +196,7 @@ if(count($totalWin_array)>1){?>
 									/*$flashChart->axis('y',array('range' => array(0, count($totalWin_array), 1),'labels' => $tournament_names_array));*/
 									//$flashChart->axis('y',array('range' => array(0, 1, 0.1)));
 									//$flashChart->axis('x',array('labels'=>$tournament_names_array),array('vertical'=>true));
-									$flashChart->axis('x',$tournament_names_array, 0, array(0,count($tournament_names_array)-1,1));
+									$flashChart->axis('x',$tournament_names_array, 45, array(0,count($tournament_names_array)-1,1));
 									$flashChart->axis('y',array(), 0, array(0,1,0.2));
 									$flashChart->setLegend('x','Tournament','{color:#333333;font-size:16px;padding:0 0 0px 0px;}');
 									$flashChart->setLegend('y','Winratio','{color:#333333;font-size:16px;padding:0 0 0px 0px;}' );
@@ -231,7 +231,7 @@ if(count($totalWin_array)>1){?>
                                 /*$flashChart->axis('y',array('range' => array(0, count($totalWin_array), 1),'labels' => $tournament_names_array));*/
 								/*$flashChart->axis('y',array('range' => array(0, 1, 0.1)));
                                 $flashChart->axis('x',array('labels'=>$tournament_names_array));*/
-								$flashChart->axis('x',$tournament_names_array, 0, array(0,count($tournament_names_array)-1,1));
+								$flashChart->axis('x',$tournament_names_array, 45, array(0,count($tournament_names_array)-1,1));
 								$flashChart->axis('y',array(), 0, array(0,1,0.2));
                                 $flashChart->setLegend('x','Tournament','{color:#333333;font-size:16px;padding:0 0 0px 0px;}');
                                 $flashChart->setLegend('y','Winratio','{color:#333333;font-size:16px;padding:0 0 0px 0px;}' );
