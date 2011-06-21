@@ -406,6 +406,10 @@ fieldset legend {
 	font-size: 160%;
 	font-weight: bold;
 }
+fieldset disclaimer {
+	font-size: 120%;
+	font-weight: bold;
+}
 fieldset fieldset {
 	margin-top: 0px;
 	margin-bottom: 20px;
