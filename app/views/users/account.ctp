@@ -28,7 +28,7 @@
 				echo $this->Form->input('subscribe_tournaments', array('label' => 'Subscribe to newly added tournaments'));
 				?>
                 <fieldset>
-                    <disclaimer>By checking the following box, you allow us to send you emails. We will only send you emails of your subscribtions.</disclaimer>
+                    <disclaimer>By checking the following box, you allow us to send you emails. We will only send you emails of your subscribtions and news.</disclaimer>
                     </fieldset>
                     <?php echo $this->Form->input('email_subscriptions', array('label' => 'Email my Subscriptions'));?>
 			</div>
