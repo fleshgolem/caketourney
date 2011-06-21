@@ -383,11 +383,11 @@
 		StarCraft®: Wings of Liberty™ is the copyrighted product of Blizzard Entertainment, Inc.<br />
             © 2011 Blizzard Entertainment, Inc. All rights reserved.
             </div>
-		<div class="bottomactionleft">
+		<div class="footeractionleft">
 			<?php echo $this->Html->link('Impressum',array('controller'=>'pages','action'=>'impressum'))?>
 		</div>
       
-        <div class="bottomaction">
+        <div class="footeraction">
 			<?php echo $this->Html->link(
 					$this->Html->image('cake.power.gif', array('alt'=> __('CakePHP: the rapid development php framework', true), 'border' => '0')),
 					'http://www.cakephp.org/',

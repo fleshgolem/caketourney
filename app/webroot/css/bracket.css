@@ -1608,9 +1608,16 @@ div.bottomaction {
 	padding: 0 4px;
 }
 
+div.footeraction {
+	float:right;
+	vertical-align: middle;
+	padding: 0 4px;
+}
 
 
-div.bottomactionleft {
+
+div.bottomactionleft,
+div.footeractionleft {
 	float:left;
 	vertical-align: middle;
 	padding: 0 4px;
@@ -1647,8 +1654,28 @@ div.bottomactionleft a{
 	border-radius:4px;
 	text-shadow: #555 0px 1px 0px;
 	min-width: 0;
-		
+}
+
+div.footeractionleft a,
+div.footeraction a{
+	font-weight: normal;
+	display: block;
+	padding: 0 8px;
+	/*clear: both;*/
+	/*background:#333;*/
+	/*background:clear;*/
+/*	background: -webkit-gradient(linear, left top, left bottom, from(#444444), to(#757575));
+	background: -moz-linear-gradient(top, #B47050, #C6937B);*/
 	
+	color:#EEF3F6;
+	
+	text-decoration:none;
+	-moz-border-radius:4px;
+	-khtml-border-radius:4px;
+	-webkit-border-radius:4px;
+	border-radius:4px;
+	text-shadow: #555 0px 1px 0px;
+	min-width: 0;
 }
 
 
