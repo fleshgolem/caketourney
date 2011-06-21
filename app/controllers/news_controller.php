@@ -31,8 +31,8 @@ class NewsController extends AppController {
 		//$this->Email->_createboundary();
 		//$this->Email->__header[] = 'MIME-Version: 1.0';
 		//Do not pass any args to send()
-		$this->Email->delivery = 'debug';
-		//$this->Email->delivery = 'mail';
+		//$this->Email->delivery = 'debug';
+		$this->Email->delivery = 'mail';
 		$this->Email->send();
 		$this->Email->reset();
 		
