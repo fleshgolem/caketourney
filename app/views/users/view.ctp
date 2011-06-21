@@ -161,26 +161,46 @@
 						
 					 		if($tournament_place[$i]==1){?>
                             	<div style="float:left;width:168px;height:168px;padding:5px;text-align:center;">
-								<?php echo 'First ranked in '.$tournament_name[$i];?>
+                                	<div style="float:left;padding:0px 24px">
+										<?php 
+                                        echo $this->Html->image('top1.png' , array('width' => '120', 'height' => '120'));
+                                        ?>
+                                     </div>
+								<?php echo $this->Html->link(('First ranked in '.$tournament_name[$i]),array('controller' => 'tournaments', 'action' => 'view',$tournament_id[$i]));?>
                                 </div>
 							<?php }
 							else{
 								if($tournament_place[$i]<4){
-									?> <div style="float:left;width:168px;height:168px;padding:5px;text-align:center;"><?php
-									 echo 'Top Three in '.$tournament_name[$i];
+									?> <div style="float:left;width:168px;height:168px;padding:5px;text-align:center;">
+                                    <div style="float:left;padding:0px 24px">
+										<?php 
+                                        echo $this->Html->image('top3.png' , array('width' => '120', 'height' => '120'));
+                                        ?>
+                                     </div>
+									<?php echo $this->Html->link(('Top Three in '.$tournament_name[$i]),array('controller' => 'tournaments', 'action' => 'view',$tournament_id[$i]));
 									?>  </div> <?php
 								}
 								else
 								{
 									if($tournament_place[$i]<6){
-										?> <div style="float:left;width:168px;height:168px;padding:5px;text-align:center;"><?php
-									 	echo 'Top Five in '.$tournament_name[$i];
+										?> <div style="float:left;width:168px;height:168px;padding:5px;text-align:center;">
+                                        <div style="float:left;padding:0px 24px">
+											<?php 
+                                            echo $this->Html->image('top5.png' , array('width' => '120', 'height' => '120'));
+                                            ?>
+                                        </div>
+									 <?php	echo $this->Html->link(('Top Five in '.$tournament_name[$i]),array('controller' => 'tournaments', 'action' => 'view',$tournament_id[$i]));
 										?>  </div> <?php
 									}
 									else{
 										if($tournament_place[$i]<11){
-											?> <div style="float:left;width:168px;height:168px;padding:5px;text-align:center;"><?php
-									 		echo 'Top Ten in '.$tournament_name[$i];
+											?> <div style="float:left;width:168px;height:168px;padding:5px;text-align:center;">
+											<div style="float:left;padding:0px 24px">
+												<?php 
+                                                echo $this->Html->image('top10.png' , array('width' => '120', 'height' => '120'));
+                                                ?>
+                                            </div>
+									 		<?php echo $this->Html->link(('Top Ten in '.$tournament_name[$i]),array('controller' => 'tournaments', 'action' => 'view',$tournament_id[$i]));
 											?>  </div> <?php
 										}
 									}

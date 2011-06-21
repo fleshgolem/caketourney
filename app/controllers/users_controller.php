@@ -220,6 +220,7 @@ class UsersController extends AppController {
 		
 		$tournament_place = array();
 		$tournament_name = array();
+		$tournament_id = array();
 		
 		$firstplace_array = array();
 		$secondplace_array = array();
@@ -231,6 +232,7 @@ class UsersController extends AppController {
 				if($rank['User']['username']==$user['User']['username']){
 					$tournament_place[]=($i+1);
 					$tournament_name[]=$tournament['Tournament']['name'];
+					$tournament_id[]=$tournament['Tournament']['id'];
 				}
 			}
 			
@@ -273,6 +275,8 @@ class UsersController extends AppController {
 		
 		$this->set('tournament_place', $tournament_place);
 		$this->set('tournament_name', $tournament_name);
+		$this->set('tournament_id', $tournament_id);
+		
 		$this->set('firstplace_array', $firstplace_array);
 		$this->set('secondplace_array', $secondplace_array);
 		$this->set('firstplace_tournamentid_array', $firstplace_tournamentid_array);
