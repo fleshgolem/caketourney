@@ -1,13 +1,36 @@
 <?php
 App::import('Controller', 'Tournaments');
 class MatchesController extends AppController {
-
+	var $components = array('Email');
 	var $name = 'Matches';
 	var $helpers = array('Race','Text','Bbcode');
 	function beforeFilter()
     {
 		$this->Auth->allow('view','upcoming_matches');
         parent::beforeFilter();
+		
+	}
+	function _sendNewUserMail($username,$useremail,$player1,$player2,$match_id) {
+		
+		
+		$this->set('username', $username);
+		$this->set('player1', $player1);
+		$this->set('player2', $player2);
+		$this->set('match_id', $match_id);
+		$this->Email->to = $useremail;
+		$this->Email->subject = 'New comment in match "'. $player1. ' vs '. $player2.'"';
+		$this->Email->replyTo = 'OPSL@rwth-physiker.de';
+		$this->Email->from = 'The OPSL Team <OPSL@rwth-physiker.de>';
+		$this->Email->template = 'new_comment_email'; // note no '.ctp'
+		//Send as 'html', 'text' or 'both' (default is 'text')
+		$this->Email->sendAs = 'both'; // because we like to send pretty mail
+		//$this->Email->_createboundary();
+		//$this->Email->__header[] = 'MIME-Version: 1.0';
+		//Do not pass any args to send()
+		//$this->Email->delivery = 'debug';
+		$this->Email->delivery = 'mail';
+		$this->Email->send();
+		$this->Email->reset();
 		
 	}
 	function generate ($round_id, $number_in_round, $games_per_match)
@@ -342,7 +365,9 @@ class MatchesController extends AppController {
 													 To unsubscribe from this automated message, change you account settings at:
 													 http://'.$_SERVER['SERVER_NAME'].'/caketourney/users/account/';
 					$this->Match->Player1->Message->save($this->data);
-						
+					if($subscriber['email_subscriptions']){
+						$this->_sendNewUserMail( $subscriber['username'],$subscriber['email'], $match['Player1']['username'],$match['Player2']['username'] ,$match['Match']['id'] );
+					}	
 				}
 			}
 			$this->Match->Comment->save($this->data);

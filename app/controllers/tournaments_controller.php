@@ -3,6 +3,7 @@ App::import('Controller', 'KOTournaments');
 App::import('Controller', 'DETournaments');
 class TournamentsController extends AppController {
 	var $helpers = array('FlashChart');
+	var $components = array('Email');
 	var $name = 'Tournaments';
 	function beforeFilter()
     {
@@ -10,6 +11,28 @@ class TournamentsController extends AppController {
 		$this->Auth->allow('view');
 		
         parent::beforeFilter();
+		
+	}
+	function _sendNewUserMail($username,$useremail,$tournament_name,$tournament_id) {
+		
+		
+		$this->set('username', $username);
+		$this->set('tournament_name', $tournament_name);
+		$this->set('tournament_id', $tournament_id);
+		$this->Email->to = $useremail;
+		$this->Email->subject = 'The tournament "'. $tournament_name. '" has beed added.';
+		$this->Email->replyTo = 'OPSL@rwth-physiker.de';
+		$this->Email->from = 'The OPSL Team <OPSL@rwth-physiker.de>';
+		$this->Email->template = 'new_tournament_email'; // note no '.ctp'
+		//Send as 'html', 'text' or 'both' (default is 'text')
+		$this->Email->sendAs = 'both'; // because we like to send pretty mail
+		//$this->Email->_createboundary();
+		//$this->Email->__header[] = 'MIME-Version: 1.0';
+		//Do not pass any args to send()
+		//$this->Email->delivery = 'debug';
+		$this->Email->delivery = 'mail';
+		$this->Email->send();
+		$this->Email->reset();
 		
 	}
 	function report_match($match_id, $player1_score, $player2_score)
@@ -617,15 +640,19 @@ class TournamentsController extends AppController {
 						$this->data['Message']['title']= 'The tournament "'. $this->data['Tournament']['name']. '" has beed added.';
 						
 						//TODO: machen! ;)
-						$this->data['Message']['body']= 'A new comment has been added. Sign up for the tournament at:
+						$this->data['Message']['body']= 'A new tournament has been added. Sign up for the tournament at:
 														 http://'.$_SERVER['SERVER_NAME'].'/caketourney/tournaments/view/'.$this->Tournament->getLastInsertId().'
 													 
 													 To unsubscribe from this automated message, change you account settings at:
 													 http://'.$_SERVER['SERVER_NAME'].'/caketourney/users/account/';
 						$this->Tournament->User->Message->save($this->data);
-						$this->redirect(array('action'=>'index'));
+						//
+						if($subscriber['email_subscriptions']){
+							$this->_sendNewUserMail( $subscriber['username'],$subscriber['email'], $this->data['Tournament']['name'],$this->Tournament->getLastInsertId()  );
+						}	
 					}
 				}
+				$this->redirect(array('action'=>'index'));
 			} else {
 				$this->Session->setFlash(__('The tournament could not be saved. Please, try again.', true));
 			}
