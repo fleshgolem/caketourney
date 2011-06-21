@@ -1,7 +1,9 @@
 <?php
 App::import('Controller', 'KOTournaments');
+App::import('Controller', 'DETournaments');
 class TournamentsController extends AppController {
 	var $helpers = array('FlashChart');
+	var $components = array('Email');
 	var $name = 'Tournaments';
 	function beforeFilter()
     {
@@ -9,6 +11,28 @@ class TournamentsController extends AppController {
 		$this->Auth->allow('view');
 		
         parent::beforeFilter();
+		
+	}
+	function _sendNewUserMail($username,$useremail,$tournament_name,$tournament_id) {
+		
+		
+		$this->set('username', $username);
+		$this->set('tournament_name', $tournament_name);
+		$this->set('tournament_id', $tournament_id);
+		$this->Email->to = $useremail;
+		$this->Email->subject = 'The tournament "'. $tournament_name. '" has beed added.';
+		$this->Email->replyTo = 'OPSL@rwth-physiker.de';
+		$this->Email->from = 'The OPSL Team <OPSL@rwth-physiker.de>';
+		$this->Email->template = 'new_tournament_email'; // note no '.ctp'
+		//Send as 'html', 'text' or 'both' (default is 'text')
+		$this->Email->sendAs = 'both'; // because we like to send pretty mail
+		//$this->Email->_createboundary();
+		//$this->Email->__header[] = 'MIME-Version: 1.0';
+		//Do not pass any args to send()
+		//$this->Email->delivery = 'debug';
+		$this->Email->delivery = 'mail';
+		$this->Email->send();
+		$this->Email->reset();
 		
 	}
 	function report_match($match_id, $player1_score, $player2_score)
@@ -30,6 +54,14 @@ class TournamentsController extends AppController {
 			$KOTournaments->ConstructClasses();
 			
 			$KOTournaments->report_match($match_id,$player1_score,$player2_score);
+		}
+		
+		if($tournament['Tournament']['typeAlias']==3)
+		{
+			$DETournaments = new DETournamentsController;
+			$DETournaments->ConstructClasses();
+			
+			$DETournaments->report_match($match_id,$player1_score,$player2_score);
 		}
 	}
 	
@@ -79,7 +111,26 @@ class TournamentsController extends AppController {
 	}
 	
 	function statistics() {
-		$tournament= $this->Tournament->find('all', array('recursive' => 3));
+		//$tournament= $this->Tournament->find('all', array('recursive' => 3));
+		$tournament = $this->Tournament->find('all', array(
+							'contain'=>array(
+								
+								'UsersTournament',
+								'Round' => array(
+											'Match' => array(
+													'Player1' => array(
+															'fields' => array('id', 'username', 'race')
+													),
+													'Player2' => array(
+															'fields' => array('id', 'username', 'race')
+													),
+													'conditions'=>array('Match.open'=>0
+												)
+											)
+											
+											)
+								)
+							));
 		$current_user = $this->Auth->user('id');
 		$number_matches=0;
 		$TvP_array = array(); //0=total;win;loss;draw
@@ -442,7 +493,7 @@ class TournamentsController extends AppController {
 
 	function view($id = null) {
 		//redirect to right tourney type
-		if ($this->Tournament->field('current_round')==-1)
+		if ($this->Tournament->field('current_round')==NULL)
 		{
 			$this->redirect(array('action' => 'view_signups',$id));
 		}
@@ -453,6 +504,14 @@ class TournamentsController extends AppController {
 		if ($this->Tournament->field('typeField') == 'Swiss')
 		{
 			$this->redirect(array('controller'=> 'SwissTournaments','action' => 'view',$id));
+		}
+		if ($this->Tournament->field('typeField') == 'DE')
+		{
+			$this->redirect(array('controller'=> 'DETournaments','action' => 'view',$id));
+		}
+		if ($this->Tournament->field('typeField') == 'SDE')
+		{
+			$this->redirect(array('controller'=> 'DETournaments','action' => 'view',$id));
 		}
 		/*if (!$id) {
 			$this->Session->setFlash(__('Invalid tournament', true));
@@ -513,6 +572,14 @@ class TournamentsController extends AppController {
 		{
 			$this->redirect(array('controller'=> 'SwissTournaments','action' => 'start',$id));
 		}
+		if($this->Tournament->field('typeField') == 'DE')
+		{
+			$this->redirect(array('controller'=> 'DETournaments','action' => 'start_random',$id));
+		}
+		if($this->Tournament->field('typeField') == 'SDE')
+		{
+			$this->redirect(array('controller'=> 'DETournaments','action' => 'start_seeded',$id));
+		}
 		
 	}
 	function add() {
@@ -527,7 +594,7 @@ class TournamentsController extends AppController {
 		//debug($this->data);
 			$this->Tournament->create();
 			
-			$this->data['Tournament']['current_round']=-1;
+			
 			switch ($this->data['Tournament']['typeAlias']){
 				case 0:
 					$this->data['Tournament']['typeField']='KO';
@@ -538,6 +605,12 @@ class TournamentsController extends AppController {
 					break;
 				case 2:
 					$this->data['Tournament']['typeField']='Swiss';
+					break;
+				case 3:
+					$this->data['Tournament']['typeField']='DE';
+					break;
+				case 4:
+					$this->data['Tournament']['typeField']='SDE';
 			}
 			
 			
@@ -567,15 +640,19 @@ class TournamentsController extends AppController {
 						$this->data['Message']['title']= 'The tournament "'. $this->data['Tournament']['name']. '" has beed added.';
 						
 						//TODO: machen! ;)
-						$this->data['Message']['body']= 'A new comment has been added. Sign up for the tournament at:
+						$this->data['Message']['body']= 'A new tournament has been added. Sign up for the tournament at:
 														 http://'.$_SERVER['SERVER_NAME'].'/caketourney/tournaments/view/'.$this->Tournament->getLastInsertId().'
 													 
 													 To unsubscribe from this automated message, change you account settings at:
-													 http://'.$_SERVER['SERVER_NAME'].'/caketourney/users/account/'.$current_user;
+													 http://'.$_SERVER['SERVER_NAME'].'/caketourney/users/account/';
 						$this->Tournament->User->Message->save($this->data);
-							
+						//
+						if($subscriber['email_subscriptions']){
+							$this->_sendNewUserMail( $subscriber['username'],$subscriber['email'], $this->data['Tournament']['name'],$this->Tournament->getLastInsertId()  );
+						}	
 					}
 				}
+				$this->redirect(array('action'=>'index'));
 			} else {
 				$this->Session->setFlash(__('The tournament could not be saved. Please, try again.', true));
 			}

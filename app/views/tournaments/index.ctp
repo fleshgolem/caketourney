@@ -47,10 +47,14 @@
 		<td><?php echo $this->Html->link(__($tournament['Tournament']['name'], true), array('action' => 'view', $tournament['Tournament']['id'])); ?>&nbsp;</td>
 		<td><?php echo $tournament['Tournament']['typeField']; ?>&nbsp;</td>
 		<td><?php 
-			if ( $tournament['Tournament']['current_round']==-1)
+			if ( $tournament['Tournament']['current_round']==NULL)
 				echo ('Sign Ups open');
-			else
-				echo ($tournament['Tournament']['current_round']); 
+			else{
+				if ( $tournament['Tournament']['typeField']=='Swiss')
+					echo ($tournament['Tournament']['current_round']);
+				else
+					echo $tournament['Tournament']['typeField'].'-Type';
+			}
 			?>&nbsp;
 		</td>
 		

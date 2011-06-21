@@ -1,6 +1,7 @@
 <?php
 class Round extends AppModel {
 	var $name = 'Round';
+	var $actsAs = array('Containable');
 	var $validate = array(
 		'number' => array(
 			'numeric' => array(

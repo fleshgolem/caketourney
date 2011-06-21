@@ -2,6 +2,7 @@
 class Match extends AppModel {
 	var $name = 'Match';
 	var $recursive = 1;
+	var $actsAs = array('Containable');
 	var $validate = array(
 		'round_id' => array(
 			'numeric' => array(

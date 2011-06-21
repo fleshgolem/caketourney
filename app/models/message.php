@@ -1,6 +1,7 @@
 <?php
 class Message extends AppModel {
 	var $name = 'Message';
+	var $actsAs = array('Containable');
 	var $validate = array(
 		'recipient_id' => array(
 			'numeric' => array(

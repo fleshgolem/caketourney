@@ -1,8 +1,9 @@
 
+
 <div class="PostBox">
 <div class="ThreadTitleBox">
 	<div class="ThreadTitleContent">
-		<h2><?php __('New Tournament');?></h2>
+		<h2><?php __('Add Tournament');?></h2>
 	</div> 
 	
 	<p style="clear: both;">  </p>  
@@ -13,12 +14,12 @@
 	<div class="PostContent">
 		<div class="PostContentBox">
 			<div class="PostMainContentbox">
-				<?php echo $this->Form->create('Tournament');?>
+				<?php echo $this->Form->create('DETournament');?>
                     <fieldset>
                         <legend></legend>
                     <?php
                         echo $this->Form->input('name');
-                        echo $this->Form->input('typeAlias', array('label'=>'Type','options' => array("Random KO","Seeded KO","Swiss","Random Double Elimination","Seeded Double Elimination")));
+                        echo $this->Form->input('User');
                     ?>
                     </fieldset>
 				

@@ -17,23 +17,27 @@ class ThreadsController extends AppController {
 	}
 	
 	
-	function _sendNewUserMail($id) {
+	function _sendNewUserMail($id,$thread_title,$thread_id) {
+		
 		$User = $this->Thread->Post->User->read(null,$id);
 		$this->set('User', $User);
-		$this->Email->to = 'fleshgolem@gmx.net';//$User['User']['email'];
-		$this->Email->bcc = array('secret@example.com');
-		$this->Email->subject = 'Welcome to our really cool thing';
-		$this->Email->replyTo = 'support@example.com';
-		$this->Email->from = 'Admin <b4lrog@sesu.org>';
-		$this->Email->template = 'simple_message'; // note no '.ctp'
+		$this->set('thread_title', $thread_title);
+		$this->set('thread_id', $thread_id);
+		$this->Email->to = $User['User']['email'];
+		$this->Email->subject = 'New post in thread "'. $thread_title.'"';
+		$this->Email->replyTo = 'OPSL@rwth-physiker.de';
+		$this->Email->from = 'The OPSL Team <OPSL@rwth-physiker.de>';
+		$this->Email->template = 'new_post_email'; // note no '.ctp'
 		//Send as 'html', 'text' or 'both' (default is 'text')
 		$this->Email->sendAs = 'both'; // because we like to send pretty mail
 		//$this->Email->_createboundary();
 		//$this->Email->__header[] = 'MIME-Version: 1.0';
 		//Do not pass any args to send()
-		$this->Email->delivery = 'debug';
-		//$this->Email->delivery = 'mail';
-		//$this->Email->send();
+		//$this->Email->delivery = 'debug';
+		$this->Email->delivery = 'mail';
+		$this->Email->send();
+		$this->Email->reset();
+		
 	}
 	
 	function view($id = null) 
@@ -43,7 +47,7 @@ class ThreadsController extends AppController {
 		$this->set('current_user',$current_user);
 		if(!empty($this->data))
 		{
-			$this->_sendNewUserMail( $this->Session->read('Auth.User.id') );
+			
 			
 			$date = date_create('now');
 			$this->data['Post']['user_id']=$current_user;
@@ -81,8 +85,12 @@ class ThreadsController extends AppController {
 													 http://'.$_SERVER['SERVER_NAME'].'/caketourney/threads/view/'.$thread['Thread']['id'].'
 													 
 													 To unsubscribe from this automated message, change you account settings at:
-													 http://'.$_SERVER['SERVER_NAME'].'/caketourney/users/account/'.$current_user;
+													 http://'.$_SERVER['SERVER_NAME'].'/caketourney/users/account/';
 					$this->Thread->Post->User->Message->save($this->data);
+					
+					if($subscriber['email_subscriptions']){
+						$this->_sendNewUserMail( $subscriber['id'], $thread['Thread']['title'],$thread['Thread']['id'] );
+					}
 				}
 				
 			}

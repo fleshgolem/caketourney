@@ -26,7 +26,7 @@
      </div>
      <div class="bottomaction"> <?php
 		if ($this->Session->read('Auth.User.admin')){
-			if ( $tournament['KOTournament']['current_round']==-1)
+			if ( $tournament['KOTournament']['current_round']==NULL)
 					echo $this->Html->link(__('Start', true), array('controller'=>'tournaments','action' => 'start', $tournament['KOTournament']['id'])); 
 		}?>
      </div>

@@ -1,8 +1,9 @@
 <?php  
 App::Import ('model', 'Tournament');
 class SwissTournament extends Tournament { 
-
+	
     var $name = 'SwissTournament'; 
+	var $actsAs = array('Containable');
     var $useTable = 'tournaments'; 
 	var $validate = array(
 		'name' => array(
@@ -74,6 +75,8 @@ class SwissTournament extends Tournament {
 			'counterQuery' => ''
 		));
     var $recursive = 3;
+	
+	
 
 } 
 ?>
