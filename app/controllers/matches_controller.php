@@ -340,7 +340,7 @@ class MatchesController extends AppController {
 													 http://'.$_SERVER['SERVER_NAME'].'/caketourney/matches/view/'.$match['Match']['id'].'
 													 
 													 To unsubscribe from this automated message, change you account settings at:
-													 http://'.$_SERVER['SERVER_NAME'].'/caketourney/users/account/'.$current_user;
+													 http://'.$_SERVER['SERVER_NAME'].'/caketourney/users/account/';
 					$this->Match->Player1->Message->save($this->data);
 						
 				}

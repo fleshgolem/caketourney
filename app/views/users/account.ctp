@@ -26,7 +26,7 @@
 				echo $this->Form->input('subscribe_own_comments', array('label' => 'Subscribe to comments of my matches'));
 				echo $this->Form->input('subscribe_own_posts', array('label' => 'Subscribe to threads I posted in'));
 				echo $this->Form->input('subscribe_tournaments', array('label' => 'Subscribe to newly added tournaments'));
-				
+				echo $this->Form->input('email_subscriptions', array('label' => 'Email my Subscriptions'));
 				
 				?>
 			</div>

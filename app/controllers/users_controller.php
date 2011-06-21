@@ -137,7 +137,7 @@ class UsersController extends AppController {
 			$this->User->saveField('subscribe_own_comments', $this->data['User']['subscribe_own_comments']);
 			$this->User->saveField('subscribe_own_posts', $this->data['User']['subscribe_own_posts']);
 			$this->User->saveField('subscribe_tournaments', $this->data['User']['subscribe_tournaments']);
-			
+			$this->User->saveField('email_subscriptions', $this->data['User']['email_subscriptions']);
             $this->Session->setFlash('Your data has been updated');
             $this->redirect(array('controller' => 'news', 'action' => 'index'));
         }
@@ -152,7 +152,7 @@ class UsersController extends AppController {
 			$this->User->saveField('subscribe_own_comments', $this->data['User']['subscribe_own_comments']);
 			$this->User->saveField('subscribe_own_posts', $this->data['User']['subscribe_own_posts']);
 			$this->User->saveField('subscribe_tournaments', $this->data['User']['subscribe_tournaments']);
-			
+			$this->User->saveField('email_subscriptions', $this->data['User']['email_subscriptions']);
             $this->Session->setFlash('Your data has been updated');
             $this->redirect(array('controller' => 'news', 'action' => 'index'));
         }

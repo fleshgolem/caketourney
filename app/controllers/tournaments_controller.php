@@ -621,7 +621,7 @@ class TournamentsController extends AppController {
 														 http://'.$_SERVER['SERVER_NAME'].'/caketourney/tournaments/view/'.$this->Tournament->getLastInsertId().'
 													 
 													 To unsubscribe from this automated message, change you account settings at:
-													 http://'.$_SERVER['SERVER_NAME'].'/caketourney/users/account/'.$current_user;
+													 http://'.$_SERVER['SERVER_NAME'].'/caketourney/users/account/';
 						$this->Tournament->User->Message->save($this->data);
 						$this->redirect(array('action'=>'index'));
 					}
