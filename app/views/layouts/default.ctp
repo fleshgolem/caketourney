@@ -138,10 +138,19 @@
                         <?php
 						}
 						
+						if ($this->Session->check('Auth.User')){?>
+                        <div class="menuebox">
+                    	<?php
+							echo $this->Html->link(__('My User Page', true), array('controller' => 'users', 'action' => 'view',$this->Session->read('Auth.User.id'))); 
+							?>
+                        </div>
+                        <?php
+						}
+						
                     	if ($this->Session->check('Auth.User')){?>
                         <div class="menuebox">
                     	<?php
-							echo $this->Html->link(__('Account Settings', true), array('controller' => 'users', 'action' => 'account')); 
+							echo $this->Html->link(__('My Account Settings', true), array('controller' => 'users', 'action' => 'account')); 
 							?>
                         </div>
                         <?php

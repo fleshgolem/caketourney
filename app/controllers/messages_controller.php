@@ -127,9 +127,10 @@ class MessagesController extends AppController {
 				$this->redirect(array('action' => 'index'));
 			}
 			
-			if($message['Message']['recipient_id']==$this->Session->read('Auth.User.id'));
+			if($message['Message']['recipient_id'] == $this->Session->read('Auth.User.id'))
 			{
 				$this->Message->id=$id;
+				
 				$this->Message->saveField('read',1);
 			}
 			

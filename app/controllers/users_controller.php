@@ -131,6 +131,7 @@ class UsersController extends AppController {
 		
 		if (!empty($this->data) && empty($this->data['User']['password'] )) {
            	//debug($this->data);
+			$this->User->saveField('email', $this->data['User']['email']);
 			$this->User->saveField('bnetaccount', $this->data['User']['bnetaccount']);
 			$this->User->saveField('bnetcode', $this->data['User']['bnetcode']);
 			$this->User->saveField('race', $this->data['User']['race']);
@@ -146,6 +147,7 @@ class UsersController extends AppController {
 			//debug($this->data);
             $password = $this->Auth->password($this->data['User']['password']);
             $this->User->saveField('password', $password);
+			$this->User->saveField('email', $this->data['User']['email']);
 			$this->User->saveField('bnetaccount', $this->data['User']['bnetaccount']);
 			$this->User->saveField('bnetcode', $this->data['User']['bnetcode']);
 			$this->User->saveField('race', $this->data['User']['race']);
