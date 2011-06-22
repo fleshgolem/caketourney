@@ -26,13 +26,49 @@ class SwissTournamentsController extends AppController {
 		//Check if user is participating
 		$this->SwissTournament->bindModel(array('hasOne' => array('UsersTournament')));
 		$in_tournament = $this->SwissTournament->find('first',array('conditions'=>array('SwissTournament.id'=>$id,'UsersTournament.user_id'=>$current_user)));
-		//debug($in_tournament);
+		$tournament = $this->SwissTournament->find('first', array(
+							'conditions'=>array('id' => $id),
+							'contain'=>array(
+								
+								'UsersTournament',
+								'Round' => array(
+											'Match' => array(
+													'Player1' => array(
+															'fields' => array('id', 'username', 'race')
+													),
+													'Player2' => array(
+															'fields' => array('id', 'username', 'race')
+													)
+											)
+											
+											)
+								)
+							));
+		//debug($tournament);
 		$this->set('in_tournament', $in_tournament);
-		$this->set('tournament', $this->SwissTournament->read(null, $id));
+		$this->set('tournament', $tournament);
 		$this->set('ranking', $this->SwissTournament->Ranking->find('all',array('conditions'=>array('Ranking.tournament_id'=>$id),'order'=>array('Ranking.match_points DESC','Ranking.oppscore DESC', 'Ranking.oppoppscore DESC'))));
 	}
 	function statistics($tournament_id = null) {
-		$tournament=$this->SwissTournament->read(null, $tournament_id);
+		
+		$tournament = $this->SwissTournament->find('first', array(
+							'conditions'=>array('id' => $tournament_id),
+							'contain'=>array(
+								
+								'UsersTournament',
+								'Round' => array(
+											'Match' => array(
+													'Player1' => array(
+															'fields' => array('id', 'username', 'race')
+													),
+													'Player2' => array(
+															'fields' => array('id', 'username', 'race')
+													)
+											)
+											
+											)
+								)
+							));
 		$current_user = $this->Auth->user('id');
 		$number_matches=0;
 		$TvP_array = array(); //0=total;win;loss;draw
