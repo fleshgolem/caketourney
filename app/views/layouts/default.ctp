@@ -298,6 +298,31 @@
 			</div><!-- end leftcol -->
 				
 			<div id="rightcol"><!-- begin rightcol -->
+            	<div class="containerbox">
+					<div class="containerheader">
+					Statistic Center
+					</div>
+					<div class="containercontent">
+					<div class="containercontentbox">
+					
+					<?php	
+                    	if ($this->Session->check('Auth.User')){?>
+                        <div class="menuebox">
+                    	<?php
+							
+							echo $this->Html->link(__(('My Statistics'), true), array('controller' => 'users', 'action' => 'statistics',$this->Session->read('Auth.User.id'))); 
+							?>
+                        </div>
+                        <?php
+						}
+						?>
+						<div class="menuebox">
+							<?php echo $this->Html->link(__('Global Statistics', true), array('controller' => 'tournaments', 'action' => 'statistics')); ?>
+                        </div>
+					</div>
+					</div>
+				</div>
+                
 				<div class="containerbox">
 					<div class="containerheader">
 					Upcoming Matches
@@ -329,30 +354,7 @@
 					</div>
 					</div>
 				</div>
-				<div class="containerbox">
-					<div class="containerheader">
-					Statistic Center
-					</div>
-					<div class="containercontent">
-					<div class="containercontentbox">
-					
-					<?php	
-                    	if ($this->Session->check('Auth.User')){?>
-                        <div class="menuebox">
-                    	<?php
-							
-							echo $this->Html->link(__(('My Statistics'), true), array('controller' => 'users', 'action' => 'statistics',$this->Session->read('Auth.User.id'))); 
-							?>
-                        </div>
-                        <?php
-						}
-						?>
-						<div class="menuebox">
-							<?php echo $this->Html->link(__('Global Statistics', true), array('controller' => 'tournaments', 'action' => 'statistics')); ?>
-                        </div>
-					</div>
-					</div>
-				</div>
+				
 			</div><!-- end righttcol -->
 			
 		<div id="centercol"><!-- begin centercol -->

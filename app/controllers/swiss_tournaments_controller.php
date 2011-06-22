@@ -396,6 +396,12 @@ class SwissTournamentsController extends AppController {
 			$this->redirect(array('action'=>'index'));
 		}
 		if (!empty($this->data)) {
+			//debug($this->data['User']);
+			if ( $this->data['SwissTournament']['roundnumber']>count($this->data['User']['User']))
+			{
+				$this->Session->setFlash(__('Too many rounds for a swiss tournament. The maximum number of rounds for '.count($this->data['User']['User']).' player is '.(count($this->data['User']['User'])-1), true));
+				$this->redirect(array('controller'=> 'Tournaments','action' => 'view',$id));
+			}
 			
 			$this->data['SwissTournament']['current_round'] = 0;
 
@@ -416,6 +422,7 @@ class SwissTournamentsController extends AppController {
 			} else {
 				$this->Session->setFlash(__('The swiss tournament could not be saved. Please, try again.', true));
 			}
+			
 		}
 		if (empty($this->data)) {
 			$this->data = $this->SwissTournament->read(null, $id);
