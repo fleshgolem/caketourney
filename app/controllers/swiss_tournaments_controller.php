@@ -47,7 +47,7 @@ class SwissTournamentsController extends AppController {
 		//debug($tournament);
 		$this->set('in_tournament', $in_tournament);
 		$this->set('tournament', $tournament);
-		$this->set('ranking', $this->SwissTournament->Ranking->find('all',array('conditions'=>array('Ranking.tournament_id'=>$id),'order'=>array('Ranking.match_points DESC','Ranking.oppscore DESC', 'Ranking.oppoppscore DESC'))));
+		
 	}
 	function statistics($tournament_id = null) {
 		
@@ -349,7 +349,25 @@ class SwissTournamentsController extends AppController {
 		$this->SwissTournament->bindModel(array('hasOne' => array('UsersTournament')));
 		$in_tournament = $this->SwissTournament->find('first',array('conditions'=>array('SwissTournament.id'=>$id,'UsersTournament.user_id'=>$current_user)));
 		$this->set('in_tournament', $in_tournament);
-		$this->set('tournament', $this->SwissTournament->read(null, $id));
+		$tournament = $this->SwissTournament->find('first', array(
+							'conditions'=>array('id' => $id),
+							'contain'=>array(
+								
+								'UsersTournament',
+								'Round' => array(
+											'Match' => array(
+													'Player1' => array(
+															'fields' => array('id', 'username', 'race')
+													),
+													'Player2' => array(
+															'fields' => array('id', 'username', 'race')
+													)
+											)
+											
+											)
+								)
+							));
+		$this->set('tournament', $tournament);
 		$this->set('ranking', $this->SwissTournament->Ranking->find('all',array('conditions'=>array('Ranking.tournament_id'=>$id),'order'=>array('Ranking.match_points DESC','Ranking.oppscore DESC', 'Ranking.oppoppscore DESC'))));
 	}
 	
