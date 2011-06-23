@@ -65,7 +65,9 @@
 				<div class="PostMainContentbox">
 				<?php
 				$body = $this->Bbcode->doshortcode(strip_tags($post['Post']['body']));
-				echo ( $this->Text->autoLink($body));?>
+				echo ( $this->Text->autoLink($body));
+			
+				?>
 				</div>
 			</div>
 		</div>

@@ -100,6 +100,7 @@ class MessagesController extends AppController {
 			$this->data['Message']['recipient_id'] = $reciver;
 			$this->data['Message']['date']= $date->format('Y-m-d H:i:s');
 			$this->data['Message']['read']= 0;
+			$this->data['Message']['reply']=$message['Message']['reply']+1;
 			$this->data['Message']['title']= 'RE: '.$message['Message']['title'];
 			$this->Message->save($this->data);
 			
