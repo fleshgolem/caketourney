@@ -9,7 +9,7 @@ class BbcodeHelper extends Shortcode{
             array( 'i' , array(&$this, 'shortcode_italics') ), 
             array( 'u' , array(&$this, 'shortcode_underline') ), 
             array( 'url' , array(&$this, 'shortcode_url') ), 
-            array( 'img' , array(&$this, 'shortcode_image') ), 
+            //array( 'img' , array(&$this, 'shortcode_image') ), 
             array( 'quote' , array(&$this, 'shortcode_quote') ) 
         )); 
     } 
@@ -71,11 +71,11 @@ class BbcodeHelper extends Shortcode{
         //return '<img src="' . $this->do_shortcode($content) . '" alt="" />'; 
 		//return '<em>' . $this->do_shortcode( $content ) . '</em>'; 
 		//return '<a href="' . $this->do_shortcode( $content ) . '">' . $this->do_shortcode( $content ) . '</a>'; 
-		return $this->Html->link("http://www.chachatelier.fr/programmation/images/mozodojo-original-image.jpg");
+		//return $this->Html->link("http://www.chachatelier.fr/programmation/images/mozodojo-original-image.jpg");
     } 
 
     function shortcode_quote( $atts = array(), $content = NULL ) { 
-        return '<blockquote>' . $this->do_shortcode( $content ) . '</blockquote>'; 
+        return '<div class="quote"><div class="PostMainContentbox">' . $this->do_shortcode( $content ) . '</div></div>'; 
     } 
      
 } 

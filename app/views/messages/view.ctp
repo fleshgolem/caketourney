@@ -106,10 +106,13 @@ if ( !$message['Message']['sender_id']||$message['Message']['sender_id']==$this-
                     <legend><?php __('Send Reply'); ?></legend>   
                     <?php
                          
-                       
-                        echo $this->Form->input('body');
+                       $body = $this->Bbcode->doshortcode(strip_tags($message['Message']['body']));
+                        echo $this->Form->input('body', array('value'=>'[quote]'.($message['Message']['body']).'[/quote]'));
+						
+
                     ?>
                     </fieldset>
+                    
                 </div>
             </div>
             <p style="clear: both;"> </p>
