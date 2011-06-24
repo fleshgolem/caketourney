@@ -141,7 +141,7 @@ class BbcodeHelper extends Shortcode{
     }
 	function shortcode_courier( $atts = array(), $content = NULL ) { 
 		
-        return '<font face="Courier">' . $this->do_shortcode( $content ) . '</font>'; 
+        return '<font face="Courier New">' . $this->do_shortcode( $content ) . '</font>'; 
     }
 	function shortcode_comic_sans( $atts = array(), $content = NULL ) { 
 		
@@ -153,7 +153,7 @@ class BbcodeHelper extends Shortcode{
     }
 	function shortcode_code( $atts = array(), $content = NULL ) { 
 		
-        return '<div class="quote"><div class="PostMainContentbox"><font face="Courier">' .  $content  . '</font></div></div>'; 
+        return '<div class="quote"><div class="PostMainContentbox"><font face="Courier New">' .  $content  . '</font></div></div>'; 
     }
 	function shortcode_large( $atts = array(), $content = NULL ) { 
 		
