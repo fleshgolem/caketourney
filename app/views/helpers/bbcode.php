@@ -85,8 +85,9 @@ class BbcodeHelper extends Shortcode{
     } 
 
     function shortcode_image( $atts = array(), $content = NULL ) { 
+		return '<div style="background:url('.$content.')">s</div>';
         //echo '<img " src="'.$content.'" />';
-		echo '<img " src="http://th00.deviantart.com/fs12/300W/i/2006/263/6/9/Balrog_by_Ironshod.jpg" />';
+		//echo '<img " src="http://th00.deviantart.com/fs12/300W/i/2006/263/6/9/Balrog_by_Ironshod.jpg" />';
 		//return '<em>' . $this->do_shortcode( $content ) . '</em>'; 
 		//return '<a href="' . $this->do_shortcode( $content ) . '">' . $this->do_shortcode( $content ) . '</a>'; 
 		//return $this->Html->link("http://www.chachatelier.fr/programmation/images/mozodojo-original-image.jpg");
