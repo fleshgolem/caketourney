@@ -61,7 +61,9 @@
 					
 					<?php
 						$body = $this->Bbcode->doshortcode(strip_tags($newspost['News']['body']));
-						echo ( $this->Text->autoLink($body));?>
+						echo ( $this->Text->autoLink($body));
+						$edit_reason = $this->Bbcode->doshortcode(strip_tags($newspost['News']['edit_reason']));
+						echo ( $this->Text->autoLink($edit_reason));?>
 					</div>
 				</div>
 			</div>

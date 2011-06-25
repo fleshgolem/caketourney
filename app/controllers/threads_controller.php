@@ -7,6 +7,7 @@ class ThreadsController extends AppController {
 	var $paginate = array(
 		'limit' => 25,
         'order' => array(
+			'Thread.icon' => 'desc',
 			'Thread.date_modified' => 'desc',  
 			//'Post.date_posted' => 'asc'
 		)
@@ -123,6 +124,32 @@ class ThreadsController extends AppController {
 			$this->data['Thread']['original_poster_id']=$current_user;
 			$this->data['Thread']['last_poster_id']=$current_user;
 			$this->data['Thread']['date_modified']= $date->format('Y-m-d H:i:s');
+			
+			switch ($this->data['Thread']['icon']){
+				case 0:
+					$this->data['Thread']['icon']='default';
+					break;
+				case 1:
+					$this->data['Thread']['icon']='thread_attention.png';
+					break;
+				case 2:
+					$this->data['Thread']['icon']='thread_bomb.png';
+					break;
+				case 3:
+					$this->data['Thread']['icon']='thread_bulb.png';
+					break;
+				case 4:
+					$this->data['Thread']['icon']='thread_check.png';
+					break;
+				case 5:
+					$this->data['Thread']['icon']='thread_flash.png';
+					break;
+				case 6:
+					$this->data['Thread']['icon']='thread_heart.png';
+					break;
+				case 7:
+					$this->data['Thread']['icon']='thread_star.png';
+			}
 			
 			if ($this->Thread->save($this->data)) {
 				$id = $this->Thread->id;

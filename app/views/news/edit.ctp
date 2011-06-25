@@ -19,6 +19,7 @@
 		echo $this->Form->input('id');
 		echo $this->Form->input('title');
 		echo $this->Form->input('body');
+		echo $this->Form->input('edit_reason',array('value'=>''));
 	?>
 	</fieldset>
 				

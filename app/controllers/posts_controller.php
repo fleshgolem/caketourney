@@ -19,7 +19,13 @@ class PostsController extends AppController {
 			$this->redirect(array('action'=>'index'));
 		}
 		if (!empty($this->data)) {
-			if ($this->Post->saveField('body',$this->data['Post']['body'])) {
+			if ($this->Post->saveField('body',$this->data['Post']['body']) ) {
+				if($this->Session->read('Auth.User.admin')){
+					$this->Post->saveField('edit_reason','[edit]Last edit by [b][blue]'.$this->Session->read('Auth.User.username').'[/blue][/b] because of: '.$this->data['Post']['edit_reason'].'[/edit]');
+				}
+				else{
+					$this->Post->saveField('edit_reason','[edit]Last edit by [b]'.$this->Session->read('Auth.User.username').'[/b] because of: '.$this->data['Post']['edit_reason'].'[/edit]');
+				}
 				$this->Session->setFlash(__('The post has been saved', true));
 				$this->redirect(array('controller'=>'threads','action' => 'view',$post['Post']['thread_id']));
 			} else {

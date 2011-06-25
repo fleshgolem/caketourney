@@ -314,7 +314,9 @@
 				<div class="PostMainContentbox">
 				
 				<?php $body = $this->Bbcode->doShortcode(strip_tags($comment['Comment']['body']));
-				echo ( $this->Text->autoLink($body));?>
+				echo ( $this->Text->autoLink($body));
+				$edit_reason = $this->Bbcode->doShortcode(strip_tags($comment['Comment']['edit_reason']));
+				echo ( $this->Text->autoLink($edit_reason));?>
 				</div>
 			</div>
 		</div>

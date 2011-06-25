@@ -11,7 +11,8 @@ class BbcodeHelper extends Shortcode{
             array( 'i' , array(&$this, 'shortcode_italics') ), 
             array( 'u' , array(&$this, 'shortcode_underline') ), 
             array( 'url' , array(&$this, 'shortcode_url') ), 
-            //array( 'img' , array(&$this, 'shortcode_image') ), 
+            //array( 'img' , array(&$this, 'shortcode_image') ),
+			array( 'edit' , array(&$this, 'shortcode_edit') ),  
             array( 'quote' , array(&$this, 'shortcode_quote') ), 
 			array( 'qquote' , array(&$this, 'shortcode_qquote') ) , 
             array( 'qqquote' , array(&$this, 'shortcode_qqquote') ), 
@@ -163,6 +164,9 @@ class BbcodeHelper extends Shortcode{
 		
         return '<font  size="1">' . $this->do_shortcode( $content ) . '</font>'; 
     }
-	 
+	 function shortcode_edit( $atts = array(), $content = NULL ) { 
+		
+        return '<div class="quote"><div class="PostMainContentbox">' . $this->do_shortcode( $content ) . '</div></div>'; 
+    } 
 } 
 ?>

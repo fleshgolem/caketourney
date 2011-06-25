@@ -18,6 +18,12 @@ class CommentsController extends AppController {
 		}
 		if (!empty($this->data)) {
 			if ($this->Comment->saveField('body',$this->data['Comment']['body'])) {
+				if($this->Session->read('Auth.User.admin')){
+					$this->Comment->saveField('edit_reason','[edit]Last edit by [b][blue]'.$this->Session->read('Auth.User.username').'[/blue][/b] because of: '.$this->data['Comment']['edit_reason'].'[/edit]');
+				}
+				else{
+					$this->Comment->saveField('edit_reason','[edit]Last edit by [b]'.$this->Session->read('Auth.User.username').'[/b] because of: '.$this->data['Comment']['edit_reason'].'[/edit]');
+				}
 				$this->Session->setFlash(__('The Comment has been saved', true));
 				$this->redirect(array('controller'=>'matches','action' => 'view',$comment['Comment']['match_id']));
 			} else {
