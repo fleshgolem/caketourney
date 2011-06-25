@@ -39,7 +39,21 @@ class User extends AppModel {
 			'deleteQuery' => '',
 			'insertQuery' => ''
 		),
-		
+		'Team' => array(
+			'className' => 'Team',
+			'joinTable' => 'users_teams',
+			'foreignKey' => 'user_id',
+			'associationForeignKey' => 'team_id',
+			'unique' => true,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'finderQuery' => '',
+			'deleteQuery' => '',
+			'insertQuery' => ''
+		),
 	);
 	
 	
