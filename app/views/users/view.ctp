@@ -141,11 +141,11 @@
                 	<div style="float:left;width:168px;height:168px;padding:5px;text-align:center;">
 					 <?php if ($user['User']['division']=='Code A') 
                		{
-                    	echo $this->Html->image('CodeA-b2.png' , array('width' => '158', 'height' => '158'));
+                    	echo $this->Html->image('CodeA.png' , array('width' => '158', 'height' => '158'));
                 	}
 					if ($user['User']['division']=='Code S') 
 					{
-						echo $this->Html->image('CodeS-b2.png' , array('width' => '158', 'height' => '158'));
+						echo $this->Html->image('CodeS.png' , array('width' => '158', 'height' => '158'));
 					}
 					if ($user['User']['division']!='Code A' && $user['User']['division']!='Code S')
 					{

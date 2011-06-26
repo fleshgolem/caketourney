@@ -1,5 +1,13 @@
 <div class="teams view">
+
+
+
+
 <h2><?php  __('Team');?></h2>
+<?php echo $this->Html->link(__('View', true), array('action' => 'view', $team['Team']['id'])); ?>
+			<?php echo $this->Html->link(__('Edit', true), array('action' => 'edit', $team['Team']['id'])); ?>
+			<?php echo $this->Html->link(__('Delete', true), array('action' => 'delete', $team['Team']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $team['Team']['id'])); ?>	
+
 	<dl><?php $i = 0; $class = ' class="altrow"';?>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Id'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
