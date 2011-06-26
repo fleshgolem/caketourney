@@ -80,6 +80,14 @@
 				</div>
 				</div>
 			</div>
+            <div class="topmenuebox">
+				<div class="topmenuemaincontentMid">
+				<div class="containercontentbox">
+                	<?php echo $this->Html->link(__('Teams', true), array('controller' => 'teams', 'action' => 'index')); ?>
+					
+				</div>
+				</div>
+			</div>
 			<div class="topmenuebox">
 				<div class="topmenuemaincontentRight">
 				<div class="containercontentbox">
@@ -217,6 +225,21 @@
                         <?php
 						}
 						?>
+                     	
+					</div>
+					</div>
+				</div>
+                
+                
+                <div class="containerbox">
+					<div class="containerheader">
+                    <?php 
+						echo "Team Center";
+					?>
+					</div>
+					<div class="containercontent">
+					<div class="containercontentbox">
+                    	
                      	
 					</div>
 					</div>
