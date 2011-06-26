@@ -64,8 +64,13 @@
 			<div class="PostContentBox">
 				<div class="PostMainContentbox">
 				<?php
+				
 				$body = $this->Bbcode->doshortcode(strip_tags($post['Post']['body']));
-				echo ( $this->Text->autoLink($body));?>
+				echo ( $this->Text->autoLink($body));
+				$edit_reason = $this->Bbcode->doshortcode(strip_tags($post['Post']['edit_reason']));
+				echo ( $this->Text->autoLink($edit_reason));
+			
+				?>
 				</div>
 			</div>
 		</div>
@@ -133,6 +138,7 @@
 	</div>
 	<div class="PostFooter">
 		<div class="bottomaction"> <?php echo $this->Form->end(__('Submit', true));?> </div>
+        <div class="bottomaction"> <?php echo $this->Html->link('BBCode Help',array('controller'=>'pages','action'=>'bbcode'));?>   </p></div>
 		<p style="clear: both;">  </p>
 	</div>
 </div>

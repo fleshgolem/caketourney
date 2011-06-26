@@ -26,12 +26,49 @@ class SwissTournamentsController extends AppController {
 		//Check if user is participating
 		$this->SwissTournament->bindModel(array('hasOne' => array('UsersTournament')));
 		$in_tournament = $this->SwissTournament->find('first',array('conditions'=>array('SwissTournament.id'=>$id,'UsersTournament.user_id'=>$current_user)));
+		$tournament = $this->SwissTournament->find('first', array(
+							'conditions'=>array('id' => $id),
+							'contain'=>array(
+								
+								'UsersTournament',
+								'Round' => array(
+											'Match' => array(
+													'Player1' => array(
+															'fields' => array('id', 'username', 'race')
+													),
+													'Player2' => array(
+															'fields' => array('id', 'username', 'race')
+													)
+											)
+											
+											)
+								)
+							));
+		//debug($tournament);
 		$this->set('in_tournament', $in_tournament);
-		$this->set('tournament', $this->SwissTournament->read(null, $id));
-		$this->set('ranking', $this->SwissTournament->Ranking->find('all',array('conditions'=>array('Ranking.tournament_id'=>$id),'order'=>array('Ranking.match_points DESC','Ranking.oppscore DESC', 'Ranking.oppoppscore DESC'))));
+		$this->set('tournament', $tournament);
+		
 	}
 	function statistics($tournament_id = null) {
-		$tournament=$this->SwissTournament->read(null, $tournament_id);
+		
+		$tournament = $this->SwissTournament->find('first', array(
+							'conditions'=>array('id' => $tournament_id),
+							'contain'=>array(
+								
+								'UsersTournament',
+								'Round' => array(
+											'Match' => array(
+													'Player1' => array(
+															'fields' => array('id', 'username', 'race')
+													),
+													'Player2' => array(
+															'fields' => array('id', 'username', 'race')
+													)
+											)
+											
+											)
+								)
+							));
 		$current_user = $this->Auth->user('id');
 		$number_matches=0;
 		$TvP_array = array(); //0=total;win;loss;draw
@@ -312,7 +349,25 @@ class SwissTournamentsController extends AppController {
 		$this->SwissTournament->bindModel(array('hasOne' => array('UsersTournament')));
 		$in_tournament = $this->SwissTournament->find('first',array('conditions'=>array('SwissTournament.id'=>$id,'UsersTournament.user_id'=>$current_user)));
 		$this->set('in_tournament', $in_tournament);
-		$this->set('tournament', $this->SwissTournament->read(null, $id));
+		$tournament = $this->SwissTournament->find('first', array(
+							'conditions'=>array('id' => $id),
+							'contain'=>array(
+								
+								'UsersTournament',
+								'Round' => array(
+											'Match' => array(
+													'Player1' => array(
+															'fields' => array('id', 'username', 'race')
+													),
+													'Player2' => array(
+															'fields' => array('id', 'username', 'race')
+													)
+											)
+											
+											)
+								)
+							));
+		$this->set('tournament', $tournament);
 		$this->set('ranking', $this->SwissTournament->Ranking->find('all',array('conditions'=>array('Ranking.tournament_id'=>$id),'order'=>array('Ranking.match_points DESC','Ranking.oppscore DESC', 'Ranking.oppoppscore DESC'))));
 	}
 	
@@ -359,6 +414,12 @@ class SwissTournamentsController extends AppController {
 			$this->redirect(array('action'=>'index'));
 		}
 		if (!empty($this->data)) {
+			//debug($this->data['User']);
+			if ( $this->data['SwissTournament']['roundnumber']>count($this->data['User']['User']))
+			{
+				$this->Session->setFlash(__('Too many rounds for a swiss tournament. The maximum number of rounds for '.count($this->data['User']['User']).' player is '.(count($this->data['User']['User'])-1), true));
+				$this->redirect(array('controller'=> 'Tournaments','action' => 'view',$id));
+			}
 			
 			$this->data['SwissTournament']['current_round'] = 0;
 
@@ -379,6 +440,7 @@ class SwissTournamentsController extends AppController {
 			} else {
 				$this->Session->setFlash(__('The swiss tournament could not be saved. Please, try again.', true));
 			}
+			
 		}
 		if (empty($this->data)) {
 			$this->data = $this->SwissTournament->read(null, $id);

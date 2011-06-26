@@ -2,6 +2,8 @@
 App::import('helper','shortcode'); 
 class BbcodeHelper extends Shortcode{ 
 	var $helpers = array('Html');
+	
+	
     function __construct(){ 
         // Register the shortcodes 
         $this->add_shortcode(array( 
@@ -9,8 +11,24 @@ class BbcodeHelper extends Shortcode{
             array( 'i' , array(&$this, 'shortcode_italics') ), 
             array( 'u' , array(&$this, 'shortcode_underline') ), 
             array( 'url' , array(&$this, 'shortcode_url') ), 
-            array( 'img' , array(&$this, 'shortcode_image') ), 
-            array( 'quote' , array(&$this, 'shortcode_quote') ) 
+            //array( 'img' , array(&$this, 'shortcode_image') ),
+			array( 'edit' , array(&$this, 'shortcode_edit') ),  
+            array( 'quote' , array(&$this, 'shortcode_quote') ), 
+			array( 'qquote' , array(&$this, 'shortcode_qquote') ) , 
+            array( 'qqquote' , array(&$this, 'shortcode_qqquote') ), 
+			array( 'qqqquote' , array(&$this, 'shortcode_qqqquote') ) , 
+			array( 'red' , array(&$this, 'shortcode_red') ), 
+			array( 'blue' , array(&$this, 'shortcode_blue') ), 
+			array( 'green' , array(&$this, 'shortcode_green') ), 
+			array( 'yellow' , array(&$this, 'shortcode_yellow') ), 
+			array( 'orange' , array(&$this, 'shortcode_orange') ), 
+			array( 'Sans-Serif' , array(&$this, 'shortcode_sans_serif') ), 
+			array( 'Courier' , array(&$this, 'shortcode_courier') ), 
+			array( 'Comic-Sans' , array(&$this, 'shortcode_comic_sans') ), 
+			array( 'Times-New-Roman' , array(&$this, 'shortcode_times_new_roman') ), 
+			array( 'code' , array(&$this, 'shortcode_code') ), 
+			array( 'large' , array(&$this, 'shortcode_large') ), 
+			array( 'small' , array(&$this, 'shortcode_small') )
         )); 
     } 
      
@@ -68,15 +86,87 @@ class BbcodeHelper extends Shortcode{
     } 
 
     function shortcode_image( $atts = array(), $content = NULL ) { 
-        //return '<img src="' . $this->do_shortcode($content) . '" alt="" />'; 
+		return '<div style="background:url('.$content.')">s</div>';
+        //echo '<img " src="'.$content.'" />';
+		//echo '<img " src="http://th00.deviantart.com/fs12/300W/i/2006/263/6/9/Balrog_by_Ironshod.jpg" />';
 		//return '<em>' . $this->do_shortcode( $content ) . '</em>'; 
 		//return '<a href="' . $this->do_shortcode( $content ) . '">' . $this->do_shortcode( $content ) . '</a>'; 
-		return $this->Html->link("http://www.chachatelier.fr/programmation/images/mozodojo-original-image.jpg");
+		//return $this->Html->link("http://www.chachatelier.fr/programmation/images/mozodojo-original-image.jpg");
+		//$autolink->images($content);
     } 
 
     function shortcode_quote( $atts = array(), $content = NULL ) { 
-        return '<blockquote>' . $this->do_shortcode( $content ) . '</blockquote>'; 
+		
+        return '<div class="quote"><div class="PostMainContentbox">' . $this->do_shortcode( $content ) . '</div></div>'; 
     } 
-     
+     function shortcode_qquote( $atts = array(), $content = NULL ) { 
+		
+        return '<div class="quote"><div class="PostMainContentbox">' . $this->do_shortcode( $content ) . '</div></div>'; 
+    } 
+	 function shortcode_qqquote( $atts = array(), $content = NULL ) { 
+		
+        return '<div class="quote"><div class="PostMainContentbox">' . $this->do_shortcode( $content ) . '</div></div>'; 
+    } 
+	 function shortcode_qqqquote( $atts = array(), $content = NULL ) { 
+		
+        return '<div class="quote"><div class="PostMainContentbox">' . $this->do_shortcode( $content ) . '</div></div>'; 
+    } 
+	
+	function shortcode_red( $atts = array(), $content = NULL ) { 
+		
+        return '<font color="color:#f30302">' . $this->do_shortcode( $content ) . '</font>'; 
+    } 
+	
+	function shortcode_blue( $atts = array(), $content = NULL ) { 
+		
+        return '<font color="#39adff">' . $this->do_shortcode( $content ) . '</font>'; 
+    } 
+	
+	function shortcode_green( $atts = array(), $content = NULL ) { 
+		
+        return '<font color="#00C000">' . $this->do_shortcode( $content ) . '</font>'; 
+    }
+	
+	function shortcode_yellow( $atts = array(), $content = NULL ) { 
+		
+        return '<font color="#e2ca23">' . $this->do_shortcode( $content ) . '</font>'; 
+    }
+	
+	function shortcode_orange( $atts = array(), $content = NULL ) { 
+		
+        return '<font color="#ff6600">' . $this->do_shortcode( $content ) . '</font>'; 
+    }
+	function shortcode_sans_serif( $atts = array(), $content = NULL ) { 
+		
+        return '<font face="sans-serif">' . $this->do_shortcode( $content ) . '</font>'; 
+    }
+	function shortcode_courier( $atts = array(), $content = NULL ) { 
+		
+        return '<font face="Courier New">' . $this->do_shortcode( $content ) . '</font>'; 
+    }
+	function shortcode_comic_sans( $atts = array(), $content = NULL ) { 
+		
+        return '<font face="Comic Sans MS">' . $this->do_shortcode( $content ) . '</font>'; 
+    }
+	function shortcode_times_new_roman( $atts = array(), $content = NULL ) { 
+		
+        return '<font face="Times New Roman">' . $this->do_shortcode( $content ) . '</font>'; 
+    }
+	function shortcode_code( $atts = array(), $content = NULL ) { 
+		
+        return '<div class="quote"><div class="PostMainContentbox"><font face="Courier New">' .  $content  . '</font></div></div>'; 
+    }
+	function shortcode_large( $atts = array(), $content = NULL ) { 
+		
+        return '<font  size="5">' . $this->do_shortcode( $content ) . '</font>'; 
+    }
+	function shortcode_small( $atts = array(), $content = NULL ) { 
+		
+        return '<font  size="1">' . $this->do_shortcode( $content ) . '</font>'; 
+    }
+	 function shortcode_edit( $atts = array(), $content = NULL ) { 
+		
+        return '<div class="quote"><div class="PostMainContentbox">' . $this->do_shortcode( $content ) . '</div></div>'; 
+    } 
 } 
 ?>

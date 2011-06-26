@@ -65,7 +65,13 @@
 				<div class="PostMainContentbox">
 				<?php
 				$body = $this->Bbcode->doshortcode(strip_tags($message['Message']['body']));
-				echo ( $this->Text->autoLink($body));?>
+				echo ( $this->Text->autoLink($body));
+				
+				
+				
+				
+				?>
+                
 				</div>
 			</div>
 		</div>
@@ -99,23 +105,42 @@ if ( !$message['Message']['sender_id']||$message['Message']['sender_id']==$this-
         <div class="PostContent">
             <div class="PostContentBox">
                 <div class="PostMainContentbox">
+              
                 	
-                    <?php echo $this->Form->create('Message');
+                    <?php 
+					echo $this->Form->create('Message');
 					?>
                     <fieldset>
                     <legend><?php __('Send Reply'); ?></legend>   
                     <?php
                          
-                       
-                        echo $this->Form->input('body');
+                        $body = $this->Bbcode->doshortcode(strip_tags($message['Message']['body']));
+					    if($message['Message']['reply']==0){
+                        	echo $this->Form->input('body', array('value'=>'[quote]'.($message['Message']['body']).'[/quote]'));
+						}
+						if($message['Message']['reply']==1){
+                        	echo $this->Form->input('body', array('value'=>'[qquote]'.($message['Message']['body']).'[/qquote]'));
+						}
+						if($message['Message']['reply']==2){
+                        	echo $this->Form->input('body', array('value'=>'[qqquote]'.($message['Message']['body']).'[/qqquote]'));
+						}
+						if($message['Message']['reply']==3){
+                        	echo $this->Form->input('body', array('value'=>'[qqqquote]'.($message['Message']['body']).'[/qqqquote]'));
+						}
+						if($message['Message']['reply']>3){
+                        	echo $this->Form->input('body', array('value'=>($message['Message']['body'])));
+						}
+
                     ?>
                     </fieldset>
+                    
                 </div>
             </div>
             <p style="clear: both;"> </p>
         </div>
         <div class="PostFooter">
             <div class="bottomaction"><?php echo $this->Form->end(__('Submit', true));?> </div>
+            <div class="bottomaction"> <?php echo $this->Html->link('BBCode Help',array('controller'=>'pages','action'=>'bbcode'));?>   </p></div>
             <p style="clear: both;">  </p>
         </div>
     </div>

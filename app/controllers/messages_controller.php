@@ -21,7 +21,7 @@ class MessagesController extends AppController {
 			
 			if ($this->Message->save($this->data)) {
 				$this->Session->setFlash(__('The Message has been sent', true));
-				$this->redirect(array('action' => 'inbox'));
+				$this->redirect(array('action' => 'outbox'));
 			} else {
 				$this->Session->setFlash(__('The Message could not be sent. Please, try again.', true));
 			}
@@ -100,6 +100,7 @@ class MessagesController extends AppController {
 			$this->data['Message']['recipient_id'] = $reciver;
 			$this->data['Message']['date']= $date->format('Y-m-d H:i:s');
 			$this->data['Message']['read']= 0;
+			$this->data['Message']['reply']=$message['Message']['reply']+1;
 			$this->data['Message']['title']= 'RE: '.$message['Message']['title'];
 			$this->Message->save($this->data);
 			
@@ -107,7 +108,7 @@ class MessagesController extends AppController {
 			
 			if ($this->Message->save($this->data)) {
 				$this->Session->setFlash(__('The Message has been sent', true));
-				$this->redirect(array('action' => 'inbox'));
+				$this->redirect(array('action' => 'outbox'));
 			} else {
 				$this->Session->setFlash(__('The Message could not be sent. Please, try again.', true));
 			}
@@ -119,18 +120,21 @@ class MessagesController extends AppController {
 			if  ($message['Message']['recipient_id']!=$current_user AND $message['Message']['sender_id']!= $current_user)
 			{
 				$this->Session->setFlash(__('Access Denied', true));
-				$this->redirect(array('action' => 'index'));
+				$this->redirect(array('action' => 'inbox'));
 			}
 			if(!$id)
 			{
 				$this->Session->setFlash(__('Invalid Message', true));
-				$this->redirect(array('action' => 'index'));
+				$this->redirect(array('action' => 'inbox'));
 			}
 			
-			if($message['Message']['recipient_id']==$this->Session->read('Auth.User.id'));
+			if($message['Message']['recipient_id'] == $this->Session->read('Auth.User.id'))
 			{
 				$this->Message->id=$id;
+				
 				$this->Message->saveField('read',1);
+				
+				
 			}
 			
 			$this->data = $this->Message->read(null, $id);

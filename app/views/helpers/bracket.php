@@ -67,6 +67,138 @@ class BracketHelper extends AppHelper {
 <?php
 	}
 	
+	
+	function own1matchbox($player1,$player2,$player1_score,$player2_score,$match_id)
+	{
+	?>
+		<div class="matchbox">
+			<div class="namesbox">
+				<div class="owntopbox"> 
+					<?php
+					if ($player1!=null)
+						echo $this->Html->link(($player1['username']), array('controller' => 'matches', 'action' => 'view',$match_id));
+					else
+						echo $this->Html->link(('-'), array('controller' => 'matches', 'action' => 'view',$match_id));
+					?>
+				</div>
+				<div class="bottombox"> 
+					<?php
+					if ($player2!=null)
+						echo $this->Html->link(($player2['username']), array('controller' => 'matches', 'action' => 'view',$match_id));
+					else
+						echo $this->Html->link(('-'), array('controller' => 'matches', 'action' => 'view',$match_id));
+					?>
+				</div>
+			</div>
+    		<div class="scorebox">
+    			<div class="scoretop">
+					<?php
+					if ($player1_score!=null){
+						if ($player1_score>=$player2_score){?>
+                        	<div class="scorewin">
+							<?php echo $this->Html->link(($player1_score), array('controller' => 'matches', 'action' => 'view',$match_id));?>
+                            </div><?php
+						}
+						if ($player1_score<$player2_score){?>
+                        	
+							<?php echo $this->Html->link(($player1_score), array('controller' => 'matches', 'action' => 'view',$match_id));?>
+                            <?php
+						}
+					}
+					else
+						echo $this->Html->link(('-'), array('controller' => 'matches', 'action' => 'view',$match_id));
+					?>
+				</div>
+				<div class="scorebottom">
+					<?php
+					if ($player2_score!=null){
+						if ($player1_score<=$player2_score){?>
+                        	<div class="scorewin">
+							<?php echo $this->Html->link(($player2_score), array('controller' => 'matches', 'action' => 'view',$match_id));?>
+                            </div><?php
+						}
+						if ($player1_score>$player2_score){?>
+                        	
+							<?php echo $this->Html->link(($player2_score), array('controller' => 'matches', 'action' => 'view',$match_id));?>
+                            <?php
+						}
+					}
+					else
+						echo $this->Html->link(('-'), array('controller' => 'matches', 'action' => 'view',$match_id));
+					?>
+
+				</div>
+    		</div>
+		</div>
+<?php
+	}
+	
+	function own2matchbox($player1,$player2,$player1_score,$player2_score,$match_id)
+	{
+	?>
+		<div class="matchbox">
+			<div class="namesbox">
+				<div class="topbox"> 
+					<?php
+					if ($player1!=null)
+						echo $this->Html->link(($player1['username']), array('controller' => 'matches', 'action' => 'view',$match_id));
+					else
+						echo $this->Html->link(('-'), array('controller' => 'matches', 'action' => 'view',$match_id));
+					?>
+				</div>
+				<div class="ownbottombox"> 
+					<?php
+					if ($player2!=null)
+						echo $this->Html->link(($player2['username']), array('controller' => 'matches', 'action' => 'view',$match_id));
+					else
+						echo $this->Html->link(('-'), array('controller' => 'matches', 'action' => 'view',$match_id));
+					?>
+				</div>
+			</div>
+    		<div class="scorebox">
+    			<div class="scoretop">
+					<?php
+					if ($player1_score!=null){
+						if ($player1_score>=$player2_score){?>
+                        	<div class="scorewin">
+							<?php echo $this->Html->link(($player1_score), array('controller' => 'matches', 'action' => 'view',$match_id));?>
+                            </div><?php
+						}
+						if ($player1_score<$player2_score){?>
+                        	
+							<?php echo $this->Html->link(($player1_score), array('controller' => 'matches', 'action' => 'view',$match_id));?>
+                            <?php
+						}
+					}
+					else
+						echo $this->Html->link(('-'), array('controller' => 'matches', 'action' => 'view',$match_id));
+					?>
+				</div>
+				<div class="scorebottom">
+					<?php
+					if ($player2_score!=null){
+						if ($player1_score<=$player2_score){?>
+                        	<div class="scorewin">
+							<?php echo $this->Html->link(($player2_score), array('controller' => 'matches', 'action' => 'view',$match_id));?>
+                            </div><?php
+						}
+						if ($player1_score>$player2_score){?>
+                        	
+							<?php echo $this->Html->link(($player2_score), array('controller' => 'matches', 'action' => 'view',$match_id));?>
+                            <?php
+						}
+					}
+					else
+						echo $this->Html->link(('-'), array('controller' => 'matches', 'action' => 'view',$match_id));
+					?>
+
+				</div>
+    		</div>
+		</div>
+<?php
+	}
+	
+	
 	function spaceboxes($round)
 	{
 		//debug($round);

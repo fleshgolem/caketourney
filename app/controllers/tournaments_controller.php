@@ -131,7 +131,7 @@ class TournamentsController extends AppController {
 											)
 								)
 							));
-		$current_user = $this->Auth->user('id');
+		
 		$number_matches=0;
 		$TvP_array = array(); //0=total;win;loss;draw
 		$TvP_array[0]=0;
@@ -519,6 +519,38 @@ class TournamentsController extends AppController {
 		}
 		$this->set('tournament', $this->Tournament->read(null, $id));*/
 	}
+	
+	
+	function score($id = null) {
+		//redirect to right tourney type
+		if ($this->Tournament->field('current_round')==NULL)
+		{
+			$this->redirect(array('action' => 'view_signups',$id));
+		}
+		if ($this->Tournament->field('typeField') == 'KO' OR $this->Tournament->field('typeField') == 'SKO')
+		{
+			$this->redirect(array('controller'=> 'KOTournaments','action' => 'view',$id));
+		}
+		if ($this->Tournament->field('typeField') == 'Swiss')
+		{
+			$this->redirect(array('controller'=> 'SwissTournaments','action' => 'score',$id));
+		}
+		if ($this->Tournament->field('typeField') == 'DE')
+		{
+			$this->redirect(array('controller'=> 'DETournaments','action' => 'view',$id));
+		}
+		if ($this->Tournament->field('typeField') == 'SDE')
+		{
+			$this->redirect(array('controller'=> 'DETournaments','action' => 'view',$id));
+		}
+		/*if (!$id) {
+			$this->Session->setFlash(__('Invalid tournament', true));
+			$this->redirect(array('action' => 'index'));
+		}
+		$this->set('tournament', $this->Tournament->read(null, $id));*/
+	}
+	
+	
 	function view_signups($id)
 	{
 		$this->Tournament->id = $id;

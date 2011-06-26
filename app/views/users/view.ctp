@@ -141,11 +141,11 @@
                 	<div style="float:left;width:168px;height:168px;padding:5px;text-align:center;">
 					 <?php if ($user['User']['division']=='Code A') 
                		{
-                    	echo $this->Html->image('CodeA-b2.png' , array('width' => '158', 'height' => '158'));
+                    	echo $this->Html->image('CodeA.png' , array('width' => '158', 'height' => '158'));
                 	}
 					if ($user['User']['division']=='Code S') 
 					{
-						echo $this->Html->image('CodeS-b2.png' , array('width' => '158', 'height' => '158'));
+						echo $this->Html->image('CodeS.png' , array('width' => '158', 'height' => '158'));
 					}
 					if ($user['User']['division']!='Code A' && $user['User']['division']!='Code S')
 					{
@@ -166,7 +166,7 @@
                                         echo $this->Html->image('top1.png' , array('width' => '120', 'height' => '120'));
                                         ?>
                                      </div>
-								<?php echo $this->Html->link(('First ranked in '.$tournament_name[$i]),array('controller' => 'tournaments', 'action' => 'view',$tournament_id[$i]));?>
+								<?php echo $this->Html->link(('First ranked in '.$tournament_name[$i]),array('controller' => 'tournaments', 'action' => 'score',$tournament_id[$i]));?>
                                 </div>
 							<?php }
 							else{
@@ -177,7 +177,7 @@
                                         echo $this->Html->image('top3.png' , array('width' => '120', 'height' => '120'));
                                         ?>
                                      </div>
-									<?php echo $this->Html->link(('Top Three in '.$tournament_name[$i]),array('controller' => 'tournaments', 'action' => 'view',$tournament_id[$i]));
+									<?php echo $this->Html->link(('Top Three in '.$tournament_name[$i]),array('controller' => 'tournaments', 'action' => 'score',$tournament_id[$i]));
 									?>  </div> <?php
 								}
 								else
@@ -189,7 +189,7 @@
                                             echo $this->Html->image('top5.png' , array('width' => '120', 'height' => '120'));
                                             ?>
                                         </div>
-									 <?php	echo $this->Html->link(('Top Five in '.$tournament_name[$i]),array('controller' => 'tournaments', 'action' => 'view',$tournament_id[$i]));
+									 <?php	echo $this->Html->link(('Top Five in '.$tournament_name[$i]),array('controller' => 'tournaments', 'action' => 'score',$tournament_id[$i]));
 										?>  </div> <?php
 									}
 									else{
@@ -200,7 +200,7 @@
                                                 echo $this->Html->image('top10.png' , array('width' => '120', 'height' => '120'));
                                                 ?>
                                             </div>
-									 		<?php echo $this->Html->link(('Top Ten in '.$tournament_name[$i]),array('controller' => 'tournaments', 'action' => 'view',$tournament_id[$i]));
+									 		<?php echo $this->Html->link(('Top Ten in '.$tournament_name[$i]),array('controller' => 'tournaments', 'action' => 'score',$tournament_id[$i]));
 											?>  </div> <?php
 										}
 									}
@@ -275,6 +275,71 @@
         <p style="clear: both;">  </p>
 	</div>
 </div>
+
+
+<div class="PostBox">
+<div class="ThreadTitleBox">
+	<div class="ThreadTitleContent">
+		<h3><?php echo $user['User']['username']; ?>'s Teams </h3>
+	</div> 
+
+	<p style="clear: both;">  </p>  
+</div>
+</div>
+
+
+<div class="PostBox"> 
+	<div class="PostContent">
+		
+			<div class="PostContentBox">
+				
+                	<table cellpadding="0" cellspacing="0">
+                    <tr>
+                        <th>Name </th>
+                        <th>Team Type</th>
+                        <th>Elo</th>
+                        <?php 
+						if($this->Session->read('Auth.User.id')==$user['User']['id']){?>
+                        <th></th>
+                        <?}?>
+                    </tr>
+                     
+                    <?php 
+					foreach ($teams as $teams){
+						foreach ($teams['Team'] as $team){?>
+                    
+                        <tr>
+                            <td><?php echo $this->Html->link(__($team['name'], true), array('controller' => 'teams','action' => 'view', $team['id'])); ?> &nbsp;</td>
+                            <td><?php echo $team['team_type']; ?>&nbsp;</td>
+                            <td><?php echo $team['elo']; ?>&nbsp;</td>
+                            <?php 
+								if($this->Session->read('Auth.User.id')==$user['User']['id']){?>
+                            <td width="25%"><?php 
+								
+								echo $this->Html->link('Leave Team',array('controller' => 'teams','action'=>'leave',$team['id']), null, sprintf(__('Are you sure you want to leave the team?', true), $team['id']))?></td>
+                        </tr>
+                        <?}?>
+                        <?}?>
+                    <?}?>
+                </table>
+                     <p style="clear: both;">  </p>
+				
+			</div>
+		
+		
+		
+	</div>
+                            
+        <div class="PostFooter">
+            
+            <div class="bottomaction">
+            
+        </div>
+       
+        <p style="clear: both;">  </p>
+	</div>
+</div>
+
 
 
 <div class="PostBox">

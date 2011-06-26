@@ -4,6 +4,7 @@
 class User extends AppModel {
 	var $name = 'User';
 	var $actsAs = array(
+					'Containable',
                     'FileUpload.FileUpload' => array(
                         'uploadDir' => 'img/avatar',
                         'forceWebroot' => true,  //if false, files will be upload to the exact path of uploadDir
@@ -39,7 +40,21 @@ class User extends AppModel {
 			'deleteQuery' => '',
 			'insertQuery' => ''
 		),
-		
+		'Team' => array(
+			'className' => 'Team',
+			'joinTable' => 'users_teams',
+			'foreignKey' => 'user_id',
+			'associationForeignKey' => 'team_id',
+			'unique' => true,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'finderQuery' => '',
+			'deleteQuery' => '',
+			'insertQuery' => ''
+		),
 	);
 	
 	

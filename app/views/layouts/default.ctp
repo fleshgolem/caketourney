@@ -80,6 +80,14 @@
 				</div>
 				</div>
 			</div>
+            <div class="topmenuebox">
+				<div class="topmenuemaincontentMid">
+				<div class="containercontentbox">
+                	<?php echo $this->Html->link(__('Teams', true), array('controller' => 'teams', 'action' => 'index')); ?>
+					
+				</div>
+				</div>
+			</div>
 			<div class="topmenuebox">
 				<div class="topmenuemaincontentRight">
 				<div class="containercontentbox">
@@ -138,10 +146,19 @@
                         <?php
 						}
 						
+						if ($this->Session->check('Auth.User')){?>
+                        <div class="menuebox">
+                    	<?php
+							echo $this->Html->link(__('My User Page', true), array('controller' => 'users', 'action' => 'view',$this->Session->read('Auth.User.id'))); 
+							?>
+                        </div>
+                        <?php
+						}
+						
                     	if ($this->Session->check('Auth.User')){?>
                         <div class="menuebox">
                     	<?php
-							echo $this->Html->link(__('Account Settings', true), array('controller' => 'users', 'action' => 'account')); 
+							echo $this->Html->link(__('My Account Settings', true), array('controller' => 'users', 'action' => 'account')); 
 							?>
                         </div>
                         <?php
@@ -206,6 +223,40 @@
 							?>
                         </div>
                         <?php
+						}
+						?>
+                     	
+					</div>
+					</div>
+				</div>
+                
+                
+                <div class="containerbox">
+					<div class="containerheader">
+                    <?php 
+						echo "Team Center";
+					?>
+					</div>
+					<div class="containercontent">
+					<div class="containercontentbox">
+                    	<?php
+                    	if ($this->Session->check('Auth.User')){?>
+                        <div class="menuebox">
+                    	<?php
+                  			
+							echo $this->Html->link(__($this->element('open_invitations').' Open Invitations', true), array('controller' => 'invitations', 'action' => 'index'));?>
+						</div>
+						<?php
+						}
+						?>
+                        <?php
+                    	if ($this->Session->check('Auth.User')){?>
+                        <div class="menuebox">
+                    	<?php
+                  
+							echo $this->Html->link(__('My Teams', true), array('controller' => 'teams', 'action' => 'my_teams'));?>
+						</div>
+						<?php
 						}
 						?>
                      	
@@ -289,6 +340,31 @@
 			</div><!-- end leftcol -->
 				
 			<div id="rightcol"><!-- begin rightcol -->
+            	<div class="containerbox">
+					<div class="containerheader">
+					Statistic Center
+					</div>
+					<div class="containercontent">
+					<div class="containercontentbox">
+					
+					<?php	
+                    	if ($this->Session->check('Auth.User')){?>
+                        <div class="menuebox">
+                    	<?php
+							
+							echo $this->Html->link(__(('My Statistics'), true), array('controller' => 'users', 'action' => 'statistics',$this->Session->read('Auth.User.id'))); 
+							?>
+                        </div>
+                        <?php
+						}
+						?>
+						<div class="menuebox">
+							<?php echo $this->Html->link(__('Global Statistics', true), array('controller' => 'tournaments', 'action' => 'statistics')); ?>
+                        </div>
+					</div>
+					</div>
+				</div>
+                
 				<div class="containerbox">
 					<div class="containerheader">
 					Upcoming Matches
@@ -320,30 +396,7 @@
 					</div>
 					</div>
 				</div>
-				<div class="containerbox">
-					<div class="containerheader">
-					Statistic Center
-					</div>
-					<div class="containercontent">
-					<div class="containercontentbox">
-					
-					<?php	
-                    	if ($this->Session->check('Auth.User')){?>
-                        <div class="menuebox">
-                    	<?php
-							
-							echo $this->Html->link(__(('My Statistics'), true), array('controller' => 'users', 'action' => 'statistics',$this->Session->read('Auth.User.id'))); 
-							?>
-                        </div>
-                        <?php
-						}
-						?>
-						<div class="menuebox">
-							<?php echo $this->Html->link(__('Global Statistics', true), array('controller' => 'tournaments', 'action' => 'statistics')); ?>
-                        </div>
-					</div>
-					</div>
-				</div>
+				
 			</div><!-- end righttcol -->
 			
 		<div id="centercol"><!-- begin centercol -->

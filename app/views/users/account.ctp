@@ -19,6 +19,7 @@
 				echo $this->Form->input('password_old',     array('label' => 'Old password', 'type' => 'password', 'autocomplete' => 'off'));
 				echo $this->Form->input('password_confirm', array('label' => 'New password', 'type' => 'password', 'autocomplete' => 'off'));
 				echo $this->Form->input('password',         array('label' => 'Re-enter new password', 'type' => 'password', 'autocomplete' => 'off'));
+				echo $this->Form->input('email', array('label' => 'Email', 'default' => $current_user['User']['email']));
 				echo $this->Form->input('bnetaccount', array('label' => 'Battle.net Account', 'default' => $current_user['User']['bnetaccount']));
 				echo $this->Form->input('bnetcode', array('label' => 'Battle.net Character Code', 'default' => $current_user['User']['bnetcode']));
 				echo $this->Form->input('race', array('options' => array("Terran","Protoss","Zerg","Random",), 'selected' => $current_user['User']['race']));

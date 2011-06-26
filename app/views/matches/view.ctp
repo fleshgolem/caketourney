@@ -36,6 +36,8 @@
 					<div class="spacebox2em"> </div>
 					<div class="matchbox">
                         <div class="namesbox">
+                        <?php
+                        if($match['Match']['player1_id']!=$this->Session->read('Auth.User.id')){?>
                             <div class="topbox">
                              <?php
 								if ($match['Player1']['username']!=null){
@@ -45,6 +47,22 @@
 									?> <a href=""> <?php echo "-";?> </a><?php }
 								?>
                              </div>
+                             <?php } ?>
+                           <?php
+                        if($match['Match']['player1_id']==$this->Session->read('Auth.User.id')){?>
+                            <div class="owntopbox">
+                             <?php
+								if ($match['Player1']['username']!=null){
+                              		echo $this->Html->link(__($match['Player1']['username'], true), array('controller' => 'users', 'action' => 'view', $match['Player1']['id']));
+								}
+								else{
+									?> <a href=""> <?php echo "-";?> </a><?php }
+								?>
+                             </div>
+                             <?php } ?>
+                             
+                            <?php
+                       	 if($match['Match']['player2_id']!=$this->Session->read('Auth.User.id')){?>  
                             <div class="bottombox"> 
                             <?php
 								if ($match['Player2']['username']!=null){
@@ -55,6 +73,21 @@
 								?>
 							
                             </div>
+                           <?php } ?>
+                           
+                           <?php
+                       	 if($match['Match']['player2_id']==$this->Session->read('Auth.User.id')){?>  
+                            <div class="ownbottombox"> 
+                            <?php
+								if ($match['Player2']['username']!=null){
+                              		echo $this->Html->link(__($match['Player2']['username'], true), array('controller' => 'users', 'action' => 'view', $match['Player2']['id']));
+								}
+								else{
+									?> <a href=""> <?php echo "-";?> </a><?php }
+								?>
+							
+                            </div>
+                           <?php } ?>
                         </div>
                         <div class="scorebox">
                             <div class="scoretop"> 
@@ -281,7 +314,9 @@
 				<div class="PostMainContentbox">
 				
 				<?php $body = $this->Bbcode->doShortcode(strip_tags($comment['Comment']['body']));
-				echo ( $this->Text->autoLink($body));?>
+				echo ( $this->Text->autoLink($body));
+				$edit_reason = $this->Bbcode->doShortcode(strip_tags($comment['Comment']['edit_reason']));
+				echo ( $this->Text->autoLink($edit_reason));?>
 				</div>
 			</div>
 		</div>
@@ -335,7 +370,7 @@ if ($this->Session->read('Auth.User'))
 		</div>
 		<div class="PostFooter">
 			<div class="bottomaction"> <?php echo $this->Form->end(__('Submit', true));?>   </p></div>
-		   
+		   <div class="bottomaction"> <?php echo $this->Html->link('BBCode Help',array('controller'=>'pages','action'=>'bbcode'));?>   </p></div>
 		<p style="clear: both;">  </p>
 	</div>
 </div>

@@ -714,187 +714,6 @@ div.code-coverage-results span.result-good {
 	color: #0a0;
 }
 
-/****** round 1 ******/
-.round1-top, .round1-bottom {
-	float: left;
-	width: 150px;
-	height: 2em;
-}
-
-.round1-top {
-	line-height: 2.5em;
-}
-
-.round2-topwrap .round1-bottom {
-	width: 149px;
-	border-top: 1px solid #000;
-	border-right: 1px solid #000;
-}
-
-.round2-bottomwrap .round1-top {
-	width: 149px;
-	border-bottom: 1px solid #000;
-	border-right: 1px solid #000;
-}
-
-/****** round 2 ******/
-
-.round2-top, .round2-bottom {
-	float: right;
-	width: 150px;
-	height: 4em;
-}
-
-.round2-top {
-	line-height: 6.5em;
-}
-
-
-.round3-topwrap .round2-bottom {
-	width: 149px;
-	border-top: 1px solid #000;
-	border-right: 1px solid #000;
-}
-
-.round3-bottomwrap .round2-top {
-	width: 149px;
-	border-bottom: 1px solid #000;
-	border-right: 1px solid #000;
-}
-
-.tournament4-wrap .round2-top {
-	border-bottom: 1px solid #000;
-}
-
-.round2-topwrap, .round2-bottomwrap {
-	float: left;
-	width: 300px;
-	height: 4em;
-}
-
-/****** round 3 ******/
-
-.round3-top, .round3-bottom {
-	float: right;
-	width: 150px;
-	height: 8em;
-}
-
-.round3-top {
-	line-height: 14.5em;
-}
-
-.round4-topwrap .round3-bottom {
-	width: 149px;
-	border-top: 1px solid #000;
-	border-right: 1px solid #000;
-}
-
-.round4-bottomwrap .round3-top {
-	width: 149px;
-	border-bottom: 1px solid #000;
-	border-right: 1px solid #000;
-}
-
-.tournament8-wrap .round3-top {
-	border-bottom: 1px solid #000;
-}
-
-.round3-topwrap, .round3-bottomwrap, .tournament4-wrap {
-	float: left;
-	width: 450px;
-	height: 8em;
-}
-
-/****** round 4 ******/
-
-.round4-top, .round4-bottom {
-	float: right;
-	width: 150px;
-	height: 16em;
-}
-
-.round4-top {
-	line-height: 30.5em;
-}
-
-
-.round5-topwrap .round4-bottom {
-	width: 149px;
-	border-top: 1px solid #000;
-	border-right: 1px solid #000;
-}
-
-.round5-bottomwrap .round4-top {
-	width: 149px;
-	border-bottom: 1px solid #000;
-	border-right: 1px solid #000;
-}
-
-.round4-topwrap, .round4-bottomwrap, .tournament8-wrap {
-	float: left;
-	width: 600px;
-}
-
-.tournament16-wrap .round4-top {
-	border-bottom: 1px solid #000;
-}
-
-/****** round 5 ******/
-
-.round5-top, .round5-bottom {
-	float: right;
-	width: 150px;
-	height: 32em;
-}
-
-.round5-top {
-	line-height: 62.5em;
-}
-
-.tournament32-wrap .round5-top {
-	border-bottom: 1px solid #000;
-}
-
-.round5-topwrap, .round5-bottomwrap, .tournament16-wrap {
-	float: left;
-	width: 750px;
-}
-
-/****** round 6 ******/
-
-.round6-top, .round6-bottom {
-	float: right;
-	width: 150px;
-	height: 32em;
-}
-
-.tournament32-wrap {
-	float: left;
-	width: 900px;
-}
-
-/****** styles for the winner column ******/
-.winner3, .winner4, .winner5, .winner6 {
-	font-weight: bold;
-	font-style: italic;
-}
-
-.winner3 {
-	line-height: 8em;
-}
-
-.winner4 {
-	line-height: 16em;
-}
-
-.winner5 {
-	line-height: 32em;
-}
-
-.winner6 {
-	line-height: 64em;
-}
 
 
 /**  topbox bottombox scoretop scorebottom  **/
@@ -959,7 +778,9 @@ div.scorebox {
 
 
 div.topbox,
-div.bottombox {
+div.bottombox,
+div.owntopbox,
+div.ownbottombox {
 	width: 150px;
 	height: 2em;
 }
@@ -1009,6 +830,8 @@ div.scorebottom li {
 }
 div.topbox  a,
 div.bottombox a,
+div.owntopbox  a,
+div.ownbottombox a,
 div.scoretop  a,
 div.scorebottom a,
 div.topboxBIG  a,
@@ -1031,8 +854,10 @@ div.scorebottomBIG a:hover {
 }
 
 div.topbox a,
+div.owntopbox a,
 td.topbox a,
 div.bottombox a,
+div.ownbottombox a,
 td.bottombox a,
 div.topboxBIG a,
 td.topboxBIG a,
@@ -1049,6 +874,8 @@ td.bottomboxBIG a {
 	text-shadow: #555 0px 1px 0px;
 	min-width: 0;
 }
+
+
 
 div.topboxBIG a,
 div.bottomboxBIG a {
@@ -1067,6 +894,15 @@ td.bottomboxBIG a:hover{
 /*	background: -webkit-gradient(linear, left top, left bottom, from(#BC7E62), to(#CEA18D));
 	background: -moz-linear-gradient(top,#BC7E62, #CEA18D);*/
 }
+
+div.owntopbox a:hover,
+div.ownbottombox a:hover
+{
+	background: #8998af;
+/*	background: -webkit-gradient(linear, left top, left bottom, from(#BC7E62), to(#CEA18D));
+	background: -moz-linear-gradient(top,#BC7E62, #CEA18D);*/
+}
+
 
 div.scoretop a,
 td.scoretop a,
@@ -1145,6 +981,29 @@ td.scorebottomBIG a {
 	filter:	progid:DXImageTransform.Microsoft.gradient(startColorstr=#767676,endColorstr=#4f4f4f ) 
 	-ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr=#767676,endColorstr=#4f4f4f)";
 }
+
+div.owntopbox  a {
+	-moz-border-radius-topleft:8px;
+	-khtml-border-top-left-radius:8px;
+	-webkit-border-radius-topleft:8px;
+	border-radius-topleft:8px;
+	background: -webkit-gradient(linear, left top, left bottom, from(#7490bf), to(#6a86b4));
+	background: -moz-linear-gradient(top,  #7490bf,  #6a86b4);
+	filter:	progid:DXImageTransform.Microsoft.gradient(startColorstr=#7490bf,endColorstr=#6a86b4 ) 
+	-ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr=#7490bf,endColorstr=#6a86b4)";
+}
+
+div.ownbottombox  a {
+	-moz-border-radius-bottomleft:8px;
+	-khtml-border-bottom-left-radius:8px;
+	-webkit-border-radius-bottomleft:8px;
+	border-radius-topright:8px;
+	background: -webkit-gradient(linear, left top, left bottom, from(#6985b3), to(#5d79a7));
+	background: -moz-linear-gradient(top,  #6985b3,  #5d79a7);
+	filter:	progid:DXImageTransform.Microsoft.gradient(startColorstr=#6985b3,endColorstr=#5d79a7 ) 
+	-ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr=#6985b3,endColorstr=#5d79a7)";
+}
+
 
 div.scorewin a{
 	background: -webkit-gradient(linear, left top, left bottom, from(#5b88d2), to(#2c6bd0));
@@ -1362,7 +1221,7 @@ div.menuebox {
 
 div.topmenuewrapper {
 	position:relative;
-	width: 800px;
+	width: 1000px;
     margin: 0px auto;
 	
 }
@@ -1561,7 +1420,7 @@ div.rightBoxSmall {
 	width: 65%;
 	float:left;
 	padding: 12px 5px;
-	border-left:1px solid #000000;
+	/*border-left:1px solid #000000;*/
 }
 
 div.PostContentBox {
@@ -1586,6 +1445,7 @@ div.PostUserContentBox {
 	-khtml-border-radius:4px;
 	-webkit-border-radius:4px;
 	border-radius:4px;
+	
 }
 
 div.PostChartContentBox {
@@ -1920,4 +1780,16 @@ div.MessageRead a:hover {
 	color: #333;
 	text-decoration:none;
 	text-decoration: underline;
+}
+div.quote{
+	background: -webkit-gradient(linear, left top, left bottom, from(#eaeaea), to(#d3d4d5));
+	background: -moz-linear-gradient(top,  #eaeaea,  #d3d4d5);
+	filter:	progid:DXImageTransform.Microsoft.gradient(startColorstr=#eaeaea,endColorstr=#d3d4d5 ) 
+	-ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr=#eaeaea,endColorstr=#d3d4d5)";
+	padding: 5px 0px;
+	-moz-border-radius:4px;
+	-khtml-border-radius:4px;
+	-webkit-border-radius:4px;
+	border-radius:4px;
+	
 }

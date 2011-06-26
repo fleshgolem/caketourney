@@ -131,6 +131,7 @@ class UsersController extends AppController {
 		
 		if (!empty($this->data) && empty($this->data['User']['password'] )) {
            	//debug($this->data);
+			$this->User->saveField('email', $this->data['User']['email']);
 			$this->User->saveField('bnetaccount', $this->data['User']['bnetaccount']);
 			$this->User->saveField('bnetcode', $this->data['User']['bnetcode']);
 			$this->User->saveField('race', $this->data['User']['race']);
@@ -146,6 +147,7 @@ class UsersController extends AppController {
 			//debug($this->data);
             $password = $this->Auth->password($this->data['User']['password']);
             $this->User->saveField('password', $password);
+			$this->User->saveField('email', $this->data['User']['email']);
 			$this->User->saveField('bnetaccount', $this->data['User']['bnetaccount']);
 			$this->User->saveField('bnetcode', $this->data['User']['bnetcode']);
 			$this->User->saveField('race', $this->data['User']['race']);
@@ -281,6 +283,18 @@ class UsersController extends AppController {
 		$this->set('secondplace_array', $secondplace_array);
 		$this->set('firstplace_tournamentid_array', $firstplace_tournamentid_array);
 		$this->set('secondplace_tournamentid_array', $secondplace_tournamentid_array);
+		
+		$teams = $this->User->find('all', array(
+							'conditions'=>array('User.id'=>$id),
+							'contain'=>array(
+								
+								'Team'=> array('fields' => array('id', 'name', 'team_type', 'elo')),
+								
+								
+								)
+							));
+		$this->set('teams', $teams);
+		
 	}
 	
 	function statistics($id = null) {

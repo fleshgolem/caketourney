@@ -19,7 +19,7 @@
 ?>
 <p>Dear <?php echo $User['User']['username'] ?>,</p>
 <p>A new post has been added. Read the post at:
-<a href="http://<?php echo $_SERVER['SERVER_NAME'].'/caketourney/threads/view/'.$thread_title ?>"><?php echo $thread_title ?></a> </p>
+<a href="http://<?php echo $_SERVER['SERVER_NAME'].'/caketourney/threads/view/'.$thread_id ?>"><?php echo $thread_title ?></a> </p>
 													 
 <p>To unsubscribe from this automated message, change you account settings at:
 <a href="http://<?php echo $_SERVER['SERVER_NAME'].'/caketourney/users/account/' ?>">Account Settings</a> </p>

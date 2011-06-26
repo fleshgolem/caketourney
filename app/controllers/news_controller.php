@@ -87,7 +87,13 @@ class NewsController extends AppController {
 			$this->redirect(array('action' => 'index'));
 		}
 		if (!empty($this->data)) {
-			if ($this->News->save($this->data)) {
+			if ($this->News->saveField('body',$this->data['News']['body']) && $this->News->saveField('title',$this->data['News']['title'])) {
+				if($this->Session->read('Auth.User.admin')){
+					$this->News->saveField('edit_reason','[edit]Last edit by [b][blue]'.$this->Session->read('Auth.User.username').'[/blue][/b] because of: '.$this->data['News']['edit_reason'].'[/edit]');
+				}
+				else{
+					$this->News->saveField('edit_reason','[edit]Last edit by [b]'.$this->Session->read('Auth.User.username').'[/b] because of: '.$this->data['News']['edit_reason'].'[/edit]');
+				}
 				$this->Session->setFlash(__('The news has been saved', true));
 				$this->redirect(array('action' => 'index'));
 			} else {
