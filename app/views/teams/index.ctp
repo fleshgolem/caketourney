@@ -52,6 +52,9 @@
  |
 		<?php echo $this->Paginator->next(__('next', true) . ' >>', array(), null, array('class' => 'disabled'));?>
         </div>
+        <div class="bottomaction">
+		<?php echo ($this->Html->Link('New Team', array('action' => 'add')));?>
+    </div>
 		<p style="clear: both;">  </p>
 	</div>
 </div>	

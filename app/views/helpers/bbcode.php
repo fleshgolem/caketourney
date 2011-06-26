@@ -1,7 +1,7 @@
 <?php  
 App::import('helper','shortcode'); 
 class BbcodeHelper extends Shortcode{ 
-	var $helpers = array('Html', 'Autolink');
+	var $helpers = array('Html');
 	
 	
     function __construct(){ 

@@ -239,7 +239,16 @@
 					</div>
 					<div class="containercontent">
 					<div class="containercontentbox">
-                    	
+                    	<?php
+                    	if ($this->Session->check('Auth.User')){?>
+                        <div class="menuebox">
+                    	<?php
+                  
+							echo $this->Html->link(__('My Teams', true), array('controller' => 'teams', 'action' => 'my_teams'));?>
+						</div>
+						<?php
+						}
+						?>
                      	
 					</div>
 					</div>
