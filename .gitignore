@@ -1,5 +1,7 @@
 app/config/database.php
 app/webroot/files
+app/webroot/img/avatar
+app/webroot/img/teamlogo
 /app/tmp/cache/models/cake_model_default_posts
 /app/tmp/cache/models/cake_model_default_rankings
 /app/tmp/cache/models/cake_model_default_replays
