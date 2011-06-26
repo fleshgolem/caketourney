@@ -130,7 +130,7 @@
                 //Only show edit and delete if in team
                 if($in_team)
 				{
-					echo $this->Html->link('Leave Team',array('action'=>'leave',$team['Team']['id']));
+					echo $this->Html->link('Leave Team',array('action'=>'leave',$team['Team']['id']), null, sprintf(__('Are you sure you want to leave the team?', true), $team['Team']['id']));
 			}?>
         </div>
         
@@ -172,7 +172,7 @@
 						foreach ($members['User'] as $user){?>
                     
                         <tr>
-                            <td><?php echo $this->Html->link(__($user['username'], true), array('action' => 'view', $user['id'])); ?> &nbsp;</td>
+                            <td><?php echo $this->Html->link(__($user['username'], true), array('controller' => 'users','action' => 'view', $user['id'])); ?> &nbsp;</td>
                             <td><?php echo $user['elo']; ?>&nbsp;</td>
                            	<td><?php echo $this->Race->small_img($user['race']); ?>&nbsp;</td>
                             <td><?php echo $user['division']; ?>&nbsp;</td>

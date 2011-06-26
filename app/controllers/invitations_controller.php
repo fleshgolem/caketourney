@@ -60,9 +60,9 @@ class InvitationsController extends AppController {
 			if($this->Invitation->Team->UsersTeams->save ($this->data))
 			{
 				$this->Session->setFlash('Invitation accepted!');
-				//$this->redirect(array('controller'=>'teams','action'=>'view', $this->data['UsersTeams']['team_id']));
+				$this->redirect(array('controller'=>'teams','action'=>'view', $this->data['UsersTeams']['team_id']));
 			}
-			//$this->redirect(array('action'=>'index'));
+			$this->redirect(array('action'=>'index'));
 		}
 		
 		

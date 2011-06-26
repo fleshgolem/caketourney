@@ -280,6 +280,71 @@
 <div class="PostBox">
 <div class="ThreadTitleBox">
 	<div class="ThreadTitleContent">
+		<h3><?php echo $user['User']['username']; ?>'s Teams </h3>
+	</div> 
+
+	<p style="clear: both;">  </p>  
+</div>
+</div>
+
+
+<div class="PostBox"> 
+	<div class="PostContent">
+		
+			<div class="PostContentBox">
+				
+                	<table cellpadding="0" cellspacing="0">
+                    <tr>
+                        <th>Name </th>
+                        <th>Team Type</th>
+                        <th>Elo</th>
+                        <?php 
+						if($this->Session->read('Auth.User.id')==$user['User']['id']){?>
+                        <th></th>
+                        <?}?>
+                    </tr>
+                     
+                    <?php 
+					foreach ($teams as $teams){
+						foreach ($teams['Team'] as $team){?>
+                    
+                        <tr>
+                            <td><?php echo $this->Html->link(__($team['name'], true), array('controller' => 'teams','action' => 'view', $team['id'])); ?> &nbsp;</td>
+                            <td><?php echo $team['team_type']; ?>&nbsp;</td>
+                            <td><?php echo $team['elo']; ?>&nbsp;</td>
+                            <?php 
+								if($this->Session->read('Auth.User.id')==$user['User']['id']){?>
+                            <td width="25%"><?php 
+								
+								echo $this->Html->link('Leave Team',array('controller' => 'teams','action'=>'leave',$team['id']), null, sprintf(__('Are you sure you want to leave the team?', true), $team['id']))?></td>
+                        </tr>
+                        <?}?>
+                        <?}?>
+                    <?}?>
+                </table>
+                     <p style="clear: both;">  </p>
+				
+			</div>
+		
+		
+		
+	</div>
+                            
+        <div class="PostFooter">
+            
+            <div class="bottomaction">
+            
+        </div>
+       
+        <p style="clear: both;">  </p>
+	</div>
+</div>
+
+
+
+<div class="PostBox">
+<div class="ThreadTitleBox">
+	<div class="ThreadTitleContent">
 		<h3><?php echo $user['User']['username']; ?>'s Recent Matches </h3>
 	</div> 
 

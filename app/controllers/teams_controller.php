@@ -44,7 +44,7 @@ class TeamsController extends AppController {
 		$leader_id = $this->Team->field('leader_id');
 		if($leader_id == $this->Auth->user('id'))
 		{
-			$this->Session->setFlash(__('Cannot leave as leader', true));
+			$this->Session->setFlash(__('Cannot leave as teamleader', true));
 			$this->redirect(array('action' => 'view', $id));
 		}
 		$this->Team->bindModel(array('hasMany'=>array('UsersTeams')));

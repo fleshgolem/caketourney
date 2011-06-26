@@ -283,6 +283,18 @@ class UsersController extends AppController {
 		$this->set('secondplace_array', $secondplace_array);
 		$this->set('firstplace_tournamentid_array', $firstplace_tournamentid_array);
 		$this->set('secondplace_tournamentid_array', $secondplace_tournamentid_array);
+		
+		$teams = $this->User->find('all', array(
+							'conditions'=>array('User.id'=>$id),
+							'contain'=>array(
+								
+								'Team'=> array('fields' => array('id', 'name', 'team_type', 'elo')),
+								
+								
+								)
+							));
+		$this->set('teams', $teams);
+		
 	}
 	
 	function statistics($id = null) {
