@@ -2,6 +2,7 @@
 class Team extends AppModel {
 	var $name = 'Team';
 	var $actsAs = array(
+					'Containable',
                     'FileUpload.FileUpload' => array(
                         'uploadDir' => 'img/teamlogo',
                         'forceWebroot' => true,  //if false, files will be upload to the exact path of uploadDir

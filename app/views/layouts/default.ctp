@@ -243,6 +243,16 @@
                     	if ($this->Session->check('Auth.User')){?>
                         <div class="menuebox">
                     	<?php
+                  			
+							echo $this->Html->link(__($this->element('open_invitations').' Open Invitations', true), array('controller' => 'invitations', 'action' => 'index'));?>
+						</div>
+						<?php
+						}
+						?>
+                        <?php
+                    	if ($this->Session->check('Auth.User')){?>
+                        <div class="menuebox">
+                    	<?php
                   
 							echo $this->Html->link(__('My Teams', true), array('controller' => 'teams', 'action' => 'my_teams'));?>
 						</div>

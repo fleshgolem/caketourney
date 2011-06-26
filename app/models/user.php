@@ -4,6 +4,7 @@
 class User extends AppModel {
 	var $name = 'User';
 	var $actsAs = array(
+					'Containable',
                     'FileUpload.FileUpload' => array(
                         'uploadDir' => 'img/avatar',
                         'forceWebroot' => true,  //if false, files will be upload to the exact path of uploadDir

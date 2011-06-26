@@ -1420,7 +1420,7 @@ div.rightBoxSmall {
 	width: 65%;
 	float:left;
 	padding: 12px 5px;
-	border-left:1px solid #000000;
+	/*border-left:1px solid #000000;*/
 }
 
 div.PostContentBox {
