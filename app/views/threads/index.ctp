@@ -32,7 +32,7 @@
 		}
 	?>
 	<tr<?php echo $class;?>>
-    	<td ><?php if($thread['Thread']['icon']!='default') {echo $this->Html->image('/img/thread/'.$thread['Thread']['icon'], array('width' => '25', 'height' => '25')); } ?></td>
+    	<td ><?php if($thread['Thread']['icon']!='default' && $thread['Thread']['icon']!=null) {echo $this->Html->image('/img/thread/'.$thread['Thread']['icon'], array('width' => '25', 'height' => '25')); } ?></td>
 		<td width="50%"><?php echo $this->Html->link(__($thread['Thread']['title'], true), array('action' => 'view', $thread['Thread']['id'])); ?></td>
 		<td>
         	<?php //debug($post);
