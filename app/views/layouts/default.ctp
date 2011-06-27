@@ -104,6 +104,13 @@
 				</div>
 			</div>
 			</div>
+            <div class="footeraction">
+                <div style="padding: 15px 0px;">
+                    <iframe src="http://www.facebook.com/plugins/like.php?app_id=237317856297337&amp;href=https%3A%2F%2Fwww.facebook.com%2Fpages%2FOpen-Physicist-Starcraft-II-League&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:80px; height:21px;" allowTransparency="true"></iframe>
+                </div>
+                 <p style="clear: both;">  </p>
+         	</div>
+             <p style="clear: both;">  </p>
 			</div>
     
 			
@@ -266,6 +273,8 @@
 					</div>
 					</div>
 				</div>
+                
+                
 
 
                 <div class="containerbox">
@@ -343,6 +352,10 @@
 			</div><!-- end leftcol -->
 				
 			<div id="rightcol"><!-- begin rightcol -->
+            	
+               
+                
+                
             	<div class="containerbox">
 					<div class="containerheader">
 					Statistic Center
@@ -444,6 +457,7 @@
 			<?php echo $this->Html->link('Impressum',array('controller'=>'pages','action'=>'impressum'))?>
 			</div>
       	</div>
+        
          <div class="footeraction">
 			<?php echo $this->Html->link(
 					$this->Html->image('OPSL_logo_small.png', array('alt'=> __('OPSL caketourney: the personal starcraft league system', true), 'border' => '0')),
