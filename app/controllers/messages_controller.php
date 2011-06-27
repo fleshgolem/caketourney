@@ -2,7 +2,32 @@
 class MessagesController extends AppController {
 
 	var $name = 'Messages';
-
+	var $components = array('Email');
+	
+	function _sendNewUserMail($username,$useremail,$message_title,$message_id,$message_sender) {
+		
+		$this->set('message_sender', $message_sender);
+		$this->set('username', $username);
+		$this->set('message_title', $message_title);
+		$this->set('message_id', $message_id);
+		$this->Email->to = $useremail;
+		$this->Email->subject = $message_title;
+		Configure::load('caketourney_configuration');
+		$this->Email->replyTo = Configure::read('Email.replyTo');
+		$this->Email->from = Configure::read('Email.from');
+		$this->Email->template = 'new_message_email'; // note no '.ctp'
+		//Send as 'html', 'text' or 'both' (default is 'text')
+		$this->Email->sendAs = 'both'; // because we like to send pretty mail
+		//$this->Email->_createboundary();
+		//$this->Email->__header[] = 'MIME-Version: 1.0';
+		//Do not pass any args to send()
+		//$this->Email->delivery = 'debug';
+		$this->Email->delivery = 'mail';
+		$this->Email->send();
+		$this->Email->reset();
+		
+	}
+	
 	function add()
 	{
 		$recipients = $this->Message->Recipient->find('list',array('order' => array('Recipient.username asc')));
@@ -16,15 +41,30 @@ class MessagesController extends AppController {
 			$date = date_create('now');
 			$this->data['Message']['sender_id'] =  $this->Session->read('Auth.User.id');
 			$this->data['Message']['date']= $date->format('Y-m-d H:i:s');
-			$this->Message->save($this->data);
+			
 			
 			
 			if ($this->Message->save($this->data)) {
 				$this->Session->setFlash(__('The Message has been sent', true));
-				$this->redirect(array('action' => 'outbox'));
+				$recipiant = $this->Message->Recipient->find('first', array(
+							'conditions'=>array('Recipient.id'=>$this->data['Message']['recipient_id']),
+							'contain'=>array(
+								
+								)
+							));
+				//$recipiant=$this->Message->Recipient->find('first',array('condition' => array('Recipient.id' => $this->data['Message']['recipient_id'])));
+				
+				
+				if($recipiant['Recipient']['email_subscriptions']){
+					$this->_sendNewUserMail( $recipiant['Recipient']['username'],$recipiant['Recipient']['email'], $this->data['Message']['title'],$this->Message->getLastInsertId(),$this->Session->read('Auth.User.username')  );
+				}
+				
+				
+				//$this->redirect(array('action' => 'outbox'));
 			} else {
 				$this->Session->setFlash(__('The Message could not be sent. Please, try again.', true));
 			}
+			
 		}
 		
 		
