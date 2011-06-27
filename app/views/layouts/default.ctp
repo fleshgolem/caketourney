@@ -53,7 +53,10 @@
 	<div id="container">
 		<div id="header">
         <div class="headerwrapper">
-        	<h1><?php echo $this->Html->image('logo7.png');?></h1>
+        	<h1><?php 
+					Configure::load('caketourney_configuration');
+					echo $this->Html->image(Configure::read('Header.logo'));
+			?></h1>
             
             <div class="topmenuemainbox">
 			<div class="topmenuewrapper">
@@ -437,10 +440,23 @@
             © 2011 Blizzard Entertainment, Inc. All rights reserved.
             </div>
 		<div class="footeractionleft">
+        	<div style="padding: 11px 0px;">
 			<?php echo $this->Html->link('Impressum',array('controller'=>'pages','action'=>'impressum'))?>
-		</div>
-      
+			</div>
+      	</div>
+         <div class="footeraction">
+			<?php echo $this->Html->link(
+					$this->Html->image('OPSL_logo_small.png', array('alt'=> __('OPSL caketourney: the personal starcraft league system', true), 'border' => '0')),
+					'http://www.opsl.de/',
+					array('target' => '_blank', 'escape' => false)
+				);
+			?>
+			<!--<?php echo $this->element('sql_dump'); ?>-->
+        </div>
+       
+       
         <div class="footeraction">
+        <div style="padding: 11px 0px;"> 
 			<?php echo $this->Html->link(
 					$this->Html->image('cake.power.gif', array('alt'=> __('CakePHP: the rapid development php framework', true), 'border' => '0')),
 					'http://www.cakephp.org/',
@@ -449,6 +465,7 @@
 			?>
 			<!--<?php echo $this->element('sql_dump'); ?>-->
         </div>
+       </div>
         <p style="clear: both;">  </p>
 		</div>
         </div>

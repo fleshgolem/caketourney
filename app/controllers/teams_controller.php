@@ -36,6 +36,10 @@ class TeamsController extends AppController {
 							));
 		
 		$this->set('members',$members);
+		
+		
+		
+		
 	}
 	
 	function leave($id)

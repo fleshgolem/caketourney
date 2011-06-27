@@ -66,6 +66,7 @@ class PagesController extends AppController {
         parent::beforeFilter();
 		
 	}
+	
 	function display() {
 		$path = func_get_args();
 
@@ -83,8 +84,19 @@ class PagesController extends AppController {
 		}
 		if (!empty($path[$count - 1])) {
 			$title_for_layout = Inflector::humanize($path[$count - 1]);
+			/*if($title_for_layout=='Configuration'){
+				$this->_configuration();
+			}*/
 		}
 		$this->set(compact('page', 'subpage', 'title_for_layout'));
 		$this->render(implode('/', $path));
+	}
+	
+	function _configuration() {
+		
+		Configure::load('email');
+		debug(Configure::read('Company.name'));
+		Configure::write('Company',array('name'=>'OPSL','slogan'=>'Pizza for your body and soul'));
+		debug(Configure::read('Company.name'));
 	}
 }

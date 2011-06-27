@@ -173,8 +173,9 @@
                     
                         <tr>
                             <td><?php echo $this->Html->link(__($user['username'], true), array('controller' => 'users','action' => 'view', $user['id'])); ?> &nbsp;</td>
-                            <td><?php echo $user['elo']; ?>&nbsp;</td>
+                            
                            	<td><?php echo $this->Race->small_img($user['race']); ?>&nbsp;</td>
+                            <td><?php echo $user['elo']; ?>&nbsp;</td>
                             <td><?php echo $user['division']; ?>&nbsp;</td>
                             <?php 
 								if($this->Session->read('Auth.User.id')==$team['Team']['leader_id']){?>

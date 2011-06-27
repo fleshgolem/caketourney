@@ -18,13 +18,15 @@ class NewsController extends AppController {
 	}
 	function _sendNewUserMail($username,$useremail,$news_title,$news_body) {
 		
+		
 		$this->set('username', $username);
 		$this->set('news_title', $news_title);
 		$this->set('news_body', $news_body);
 		$this->Email->to = $useremail;
 		$this->Email->subject = $news_title;
-		$this->Email->replyTo = 'OPSL@rwth-physiker.de';
-		$this->Email->from = 'The OPSL Team <OPSL@rwth-physiker.de>';
+		Configure::load('caketourney_configuration');
+		$this->Email->replyTo = Configure::read('Email.replyTo');
+		$this->Email->from = Configure::read('Email.from');
 		$this->Email->template = 'new_news_email'; // note no '.ctp'
 		//Send as 'html', 'text' or 'both' (default is 'text')
 		$this->Email->sendAs = 'both'; // because we like to send pretty mail

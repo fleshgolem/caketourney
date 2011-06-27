@@ -18,6 +18,7 @@
 	<tr>
     		<th><?php echo $this->Paginator->sort('name');?></th>
 			<th><?php echo $this->Paginator->sort('team_type');?></th>
+            <th><?php echo $this->Paginator->sort('elo');?></th>
 			<th><?php echo $this->Paginator->sort('leader_id');?></th>
 			
 	</tr>
@@ -32,6 +33,7 @@
 	<tr<?php echo $class;?>>
     	<td><?php echo $this->Html->link(__($team['Team']['name'], true), array('action' => 'view', $team['Team']['id'])); ?>&nbsp;</td>
 		<td><?php echo $team['Team']['team_type']; ?>&nbsp;</td>
+        <td><?php echo $team['Team']['elo']; ?>&nbsp;</td>
 		<td>
 			<?php echo $this->Html->link($team['Leader']['username'], array('controller' => 'users', 'action' => 'view', $team['Leader']['id'])); ?>
 		</td>

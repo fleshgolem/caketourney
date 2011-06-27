@@ -19,8 +19,14 @@
 	<?php
 		echo $this->Form->input('team_type', array('options' => array("2v2"=>"2v2","3v3"=>"3v3","4v4"=>"4v4","Team League"=>"Team League")));
 		echo $this->Form->input('name');
-		echo $this->Form->file('Team.file', array('type' => 'file','label' => 'Test '));
-	?>
+        ?>
+        <div style="padding: 3 0px;">
+        	<div style="font-size: 120%;">
+       		Teamlogo
+            </div>
+            <?php echo $this->Form->file('Team.file', array('type' => 'file','label' => 'Test ')); ?>
+		</div>
+        
 	</fieldset>
 
 				

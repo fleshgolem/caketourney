@@ -21,8 +21,9 @@ class TournamentsController extends AppController {
 		$this->set('tournament_id', $tournament_id);
 		$this->Email->to = $useremail;
 		$this->Email->subject = 'The tournament "'. $tournament_name. '" has beed added.';
-		$this->Email->replyTo = 'OPSL@rwth-physiker.de';
-		$this->Email->from = 'The OPSL Team <OPSL@rwth-physiker.de>';
+		Configure::load('caketourney_configuration');
+		$this->Email->replyTo = Configure::read('Email.replyTo');
+		$this->Email->from = Configure::read('Email.from');
 		$this->Email->template = 'new_tournament_email'; // note no '.ctp'
 		//Send as 'html', 'text' or 'both' (default is 'text')
 		$this->Email->sendAs = 'both'; // because we like to send pretty mail

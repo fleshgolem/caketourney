@@ -19,8 +19,9 @@ class MatchesController extends AppController {
 		$this->set('match_id', $match_id);
 		$this->Email->to = $useremail;
 		$this->Email->subject = 'New comment in match "'. $player1. ' vs '. $player2.'"';
-		$this->Email->replyTo = 'OPSL@rwth-physiker.de';
-		$this->Email->from = 'The OPSL Team <OPSL@rwth-physiker.de>';
+		Configure::load('caketourney_configuration');
+		$this->Email->replyTo = Configure::read('Email.replyTo');
+		$this->Email->from = Configure::read('Email.from');
 		$this->Email->template = 'new_comment_email'; // note no '.ctp'
 		//Send as 'html', 'text' or 'both' (default is 'text')
 		$this->Email->sendAs = 'both'; // because we like to send pretty mail

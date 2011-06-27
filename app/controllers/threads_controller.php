@@ -26,8 +26,9 @@ class ThreadsController extends AppController {
 		$this->set('thread_id', $thread_id);
 		$this->Email->to = $User['User']['email'];
 		$this->Email->subject = 'New post in thread "'. $thread_title.'"';
-		$this->Email->replyTo = 'OPSL@rwth-physiker.de';
-		$this->Email->from = 'The OPSL Team <OPSL@rwth-physiker.de>';
+		Configure::load('caketourney_configuration');
+		$this->Email->replyTo = Configure::read('Email.replyTo');
+		$this->Email->from = Configure::read('Email.from');
 		$this->Email->template = 'new_post_email'; // note no '.ctp'
 		//Send as 'html', 'text' or 'both' (default is 'text')
 		$this->Email->sendAs = 'both'; // because we like to send pretty mail
