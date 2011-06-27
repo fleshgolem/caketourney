@@ -28,9 +28,14 @@ class MessagesController extends AppController {
 		
 	}
 	
-	function add()
+	function add($recipiant_id=0)
 	{
-		$recipients = $this->Message->Recipient->find('list',array('order' => array('Recipient.username asc')));
+		if($recipiant_id==0){
+			$recipients = $this->Message->Recipient->find('list',array('order' => array('Recipient.username asc')));
+		}
+		if($recipiant_id!=0){
+			$recipients = $this->Message->Recipient->find('list',array('conditions' => array('Recipient.id'=>$recipiant_id),'order' => array('Recipient.username asc')));
+		}
 		$this->set(compact('recipients'));
 		
 		if(!empty($this->data))

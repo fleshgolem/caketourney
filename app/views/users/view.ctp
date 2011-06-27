@@ -17,6 +17,10 @@
 		echo $this->Html->link(__('Statistics', true), array('action' => 'statistics', $user['User']['id'])); 
 		?>
      </div>
+     <div class="bottomaction"> <?php
+		echo $this->Html->link(('Send '.$user['User']['username'].' a message'),array('controller' => 'messages', 'action' => 'add',$user['User']['id']));
+		?>
+     </div>
     
 	<p style="clear: both;">  </p>  
 </div>
