@@ -163,6 +163,13 @@ class MatchesController extends AppController {
 			}
 
 			$this->data['Match']['open']=0;
+			if(!$this->Match->field('date')){
+				$date = date_create('now');
+				
+				$this->data['Match']['date']=$date->format('Y-m-d H:i:s');
+				
+			}
+			
 			if ($this->Match->save($this->data)) {
 				$this->Session->setFlash(__('The match has been saved', true));
 				

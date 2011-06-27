@@ -193,9 +193,33 @@ class UsersController extends AppController {
 		$user=$this->User->read(null, $id);
 		$this->set('user',$user );
 		
+		Configure::load('caketourney_configuration');
 		
-		$matches = $this->User->Match->find('all',array('recursive'=>2,'conditions'=>array('Match.open'=>0,'OR'=>array('Match.player1_id'=>$id,'Match.player2_id'=>$id)),'order'=>array('Match.date DESC')));
-		$this->set('matches',$matches);
+		$date = date('Y-m-d', strtotime("-".Configure::read('User.recent_matches').' month'));
+		$contained_matches = $this->User->Match->find('all', array(
+							'order'=>array('Match.date DESC'),
+							'conditions' => array('Match.open'=>0,'OR'=>array('Match.player1_id'=>$id,'Match.player2_id'=>$id),'Match.date >=' => $date),
+							'contain'=>array(
+								'Player1' => array(
+											'fields' => array('id', 'username', 'race')
+											),
+								'Player2' => array(
+											'fields' => array('id', 'username', 'race')
+											),
+								'Round' => array(
+									'Tournament'  => array(
+												'fields' => array('id', 'name')
+												),
+											),
+									)
+							));
+		
+		$this->set('matches',$contained_matches);
+		$this->set('month_recent_games',Configure::read('User.recent_matches'));
+		
+		
+		//$this->set('matches',$matches);
+		
 		
 		$this->User->Tournament->bindModel(array('hasOne' => array('UsersTournament')));
 		$tournaments = $this->User->Tournament->find('all', array(

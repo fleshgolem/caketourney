@@ -345,7 +345,7 @@
 <div class="PostBox">
 <div class="ThreadTitleBox">
 	<div class="ThreadTitleContent">
-		<h3><?php echo $user['User']['username']; ?>'s Recent Matches </h3>
+		<h3><?php echo $user['User']['username']; ?>'s Matches within the last <?php echo $month_recent_games; ?> Months</h3>
 	</div> 
 
 	<p style="clear: both;">  </p>  
