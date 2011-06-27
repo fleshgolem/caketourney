@@ -33,7 +33,20 @@
 		}
 	?>
 	<tr<?php echo $class;?>>
-		<td><?php echo $this->Html->link(__($user['User']['username'], true), array('action' => 'view', $user['User']['id'])); ?> &nbsp;</td>
+		<td><?php 
+						if ($user['User']['admin']==true)
+						{
+							?><div class="admin"> <?php echo $this->Html->link(__($user['User']['username'], true), array('action' => 'view', $user['User']['id'])); ?> 
+							 <?php
+						}
+						else
+						{
+							echo $this->Html->link(__($user['User']['username'], true), array('action' => 'view', $user['User']['id']));
+							?><?php
+						}
+					
+		
+		?> &nbsp;</td>
 		
 		<!--<td><?php echo $user['User']['email']; ?>&nbsp;</td>-->
 		<td><?php echo $user['User']['bnetaccount']; ?>&nbsp;</td>

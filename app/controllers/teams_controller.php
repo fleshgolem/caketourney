@@ -30,7 +30,7 @@ class TeamsController extends AppController {
 							'contain'=>array(
 								
 								'User'=> array('fields' => array('id', 'username', 'race', 'elo', 'division')),
-								'Leader'=> array('fields' => array('id', 'username', 'race', 'elo', 'division')),
+								'Leader'=> array('fields' => array('id', 'username', 'race', 'elo', 'division','admin')),
 								
 								)
 							));

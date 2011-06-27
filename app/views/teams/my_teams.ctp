@@ -16,6 +16,7 @@
 	<tr>
     		<th><?php echo ('Name');?></th>
 			<th><?php echo ('Team Type');?></th>
+            <th><?php echo ('Elo');?></th>
 			<th><?php echo ('Leader');?></th>
 			
 	</tr>
@@ -31,6 +32,7 @@
     	
     	<td><?php echo $this->Html->link(__($team['Team']['name'], true), array('action' => 'view', $team['Team']['id'])); ?>&nbsp;</td>
 		<td><?php echo $team['Team']['team_type']; ?>&nbsp;</td>
+        <td><?php echo $team['Team']['elo']; ?>&nbsp;</td>
 		<td>
 			<?php echo $this->Html->link($team['Leader']['username'], array('controller' => 'users', 'action' => 'view', $team['Leader']['id'])); ?>
 		</td>

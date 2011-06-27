@@ -179,7 +179,7 @@ class UsersController extends AppController {
         $current_user = $this->User->findById($this->User->id);
 		
 		$this->User->recursive = 0;
-		
+		$this->paginate = array('order'=>array( 'admin desc','created asc'));
 		$this->set('users', $this->paginate());
 	}
 
@@ -201,10 +201,10 @@ class UsersController extends AppController {
 							'conditions' => array('Match.open'=>0,'OR'=>array('Match.player1_id'=>$id,'Match.player2_id'=>$id),'Match.date >=' => $date),
 							'contain'=>array(
 								'Player1' => array(
-											'fields' => array('id', 'username', 'race')
+											'fields' => array('id', 'username', 'race','admin')
 											),
 								'Player2' => array(
-											'fields' => array('id', 'username', 'race')
+											'fields' => array('id', 'username', 'race','admin')
 											),
 								'Round' => array(
 									'Tournament'  => array(
@@ -312,7 +312,10 @@ class UsersController extends AppController {
 							'conditions'=>array('User.id'=>$id),
 							'contain'=>array(
 								
-								'Team'=> array('fields' => array('id', 'name', 'team_type', 'elo')),
+								'Team'=> array(
+											'Leader'=> array('fields' => array('id', 'username', 'admin')),
+											'fields' => array('id', 'name', 'team_type', 'elo')
+											),
 								
 								
 								)

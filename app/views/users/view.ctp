@@ -298,6 +298,7 @@
                         <th>Name </th>
                         <th>Team Type</th>
                         <th>Elo</th>
+                        <th>Leader</th>
                         <?php 
 						if($this->Session->read('Auth.User.id')==$user['User']['id']){?>
                         <th></th>
@@ -312,6 +313,7 @@
                             <td><?php echo $this->Html->link(__($team['name'], true), array('controller' => 'teams','action' => 'view', $team['id'])); ?> &nbsp;</td>
                             <td><?php echo $team['team_type']; ?>&nbsp;</td>
                             <td><?php echo $team['elo']; ?>&nbsp;</td>
+                            <td><?php echo $this->Html->link(__($team['Leader']['username'], true), array('controller' => 'teams','action' => 'view', $team['Leader']['id'])); ?>&nbsp;</td>
                             <?php 
 								if($this->Session->read('Auth.User.id')==$user['User']['id']){?>
                             <td width="25%"><?php 
