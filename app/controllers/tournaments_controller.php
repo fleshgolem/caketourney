@@ -650,6 +650,8 @@ class TournamentsController extends AppController {
 			if ($this->Tournament->save($this->data)) {
 				$this->Session->setFlash(__('The tournament has been saved', true));
 				//$this->redirect(array('action' => 'index'));
+				//load configuration
+				Configure::load('caketourney_configuration');
 				//find subscribers and message them
 				$subscribers=array();
 				//$tournament = $this->Tournament->read(null,$id);
@@ -674,10 +676,10 @@ class TournamentsController extends AppController {
 						
 						//TODO: machen! ;)
 						$this->data['Message']['body']= 'A new tournament has been added. Sign up for the tournament at:
-														 http://'.$_SERVER['SERVER_NAME'].'/caketourney/tournaments/view/'.$this->Tournament->getLastInsertId().'
+														 http://'.$_SERVER['SERVER_NAME'].'/'.Configure::read('Caketourney.folder').'caketourney/tournaments/view/'.$this->Tournament->getLastInsertId().'
 													 
 													 To unsubscribe from this automated message, change you account settings at:
-													 http://'.$_SERVER['SERVER_NAME'].'/caketourney/users/account/';
+													 http://'.$_SERVER['SERVER_NAME'].'/'.Configure::read('Caketourney.folder').'caketourney/users/account/';
 						$this->Tournament->User->Message->save($this->data);
 						//
 						if($subscriber['email_subscriptions']){

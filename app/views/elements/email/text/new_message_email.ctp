@@ -16,15 +16,16 @@
  * @since         CakePHP(tm) v 0.10.0.1076
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+ Configure::load('caketourney_configuration');
 ?>
 Dear <?php echo $username ?>,
     
 you have received a message from <?php echo $message_sender ?>. Read the message at:
-http://<?php echo $_SERVER['SERVER_NAME'].'/caketourney/threads/view/'.$message_id ?>
+http://<?php echo $_SERVER['SERVER_NAME'].'/'.Configure::read('Caketourney.folder').'caketourney/threads/view/'.$message_id ?>
 
     												 
 To unsubscribe from this automated message, change you account settings at:
-http://<?php echo $_SERVER['SERVER_NAME'].'/caketourney/users/account/' ?>
+http://<?php echo $_SERVER['SERVER_NAME'].'/'.Configure::read('Caketourney.folder').'caketourney/users/account/' ?>
     
     
     The OPSL Team

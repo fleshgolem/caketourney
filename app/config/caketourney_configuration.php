@@ -9,4 +9,13 @@ $config['Header']['logo'] = 'logo7.png';
 
 // Configuration for how many MONTHS the recent matches will be displayed
 $config['User']['recent_matches'] = '6';
+
+
+// Configuration of the caketourney folder
+// Examples:
+// if you reach your caketourney at http://flesh.sesu.org/caketourney/users, leave the folder blank ('')
+// if you reach your caketourney at http://flesh.sesu.org/test/caketourney/users, set the folder to 'test/' (make sure to add the '/' at the end!)
+// if you reach your caketourney at http://flesh.sesu.org/test/test2/caketourney/users, set the folder to 'test/test2' (make sure to add the '/' at the end!)
+$config['Caketourney']['folder'] = '';
+
 ?>

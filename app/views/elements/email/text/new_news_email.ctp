@@ -16,6 +16,7 @@
  * @since         CakePHP(tm) v 0.10.0.1076
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+ Configure::load('caketourney_configuration');
 ?>
     Dear <?php echo $username ?>,
     
@@ -26,7 +27,7 @@ The following news has been posted:
 
     												 
 To unsubscribe from this automated message, change you account settings at:
-http://<?php echo $_SERVER['SERVER_NAME'].'/caketourney/users/account/' ?>
+http://<?php echo $_SERVER['SERVER_NAME'].'/'.Configure::read('Caketourney.folder').'caketourney/users/account/' ?>
     
     
     The OPSL Team

@@ -16,11 +16,12 @@
  * @since         CakePHP(tm) v 0.10.0.1076
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+ Configure::load('caketourney_configuration');
 ?>
 <p>Dear <?php echo $username ?>,</p>
 <p>A new tournament has been added. Sign up for the tournament at:
-<a href="http://<?php echo $_SERVER['SERVER_NAME'].'/caketourney/tournaments/view/'.$tournament_id ?>"><?php echo $tournament_name ?></a> </p>
+<a href="http://<?php echo $_SERVER['SERVER_NAME'].'/'.Configure::read('Caketourney.folder').'caketourney/tournaments/view/'.$tournament_id ?>"><?php echo $tournament_name ?></a> </p>
 													 
 <p>To unsubscribe from this automated message, change you account settings at:
-<a href="http://<?php echo $_SERVER['SERVER_NAME'].'/caketourney/users/account/' ?>">Account Settings</a> </p>
+<a href="http://<?php echo $_SERVER['SERVER_NAME'].'/'.Configure::read('Caketourney.folder').'caketourney/users/account/' ?>">Account Settings</a> </p>
 <p>The OPSL Team</p>
