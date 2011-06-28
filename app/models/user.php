@@ -5,6 +5,7 @@ class User extends AppModel {
 	var $name = 'User';
 	var $actsAs = array(
 					'Containable',
+					'Searchable',
                     'FileUpload.FileUpload' => array(
                         'uploadDir' => 'img/avatar',
                         'forceWebroot' => true,  //if false, files will be upload to the exact path of uploadDir
@@ -23,6 +24,12 @@ class User extends AppModel {
                     )
     );
 	var $displayField = 'username';
+	
+	public $filterArgs = array(	
+			array('name' => 'username', 'type' => 'like'),
+			array('name' => 'bnetaccount', 'type' => 'like'),
+			
+	);
 	
 	var $hasAndBelongsToMany = array(
 		'Tournament' => array(

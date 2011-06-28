@@ -2,12 +2,42 @@
 <div class="PostBox">
 <div class="ThreadTitleBox">
 	<div class="ThreadTitleContent">
-		<h2><?php __('Users');?></h2>
+		<h2><?php __('Find Users');?></h2>
 	</div> 
 	
 	<p style="clear: both;">  </p>  
 </div>
 </div>
+
+
+
+<div class="PostBox"> 
+	<div class="PostContent">
+		<div class="PostContentBox">
+			<div class="PostMainContentbox">
+				<?php
+				echo $form->create('User', array(
+					'url' => array_merge(array('action' => 'find'), $this->params['pass'])
+					));
+				//echo $form->input('title', array('div' => false));
+				echo $form->input('username', array('label' => 'Username','div' => false));
+				echo $form->input('bnetaccount', array('label' => 'Battle.net Account','div' => false));
+	
+?>
+
+			</div>
+		</div>
+		<p style="clear: both;"> </p>
+	</div>
+	<div class="PostFooter">
+		<div class="bottomaction"><?php echo $form->submit(__('Search', true), array('div' => false));
+	echo $form->end();?> </div>
+        <div class="bottomaction">   </p></div>
+		<p style="clear: both;">  </p>
+	</div>
+</div>
+
+
 <div class="PostBox"> 
 	<div class="PostContent">
 		<div class="PostContentBox">

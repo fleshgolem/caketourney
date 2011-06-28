@@ -3,6 +3,14 @@ class UsersController extends AppController {
 
 	var $name = 'Users';
 	var $helpers = array('Race','FlashChart');
+	
+	var $components = array('Search.Prg');
+	
+	public $presetVars = array(
+		array('field' => 'username', 'type' => 'value'),
+		array('field' => 'bnetaccount', 'type' => 'value')
+		);
+	
     /**
      * Runs automatically before the controller action is called
      */
@@ -12,6 +20,18 @@ class UsersController extends AppController {
         parent::beforeFilter();
 		
 	}
+	
+	
+	
+	public function find() {
+		$this->Prg->commonProcess();
+		$this->paginate = array('order'=>array( 'admin desc','created asc'));
+		$this->paginate['conditions'] = $this->User->parseCriteria($this->passedArgs);
+		//debug( $this->paginate());
+		$this->set('users', $this->paginate());
+	}
+	
+	
  
     /**
      * Registration page for new users

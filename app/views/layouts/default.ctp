@@ -355,7 +355,8 @@
 				
 			<div id="rightcol"><!-- begin rightcol -->
             	
-               
+               	
+                
                 
                 
             	<div class="containerbox">
@@ -427,7 +428,8 @@
 							 <?php echo $this->Session->flash('email'); ?>
 
 						</div>
-						
+
+
 						<?php echo $content_for_layout; ?>
 						
 					</div>
