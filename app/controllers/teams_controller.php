@@ -2,7 +2,16 @@
 class TeamsController extends AppController {
 
 	var $name = 'Teams';
-
+	
+	function beforeFilter()
+    {
+		$this->Auth->allow('index');
+		$this->Auth->allow('view');
+		
+        parent::beforeFilter();
+		
+	}
+	
 	function index() {
 		$this->Team->recursive = 0;
 		$this->set('teams', $this->paginate());

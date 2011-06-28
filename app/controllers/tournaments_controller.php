@@ -9,7 +9,7 @@ class TournamentsController extends AppController {
     {
 		$this->Auth->allow('index');
 		$this->Auth->allow('view');
-		
+		$this->Auth->allow('statistics');
         parent::beforeFilter();
 		
 	}
