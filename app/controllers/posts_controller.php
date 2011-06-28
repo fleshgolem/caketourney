@@ -3,7 +3,20 @@ class PostsController extends AppController {
 
 	var $name = 'Posts';
 
-
+	var $components = array('Search.Prg');
+	
+	public $presetVars = array(
+		array('field' => 'body', 'type' => 'value')
+		);
+		
+	public function find() {
+		$this->Prg->commonProcess();
+		$this->paginate['conditions'] = $this->Post->parseCriteria($this->passedArgs);
+		$this->Thread->recursive = 1;
+		//debug( $this->paginate());
+		$this->set('posts', $this->paginate());
+	}
+	
 	function edit($id = null) {
 		
 		if (!$id && empty($this->data)) {

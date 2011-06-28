@@ -2,8 +2,15 @@
 class ThreadsController extends AppController {
 
 	var $name = 'Threads';
-	var $components = array('Email');
+	var $components = array('Email','Search.Prg');
 	var $helpers = array('Text','Bbcode');
+	
+	public $presetVars = array(
+		array('field' => 'title', 'type' => 'value'),
+		array('field' => 'body', 'type' => 'value')
+		);
+	
+	
 	var $paginate = array(
 		'limit' => 25,
         'order' => array(
@@ -12,6 +19,15 @@ class ThreadsController extends AppController {
 			//'Post.date_posted' => 'asc'
 		)
 	);
+	
+	public function find() {
+		$this->Prg->commonProcess();
+		$this->paginate['conditions'] = $this->Thread->Post->parseCriteria($this->passedArgs);
+		//$this->Thread->recursive = 1;
+		//debug( $this->paginate());
+		$this->set('threads', $this->paginate());
+	}
+		
 	function index() {
 		$this->Thread->recursive = 1;
 		$this->set('threads', $this->paginate());

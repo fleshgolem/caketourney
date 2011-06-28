@@ -2,12 +2,39 @@
 <div class="PostBox">
 <div class="ThreadTitleBox">
 	<div class="ThreadTitleContent">
-		<h2><?php __('Forum');?></h2>
+		<h2><?php __('Search Forum');?></h2>
 	</div> 
 	
 	<p style="clear: both;">  </p>  
 </div>
 </div>
+
+<div class="PostBox"> 
+	<div class="PostContent">
+		<div class="PostContentBox">
+			<div class="PostMainContentbox">
+				<?php
+				echo $form->create('Post', array(
+					'url' => array_merge(array('action' => 'find'), $this->params['pass'])
+					));
+				//echo $form->input('title', array('div' => false));
+				echo $form->input('body', array('div' => false));
+	
+?>
+
+			</div>
+		</div>
+		<p style="clear: both;"> </p>
+	</div>
+	<div class="PostFooter">
+		<div class="bottomaction"><?php echo $form->submit(__('Search', true), array('div' => false));
+	echo $form->end();?> </div>
+        <div class="bottomaction">   </p></div>
+		<p style="clear: both;">  </p>
+	</div>
+</div>
+
+
 <div class="PostBox"> 
 	<div class="PostContent">
 		<div class="PostContentBox">
@@ -89,8 +116,8 @@
         </div>
 		<div class="bottomaction">
 		<?php echo ($this->Html->Link('New Thread', array('action' => 'add')));?>
-    	</div>
-        <div class="bottomaction">
+   		</div>
+    	<div class="bottomaction">
 		<?php echo $this->Html->image("find.png", array( "alt" => "find", 'width' => '19', 'height' => '17' ,'url' => array(  'action' => 'find')));?>
     	</div>
 		<p style="clear: both;">  </p>
@@ -103,6 +130,8 @@
 	'format' => __('Page %page% of %pages%, showing %current% threads out of %count% total', true)
 	));
 	?>	</p>
+
+
 
 	
 </div>

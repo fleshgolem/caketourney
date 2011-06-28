@@ -1,7 +1,19 @@
 <?php
 class Thread extends AppModel {
 	var $name = 'Thread';
-	var $actsAs = array('Containable');
+	var $actsAs = array('Containable',
+						'Searchable');
+						
+						
+	
+	public $filterArgs = array(
+			array('name' => 'title', 'type' => 'like'),
+			
+	);
+
+	
+	
+	
 	var $validate = array(
 		'title' => array(
 			'notempty' => array(

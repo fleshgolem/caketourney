@@ -1,7 +1,14 @@
 <?php
 class Post extends AppModel {
 	var $name = 'Post';
-	var $actsAs = array('Containable');
+	var $actsAs = array('Containable',
+						'Searchable');
+	
+	public $filterArgs = array(
+			array('name' => 'body', 'type' => 'like'),
+			
+	);
+	
 	var $validate = array(
 		'user_id' => array(
 			'numeric' => array(
