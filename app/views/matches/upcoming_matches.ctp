@@ -27,7 +27,7 @@
                         if ($match['Player1']!=null)
                             {
                                 echo $this->Race->small_img($match['Player1']['race']);
-                                echo ($match['Player1']['username']);
+                                echo ($this->Html->link($match['Player1']['username'],array('controller'=>'users','action'=>'view',$match['Player1']['id'])));
                             }?>
                         </td>
                         <td>
@@ -35,7 +35,7 @@
                         if ($match['Player2']!=null)
                             {
                                 echo $this->Race->small_img($match['Player2']['race']);
-                                echo ($match['Player2']['username']);
+                                echo ($this->Html->link($match['Player2']['username'],array('controller'=>'users','action'=>'view',$match['Player2']['id'])));
                             }?>
                         </td>
                         <td>
