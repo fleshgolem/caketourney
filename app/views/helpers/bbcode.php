@@ -11,7 +11,7 @@ class BbcodeHelper extends Shortcode{
             array( 'i' , array(&$this, 'shortcode_italics') ), 
             array( 'u' , array(&$this, 'shortcode_underline') ), 
             array( 'url' , array(&$this, 'shortcode_url') ), 
-            //array( 'img' , array(&$this, 'shortcode_image') ),
+            array( 'img' , array(&$this, 'shortcode_image') ),
 			array( 'edit' , array(&$this, 'shortcode_edit') ),  
             array( 'quote' , array(&$this, 'shortcode_quote') ), 
 			array( 'qquote' , array(&$this, 'shortcode_qquote') ) , 
@@ -86,7 +86,11 @@ class BbcodeHelper extends Shortcode{
     } 
 
     function shortcode_image( $atts = array(), $content = NULL ) { 
-		return '<div style="background:url('.$content.')">s</div>';
+		if ( !empty($atts) ){
+			return $this->Html->image($content, array('width' => $atts['width'], 'height' => $atts['height']));
+		}
+		return $this->Html->image($content);
+		//debug ($atts['width']);
         //echo '<img " src="'.$content.'" />';
 		//echo '<img " src="http://th00.deviantart.com/fs12/300W/i/2006/263/6/9/Balrog_by_Ironshod.jpg" />';
 		//return '<em>' . $this->do_shortcode( $content ) . '</em>'; 
