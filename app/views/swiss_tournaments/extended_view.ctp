@@ -11,57 +11,6 @@
 </div>
 
 
-<div class="PostBox">
-<div class="ThreadTitleBox">
-	
-	<div class="bottomaction"> <?php
-		if ($this->Session->read('Auth.User.admin')){
-			echo $this->Html->link(__('Edit', true), array('controller'=>'tournaments', 'action' => 'edit', $tournament['SwissTournament']['id'])); 
-		}?>
-     </div>
-     <div class="bottomaction"> <?php
-		if ($this->Session->read('Auth.User.admin')){
-			echo $this->Html->link(__('Delete', true), array('controller'=>'tournaments', 'action' => 'delete', $tournament['SwissTournament']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $tournament['SwissTournament']['id'])); 
-		}?>
-     </div>
-     <div class="bottomaction"> <?php
-		if ($this->Session->read('Auth.User.admin')){
-			if ( $tournament['SwissTournament']['current_round']==NULL)
-					echo $this->Html->link(__('Start', true), array('controller'=>'tournaments','action' => 'start', $tournament['SwissTournament']['id'])); 
-		}?>
-     </div>
-     <div class="bottomaction">
-     	<?php 
-		if ($in_tournament){
-		echo $this->Html->link('My Tournament Settings', array('action'=>'settings',$tournament['SwissTournament']['id']));
-		}
-		?>
-     </div>
-	 <div class="bottomaction">
-     	<?php 
-		if ($this->Session->read('Auth.User.admin')){
-		echo $this->Html->link('Player Settings', array('action'=>'player_settings',$tournament['SwissTournament']['id']));
-		}
-		?>
-     </div>
-     <div class="bottomactionleft">
-     	<?php 
-		echo $this->Html->link('Score', array('action'=>'score',$tournament['SwissTournament']['id']));
-		?>
-     </div>
-     <div class="bottomactionleft">
-     	<?php 
-		echo $this->Html->link('Statistics', array('action'=>'statistics',$tournament['SwissTournament']['id']));
-		?>
-     </div>
-     <div class="bottomactionleft">
-     	<?php 
-		echo $this->Html->link('Extended View', array('action'=>'extended_view',$tournament['SwissTournament']['id']), array('target'=>'_blank'));
-		?>
-     </div>
-	<p style="clear: both;">  </p>  
-</div>
-</div>
 
 
 <?php foreach ($tournament['Round'] as $round){?>

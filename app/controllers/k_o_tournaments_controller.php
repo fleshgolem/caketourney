@@ -357,6 +357,40 @@ class KOTournamentsController extends AppController {
 			$this->Session->setFlash(__('Invalid tournament', true));
 			$this->redirect(array('action' => 'index'));
 		}
+		
+
+		$tournament = $this->KOTournament->find('first', array(
+							'conditions'=>array('id' => $id),
+							'contain'=>array(
+								
+								'UsersTournament',
+								'Round' => array(
+											'Match' => array(
+													'Player1' => array(
+															'fields' => array('id', 'username', 'race')
+													),
+													'Player2' => array(
+															'fields' => array('id', 'username', 'race')
+													),
+													
+											)
+											
+											)
+								)
+							));
+		//$tournament = $this->KOTournament->find('first', array('conditions'=>array('id' => $id), 'recursive' => 3));
+		$this->set('tournament', $tournament);
+		
+	}
+	
+	
+	function extended_view($id = null) {
+		if (!$id) {
+			$this->Session->setFlash(__('Invalid tournament', true));
+			$this->redirect(array('action' => 'index'));
+		}
+		$this->layout = 'extended_view';
+
 		$tournament = $this->KOTournament->find('first', array(
 							'conditions'=>array('id' => $id),
 							'contain'=>array(

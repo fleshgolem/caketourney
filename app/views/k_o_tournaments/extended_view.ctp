@@ -11,41 +11,6 @@
 </div>
 </div>
 
-<div class="PostBox">
-<div class="ThreadTitleBox">
-	
-	<div class="bottomaction"> <?php
-		if ($this->Session->read('Auth.User.admin')){
-			echo $this->Html->link(__('Edit', true), array('controller'=>'tournaments', 'action' => 'edit', $tournament['KOTournament']['id'])); 
-		}?>
-     </div>
-     <div class="bottomaction"> <?php
-		if ($this->Session->read('Auth.User.admin')){
-			echo $this->Html->link(__('Delete', true), array('controller'=>'tournaments', 'action' => 'delete', $tournament['KOTournament']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $tournament['KOTournament']['id'])); 
-		}?>
-     </div>
-     <div class="bottomaction"> <?php
-		if ($this->Session->read('Auth.User.admin')){
-			if ( $tournament['KOTournament']['current_round']==NULL)
-					echo $this->Html->link(__('Start', true), array('controller'=>'tournaments','action' => 'start', $tournament['KOTournament']['id'])); 
-		}?>
-     </div>
-     <div class="bottomactionleft">
-     	<?php 
-		echo $this->Html->link('Statistics', array('action'=>'statistics',$tournament['KOTournament']['id']));
-		?>
-     </div>
-      <div class="bottomactionleft">
-     	<?php 
-		
-		echo $this->Html->link('Extend View', array('action'=>'extended_view',$tournament['KOTournament']['id']), array('target'=>'_blank'));
-		?>
-     </div>
-	<p style="clear: both;">  </p>  
-</div>
-</div>
-
-
 
 <div class="PostBox"> 
 	<div class="PostContent">
