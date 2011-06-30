@@ -33,7 +33,7 @@
      <div class="bottomaction">
      	<?php 
 		if ($in_tournament){
-		echo $this->Html->link('My Tournament Settings', array('action'=>'settings',$tournament['SwissTournament']['id']));
+		echo $this->Html->link('My Away Settings', array('action'=>'settings',$tournament['SwissTournament']['id']));
 		}
 		?>
      </div>

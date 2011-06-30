@@ -30,11 +30,8 @@
 				<?php echo $this->Form->create('Match');?>
                 <?php echo $this->Form->input('id');?>
                 <legend><?php __('Scores');?></legend>
-            	<?php echo ($this->Race->small_img($match['Player1']['race']).' '. $match['Player1']['username'])?>
-                <?php echo $this->Form->input('player1_score', array( 'label' => '' ));?>
-                <?php echo ($this->Race->small_img($match['Player2']['race']).' '.$match['Player2']['username'])?>
-                <?php echo $this->Form->input('player2_score', array( 'label' => '' ));?>
-				
+                <?php echo $this->Form->input('player1_score', array( 'label' => ($this->Race->small_img($match['Player1']['race']).' '. $match['Player1']['username']), 'options' => $score_1));?>
+                <?php echo $this->Form->input('player2_score', array( 'label' => ($this->Race->small_img($match['Player2']['race']).' '.$match['Player2']['username']), 'options' => $score_2 ));?>
 				
 				
 				</fieldset>

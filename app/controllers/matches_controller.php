@@ -154,12 +154,30 @@ class MatchesController extends AppController {
 			$this->redirect(array('action'=>'view',$id));
 		}
 		
+		
+		
+		$score_1 = array();
+		$score_2 = array();
+		
+		for ($i = 0; $i <= (($this->Match->field('games')-1)/2)+1; $i++) {
+    		$score_1[] = $i;
+			$score_2[] = $i;
+		}
+		
+		
+		
 		if (!empty($this->data)) {
 
 			if ((!$this->Session->read('Auth.User.admin')) AND ($this->Match->field('player1_id') != !$this->Session->read('Auth.User.id')) AND ($this->Match->field('player2_id') != !$this->Session->read('Auth.User.id')))
 			{
 				$this->Session->setFlash(__('Access denied', true));
 				//$this->redirect(array('action'=>'index'));
+			}
+			
+			if (($this->data['Match']['player1_score']+$this->data['Match']['player2_score'])>$this->Match->field('games')) {
+				$this->Session->setFlash(__('The score cannot be '.$this->data['Match']['player1_score'].':'.$this->data['Match']['player2_score'].' in a Bo'.$this->Match->field('games'), true));
+				
+				$this->redirect(array('action'=>'submit',$id));
 			}
 
 			$this->data['Match']['open']=0;
@@ -176,7 +194,8 @@ class MatchesController extends AppController {
 				$Tournaments = new TournamentsController;
 				$Tournaments->ConstructClasses();
 				$Tournaments->report_match($this->Match->id, $this->data['Match']['player1_score'],$this->data['Match']['player2_score']);
-				}
+				$this->redirect(array('action'=>'view',$id ));
+			}
 		}
 		
 		if (empty($this->data)) {
@@ -190,6 +209,9 @@ class MatchesController extends AppController {
 		$this->set('comments' , $comments);
 		$replays=$this->Match->Replay->find('all',array('conditions'=>array('Replay.match_id'=>$id)));
 		$this->set('replays' , $replays);
+		
+		$this->set('score_1' , $score_1);
+		$this->set('score_2' , $score_2);
 	}
 
 	function submitdate($id = null) {
