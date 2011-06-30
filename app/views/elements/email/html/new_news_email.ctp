@@ -26,4 +26,4 @@
 													 
 <p>To unsubscribe from this automated message, change you account settings at:
 <a href="http://<?php echo $_SERVER['SERVER_NAME'].'/'.Configure::read('Caketourney.folder').'caketourney/users/account/' ?>">Account Settings</a> </p>
-<p>The OPSL Team</p>
+<p>The <?php echo Configure::read('Caketourney.company_name') ?></p>

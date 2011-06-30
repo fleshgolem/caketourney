@@ -29,4 +29,4 @@
     http://<?php echo $_SERVER['SERVER_NAME'].'/'.Configure::read('Caketourney.folder').'caketourney/users/account/' ?>
     
     
-    The OPSL Team
+    The <?php echo Configure::read('Caketourney.company_name') ?>

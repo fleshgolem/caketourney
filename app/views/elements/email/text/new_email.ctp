@@ -18,18 +18,11 @@
  */
  Configure::load('caketourney_configuration');
 ?>
-    Dear <?php echo $username ?>,
+Dear <?php echo Configure::read('Caketourney.company_name') ?>,
     
+<?php echo $mail_body ?>
     
-    A new tournament has been added. Sign up for the tournament at:
-    http://<?php echo $_SERVER['SERVER_NAME'].'/'.Configure::read('Caketourney.folder').'caketourney/tournaments/view/'.$tournament_id ?>
-	
-    												 
-    To unsubscribe from this automated message, change you account settings at:
-    http://<?php echo $_SERVER['SERVER_NAME'].'/'.Configure::read('Caketourney.folder').'caketourney/users/account/' ?>
-    
-    
-    The <?php echo Configure::read('Caketourney.company_name') ?>
+greetings <?php echo $username ?>
     
     
     

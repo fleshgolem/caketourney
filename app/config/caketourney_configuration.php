@@ -18,6 +18,9 @@ $config['User']['recent_matches'] = '6';
 // if you reach your caketourney at http://flesh.sesu.org/test/test2/caketourney/users, set the folder to 'test/test2' (make sure to add the '/' at the end!)
 $config['Caketourney']['folder'] = '';
 
+// Name for emails, etc
+$config['Caketourney']['company_name'] = 'OPSL Team';
+
 
 // Configuration of you Facebook website
 // if your Facebook website looks like this "http://www.facebook.com/pages/Open-Physicist-Starcraft-II-League/210427322307946" the fanpage name is 'Open-Physicist-Starcraft-II-League'
