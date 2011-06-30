@@ -60,6 +60,30 @@ class PagesController extends AppController {
  * @param mixed What page to display
  * @access public
  */
+ 	var $components = array('Email');
+ 	
+	function _sendNewUserMail() {
+		
+		
+		
+		$this->Email->to = 'test@test.de';
+		$this->Email->subject = 'The tournament "" has beed added.';
+		Configure::load('caketourney_configuration');
+		$this->Email->replyTo = Configure::read('Email.replyTo');
+		$this->Email->from = Configure::read('Email.from');
+		$this->Email->template = 'new_tournament_email'; // note no '.ctp'
+		//Send as 'html', 'text' or 'both' (default is 'text')
+		$this->Email->sendAs = 'both'; // because we like to send pretty mail
+		//$this->Email->_createboundary();
+		//$this->Email->__header[] = 'MIME-Version: 1.0';
+		//Do not pass any args to send()
+		$this->Email->delivery = 'debug';
+		//$this->Email->delivery = 'mail';
+		$this->Email->send();
+		$this->Email->reset();
+		
+	}
+	
 	function beforeFilter()
     {
         $this->Auth->allow('display');
@@ -84,8 +108,8 @@ class PagesController extends AppController {
 		}
 		if (!empty($path[$count - 1])) {
 			$title_for_layout = Inflector::humanize($path[$count - 1]);
-			/*if($title_for_layout=='Configuration'){
-				$this->_configuration();
+			/*if($title_for_layout=='Contact'){
+				$this->_contact();
 			}*/
 		}
 		$this->set(compact('page', 'subpage', 'title_for_layout'));
@@ -98,5 +122,9 @@ class PagesController extends AppController {
 		debug(Configure::read('Company.name'));
 		Configure::write('Company',array('name'=>'OPSL','slogan'=>'Pizza for your body and soul'));
 		debug(Configure::read('Company.name'));
+	}
+	
+	function _contact() {
+		$this->_sendNewUserMail();
 	}
 }
