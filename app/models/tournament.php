@@ -84,6 +84,6 @@ class Tournament extends AppModel {
 			'insertQuery' => ''
 		)
 	);
-
+	
 }
 ?>
