@@ -450,9 +450,10 @@ class KOTournamentsController extends AppController {
 			)));
 		$options['conditions'] = array('Signup.tournament_id'=>$id);
 		$options['fields'] = array('User.id', 'User.username');
+		$options['order'] = array('User.username asc');
 		$users = $this->KOTournament->User->find('list',$options);
 		if (empty($users))
-			$users = $this->KOTournament->User->find('list',array('fields' => array('User.id', 'User.username')));
+			$users = $this->KOTournament->User->find('list',array('fields' => array('User.id', 'User.username'),'order' => array('User.username asc')));
 		$this->set(compact('users'));
 	}
 	function start_seeded($id) {
@@ -487,9 +488,10 @@ class KOTournamentsController extends AppController {
 			)));
 		$options['conditions'] = array('Signup.tournament_id'=>$id);
 		$options['fields'] = array('User.id', 'User.username');
+		$options['order'] = array('User.username asc');
 		$users = $this->KOTournament->User->find('list',$options);
 		if (empty($users))
-			$users = $this->KOTournament->User->find('list',array('fields' => array('User.id', 'User.username')));
+			$users = $this->KOTournament->User->find('list',array('fields' => array('User.id', 'User.username'),'order' => array('User.username asc')));
 		$this->set(compact('users'));
 	}
 	
