@@ -443,23 +443,36 @@ class SwissTournamentsController extends AppController {
 	$this->data=$this->SwissTournament->Ranking->find('all',array('conditions'=>array('Ranking.tournament_id'=>$id)));
 
 	}
-	function start($id,$signup_mod) {
+	function start($id,$signup_mod=array()) {
 		Configure::load('caketourney_configuration');
 		if (!$this->Session->read('Auth.User.admin'))
 		{
 			$this->Session->setFlash(__('Access denied', true));
-			$this->redirect(array('action'=>'index'));
+			$this->redirect(array('controller'=> 'Tournaments','action'=>'index'));
 		}
 		if (!empty($this->data)) {
-			//debug($this->data['User']);
-			if ( $this->data['SwissTournament']['roundnumber']>count($this->data['User']['User']))
-			{
-				$this->Session->setFlash(__('Too many rounds for a swiss tournament. The maximum number of rounds for '.count($this->data['User']['User']).' player is '.(count($this->data['User']['User'])-1), true));
-				$this->redirect(array('controller'=> 'Tournaments','action' => 'view',$id));
+			
+			if(count($this->data['SwissTournament'])==3){
+				if ( $this->data['SwissTournament']['roundnumber']>count($this->data['User']['User']))
+				{
+					$this->Session->setFlash(__('Too many rounds for a swiss tournament. The maximum number of rounds for '.count($this->data['User']['User']).' player is '.(count($this->data['User']['User'])-1), true));
+					$this->redirect(array('controller'=> 'Tournaments','action' => 'view',$id));
+				}
+			}
+			if(count($this->data['SwissTournament'])!=3){
+				if ( $this->data['SwissTournament']['roundnumber']>(count($this->data['User']['User'])+count($this->data['SwissTournament']['Alluser'])))
+				{
+					$this->Session->setFlash(__('Too many rounds for a swiss tournament. The maximum number of rounds for '.count($this->data['User']['User']).' player is '.(count($this->data['User']['User'])-1), true));
+					$this->redirect(array('controller'=> 'Tournaments','action' => 'view',$id));
+				}
+			}
+			
+			
+			if(count($this->data['SwissTournament'])!=3){
+				$this->data['User']['User']=array_merge($this->data['User']['User'],$this->data['SwissTournament']['Alluser']);
 			}
 			
 			$this->data['SwissTournament']['current_round'] = 0;
-
 			
 			if ($this->SwissTournament->save($this->data)) {
 				foreach($this->data['User']['User'] as $user)
@@ -525,9 +538,17 @@ class SwissTournamentsController extends AppController {
 		$allusers = array();
 		
 		if($signup_mod=='mixed'){
-			$options['conditions'] = array();
+			$options['joins'] = array(
+				array('table' => 'signups',
+				'alias' => 'Signup',
+				'type' => 'LEFT',
+				'conditions' => array(
+					'User.id = Signup.user_id',
+			)));
+			$options['conditions'] = '';
 			$options['order'] = array('User.username asc');
-			$allusers = $this->SwissTournament->User->find('list',$options);
+			$tempusers = $this->SwissTournament->User->find('list',$options);
+			$allusers = array_diff ($tempusers,$users);
 		}
 		
 		

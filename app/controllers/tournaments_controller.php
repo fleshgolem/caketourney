@@ -604,7 +604,7 @@ class TournamentsController extends AppController {
 		}
 		if ($this->Tournament->field('typeField') == 'Swiss')
 		{
-			$this->redirect(array('controller'=> 'SwissTournaments','action' => 'start',$id));
+			$this->redirect(array('controller'=> 'SwissTournaments','action' => 'pre_start',$id));
 		}
 		if($this->Tournament->field('typeField') == 'DE')
 		{

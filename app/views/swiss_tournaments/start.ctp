@@ -20,11 +20,12 @@
                         <legend></legend>
                     <?php
                         echo $this->Form->input('name');
-						debug($allusers);
+						
 						if(!empty($allusers)){
 							//echo $this->Form->input('Signed up Users', array('options' => $users_all));
-							echo $this->Form->input('Alluser');
-							echo $this->Form->input('User');
+							echo $this->Form->input('User',array( 'label' => 'Users that did sign up'));
+							echo $this->Form->input('Alluser',array( 'type' => 'select', 'multiple' => true ,'label' => 'Users that did not sign up'));
+							
 						}
 						else{
                         	echo $this->Form->input('User');
