@@ -501,6 +501,44 @@ class SwissTournamentsController extends AppController {
 		$this->set(compact('users'));
 	}
 	
+	
+	function pre_start($id) {
+		if (!$this->Session->read('Auth.User.admin'))
+		{
+			$this->Session->setFlash(__('Access denied', true));
+			$this->redirect(array('action'=>'index'));
+		}
+		if (!empty($this->data)) {
+			debug($this->data);
+			
+			//$this->redirect(array('action' => 'view',$this->SwissTournament->id));
+
+			
+		}
+		if (empty($this->data)) {
+			$this->data = $this->SwissTournament->read(null, $id);
+			
+		}
+		$options['joins'] = array(
+			array('table' => 'signups',
+			'alias' => 'Signup',
+			'type' => 'LEFT',
+			'conditions' => array(
+				'User.id = Signup.user_id',
+			)));
+			
+		$options['conditions'] = array('Signup.tournament_id'=>$id);
+		$options['fields'] = array('User.id', 'User.username');
+		$options['order'] = array('User.username asc');
+		//$this->KOTournament->User->bindModel(array('hasMany' => array('Signup' => array('conditions'=>array('Signup.tournament_id'=>$id,'Signup.user_id'=>'User.id')))));
+		$users = $this->SwissTournament->User->find('list',$options);
+		//if (empty($users))
+		//	$users = $this->SwissTournament->User->find('list',array('fields' => array('User.id', 'User.username'),'order' => array('User.username asc')));
+		$this->set(compact('users'));
+	}
+	
+	
+	
 	function finish_round($tournament_id)
 	{
 		if (!$this->Session->read('Auth.User.admin'))

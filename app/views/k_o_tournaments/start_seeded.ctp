@@ -3,7 +3,7 @@
 <div class="PostBox">
 <div class="ThreadTitleBox">
 	<div class="ThreadTitleContent">
-		<h2><?php __('Add Tournament');?></h2>
+		<h2><?php __('Start Tournament');?></h2>
 	</div> 
 	
 	<p style="clear: both;">  </p>  

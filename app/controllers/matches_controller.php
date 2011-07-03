@@ -289,13 +289,12 @@ class MatchesController extends AppController {
 		$round=$this->Match->Round->findById($match['Match']['round_id']);
 		
 		$this->Match->Round->Tournament->User->bindModel(array('hasOne' => array('UsersTournaments')));
-		//$participants = $this->Match->User->find('list',array('recursive'=>0,'conditions'=>array('UsersTournaments.tournament_id'=>$tournament_id)));
 		
-		$player1s = $this->Match->Round->Tournament->User->find('list',array('recursive'=>1,'conditions'=>array('UsersTournaments.tournament_id'=>$round['Tournament']['id'])));
+		
+		$player1s = $this->Match->Round->Tournament->User->find('list',array('recursive'=>1,'conditions'=>array('UsersTournaments.tournament_id'=>$round['Tournament']['id']),'order'=>array('User.username asc')));
 		$this->Match->Round->Tournament->User->bindModel(array('hasOne' => array('UsersTournaments')));
-		$player2s = $this->Match->Round->Tournament->User->find('list',array('recursive'=>1,'conditions'=>array('UsersTournaments.tournament_id'=>$round['Tournament']['id'])));
+		$player2s = $this->Match->Round->Tournament->User->find('list',array('recursive'=>1,'conditions'=>array('UsersTournaments.tournament_id'=>$round['Tournament']['id']),'order'=>array('User.username asc')));
 		$this->set(compact('rounds', 'player1s', 'player2s'));
-		debug($player2s);
 	}
 
 	function delete($id = null) {

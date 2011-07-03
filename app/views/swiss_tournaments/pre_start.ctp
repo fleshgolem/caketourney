@@ -15,14 +15,16 @@
 	<div class="PostContent">
 		<div class="PostContentBox">
 			<div class="PostMainContentbox">
-				<?php echo $this->Form->create('SwissTournament');?>
+				<?php echo $this->Form->create();?>
                     <fieldset>
                         <legend></legend>
                     <?php
-                        echo $this->Form->input('name');
-                        echo $this->Form->input('User');
-                        echo $this->Form->input('bestof', array('options' => array(1=>1,3=>3,5=>5,7=>7,9=>9),'label' => 'Games per Match')); 
-                        echo $this->Form->input('roundnumber', array('label'=>'Number of Rounds'));
+                        if (!empty($users)){
+                        	echo $this->Form->input('signup_mod', array('options' => array('sign_up'=>'Only players that signed up','all'=>'All players in the database','mixed'=>'both','codes'=>'Only players from Code-S','codea'=>'Only players from Code-A'),'label' => 'Choose from which group of players you would like fill your seedings.'));
+						}
+						else {
+							echo $this->Form->input('signup_mod', array('options' => array('sign_up'=>'ha',3=>3,5=>5,7=>7,9=>9),'label' => 'No Sign ups'));
+						}
                     ?>
                     </fieldset>
 				

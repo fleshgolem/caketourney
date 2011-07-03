@@ -5,7 +5,8 @@ $config['Email']['replyTo'] = 'OPSL@rwth-physiker.de';
 $config['Email']['from'] = 'The OPSL Team <OPSL@rwth-physiker.de>';
 
 // Configuration of the Header Logo
-$config['Header']['logo'] = 'logo7.png';
+//$config['Header']['logo'] = 'logo7.png';
+$config['Header']['logo'] = 'infocup.png';
 
 // Configuration for how many MONTHS the recent matches will be displayed
 $config['User']['recent_matches'] = '6';
@@ -20,6 +21,11 @@ $config['Caketourney']['folder'] = '';
 
 // Name for emails, etc
 $config['Caketourney']['company_name'] = 'OPSL Team';
+
+// Caketoruney of division and unranked names
+$config['Caketourney']['division_1'] = 'Code S';
+$config['Caketourney']['division_2'] = 'Code A';
+$config['Caketourney']['division_unranked'] = 'Unranked';
 
 
 // Configuration of you Facebook website

@@ -202,6 +202,30 @@ class UsersController extends AppController {
 		$this->paginate = array('order'=>array( 'admin desc','created asc'));
 		$this->set('users', $this->paginate());
 	}
+	
+	function division_1() {
+		Configure::load('caketourney_configuration');
+		$this->User->id = $this->Auth->user('id');
+ 
+        // Load the user (avoid populating $this->data)
+        $current_user = $this->User->findById($this->User->id);
+		
+		$this->User->recursive = 0;
+		$this->paginate = array('conditions' => array('User.division'=>Configure::read('Caketourney.division_1')),'order'=>array( 'admin desc','created asc'));
+		$this->set('users', $this->paginate());
+	}
+	
+	function division_2() {
+		Configure::load('caketourney_configuration');
+		$this->User->id = $this->Auth->user('id');
+ 
+        // Load the user (avoid populating $this->data)
+        $current_user = $this->User->findById($this->User->id);
+		
+		$this->User->recursive = 0;
+		$this->paginate = array('conditions' => array('User.division'=>Configure::read('Caketourney.division_2')),'order'=>array( 'admin desc','created asc'));
+		$this->set('users', $this->paginate());
+	}
 
 	function view($id = null) {
 		$user_id = $this->Auth->user('id');
