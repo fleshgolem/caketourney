@@ -481,38 +481,59 @@ class SwissTournamentsController extends AppController {
 		}
 		if (empty($this->data)) {
 			$this->data = $this->SwissTournament->read(null, $id);
-			debug($signup_mod);
+			
 			
 		}
-		$options['joins'] = array(
-			array('table' => 'signups',
-			'alias' => 'Signup',
-			'type' => 'LEFT',
-			'conditions' => array(
-				'User.id = Signup.user_id',
-			)));
+		
 			
 		
-		$options['fields'] = array('User.id', 'User.username', 'User.division');
+		$options['fields'] = array('User.id', 'User.username');
 		if($signup_mod=='sign_up'){
+			$options['joins'] = array(
+				array('table' => 'signups',
+				'alias' => 'Signup',
+				'type' => 'LEFT',
+				'conditions' => array(
+					'User.id = Signup.user_id',
+			)));
 			$options['conditions'] = array('Signup.tournament_id'=>$id);
 		}
 		if($signup_mod=='all'){
 			
 		}
-		if($signup_mod==Configure::read('Caketourney.division_1')){
+		if($signup_mod=='division_1'){
 			$options['conditions'] = array('User.division'=>Configure::read('Caketourney.division_1'));
 		}
-		
+		if($signup_mod=='division_2'){
+			$options['conditions'] = array('User.division'=>Configure::read('Caketourney.division_2'));
+		}
+		if($signup_mod=='mixed'){
+			$options['joins'] = array(
+				array('table' => 'signups',
+				'alias' => 'Signup',
+				'type' => 'LEFT',
+				'conditions' => array(
+					'User.id = Signup.user_id',
+			)));
+			$options['conditions'] = array('Signup.tournament_id'=>$id);
+		}
 		
 		
 		$options['order'] = array('User.username asc');
 		
-		$users = $this->SwissTournament->User->find('all',$options);
-		debug($users);
+		$users = $this->SwissTournament->User->find('list',$options);
+		$allusers = array();
+		
+		if($signup_mod=='mixed'){
+			$options['conditions'] = array();
+			$options['order'] = array('User.username asc');
+			$allusers = $this->SwissTournament->User->find('list',$options);
+		}
+		
+		
 		/*if (empty($users))
 			$users = $this->SwissTournament->User->find('list',array('fields' => array('User.id', 'User.username'),'order' => array('User.username asc')));*/
-		
+		$this->set(compact('allusers'));
 		$this->set(compact('users'));
 	}
 	

@@ -20,7 +20,15 @@
                         <legend></legend>
                     <?php
                         echo $this->Form->input('name');
-                        echo $this->Form->input('User');
+						debug($allusers);
+						if(!empty($allusers)){
+							//echo $this->Form->input('Signed up Users', array('options' => $users_all));
+							echo $this->Form->input('Alluser');
+							echo $this->Form->input('User');
+						}
+						else{
+                        	echo $this->Form->input('User');
+						}
                         echo $this->Form->input('bestof', array('options' => array(1=>1,3=>3,5=>5,7=>7,9=>9),'label' => 'Games per Match')); 
                         echo $this->Form->input('roundnumber', array('label'=>'Number of Rounds'));
                     ?>
