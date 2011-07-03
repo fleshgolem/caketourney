@@ -444,6 +444,7 @@ class SwissTournamentsController extends AppController {
 
 	}
 	function start($id) {
+		
 		if (!$this->Session->read('Auth.User.admin'))
 		{
 			$this->Session->setFlash(__('Access denied', true));
@@ -481,6 +482,7 @@ class SwissTournamentsController extends AppController {
 		if (empty($this->data)) {
 			$this->data = $this->SwissTournament->read(null, $id);
 			
+			
 		}
 		$options['joins'] = array(
 			array('table' => 'signups',
@@ -509,9 +511,9 @@ class SwissTournamentsController extends AppController {
 			$this->redirect(array('action'=>'index'));
 		}
 		if (!empty($this->data)) {
-			debug($this->data);
+			debug(array($this->SwissTournament->id,$this->data['SwissTournament']['signup_mod']));
 			
-			//$this->redirect(array('action' => 'view',$this->SwissTournament->id));
+			$this->redirect(array('action' => 'start', array($this->SwissTournament->id,$this->data['SwissTournament']['signup_mod'])));
 
 			
 		}

@@ -19,11 +19,12 @@
                     <fieldset>
                         <legend></legend>
                     <?php
+						Configure::load('caketourney_configuration');
                         if (!empty($users)){
-                        	echo $this->Form->input('signup_mod', array('options' => array('sign_up'=>'Only players that signed up','all'=>'All players in the database','mixed'=>'both','codes'=>'Only players from Code-S','codea'=>'Only players from Code-A'),'label' => 'Choose from which group of players you would like fill your seedings.'));
+                        	echo $this->Form->input('signup_mod', array('options' => array('sign_up'=>'Signed up players','all'=>'All players in the database','division_1'=>(Configure::read('Caketourney.division_1').' players'),'division_2'=>(Configure::read('Caketourney.division_2').' players'),'mixed'=>'Two groups: signed up and all players'),'label' => 'Choose a group of which you want to select the players participating in this tournament.'));
 						}
 						else {
-							echo $this->Form->input('signup_mod', array('options' => array('sign_up'=>'ha',3=>3,5=>5,7=>7,9=>9),'label' => 'No Sign ups'));
+							echo $this->Form->input('signup_mod', array('options' => array('all'=>'All players in the database','division_1'=>(Configure::read('Caketourney.division_1').' players'),'division_2'=>(Configure::read('Caketourney.division_2').' players')),'label' => 'Choose a group of which you want to select the players participating in this tournament.'));
 						}
                     ?>
                     </fieldset>
