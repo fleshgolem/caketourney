@@ -452,23 +452,23 @@ class SwissTournamentsController extends AppController {
 		}
 		if (!empty($this->data)) {
 			
-			if(count($this->data['SwissTournament'])==3){
-				if ( $this->data['SwissTournament']['roundnumber']>count($this->data['User']['User']))
-				{
-					$this->Session->setFlash(__('Too many rounds for a swiss tournament. The maximum number of rounds for '.count($this->data['User']['User']).' player is '.(count($this->data['User']['User'])-1), true));
-					$this->redirect(array('controller'=> 'Tournaments','action' => 'view',$id));
-				}
-			}
-			if(count($this->data['SwissTournament'])!=3){
+			if(array_key_exists('Alluser',$this->data['SwissTournament'])){
 				if ( $this->data['SwissTournament']['roundnumber']>(count($this->data['User']['User'])+count($this->data['SwissTournament']['Alluser'])))
 				{
 					$this->Session->setFlash(__('Too many rounds for a swiss tournament. The maximum number of rounds for '.count($this->data['User']['User']).' player is '.(count($this->data['User']['User'])-1), true));
 					$this->redirect(array('controller'=> 'Tournaments','action' => 'view',$id));
 				}
 			}
+			else{
+				if ( $this->data['SwissTournament']['roundnumber']>count($this->data['User']['User']))
+				{
+					$this->Session->setFlash(__('Too many rounds for a swiss tournament. The maximum number of rounds for '.count($this->data['User']['User']).' player is '.(count($this->data['User']['User'])-1), true));
+					$this->redirect(array('controller'=> 'Tournaments','action' => 'view',$id));
+				}
+			}
 			
 			
-			if(count($this->data['SwissTournament'])!=3){
+			if(array_key_exists('Alluser',$this->data['SwissTournament'])){
 				$this->data['User']['User']=array_merge($this->data['User']['User'],$this->data['SwissTournament']['Alluser']);
 			}
 			
@@ -501,6 +501,8 @@ class SwissTournamentsController extends AppController {
 			
 		
 		$options['fields'] = array('User.id', 'User.username');
+		
+		// signup mod has been set by pre_start and now the different conditions are set
 		if($signup_mod=='sign_up'){
 			$options['joins'] = array(
 				array('table' => 'signups',
@@ -560,6 +562,7 @@ class SwissTournamentsController extends AppController {
 	
 	
 	function pre_start($id) {
+		// pre start allows the admin to select different groups of users for starting tournaments
 		if (!$this->Session->read('Auth.User.admin'))
 		{
 			$this->Session->setFlash(__('Access denied', true));
