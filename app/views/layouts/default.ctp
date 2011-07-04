@@ -295,7 +295,7 @@
 					<div class="containercontentbox">
                     	<div class="menuebox">
 							<?php echo $this->Html->link('Watch Stream',array('controller'=>'pages','action'=>'stream')); ?>
-							<a href="http://www.own3d.tv/b4lrog" target="_blank">Watch VOD's</a>
+							<a href="http://www.own3d.tv/b4lrog" target="_blank">Watch VODs</a>
                         </div>
                         <div class="menuebox">
                     	<!--<?php
