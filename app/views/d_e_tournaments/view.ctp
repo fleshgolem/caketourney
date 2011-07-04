@@ -37,7 +37,7 @@
      </div>
      <div class="bottomactionleft">
      	<?php 
-		echo $this->Html->link('Extend View', array('action'=>'extended_view',$tournament['DETournament']['id']), array('target'=>'_blank'));
+		echo $this->Html->link('Extended View', array('action'=>'extended_view',$tournament['DETournament']['id']), array('target'=>'_blank'));
 		?>
      </div>
 	<p style="clear: both;">  </p>  

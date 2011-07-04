@@ -596,11 +596,11 @@ class TournamentsController extends AppController {
 		$this->Tournament->id=$id;
 		if ($this->Tournament->field('typeField') == 'KO' )
 		{
-			$this->redirect(array('controller'=> 'KOTournaments','action' => 'start_random',$id));
+			$this->redirect(array('controller'=> 'KOTournaments','action' => 'pre_start_random',$id));
 		}
 		if($this->Tournament->field('typeField') == 'SKO')
 		{
-			$this->redirect(array('controller'=> 'KOTournaments','action' => 'start_seeded',$id));
+			$this->redirect(array('controller'=> 'KOTournaments','action' => 'pre_start_seeded',$id));
 		}
 		if ($this->Tournament->field('typeField') == 'Swiss')
 		{
@@ -608,11 +608,11 @@ class TournamentsController extends AppController {
 		}
 		if($this->Tournament->field('typeField') == 'DE')
 		{
-			$this->redirect(array('controller'=> 'DETournaments','action' => 'start_random',$id));
+			$this->redirect(array('controller'=> 'DETournaments','action' => 'pre_start_random',$id));
 		}
 		if($this->Tournament->field('typeField') == 'SDE')
 		{
-			$this->redirect(array('controller'=> 'DETournaments','action' => 'start_seeded',$id));
+			$this->redirect(array('controller'=> 'DETournaments','action' => 'pre_start_seeded',$id));
 		}
 		
 	}
