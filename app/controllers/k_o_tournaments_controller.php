@@ -6,7 +6,7 @@ class KOTournamentsController extends AppController {
 	var $name = 'KOTournaments';
 	function beforeFilter()
     {
-		$this->Auth->allow('view');
+		$this->Auth->allow('view','statistics','extended_view');
         parent::beforeFilter();
 		
 	}

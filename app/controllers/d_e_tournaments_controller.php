@@ -6,7 +6,7 @@ class DETournamentsController extends AppController {
 	var $name = 'DETournaments';
 	function beforeFilter()
     {
-		$this->Auth->allow('view');
+		$this->Auth->allow('view','statistics','extended_view');
         parent::beforeFilter();
 		
 	}
