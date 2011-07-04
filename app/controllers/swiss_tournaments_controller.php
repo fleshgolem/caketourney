@@ -31,8 +31,8 @@ class SwissTournamentsController extends AppController {
 		//$this->Email->_createboundary();
 		//$this->Email->__header[] = 'MIME-Version: 1.0';
 		//Do not pass any args to send()
-		$this->Email->delivery = 'debug';
-		//$this->Email->delivery = 'mail';
+		//$this->Email->delivery = 'debug';
+		$this->Email->delivery = 'mail';
 		$this->Email->send();
 		$this->Email->reset();
 		
@@ -538,7 +538,7 @@ class SwissTournamentsController extends AppController {
 						$this->data['Message']['sender_id']=null;
 						$this->data['Message']['recipient_id']=$subscriber['id'];
 						$this->data['Message']['date']= $date->format('Y-m-d H:i:s');
-						$this->data['Message']['title']= 'The tournament "'. $this->data['SwissTournament']['name']. '" has been started.';
+						$this->data['Message']['title']= 'The tournament "'. $this->data['SwissTournament']['name']. '" started.';
 						
 						
 						$this->data['Message']['body']= 'The tournament '.$this->data['SwissTournament']['name'].' started. Find your first match at:
