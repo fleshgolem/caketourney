@@ -498,6 +498,15 @@ class SwissTournamentsController extends AppController {
 				$this->data['User']['User']=array_merge($this->data['User']['User'],$this->data['SwissTournament']['Alluser']);
 			}
 			
+			
+			
+		
+			$current_tournament = $this->SwissTournament->find('first',array('conditions' => array('SwissTournament.id'=>$id) ,'contain' => array() ));
+			if(isset($current_tournament['SwissTournament']['current_round'])){
+				$this->Session->setFlash(__('Tournament has already been started', true));
+				$this->redirect(array('controller'=> 'Tournaments','action' => 'view',$id));
+			}
+			
 			$this->data['SwissTournament']['current_round'] = 0;
 			
 			if ($this->SwissTournament->save($this->data)) {
@@ -556,7 +565,7 @@ class SwissTournamentsController extends AppController {
 				//email + message end
 				
 				
-				//$this->redirect(array('action' => 'view',$this->SwissTournament->id));
+				$this->redirect(array('action' => 'view',$this->SwissTournament->id));
 				
 			} else {
 				$this->Session->setFlash(__('The swiss tournament could not be saved. Please, try again.', true));

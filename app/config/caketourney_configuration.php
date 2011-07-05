@@ -21,6 +21,7 @@ $config['Caketourney']['folder'] = '';
 // Name of Organisation, etc
 $config['Caketourney']['company_name'] = 'OPSL Team';
 $config['Caketourney']['company_name_long'] = 'Open Physicist Starcraft II League';
+$config['Caketourney']['company_name_short'] = 'OPSL';
 
 // Caketoruney of division and unranked names
 $config['Caketourney']['division_1'] = 'Code S';

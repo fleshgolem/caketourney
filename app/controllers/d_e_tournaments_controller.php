@@ -582,6 +582,12 @@ class DETournamentsController extends AppController {
 				$this->data['User']['User']=array_merge($this->data['User']['User'],$this->data['DETournament']['Alluser']);
 			}
 			
+			$current_tournament = $this->DETournament->find('first',array('conditions' => array('DETournament.id'=>$id) ,'contain' => array() ));
+			if(isset($current_tournament['DETournament']['current_round'])){
+				$this->Session->setFlash(__('Tournament has already been started', true));
+				$this->redirect(array('controller'=> 'Tournaments','action' => 'view',$id));
+			}
+			
 			$this->data['DETournament']['current_round']=0;
 			if ($this->DETournament->save($this->data)) {
 				
@@ -741,6 +747,12 @@ class DETournamentsController extends AppController {
 			
 			if(array_key_exists('Alluser',$this->data['DETournament'])){
 				$this->data['User']['User']=array_merge($this->data['User']['User'],$this->data['DETournament']['Alluser']);
+			}
+			
+			$current_tournament = $this->DETournament->find('first',array('conditions' => array('DETournament.id'=>$id) ,'contain' => array() ));
+			if(isset($current_tournament['DETournament']['current_round'])){
+				$this->Session->setFlash(__('Tournament has already been started', true));
+				$this->redirect(array('controller'=> 'Tournaments','action' => 'view',$id));
 			}
 			
 			$this->data['DETournament']['current_round']=0;
