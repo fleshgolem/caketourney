@@ -512,7 +512,8 @@ class DETournamentsController extends AppController {
 		$this->set('tournament', $tournament);
 	}
 	
-	function start_random($id) {
+	
+	function pre_start_random($id) {
 		if (!$this->Session->read('Auth.User.admin'))
 		{
 			$this->Session->setFlash(__('Access denied', true));
@@ -520,6 +521,42 @@ class DETournamentsController extends AppController {
 		}
 		if (!empty($this->data)) {
 
+			$this->redirect(array('action' => 'start_random', $this->DETournament->id,$this->data['DETournament']['signup_mod']));
+			
+		}
+		if (empty($this->data)) {
+			$this->data = $this->DETournament->read(null, $id);
+			
+		}
+		$options['joins'] = array(
+			array('table' => 'signups',
+			'alias' => 'Signup',
+			'type' => 'LEFT',
+			'conditions' => array(
+				'User.id = Signup.user_id',
+			)));
+		$options['conditions'] = array('Signup.tournament_id'=>$id);
+		$options['fields'] = array('User.id', 'User.username');
+		$options['order'] = array('User.username asc');
+		$users = $this->DETournament->User->find('list',$options);
+	
+		$this->set(compact('users'));
+	}
+	
+	
+	function start_random($id,$signup_mod=array()) {
+		Configure::load('caketourney_configuration');
+		if (!$this->Session->read('Auth.User.admin'))
+		{
+			$this->Session->setFlash(__('Access denied', true));
+			$this->redirect(array('action'=>'index'));
+		}
+		if (!empty($this->data)) {
+			
+			if(array_key_exists('Alluser',$this->data['DETournament'])){
+				$this->data['User']['User']=array_merge($this->data['User']['User'],$this->data['DETournament']['Alluser']);
+			}
+			
 			$this->data['DETournament']['current_round']=0;
 			if ($this->DETournament->save($this->data)) {
 				
@@ -538,22 +575,62 @@ class DETournamentsController extends AppController {
 			$this->data = $this->DETournament->read(null, $id);
 			
 		}
-		$options['joins'] = array(
-			array('table' => 'signups',
-			'alias' => 'Signup',
-			'type' => 'LEFT',
-			'conditions' => array(
-				'User.id = Signup.user_id',
-			)));
-		$options['conditions'] = array('Signup.tournament_id'=>$id);
 		$options['fields'] = array('User.id', 'User.username');
+		
+		// signup mod has been set by pre_start and now the different conditions are set
+		if($signup_mod=='sign_up'){
+			$options['joins'] = array(
+				array('table' => 'signups',
+				'alias' => 'Signup',
+				'type' => 'LEFT',
+				'conditions' => array(
+					'User.id = Signup.user_id',
+			)));
+			$options['conditions'] = array('Signup.tournament_id'=>$id);
+		}
+		if($signup_mod=='all'){
+			
+		}
+		if($signup_mod=='division_1'){
+			$options['conditions'] = array('User.division'=>Configure::read('Caketourney.division_1'));
+		}
+		if($signup_mod=='division_2'){
+			$options['conditions'] = array('User.division'=>Configure::read('Caketourney.division_2'));
+		}
+		if($signup_mod=='mixed'){
+			$options['joins'] = array(
+				array('table' => 'signups',
+				'alias' => 'Signup',
+				'type' => 'LEFT',
+				'conditions' => array(
+					'User.id = Signup.user_id',
+			)));
+			$options['conditions'] = array('Signup.tournament_id'=>$id);
+		}
+		
+		
 		$options['order'] = array('User.username asc');
 		$users = $this->DETournament->User->find('list',$options);
-		if (empty($users))
-			$users = $this->DETournament->User->find('list',array('fields' => array('User.id', 'User.username'),'order' => array('User.username asc')));
+		$allusers = array();
+		
+		if($signup_mod=='mixed'){
+			$options['joins'] = array(
+				array('table' => 'signups',
+				'alias' => 'Signup',
+				'type' => 'LEFT',
+				'conditions' => array(
+					'User.id = Signup.user_id',
+			)));
+			$options['conditions'] = '';
+			$options['order'] = array('User.username asc');
+			$tempusers = $this->DETournament->User->find('list',$options);
+			$allusers = array_diff ($tempusers,$users);
+		}
 		$this->set(compact('users'));
+		$this->set(compact('allusers'));
 	}
-	function start_seeded($id) {
+	
+	function pre_start_seeded($id) {
 		if (!$this->Session->read('Auth.User.admin'))
 		{
 			$this->Session->setFlash(__('Access denied', true));
@@ -561,15 +638,7 @@ class DETournamentsController extends AppController {
 		}
 		if (!empty($this->data)) {
 
-			$this->data['DETournament']['current_round']=0;
-			if ($this->DETournament->save($this->data)) {
-				
-				$this->Session->setFlash(__('The tournament has been saved', true));
-				//Create first round with random matchups
-				$this->redirect(array('action' => 'seed', $this->DETournament->id));
-			} else {
-				$this->Session->setFlash(__('The tournament could not be saved. Please, try again.', true));
-			}
+			$this->redirect(array('action' => 'start_seeded', $this->DETournament->id,$this->data['DETournament']['signup_mod']));
 			
 		}
 		if (empty($this->data)) {
@@ -587,9 +656,91 @@ class DETournamentsController extends AppController {
 		$options['fields'] = array('User.id', 'User.username');
 		$options['order'] = array('User.username asc');
 		$users = $this->DETournament->User->find('list',$options);
-		if (empty($users))
-			$users = $this->DETournament->User->find('list',array('fields' => array('User.id', 'User.username'),'order' => array('User.username asc')));
+		
 		$this->set(compact('users'));
+	}
+	
+	function start_seeded($id,$signup_mod=array()) {
+		Configure::load('caketourney_configuration');
+		if (!$this->Session->read('Auth.User.admin'))
+		{
+			$this->Session->setFlash(__('Access denied', true));
+			$this->redirect(array('action'=>'index'));
+		}
+		if (!empty($this->data)) {
+			
+			if(array_key_exists('Alluser',$this->data['DETournament'])){
+				$this->data['User']['User']=array_merge($this->data['User']['User'],$this->data['DETournament']['Alluser']);
+			}
+			
+			$this->data['DETournament']['current_round']=0;
+			if ($this->DETournament->save($this->data)) {
+				
+				$this->Session->setFlash(__('The tournament has been saved', true));
+				//Create first round with random matchups
+				$this->redirect(array('action' => 'seed', $this->DETournament->id));
+			} else {
+				$this->Session->setFlash(__('The tournament could not be saved. Please, try again.', true));
+			}
+			
+		}
+		if (empty($this->data)) {
+			$this->data = $this->DETournament->read(null, $id);
+			
+		}
+		$options['fields'] = array('User.id', 'User.username');
+		
+		// signup mod has been set by pre_start and now the different conditions are set
+		if($signup_mod=='sign_up'){
+			$options['joins'] = array(
+				array('table' => 'signups',
+				'alias' => 'Signup',
+				'type' => 'LEFT',
+				'conditions' => array(
+					'User.id = Signup.user_id',
+			)));
+			$options['conditions'] = array('Signup.tournament_id'=>$id);
+		}
+		if($signup_mod=='all'){
+			
+		}
+		if($signup_mod=='division_1'){
+			$options['conditions'] = array('User.division'=>Configure::read('Caketourney.division_1'));
+		}
+		if($signup_mod=='division_2'){
+			$options['conditions'] = array('User.division'=>Configure::read('Caketourney.division_2'));
+		}
+		if($signup_mod=='mixed'){
+			$options['joins'] = array(
+				array('table' => 'signups',
+				'alias' => 'Signup',
+				'type' => 'LEFT',
+				'conditions' => array(
+					'User.id = Signup.user_id',
+			)));
+			$options['conditions'] = array('Signup.tournament_id'=>$id);
+		}
+		
+		
+		$options['order'] = array('User.username asc');
+		$users = $this->DETournament->User->find('list',$options);
+		$allusers = array();
+		
+		if($signup_mod=='mixed'){
+			$options['joins'] = array(
+				array('table' => 'signups',
+				'alias' => 'Signup',
+				'type' => 'LEFT',
+				'conditions' => array(
+					'User.id = Signup.user_id',
+			)));
+			$options['conditions'] = '';
+			$options['order'] = array('User.username asc');
+			$tempusers = $this->DETournament->User->find('list',$options);
+			$allusers = array_diff ($tempusers,$users);
+		}
+		$this->set(compact('users'));
+		$this->set(compact('allusers'));
 	}
 	
 	function generate_seeded($seeded_players,$name)

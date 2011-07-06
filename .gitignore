@@ -29,3 +29,4 @@ app/webroot/img/teamlogo
 /app/tmp/cache/models/cake_model_default_teams
 /app/tmp/cache/models/cake_model_default_teamtournaments
 /app/tmp/cache/models/cake_model_default_users_teams
+/app/config/caketourney_configuration.php

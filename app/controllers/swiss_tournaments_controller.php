@@ -443,23 +443,36 @@ class SwissTournamentsController extends AppController {
 	$this->data=$this->SwissTournament->Ranking->find('all',array('conditions'=>array('Ranking.tournament_id'=>$id)));
 
 	}
-	function start($id) {
-		
+	function start($id,$signup_mod=array()) {
+		Configure::load('caketourney_configuration');
 		if (!$this->Session->read('Auth.User.admin'))
 		{
 			$this->Session->setFlash(__('Access denied', true));
-			$this->redirect(array('action'=>'index'));
+			$this->redirect(array('controller'=> 'Tournaments','action'=>'index'));
 		}
 		if (!empty($this->data)) {
-			//debug($this->data['User']);
-			if ( $this->data['SwissTournament']['roundnumber']>count($this->data['User']['User']))
-			{
-				$this->Session->setFlash(__('Too many rounds for a swiss tournament. The maximum number of rounds for '.count($this->data['User']['User']).' player is '.(count($this->data['User']['User'])-1), true));
-				$this->redirect(array('controller'=> 'Tournaments','action' => 'view',$id));
+			
+			if(array_key_exists('Alluser',$this->data['SwissTournament'])){
+				if ( $this->data['SwissTournament']['roundnumber']>(count($this->data['User']['User'])+count($this->data['SwissTournament']['Alluser'])))
+				{
+					$this->Session->setFlash(__('Too many rounds for a swiss tournament. The maximum number of rounds for '.count($this->data['User']['User']).' player is '.(count($this->data['User']['User'])-1), true));
+					$this->redirect(array('controller'=> 'Tournaments','action' => 'view',$id));
+				}
+			}
+			else{
+				if ( $this->data['SwissTournament']['roundnumber']>count($this->data['User']['User']))
+				{
+					$this->Session->setFlash(__('Too many rounds for a swiss tournament. The maximum number of rounds for '.count($this->data['User']['User']).' player is '.(count($this->data['User']['User'])-1), true));
+					$this->redirect(array('controller'=> 'Tournaments','action' => 'view',$id));
+				}
+			}
+			
+			
+			if(array_key_exists('Alluser',$this->data['SwissTournament'])){
+				$this->data['User']['User']=array_merge($this->data['User']['User'],$this->data['SwissTournament']['Alluser']);
 			}
 			
 			$this->data['SwissTournament']['current_round'] = 0;
-
 			
 			if ($this->SwissTournament->save($this->data)) {
 				foreach($this->data['User']['User'] as $user)
@@ -484,36 +497,81 @@ class SwissTournamentsController extends AppController {
 			
 			
 		}
-		$options['joins'] = array(
-			array('table' => 'signups',
-			'alias' => 'Signup',
-			'type' => 'LEFT',
-			'conditions' => array(
-				'User.id = Signup.user_id',
-			)));
-			
-		$options['conditions'] = array('Signup.tournament_id'=>$id);
-		$options['fields'] = array('User.id', 'User.username');
-		$options['order'] = array('User.username asc');
-		//$this->KOTournament->User->bindModel(array('hasMany' => array('Signup' => array('conditions'=>array('Signup.tournament_id'=>$id,'Signup.user_id'=>'User.id')))));
-		$users = $this->SwissTournament->User->find('list',$options);
-		if (empty($users))
-			$users = $this->SwissTournament->User->find('list',array('fields' => array('User.id', 'User.username'),'order' => array('User.username asc')));
 		
+			
+		
+		$options['fields'] = array('User.id', 'User.username');
+		
+		// signup mod has been set by pre_start and now the different conditions are set
+		if($signup_mod=='sign_up'){
+			$options['joins'] = array(
+				array('table' => 'signups',
+				'alias' => 'Signup',
+				'type' => 'LEFT',
+				'conditions' => array(
+					'User.id = Signup.user_id',
+			)));
+			$options['conditions'] = array('Signup.tournament_id'=>$id);
+		}
+		if($signup_mod=='all'){
+			
+		}
+		if($signup_mod=='division_1'){
+			$options['conditions'] = array('User.division'=>Configure::read('Caketourney.division_1'));
+		}
+		if($signup_mod=='division_2'){
+			$options['conditions'] = array('User.division'=>Configure::read('Caketourney.division_2'));
+		}
+		if($signup_mod=='mixed'){
+			$options['joins'] = array(
+				array('table' => 'signups',
+				'alias' => 'Signup',
+				'type' => 'LEFT',
+				'conditions' => array(
+					'User.id = Signup.user_id',
+			)));
+			$options['conditions'] = array('Signup.tournament_id'=>$id);
+		}
+		
+		
+		$options['order'] = array('User.username asc');
+		
+		$users = $this->SwissTournament->User->find('list',$options);
+		$allusers = array();
+		
+		if($signup_mod=='mixed'){
+			$options['joins'] = array(
+				array('table' => 'signups',
+				'alias' => 'Signup',
+				'type' => 'LEFT',
+				'conditions' => array(
+					'User.id = Signup.user_id',
+			)));
+			$options['conditions'] = '';
+			$options['order'] = array('User.username asc');
+			$tempusers = $this->SwissTournament->User->find('list',$options);
+			$allusers = array_diff ($tempusers,$users);
+		}
+		
+		
+		/*if (empty($users))
+			$users = $this->SwissTournament->User->find('list',array('fields' => array('User.id', 'User.username'),'order' => array('User.username asc')));*/
+		$this->set(compact('allusers'));
 		$this->set(compact('users'));
 	}
 	
 	
 	function pre_start($id) {
+		// pre start allows the admin to select different groups of users for starting tournaments
 		if (!$this->Session->read('Auth.User.admin'))
 		{
 			$this->Session->setFlash(__('Access denied', true));
 			$this->redirect(array('action'=>'index'));
 		}
 		if (!empty($this->data)) {
-			debug(array($this->SwissTournament->id,$this->data['SwissTournament']['signup_mod']));
+			//debug(array($this->SwissTournament->id,$this->data['SwissTournament']['signup_mod']));
 			
-			$this->redirect(array('action' => 'start', array($this->SwissTournament->id,$this->data['SwissTournament']['signup_mod'])));
+			$this->redirect(array('action' => 'start', $this->SwissTournament->id,$this->data['SwissTournament']['signup_mod']));
 
 			
 		}
@@ -532,10 +590,8 @@ class SwissTournamentsController extends AppController {
 		$options['conditions'] = array('Signup.tournament_id'=>$id);
 		$options['fields'] = array('User.id', 'User.username');
 		$options['order'] = array('User.username asc');
-		//$this->KOTournament->User->bindModel(array('hasMany' => array('Signup' => array('conditions'=>array('Signup.tournament_id'=>$id,'Signup.user_id'=>'User.id')))));
 		$users = $this->SwissTournament->User->find('list',$options);
-		//if (empty($users))
-		//	$users = $this->SwissTournament->User->find('list',array('fields' => array('User.id', 'User.username'),'order' => array('User.username asc')));
+	
 		$this->set(compact('users'));
 	}
 	
