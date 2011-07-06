@@ -12,7 +12,7 @@ class ContactsController extends AppController {
 	);
 	function beforeFilter()
     {
-		$this->Auth->allow('index');
+		$this->Auth->allow('contact');
         parent::beforeFilter();
 		
 	}

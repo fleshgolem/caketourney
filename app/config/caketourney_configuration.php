@@ -18,8 +18,14 @@ $config['User']['recent_matches'] = '6';
 // if you reach your caketourney at http://flesh.sesu.org/test/test2/caketourney/users, set the folder to 'test/test2' (make sure to add the '/' at the end!)
 $config['Caketourney']['folder'] = '';
 
-// Name for emails, etc
+// Name of Organisation, etc
 $config['Caketourney']['company_name'] = 'OPSL Team';
+$config['Caketourney']['company_name_long'] = 'Open Physicist Starcraft II League';
+
+// Caketoruney of division and unranked names
+$config['Caketourney']['division_1'] = 'Code S';
+$config['Caketourney']['division_2'] = 'Code A';
+$config['Caketourney']['division_unranked'] = 'Unranked';
 
 
 // Configuration of you Facebook website

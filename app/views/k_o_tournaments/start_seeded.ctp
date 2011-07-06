@@ -3,7 +3,7 @@
 <div class="PostBox">
 <div class="ThreadTitleBox">
 	<div class="ThreadTitleContent">
-		<h2><?php __('Add Tournament');?></h2>
+		<h2><?php __('Start Tournament');?></h2>
 	</div> 
 	
 	<p style="clear: both;">  </p>  
@@ -19,7 +19,15 @@
                         <legend></legend>
                     <?php
                         echo $this->Form->input('name');
-                        echo $this->Form->input('User');
+                        if(!empty($allusers)){
+							//echo $this->Form->input('Signed up Users', array('options' => $users_all));
+							echo $this->Form->input('User',array( 'label' => 'Users that did sign up'));
+							echo $this->Form->input('Alluser',array( 'type' => 'select', 'multiple' => true ,'label' => 'Users that did not sign up'));
+							
+						}
+						else{
+                        	echo $this->Form->input('User');
+						}
                     ?>
                     </fieldset>
 				

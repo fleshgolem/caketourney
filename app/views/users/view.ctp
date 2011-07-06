@@ -2,7 +2,7 @@
 <div class="PostBox">
 <div class="ThreadTitleBox">
 	<div class="ThreadTitleContent">
-		<h2><?php echo $user['User']['username']; ?>'s Page</h2>
+		<h2><?php Configure::load('caketourney_configuration'); echo $user['User']['username']; ?>'s Page</h2>
 	</div> 
 	
 	<p style="clear: both;">  </p>  
@@ -143,18 +143,27 @@
 			<div class="PostContentBox">
 				<div class="PostMainContentbox" margin-left: auto;  margin-right: auto>
                 	<div style="float:left;width:168px;height:168px;padding:5px;text-align:center;">
-					 <?php if ($user['User']['division']=='Code A') 
-               		{
-                    	echo $this->Html->image('CodeA.png' , array('width' => '158', 'height' => '158'));
+					 <?php if ($user['User']['division']==Configure::read('Caketourney.division_2')) 
+               		{?>
+                    	<div style="float:left;padding:0px 24px">
+                    	<?php echo $this->Html->image('img_division_2.png' , array('width' => '120', 'height' => '120'));?>
+                        </div> <?php
+						echo $this->Html->link('Part of Division: '.(Configure::read('Caketourney.division_2')),array('controller' => 'users', 'action' => 'division_2'));
                 	}
-					if ($user['User']['division']=='Code S') 
-					{
-						echo $this->Html->image('CodeS.png' , array('width' => '158', 'height' => '158'));
-					}
-					if ($user['User']['division']!='Code A' && $user['User']['division']!='Code S')
-					{
-						echo $this->Html->image('Unranked.png' , array('width' => '158', 'height' => '158'));
-					}
+					if ($user['User']['division']==Configure::read('Caketourney.division_1')) 
+					{?>
+                    	<div style="float:left;padding:0px 24px">
+                    	<?php echo $this->Html->image('img_division_1.png' , array('width' => '120', 'height' => '120'));?>
+                        </div> <?php
+						echo $this->Html->link('Part of Division: '.(Configure::read('Caketourney.division_1')),array('controller' => 'users', 'action' => 'division_1'));
+                	}
+					if ($user['User']['division']!=Configure::read('Caketourney.division_1') && $user['User']['division']!=Configure::read('Caketourney.division_2'))
+					{?>
+                    	<div style="float:left;padding:0px 24px">
+                    	<?php echo $this->Html->image('img_division_unranked.png' , array('width' => '120', 'height' => '120'));?>
+                        </div> <?php
+						echo Configure::read('Caketourney.division_unranked');
+                	}
 					  ?>
                      </div> 
                      <?php 

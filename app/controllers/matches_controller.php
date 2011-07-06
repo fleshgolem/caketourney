@@ -285,9 +285,15 @@ class MatchesController extends AppController {
 		if (empty($this->data)) {
 			$this->data = $this->Match->read(null, $id);
 		}
-		$rounds = $this->Match->Round->find('list');
-		$player1s = $this->Match->Player1->find('list');
-		$player2s = $this->Match->Player2->find('list');
+		$match=$this->Match->read(null, $id);
+		$round=$this->Match->Round->findById($match['Match']['round_id']);
+		
+		$this->Match->Round->Tournament->User->bindModel(array('hasOne' => array('UsersTournaments')));
+		
+		
+		$player1s = $this->Match->Round->Tournament->User->find('list',array('recursive'=>1,'conditions'=>array('UsersTournaments.tournament_id'=>$round['Tournament']['id']),'order'=>array('User.username asc')));
+		$this->Match->Round->Tournament->User->bindModel(array('hasOne' => array('UsersTournaments')));
+		$player2s = $this->Match->Round->Tournament->User->find('list',array('recursive'=>1,'conditions'=>array('UsersTournaments.tournament_id'=>$round['Tournament']['id']),'order'=>array('User.username asc')));
 		$this->set(compact('rounds', 'player1s', 'player2s'));
 	}
 
