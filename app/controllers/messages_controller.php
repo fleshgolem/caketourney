@@ -57,7 +57,7 @@ class MessagesController extends AppController {
 								
 								)
 							));
-				//$recipiant=$this->Message->Recipient->find('first',array('condition' => array('Recipient.id' => $this->data['Message']['recipient_id'])));
+				
 				
 				
 				if($recipiant['Recipient']['email_subscriptions']){
@@ -65,7 +65,7 @@ class MessagesController extends AppController {
 				}
 				
 				
-				//$this->redirect(array('action' => 'outbox'));
+				$this->redirect(array('action' => 'outbox'));
 			} else {
 				$this->Session->setFlash(__('The Message could not be sent. Please, try again.', true));
 			}
@@ -153,6 +153,20 @@ class MessagesController extends AppController {
 			
 			if ($this->Message->save($this->data)) {
 				$this->Session->setFlash(__('The Message has been sent', true));
+				
+				$recipiant = $this->Message->Recipient->find('first', array(
+							'conditions'=>array('Recipient.id'=>$this->data['Message']['recipient_id']),
+							'contain'=>array(
+								
+								)
+							));
+				
+				
+				
+				if($recipiant['Recipient']['email_subscriptions']){
+					$this->_sendNewUserMail( $recipiant['Recipient']['username'],$recipiant['Recipient']['email'], $this->data['Message']['title'],$this->Message->getLastInsertId(),$this->Session->read('Auth.User.username')  );
+				}
+			
 				$this->redirect(array('action' => 'outbox'));
 			} else {
 				$this->Session->setFlash(__('The Message could not be sent. Please, try again.', true));
