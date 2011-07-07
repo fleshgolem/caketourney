@@ -22,7 +22,7 @@
 <head>
 	<?php echo $this->Html->charset(); ?>
 	<title>
-		<?php __('OPSL:'); ?>
+		<?php Configure::load('caketourney_configuration');  echo (Configure::read('Caketourney.company_name_short').':'); ?>
 		<?php echo $title_for_layout; ?>
 	</title>
 	<?php

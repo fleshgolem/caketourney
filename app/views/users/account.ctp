@@ -27,6 +27,7 @@
 				echo $this->Form->input('subscribe_own_comments', array('label' => 'Subscribe to comments of my matches'));
 				echo $this->Form->input('subscribe_own_posts', array('label' => 'Subscribe to threads I posted in'));
 				echo $this->Form->input('subscribe_tournaments', array('label' => 'Subscribe to newly added tournaments'));
+				echo $this->Form->input('subscribe_tournament_starts', array('label' => 'Subscribe to starting tournaments with my participation'));
 				?>
                 <fieldset>
                     <disclaimer>By checking the following box, you allow us to send you emails. We will only send you emails of your subscribtions, posted news, and recieved messages.</disclaimer>

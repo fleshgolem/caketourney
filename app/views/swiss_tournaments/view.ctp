@@ -77,7 +77,18 @@
                 <div class="matchbox">
                     <div class="namesbox">
                     	<?php
-                        if($match['player1_id']!=$this->Session->read('Auth.User.id')){?>
+                        if($match['player1_id']==$this->Session->read('Auth.User.id')&&$this->Session->check('Auth.User')){?>
+                        <div class="owntopbox">
+                        <?php
+                        if ($match['Player1']!=null)
+							echo $this->Html->link(($match['Player1']['username']), array('controller' => 'matches', 'action' => 'view',$match['id']));
+						else
+							echo $this->Html->link("-", array('controller' => 'matches', 'action' => 'view',$match['id']));
+						?>
+                        </div>
+                        <?php } 
+                    	
+                        else{?>
                         <div class="topbox">
                         <?php
                         if ($match['Player1']!=null)
@@ -88,20 +99,20 @@
                         </div>
                         <?php } ?>
                         
+                        
                         <?php
-                        if($match['player1_id']==$this->Session->read('Auth.User.id')){?>
-                        <div class="owntopbox">
+                        if($match['player2_id']==$this->Session->read('Auth.User.id')&&$this->Session->check('Auth.User')){?>
+                        <div class="ownbottombox">
                         <?php
-                        if ($match['Player1']!=null)
-							echo $this->Html->link(($match['Player1']['username']), array('controller' => 'matches', 'action' => 'view',$match['id']));
+                        if ($match['Player2']!=null)
+							echo $this->Html->link(($match['Player2']['username']), array('controller' => 'matches', 'action' => 'view',$match['id']));
 						else
 							echo $this->Html->link("-", array('controller' => 'matches', 'action' => 'view',$match['id']));
 						?>
                         </div>
-                        <?php } ?>
+                        <?php } 
                         
-                        <?php
-                        if($match['player2_id']!=$this->Session->read('Auth.User.id')){?>
+                        else{?>
                         <div class="bottombox">
                         <?php
                         if ($match['Player2']!=null)
@@ -111,17 +122,7 @@
 						?>
                         </div>
                         <?php } ?>
-                        <?php
-                        if($match['player2_id']==$this->Session->read('Auth.User.id')){?>
-                        <div class="ownbottombox">
-                        <?php
-                        if ($match['Player2']!=null)
-							echo $this->Html->link(($match['Player2']['username']), array('controller' => 'matches', 'action' => 'view',$match['id']));
-						else
-							echo $this->Html->link("-", array('controller' => 'matches', 'action' => 'view',$match['id']));
-						?>
-                        </div>
-                        <?php } ?>
+                       
                     </div>
                     <div class="scorebox">
                         <div class="scoretop"> 

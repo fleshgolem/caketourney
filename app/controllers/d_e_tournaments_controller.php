@@ -3,11 +3,36 @@ App::import('Controller', 'Rounds');
 App::import('Controller', 'Matches');
 class DETournamentsController extends AppController {
 	var $helpers = array('Race','Bracket','FlashChart');
+	var $components = array('Email');
 	var $name = 'DETournaments';
 	function beforeFilter()
     {
-		$this->Auth->allow('view');
+		$this->Auth->allow('view','statistics','extended_view');
         parent::beforeFilter();
+		
+	}
+	
+	function _sendNewUserMail($username,$useremail,$tournament_name,$tournament_id) {
+		
+		
+		$this->set('username', $username);
+		$this->set('tournament_name', $tournament_name);
+		$this->set('tournament_id', $tournament_id);
+		$this->Email->to = $useremail;
+		$this->Email->subject = 'The tournament "'. $tournament_name. '" started.';
+		Configure::load('caketourney_configuration');
+		$this->Email->replyTo = Configure::read('Email.replyTo');
+		$this->Email->from = Configure::read('Email.from');
+		$this->Email->template = 'tournament_started_email'; // note no '.ctp'
+		//Send as 'html', 'text' or 'both' (default is 'text')
+		$this->Email->sendAs = 'both'; // because we like to send pretty mail
+		//$this->Email->_createboundary();
+		//$this->Email->__header[] = 'MIME-Version: 1.0';
+		//Do not pass any args to send()
+		//$this->Email->delivery = 'debug';
+		$this->Email->delivery = 'mail';
+		$this->Email->send();
+		$this->Email->reset();
 		
 	}
 	
@@ -557,6 +582,12 @@ class DETournamentsController extends AppController {
 				$this->data['User']['User']=array_merge($this->data['User']['User'],$this->data['DETournament']['Alluser']);
 			}
 			
+			$current_tournament = $this->DETournament->find('first',array('conditions' => array('DETournament.id'=>$id) ,'contain' => array() ));
+			if(isset($current_tournament['DETournament']['current_round'])){
+				$this->Session->setFlash(__('Tournament has already been started', true));
+				$this->redirect(array('controller'=> 'Tournaments','action' => 'view',$id));
+			}
+			
 			$this->data['DETournament']['current_round']=0;
 			if ($this->DETournament->save($this->data)) {
 				
@@ -565,6 +596,51 @@ class DETournamentsController extends AppController {
 				shuffle($this->data['User']['User']);
 				$playerlist = $this->data['User']['User'];
 				$this->create_matchups($playerlist);
+				
+				//email + message start
+				Configure::load('caketourney_configuration');
+				$current_user=$this->Auth->user('id');
+				//find subscribers and message them
+				$subscribers=array();
+				
+				
+				$users = $this->DETournament->User->find('all');
+				foreach ($users as $users){
+					if($users['User']['subscribe_tournament_starts']&& in_array($users['User']['id'],$this->data['User']['User']))
+					{
+						array_push($subscribers,$users['User']);
+						
+						
+					}
+				}
+				
+				
+				foreach($subscribers as $subscriber)
+				{
+					if($subscriber['id']!=$current_user){
+						$this->DETournament->User->Message->create();
+						$date = date_create('now');
+						$this->data['Message']['sender_id']=null;
+						$this->data['Message']['recipient_id']=$subscriber['id'];
+						$this->data['Message']['date']= $date->format('Y-m-d H:i:s');
+						$this->data['Message']['title']= 'The tournament "'. $this->data['DETournament']['name']. '" started.';
+						
+						
+						$this->data['Message']['body']= 'The tournament '.$this->data['DETournament']['name'].' started. Find your first match at:
+														 http://'.$_SERVER['SERVER_NAME'].'/'.Configure::read('Caketourney.folder').'caketourney/tournaments/view/'.$id.'
+													 
+													 To unsubscribe from this automated message, change you account settings at:
+													 http://'.$_SERVER['SERVER_NAME'].'/'.Configure::read('Caketourney.folder').'caketourney/users/account/';
+						$this->DETournament->User->Message->save($this->data);
+						//
+						if($subscriber['email_subscriptions']){
+							$this->_sendNewUserMail( $subscriber['username'],$subscriber['email'], $this->data['DETournament']['name'],$id  );
+						}	
+					}
+				}
+				//email + message end
+				
+				
 				$this->redirect(array('action' => 'determine_gamecount', $this->DETournament->id));
 			} else {
 				$this->Session->setFlash(__('The tournament could not be saved. Please, try again.', true));
@@ -673,10 +749,62 @@ class DETournamentsController extends AppController {
 				$this->data['User']['User']=array_merge($this->data['User']['User'],$this->data['DETournament']['Alluser']);
 			}
 			
+			$current_tournament = $this->DETournament->find('first',array('conditions' => array('DETournament.id'=>$id) ,'contain' => array() ));
+			if(isset($current_tournament['DETournament']['current_round'])){
+				$this->Session->setFlash(__('Tournament has already been started', true));
+				$this->redirect(array('controller'=> 'Tournaments','action' => 'view',$id));
+			}
+			
 			$this->data['DETournament']['current_round']=0;
 			if ($this->DETournament->save($this->data)) {
 				
 				$this->Session->setFlash(__('The tournament has been saved', true));
+				
+				
+				//email + message start
+				Configure::load('caketourney_configuration');
+				$current_user=$this->Auth->user('id');
+				//find subscribers and message them
+				$subscribers=array();
+				
+				
+				$users = $this->DETournament->User->find('all');
+				foreach ($users as $users){
+					if($users['User']['subscribe_tournament_starts']&& in_array($users['User']['id'],$this->data['User']['User']))
+					{
+						array_push($subscribers,$users['User']);
+						
+						
+					}
+				}
+				
+				
+				foreach($subscribers as $subscriber)
+				{
+					if($subscriber['id']!=$current_user){
+						$this->DETournament->User->Message->create();
+						$date = date_create('now');
+						$this->data['Message']['sender_id']=null;
+						$this->data['Message']['recipient_id']=$subscriber['id'];
+						$this->data['Message']['date']= $date->format('Y-m-d H:i:s');
+						$this->data['Message']['title']= 'The tournament "'. $this->data['DETournament']['name']. '" started.';
+						
+						
+						$this->data['Message']['body']= 'The tournament '.$this->data['DETournament']['name'].' started. Find your first match at:
+														 http://'.$_SERVER['SERVER_NAME'].'/'.Configure::read('Caketourney.folder').'caketourney/tournaments/view/'.$id.'
+													 
+													 To unsubscribe from this automated message, change you account settings at:
+													 http://'.$_SERVER['SERVER_NAME'].'/'.Configure::read('Caketourney.folder').'caketourney/users/account/';
+						$this->DETournament->User->Message->save($this->data);
+						//
+						if($subscriber['email_subscriptions']){
+							$this->_sendNewUserMail( $subscriber['username'],$subscriber['email'], $this->data['DETournament']['name'],$id  );
+						}	
+					}
+				}
+				//email + message end
+				
+				
 				//Create first round with random matchups
 				$this->redirect(array('action' => 'seed', $this->DETournament->id));
 			} else {

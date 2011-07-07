@@ -6,12 +6,38 @@ class SwissTournamentsController extends AppController {
 
 	var $name = 'SwissTournaments';
 	var $helpers = array('Race','FlashChart');
+	var $components = array('Email');
 	function beforeFilter()
     {
-		$this->Auth->allow('view','score');
+		$this->Auth->allow('view','score','statistics','extended_view');
         parent::beforeFilter();
 		
 	}
+	
+	function _sendNewUserMail($username,$useremail,$tournament_name,$tournament_id) {
+		
+		
+		$this->set('username', $username);
+		$this->set('tournament_name', $tournament_name);
+		$this->set('tournament_id', $tournament_id);
+		$this->Email->to = $useremail;
+		$this->Email->subject = 'The tournament "'. $tournament_name. '" started.';
+		Configure::load('caketourney_configuration');
+		$this->Email->replyTo = Configure::read('Email.replyTo');
+		$this->Email->from = Configure::read('Email.from');
+		$this->Email->template = 'tournament_started_email'; // note no '.ctp'
+		//Send as 'html', 'text' or 'both' (default is 'text')
+		$this->Email->sendAs = 'both'; // because we like to send pretty mail
+		//$this->Email->_createboundary();
+		//$this->Email->__header[] = 'MIME-Version: 1.0';
+		//Do not pass any args to send()
+		//$this->Email->delivery = 'debug';
+		$this->Email->delivery = 'mail';
+		$this->Email->send();
+		$this->Email->reset();
+		
+	}
+	
 	function index() {
 		$this->SwissTournament->recursive = 0;
 		$this->set('swissTournaments', $this->paginate());
@@ -472,6 +498,15 @@ class SwissTournamentsController extends AppController {
 				$this->data['User']['User']=array_merge($this->data['User']['User'],$this->data['SwissTournament']['Alluser']);
 			}
 			
+			
+			
+		
+			$current_tournament = $this->SwissTournament->find('first',array('conditions' => array('SwissTournament.id'=>$id) ,'contain' => array() ));
+			if(isset($current_tournament['SwissTournament']['current_round'])){
+				$this->Session->setFlash(__('Tournament has already been started', true));
+				$this->redirect(array('controller'=> 'Tournaments','action' => 'view',$id));
+			}
+			
 			$this->data['SwissTournament']['current_round'] = 0;
 			
 			if ($this->SwissTournament->save($this->data)) {
@@ -485,6 +520,51 @@ class SwissTournamentsController extends AppController {
 				}
 				$this->create_rounds($this->data['SwissTournament']['roundnumber'],$this->data['User']['User'],$this->data['SwissTournament']['bestof']);
 				$this->Session->setFlash(__('The swiss tournament has been saved', true));
+				
+				//email + message start
+				Configure::load('caketourney_configuration');
+				$current_user=$this->Auth->user('id');
+				//find subscribers and message them
+				$subscribers=array();
+				
+				
+				$users = $this->SwissTournament->User->find('all');
+				foreach ($users as $users){
+					if($users['User']['subscribe_tournament_starts']&& in_array($users['User']['id'],$this->data['User']['User']))
+					{
+						array_push($subscribers,$users['User']);
+						
+						
+					}
+				}
+				
+				
+				foreach($subscribers as $subscriber)
+				{
+					if($subscriber['id']!=$current_user){
+						$this->SwissTournament->User->Message->create();
+						$date = date_create('now');
+						$this->data['Message']['sender_id']=null;
+						$this->data['Message']['recipient_id']=$subscriber['id'];
+						$this->data['Message']['date']= $date->format('Y-m-d H:i:s');
+						$this->data['Message']['title']= 'The tournament "'. $this->data['SwissTournament']['name']. '" started.';
+						
+						
+						$this->data['Message']['body']= 'The tournament '.$this->data['SwissTournament']['name'].' started. Find your first match at:
+														 http://'.$_SERVER['SERVER_NAME'].'/'.Configure::read('Caketourney.folder').'caketourney/tournaments/view/'.$id.'
+													 
+													 To unsubscribe from this automated message, change you account settings at:
+													 http://'.$_SERVER['SERVER_NAME'].'/'.Configure::read('Caketourney.folder').'caketourney/users/account/';
+						$this->SwissTournament->User->Message->save($this->data);
+						//
+						if($subscriber['email_subscriptions']){
+							$this->_sendNewUserMail( $subscriber['username'],$subscriber['email'], $this->data['SwissTournament']['name'],$id  );
+						}	
+					}
+				}
+				//email + message end
+				
+				
 				$this->redirect(array('action' => 'view',$this->SwissTournament->id));
 				
 			} else {

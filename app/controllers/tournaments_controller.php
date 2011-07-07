@@ -673,7 +673,7 @@ class TournamentsController extends AppController {
 						$this->data['Message']['sender_id']=null;
 						$this->data['Message']['recipient_id']=$subscriber['id'];
 						$this->data['Message']['date']= $date->format('Y-m-d H:i:s');
-						$this->data['Message']['title']= 'The tournament "'. $this->data['Tournament']['name']. '" has beed added.';
+						$this->data['Message']['title']= 'The tournament "'. $this->data['Tournament']['name']. '" has been added.';
 						
 						//TODO: machen! ;)
 						$this->data['Message']['body']= 'A new tournament has been added. Sign up for the tournament at:
