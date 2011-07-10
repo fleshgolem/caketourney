@@ -16,16 +16,16 @@
 				<?php echo $this->Form->create('KOTournament');?>
                     <fieldset>
                         <legend></legend>
-                        
+                        <disclaimer>Seed the players by their ranking, starting with the best player = 1, second best = 2, etc.</disclaimer><br><br>
                     <?php
                         echo $this->Form->input('id');
                         foreach ($tournament['User'] as $user)
                         {?> 
-                        <div class="blackfont">
+                        
                            		 <?php  echo $user['username']; 
 								 echo $this->Form->input('playerpos.'.$user['id'],array( 'label' => false ));
 								 ?>
-                        </div>
+                        
                          <?php   
                         }
                         

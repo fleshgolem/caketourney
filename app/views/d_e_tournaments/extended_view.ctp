@@ -12,13 +12,6 @@
 </div>
 
 
-<div class="PostBox"> 
-	<div class="PostContent">
-		<div class="PostContentBox">
-			<div class="PostMainContentbox">
-			
-				<div class="KOwrapper">
-            	<div class="scrollbox" ">	
                 <?php
 				$maxrounds=0;
 				$firstroundmatches=0; 
@@ -211,24 +204,10 @@
                         <?php 
                             $m += 30;
                         }}?>
-                        </div>
+                       
                      
                     
-                    
-                    </div>
-            	</div>
-				</div>
-			</div>
-			<p style="clear: both;"> </p>
-		</div>
-        </div>
-		<div class="PostFooter">
-    		<div class="bottomaction">   </p></div>
-       
-			<p style="clear: both;">  </p>
-		</div>
-	</div>
-</div>
+                   
 			
 
 
