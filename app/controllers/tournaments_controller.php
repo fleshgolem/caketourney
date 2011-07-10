@@ -58,7 +58,7 @@ class TournamentsController extends AppController {
 			$KOTournaments->report_match($match_id,$player1_score,$player2_score);
 		}
 		
-		if($tournament['Tournament']['typeAlias']==3)
+		if($tournament['Tournament']['typeAlias']==3 || $tournament['Tournament']['typeAlias']==4)
 		{
 			$DETournaments = new DETournamentsController;
 			$DETournaments->ConstructClasses();
@@ -109,6 +109,7 @@ class TournamentsController extends AppController {
 	}
 	function index() {
 		$this->Tournament->recursive = 0;
+		$this->paginate = array('order'=>array( 'id desc'));
 		$this->set('tournaments', $this->paginate());
 	}
 	

@@ -29,7 +29,7 @@
 			
 				<table cellpadding="0" cellspacing="0">
 	<tr>
-			<th><?php echo $this->Paginator->sort('id');?></th>
+			
 			<th><?php echo $this->Paginator->sort('name');?></th>
 			<th><?php echo $this->Paginator->sort('Type','typeField');?></th>
 			<th><?php echo $this->Paginator->sort('current_round');?></th>
@@ -43,7 +43,7 @@
 		}
 	?>
 	<tr<?php echo $class;?>>
-		<td><?php echo $tournament['Tournament']['id']; ?>&nbsp;</td>
+		
 		<td><?php echo $this->Html->link(__($tournament['Tournament']['name'], true), array('action' => 'view', $tournament['Tournament']['id'])); ?>&nbsp;</td>
 		<td><?php echo $tournament['Tournament']['typeField']; ?>&nbsp;</td>
 		<td><?php 

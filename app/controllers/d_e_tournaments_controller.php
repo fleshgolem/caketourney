@@ -374,7 +374,7 @@ class DETournamentsController extends AppController {
 			{
 				if($roundnumber==0){
 					$nextlooserround=$this->DETournament->Round->find('first',array('conditions'=>array('Round.number'=>(-1),'Round.tournament_id'=>$tournament_id)));
-					//special case for first round!!! TODO
+					//special case for first round!
 					$nextmatchnumber=floor($match['Match']['number_in_round']/2);
 					$nextplayernumber=$match['Match']['number_in_round']%2+1;
 					$nextmatch=$this->DETournament->Round->Match->find('first',array('conditions'=>array('Match.round_id'=>$nextround['Round']['id'],'Match.number_in_round'=>$nextmatchnumber)));
@@ -404,13 +404,22 @@ class DETournamentsController extends AppController {
 						$this->DETournament->Round->Match->id=$nextmatch['Match']['id'];
 						$this->DETournament->Round->Match->saveField('player'.$nextplayernumber.'_id',$winner_id);
 						
-											
-						$nextloosermatchnumber=floor($match['Match']['number_in_round']);
-						$nextlooserplayernumber=2;
-						$nextloosermatch=$this->DETournament->Round->Match->find('first',array('conditions'=>array('Match.round_id'=>$nextlooserround['Round']['id'],'Match.number_in_round'=>$nextloosermatchnumber)));
-						//debug($nextloosermatch);
-						$this->DETournament->Round->Match->id=$nextloosermatch['Match']['id'];
-						$this->DETournament->Round->Match->saveField('player'.$nextlooserplayernumber.'_id',$looser_id);
+						if($roundnumber%2){					
+							$nextloosermatchnumber=floor((count($nextround['Match']))*2-$match['Match']['number_in_round']-1);
+							$nextlooserplayernumber=2;
+							$nextloosermatch=$this->DETournament->Round->Match->find('first',array('conditions'=>array('Match.round_id'=>$nextlooserround['Round']['id'],'Match.number_in_round'=>$nextloosermatchnumber)));
+							//debug($nextloosermatch);
+							$this->DETournament->Round->Match->id=$nextloosermatch['Match']['id'];
+							$this->DETournament->Round->Match->saveField('player'.$nextlooserplayernumber.'_id',$looser_id);
+						}
+						else{
+							$nextloosermatchnumber=floor($match['Match']['number_in_round']);
+							$nextlooserplayernumber=2;
+							$nextloosermatch=$this->DETournament->Round->Match->find('first',array('conditions'=>array('Match.round_id'=>$nextlooserround['Round']['id'],'Match.number_in_round'=>$nextloosermatchnumber)));
+							//debug($nextloosermatch);
+							$this->DETournament->Round->Match->id=$nextloosermatch['Match']['id'];
+							$this->DETournament->Round->Match->saveField('player'.$nextlooserplayernumber.'_id',$looser_id);
+						}
 					}
 					else{
 						//final game
