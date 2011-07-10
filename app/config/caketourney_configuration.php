@@ -23,10 +23,20 @@ $config['Caketourney']['company_name'] = 'OPSL Team';
 $config['Caketourney']['company_name_long'] = 'Open Physicist Starcraft II League';
 $config['Caketourney']['company_name_short'] = 'OPSL';
 
-// Caketoruney of division and unranked names
+// Configuration of division and unranked names
 $config['Caketourney']['division_1'] = 'Code S';
 $config['Caketourney']['division_2'] = 'Code A';
 $config['Caketourney']['division_unranked'] = 'Unranked';
+
+// Configuration of division and unranked names
+// if you you have a stream this needs to be set to 'yes' otherwise to 'no'
+$config['Stream']['stream'] = 'yes';
+// your stream name
+$config['Stream']['name'] = 'OPSL.tv';
+// url where users can watch videos on demand
+$config['Stream']['vod_url'] = 'http://www.own3d.tv/b4lrog';
+// url to the livestream
+$config['Stream']['livestream_url'] = 'http://www.own3d.tv/livestream/24608';
 
 
 // Configuration of you Facebook website
