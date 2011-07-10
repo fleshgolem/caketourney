@@ -67,10 +67,10 @@
 			[code][Comic-Sans]Comic-Sans text[/Comic-Sans][/code]
 			
 			[img]CodeS.png[/img]
-			[code][img]CodeS.png[/img] (only works with pictures in the webroot folder)[/code]
+			[code][img]img_division_1.png[/img] (only works with pictures in the webroot folder)[/code]
 			
 			[img width=120 height=50]CodeS.png[/img]
-			[code][img width=120 height=50]CodeS.png[/img] (only works with pictures in the webroot folder)[/code]
+			[code][img width=120 height=50]img_division_1.png[/img] (only works with pictures in the webroot folder)[/code]
 			
 '));
 				echo ( $this->Text->autoLink($body));
