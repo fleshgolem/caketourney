@@ -66,10 +66,10 @@
 			[Comic-Sans]Comic-Sans text[/Comic-Sans]
 			[code][Comic-Sans]Comic-Sans text[/Comic-Sans][/code]
 			
-			[img]CodeS.png[/img]
+			[img]img_division_1.png[/img]
 			[code][img]img_division_1.png[/img] (only works with pictures in the webroot folder)[/code]
 			
-			[img width=120 height=50]CodeS.png[/img]
+			[img width=120 height=50]img_division_1.png[/img]
 			[code][img width=120 height=50]img_division_1.png[/img] (only works with pictures in the webroot folder)[/code]
 			
 '));
