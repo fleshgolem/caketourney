@@ -95,7 +95,19 @@ class TeamsController extends AppController {
 	}
 	function kick_member($team_id, $user_id)
 	{
+		
+		if (!$team_id && empty($this->data)) {
+			$this->Session->setFlash(__('Invalid team', true));
+			$this->redirect(array('action' => 'index'));
+		}
 		$this->Team->id = $team_id;
+		if (!$this->Session->read('Auth.User.admin') && ($team['Team']['leader_id']!=$this->Auth->user('id')))
+		{
+			$this->Session->setFlash(__('Access denied', true));
+			
+			$this->redirect(array('action'=>'index'));
+		}
+		
 		$leader_id = $this->Team->field('leader_id');
 		if($leader_id == $user_id)
 		{
@@ -116,9 +128,10 @@ class TeamsController extends AppController {
 			$this->redirect(array('action' => 'index'));
 		}
 		$team = $this->Team->read(null, $id);
-		if (!$this->Session->read('Auth.User.admin') || !$team['Team']['leader_id']==$this->Auth->user('id'))
+		if (!$this->Session->read('Auth.User.admin') && ($team['Team']['leader_id']!=$this->Auth->user('id')))
 		{
 			$this->Session->setFlash(__('Access denied', true));
+			
 			$this->redirect(array('action'=>'index'));
 		}
 		if (!empty($this->data)) {
@@ -145,7 +158,7 @@ class TeamsController extends AppController {
 			$this->redirect(array('action'=>'index'));
 		}
 		$team = $this->Team->read(null, $id);
-		if (!$this->Session->read('Auth.User.admin') || !$team['Team']['leader_id']==$this->Auth->user('id'))
+		if (!$this->Session->read('Auth.User.admin') && !$team['Team']['leader_id']==$this->Auth->user('id'))
 		{
 			$this->Session->setFlash(__('Access denied', true));
 			$this->redirect(array('action'=>'index'));
@@ -164,9 +177,11 @@ class TeamsController extends AppController {
 			$this->redirect(array('action'=>'index'));
 		}
 		$team = $this->Team->read(null, $id);
-		if (!$this->Session->read('Auth.User.admin') || !$team['Team']['leader_id']==$this->Auth->user('id'))
+		if (!$this->Session->read('Auth.User.admin') && !$team['Team']['leader_id']==$this->Auth->user('id'))
 		{
 			$this->Session->setFlash(__('Access denied', true));
+			
+			
 			$this->redirect(array('action'=>'index'));
 		}
 		if (!empty($this->data))
@@ -203,7 +218,7 @@ class TeamsController extends AppController {
 			$this->redirect(array('action'=>'index'));
 		}
 		$team = $this->Team->read(null, $id);
-		if (!$this->Session->read('Auth.User.admin') || !$team['Team']['leader_id']==$this->Auth->user('id'))
+		if (!$this->Session->read('Auth.User.admin') && !$team['Team']['leader_id']==$this->Auth->user('id'))
 		{
 			$this->Session->setFlash(__('Access denied', true));
 			$this->redirect(array('action'=>'index'));
