@@ -53,6 +53,12 @@ class NewsController extends AppController {
 	}
 
 	function add() {
+		if (!$this->Session->read('Auth.User.admin'))
+		{
+			$this->Session->setFlash(__('Access denied', true));
+			$this->redirect(array('action'=>'index'));
+		}
+		
 		if (!empty($this->data)) {
 			$this->News->create();
 			$date = date_create('now');
@@ -84,6 +90,11 @@ class NewsController extends AppController {
 	}
 
 	function edit($id = null) {
+		if (!$this->Session->read('Auth.User.admin'))
+		{
+			$this->Session->setFlash(__('Access denied', true));
+			$this->redirect(array('action'=>'index'));
+		}
 		if (!$id && empty($this->data)) {
 			$this->Session->setFlash(__('Invalid news', true));
 			$this->redirect(array('action' => 'index'));
@@ -108,6 +119,11 @@ class NewsController extends AppController {
 	}
 
 	function delete($id = null) {
+		if (!$this->Session->read('Auth.User.admin'))
+		{
+			$this->Session->setFlash(__('Access denied', true));
+			$this->redirect(array('action'=>'index'));
+		}
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid id for news', true));
 			$this->redirect(array('action'=>'index'));

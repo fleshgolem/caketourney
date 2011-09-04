@@ -191,6 +191,12 @@
                         <div class="menuebox">
                     	<?php echo $this->Html->link(__('Upcoming Matches', true), array('controller' => 'matches', 'action' => 'upcoming_matches')); ?>
                      	</div>
+                        
+                        <?php if ($this->Session->read('Auth.User.admin') )
+						{?>
+						<div class="menuebox"> <?php echo $this->Html->link('Caketourney Settings',array('controller' => 'settings', 'action' => 'index')) ?> </p></div>
+						<?php }?>
+                        <p style="clear: both;">  </p>
 					</div>
 					</div>
 				</div>
@@ -247,6 +253,7 @@
 					<div class="containerheader">
                     <?php 
 						echo "Team Center";
+						
 					?>
 					</div>
 					<div class="containercontent">

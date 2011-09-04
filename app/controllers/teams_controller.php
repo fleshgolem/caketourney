@@ -15,6 +15,7 @@ class TeamsController extends AppController {
 	function index() {
 		$this->Team->recursive = 0;
 		$this->set('teams', $this->paginate());
+		
 	}
 	
 	function statistics($id = null) {
