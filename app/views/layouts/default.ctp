@@ -344,7 +344,28 @@
 			<div id="rightcol"><!-- begin rightcol -->
             	
                	
-                
+                <div class="containerbox">
+					<div class="containerheader">
+					Sponsors
+					</div>
+					<div class="containercontent", style="background-color:#FFF">
+					<div class="containercontentbox">
+					
+                        
+                            <div style="padding: 0x 0px;"> 
+                                <?php echo $this->Html->link(
+                                        $this->Html->image('hiq24_big.png', array('alt'=> __('HiQ Onlineshop - Aus Liebe zur Hardware!', true), 'width' => '200', 'border' => '0')),
+                                        'http://www.hiq24.de/',
+                                        array('target' => '_blank', 'escape' => false)
+                                    );
+                                ?>
+                               
+                            </div>
+                       
+                        <p style="clear: both;">  </p>
+					</div>
+					</div>
+				</div>
                 
                 
             	<div class="containerbox">
