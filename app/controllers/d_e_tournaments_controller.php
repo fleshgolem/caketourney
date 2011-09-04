@@ -20,9 +20,9 @@ class DETournamentsController extends AppController {
 		$this->set('tournament_id', $tournament_id);
 		$this->Email->to = $useremail;
 		$this->Email->subject = 'The tournament "'. $tournament_name. '" started.';
-		Configure::load('caketourney_configuration');
-		$this->Email->replyTo = Configure::read('Email.replyTo');
-		$this->Email->from = Configure::read('Email.from');
+		
+		$this->Email->replyTo = Configure::read('__Email.replyTo');
+		$this->Email->from = Configure::read('__Email.from');
 		$this->Email->template = 'tournament_started_email'; // note no '.ctp'
 		//Send as 'html', 'text' or 'both' (default is 'text')
 		$this->Email->sendAs = 'both'; // because we like to send pretty mail
@@ -579,7 +579,7 @@ class DETournamentsController extends AppController {
 	
 	
 	function start_random($id,$signup_mod=array()) {
-		Configure::load('caketourney_configuration');
+		
 		if (!$this->Session->read('Auth.User.admin'))
 		{
 			$this->Session->setFlash(__('Access denied', true));
@@ -607,7 +607,7 @@ class DETournamentsController extends AppController {
 				$this->create_matchups($playerlist);
 				
 				//email + message start
-				Configure::load('caketourney_configuration');
+				
 				$current_user=$this->Auth->user('id');
 				//find subscribers and message them
 				$subscribers=array();
@@ -636,10 +636,10 @@ class DETournamentsController extends AppController {
 						
 						
 						$this->data['Message']['body']= 'The tournament '.$this->data['DETournament']['name'].' started. Find your first match at:
-														 http://'.$_SERVER['SERVER_NAME'].'/'.Configure::read('Caketourney.folder').'caketourney/tournaments/view/'.$id.'
+														 http://'.$_SERVER['SERVER_NAME'].'/'.Configure::read('__Caketourney.folder').'caketourney/tournaments/view/'.$id.'
 													 
 													 To unsubscribe from this automated message, change you account settings at:
-													 http://'.$_SERVER['SERVER_NAME'].'/'.Configure::read('Caketourney.folder').'caketourney/users/account/';
+													 http://'.$_SERVER['SERVER_NAME'].'/'.Configure::read('__Caketourney.folder').'caketourney/users/account/';
 						$this->DETournament->User->Message->save($this->data);
 						//
 						if($subscriber['email_subscriptions']){
@@ -677,10 +677,10 @@ class DETournamentsController extends AppController {
 			
 		}
 		if($signup_mod=='division_1'){
-			$options['conditions'] = array('User.division'=>Configure::read('Caketourney.division_1'));
+			$options['conditions'] = array('User.division'=>Configure::read('__Caketourney.division_1'));
 		}
 		if($signup_mod=='division_2'){
-			$options['conditions'] = array('User.division'=>Configure::read('Caketourney.division_2'));
+			$options['conditions'] = array('User.division'=>Configure::read('__Caketourney.division_2'));
 		}
 		if($signup_mod=='mixed'){
 			$options['joins'] = array(
@@ -746,7 +746,7 @@ class DETournamentsController extends AppController {
 	}
 	
 	function start_seeded($id,$signup_mod=array()) {
-		Configure::load('caketourney_configuration');
+		
 		if (!$this->Session->read('Auth.User.admin'))
 		{
 			$this->Session->setFlash(__('Access denied', true));
@@ -771,7 +771,7 @@ class DETournamentsController extends AppController {
 				
 				
 				//email + message start
-				Configure::load('caketourney_configuration');
+				
 				$current_user=$this->Auth->user('id');
 				//find subscribers and message them
 				$subscribers=array();
@@ -800,10 +800,10 @@ class DETournamentsController extends AppController {
 						
 						
 						$this->data['Message']['body']= 'The tournament '.$this->data['DETournament']['name'].' started. Find your first match at:
-														 http://'.$_SERVER['SERVER_NAME'].'/'.Configure::read('Caketourney.folder').'caketourney/tournaments/view/'.$id.'
+														 http://'.$_SERVER['SERVER_NAME'].'/'.Configure::read('__Caketourney.folder').'caketourney/tournaments/view/'.$id.'
 													 
 													 To unsubscribe from this automated message, change you account settings at:
-													 http://'.$_SERVER['SERVER_NAME'].'/'.Configure::read('Caketourney.folder').'caketourney/users/account/';
+													 http://'.$_SERVER['SERVER_NAME'].'/'.Configure::read('__Caketourney.folder').'caketourney/users/account/';
 						$this->DETournament->User->Message->save($this->data);
 						//
 						if($subscriber['email_subscriptions']){
@@ -842,10 +842,10 @@ class DETournamentsController extends AppController {
 			
 		}
 		if($signup_mod=='division_1'){
-			$options['conditions'] = array('User.division'=>Configure::read('Caketourney.division_1'));
+			$options['conditions'] = array('User.division'=>Configure::read('__Caketourney.division_1'));
 		}
 		if($signup_mod=='division_2'){
-			$options['conditions'] = array('User.division'=>Configure::read('Caketourney.division_2'));
+			$options['conditions'] = array('User.division'=>Configure::read('__Caketourney.division_2'));
 		}
 		if($signup_mod=='mixed'){
 			$options['joins'] = array(

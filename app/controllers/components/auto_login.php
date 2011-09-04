@@ -89,7 +89,7 @@ class AutoLoginComponent extends Object {
 			return;
 		}
 
-		$debug = Configure::read('AutoLogin');
+		$debug = Configure::read('__AutoLogin');
 
 		if (isset($debug['ips']) && !is_array($debug['ips'])) {
 			$debug['ips'] = array($debug['ips']);
@@ -262,7 +262,7 @@ class AutoLoginComponent extends Object {
 		);
 
 		if ($this->_debug && isset($scopes[$key])) {
-			$debug = Configure::read('AutoLogin');
+			$debug = Configure::read('__AutoLogin');
 			$content = "";
 
 			if (!empty($cookie) || !empty($user)) {

@@ -45,7 +45,7 @@
     	
         
 		<div class="bottomaction"> 
-			 <?php Configure::load('caketourney_configuration'); echo $this->Html->link(__('Contact the '.Configure::read('Caketourney.company_name'), true), array('controller'=>'contacts', 'action' => 'contact')); ?>
+			 <?php  echo $this->Html->link(__('Contact the '.Configure::read('__Caketourney.company_name'), true), array('controller'=>'contacts', 'action' => 'contact')); ?>
         </div>
         <div class="bottomaction"> 
 				

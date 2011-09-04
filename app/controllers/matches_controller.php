@@ -19,9 +19,9 @@ class MatchesController extends AppController {
 		$this->set('match_id', $match_id);
 		$this->Email->to = $useremail;
 		$this->Email->subject = 'New comment in match "'. $player1. ' vs '. $player2.'"';
-		Configure::load('caketourney_configuration');
-		$this->Email->replyTo = Configure::read('Email.replyTo');
-		$this->Email->from = Configure::read('Email.from');
+		
+		$this->Email->replyTo = Configure::read('__Email.replyTo');
+		$this->Email->from = Configure::read('__Email.from');
 		$this->Email->template = 'new_comment_email'; // note no '.ctp'
 		//Send as 'html', 'text' or 'both' (default is 'text')
 		$this->Email->sendAs = 'both'; // because we like to send pretty mail
@@ -375,7 +375,7 @@ class MatchesController extends AppController {
 
 			$this->data['Comment']['date_posted']=$date->format('Y-m-d H:i:s');
 			//load configuration
-			Configure::load('caketourney_configuration');
+			
 			//find subscribers and message them
 			$subscribers=array();
 			$match = $this->Match->read(null,$id);
@@ -400,10 +400,10 @@ class MatchesController extends AppController {
 					
 					//TODO: machen! ;)
 					$this->data['Message']['body']= 'A new comment has been added. Read the comment at:
-													 http://'.$_SERVER['SERVER_NAME'].'/'.Configure::read('Caketourney.folder').'caketourney/matches/view/'.$match['Match']['id'].'
+													 http://'.$_SERVER['SERVER_NAME'].'/'.Configure::read('__Caketourney.folder').'caketourney/matches/view/'.$match['Match']['id'].'
 													 
 													 To unsubscribe from this automated message, change you account settings at:
-													 http://'.$_SERVER['SERVER_NAME'].'/'.Configure::read('Caketourney.folder').'caketourney/users/account/';
+													 http://'.$_SERVER['SERVER_NAME'].'/'.Configure::read('__Caketourney.folder').'caketourney/users/account/';
 					$this->Match->Player1->Message->save($this->data);
 					if($subscriber['email_subscriptions']){
 						$this->_sendNewUserMail( $subscriber['username'],$subscriber['email'], $match['Player1']['username'],$match['Player2']['username'] ,$match['Match']['id'] );

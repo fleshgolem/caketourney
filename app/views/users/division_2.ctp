@@ -2,7 +2,7 @@
 <div class="PostBox">
 <div class="ThreadTitleBox">
 	<div class="ThreadTitleContent">
-		<h2><?php Configure::load('caketourney_configuration'); echo(Configure::read('Caketourney.division_2'));?></h2>
+		<h2><?php  echo(Configure::read('__Caketourney.division_2'));?></h2>
 	</div> 
 	
 	<p style="clear: both;">  </p>  

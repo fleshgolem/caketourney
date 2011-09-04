@@ -22,7 +22,7 @@
 <head>
 	<?php echo $this->Html->charset(); ?>
 	<title>
-		<?php Configure::load('caketourney_configuration');  echo (Configure::read('Caketourney.company_name_short').':'); ?>
+		<?php   echo (Configure::read('__Caketourney.company_name_short').':'); ?>
 		<?php echo $title_for_layout; ?>
 	</title>
 	<?php
@@ -35,7 +35,7 @@
 </head>
 <body>
 
-<?php Configure::load('caketourney_configuration'); ?>
+<?php  ?>
 							<!--[if lt IE 7]>
 								  <div style='border: 1px solid #F7941D; background: #FEEFDA; text-align: center; clear: both; height: 75px; position: relative;'>
 									<div style='position: absolute; right: 3px; top: 3px; font-family: courier new; font-weight: bold;'><a href='#' onclick='javascript:this.parentNode.parentNode.style.display="none"; return false;'><img src='http://www.ie6nomore.com/files/theme/ie6nomore-cornerx.jpg' style='border: none;' alt='Close this notice'/></a></div>
@@ -57,7 +57,7 @@
         <div class="headerwrapper">
         	<h1><?php 
 					
-					echo $this->Html->image(Configure::read('Header.logo'));
+					echo $this->Html->image(Configure::read('__Header.logo'));
 			?></h1>
             
             <div class="topmenuemainbox">
@@ -108,7 +108,7 @@
 			</div>
             <div class="footeraction">
                 <div style="padding: 15px 0px;">
-                    <iframe src="http://www.facebook.com/plugins/like.php?app_id=237317856297337&amp;href=https%3A%2F%2Fwww.facebook.com%2Fpages%2F<?php echo (Configure::read('Facebook.fanpage_name'))?>&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:80px; height:21px;" allowTransparency="true"></iframe>
+                    <iframe src="http://www.facebook.com/plugins/like.php?app_id=237317856297337&amp;href=https%3A%2F%2Fwww.facebook.com%2Fpages%2F<?php echo (Configure::read('__Facebook.fanpage_name'))?>&amp;send=false&amp;layout=button_count&amp;width=450&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:80px; height:21px;" allowTransparency="true"></iframe>
                 </div>
                  <p style="clear: both;">  </p>
          	</div>
@@ -284,8 +284,8 @@
 				</div>
                 
                 
-				<?php Configure::load('caketourney_configuration');  
-				if (Configure::read('Stream.stream')=='yes'){ ?>
+				<?php   
+				if (Configure::read('__Stream.stream')=='yes'){ ?>
 
                 <div class="containerbox">
 					<div class="containerheader">
@@ -299,7 +299,7 @@
 							
                         </div>
                         <div class="menuebox">
-                           <a href="<?php echo Configure::read('Stream.vod_url')?>" target="_blank">Watch VODs</a>
+                           <a href="<?php echo (Configure::read('__Stream.vod_url'));?>" target="_blank">Watch VODs</a>
                         </div>
                         <p style="clear: both;">  </p>
 					</div>

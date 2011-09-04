@@ -84,7 +84,7 @@ if (isset($corePath[0])) {
 	define('TEST_CAKE_CORE_INCLUDE_PATH', CAKE_CORE_INCLUDE_PATH);
 }
 
-if (Configure::read('debug') < 1) {
+if (Configure::read('__debug') < 1) {
 	die(__('Debug setting does not allow access to this url.', true));
 }
 

@@ -16,9 +16,9 @@
  * @since         CakePHP(tm) v 0.10.0.1076
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
- Configure::load('caketourney_configuration');
+ 
 ?>
-Dear <?php echo Configure::read('Caketourney.company_name') ?>,
+Dear <?php echo Configure::read('__Caketourney.company_name') ?>,
     
 <?php echo $mail_body ?>
     

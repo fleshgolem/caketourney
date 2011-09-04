@@ -16,17 +16,17 @@
  * @since         CakePHP(tm) v 0.10.0.1076
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
- Configure::load('caketourney_configuration');
+ 
 ?>
     Dear <?php echo $User['User']['username'] ?>,
     
     
     A new post has been added. Read the post at:
-    http://<?php echo $_SERVER['SERVER_NAME'].'/'.Configure::read('Caketourney.folder').'caketourney/threads/view/'.$thread_id ?>
+    http://<?php echo $_SERVER['SERVER_NAME'].'/'.Configure::read('__Caketourney.folder').'caketourney/threads/view/'.$thread_id ?>
 	
     												 
     To unsubscribe from this automated message, change you account settings at:
-    http://<?php echo $_SERVER['SERVER_NAME'].'/'.Configure::read('Caketourney.folder').'caketourney/users/account/' ?>
+    http://<?php echo $_SERVER['SERVER_NAME'].'/'.Configure::read('__Caketourney.folder').'caketourney/users/account/' ?>
     
     
-    The <?php echo Configure::read('Caketourney.company_name') ?>
+    The <?php echo Configure::read('__Caketourney.company_name') ?>
