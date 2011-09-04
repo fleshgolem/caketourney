@@ -50,7 +50,7 @@ class TournamentsController extends AppController {
 			$this->update_elo($match['Match']['player1_id'],$match['Match']['player2_id'],$player1_score, $player2_score);
 		}
 		//pass on to the right controller
-		if($tournament['Tournament']['typeAlias']==0)
+		if($tournament['Tournament']['typeAlias']==0 || $tournament['Tournament']['typeAlias']==1)
 		{
 			$KOTournaments = new KOTournamentsController;
 			$KOTournaments->ConstructClasses();
