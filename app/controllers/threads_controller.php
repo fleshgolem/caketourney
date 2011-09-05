@@ -42,9 +42,9 @@ class ThreadsController extends AppController {
 		$this->set('thread_id', $thread_id);
 		$this->Email->to = $User['User']['email'];
 		$this->Email->subject = 'New post in thread "'. $thread_title.'"';
-		Configure::load('caketourney_configuration');
-		$this->Email->replyTo = Configure::read('Email.replyTo');
-		$this->Email->from = Configure::read('Email.from');
+		
+		$this->Email->replyTo = Configure::read('__Email.replyTo');
+		$this->Email->from = Configure::read('__Email.from');
 		$this->Email->template = 'new_post_email'; // note no '.ctp'
 		//Send as 'html', 'text' or 'both' (default is 'text')
 		$this->Email->sendAs = 'both'; // because we like to send pretty mail
@@ -78,7 +78,7 @@ class ThreadsController extends AppController {
 			$this->data['Thread']['last_poster_id']=$current_user;
 			$this->Thread->save($this->data);
 			//load configuration
-			Configure::load('caketourney_configuration');
+			
 			//find subscribers and message them
 			$subscribers=array();
 			$thread = $this->Thread->find('first',array('recursive'=>2, 'conditions'=> array('Thread.id' =>$id)));
@@ -101,10 +101,10 @@ class ThreadsController extends AppController {
 					
 					//TODO: machen! ;)
 					$this->data['Message']['body']= 'A new post has been added. Read the post at:
-													 http://'.$_SERVER['SERVER_NAME'].'/'.Configure::read('Caketourney.folder').'caketourney/threads/view/'.$thread['Thread']['id'].'
+													 http://'.$_SERVER['SERVER_NAME'].'/'.Configure::read('__Caketourney.folder').'caketourney/threads/view/'.$thread['Thread']['id'].'
 													 
 													 To unsubscribe from this automated message, change you account settings at:
-													 http://'.$_SERVER['SERVER_NAME'].'/'.Configure::read('Caketourney.folder').'caketourney/users/account/';
+													 http://'.$_SERVER['SERVER_NAME'].'/'.Configure::read('__Caketourney.folder').'caketourney/users/account/';
 					$this->Thread->Post->User->Message->save($this->data);
 					
 					if($subscriber['email_subscriptions']){

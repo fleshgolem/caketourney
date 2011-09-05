@@ -68,9 +68,9 @@ class PagesController extends AppController {
 		
 		$this->Email->to = 'test@test.de';
 		$this->Email->subject = 'The tournament "" has beed added.';
-		Configure::load('caketourney_configuration');
-		$this->Email->replyTo = Configure::read('Email.replyTo');
-		$this->Email->from = Configure::read('Email.from');
+		
+		$this->Email->replyTo = Configure::read('__Email.replyTo');
+		$this->Email->from = Configure::read('__Email.from');
 		$this->Email->template = 'new_tournament_email'; // note no '.ctp'
 		//Send as 'html', 'text' or 'both' (default is 'text')
 		$this->Email->sendAs = 'both'; // because we like to send pretty mail
@@ -119,9 +119,9 @@ class PagesController extends AppController {
 	function _configuration() {
 		
 		Configure::load('email');
-		debug(Configure::read('Company.name'));
+		debug(Configure::read('__Company.name'));
 		Configure::write('Company',array('name'=>'OPSL','slogan'=>'Pizza for your body and soul'));
-		debug(Configure::read('Company.name'));
+		debug(Configure::read('__Company.name'));
 	}
 	
 	function _contact() {

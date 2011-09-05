@@ -23,11 +23,11 @@ class ContactsController extends AppController {
 		$this->set('username', $username);
 		$this->set('mail_title', $mail_title);
 		$this->set('mail_body', $mail_body);
-		$this->Email->to = Configure::read('Email.replyTo');
+		$this->Email->to = Configure::read('__Email.replyTo');
 		$this->Email->subject = $mail_title;
-		Configure::load('caketourney_configuration');
+		
 		$this->Email->replyTo = $useremail;
-		$this->Email->from = Configure::read('Email.from');
+		$this->Email->from = Configure::read('__Email.from');
 		$this->Email->template = 'new_email'; // note no '.ctp'
 		//Send as 'html', 'text' or 'both' (default is 'text')
 		$this->Email->sendAs = 'both'; // because we like to send pretty mail

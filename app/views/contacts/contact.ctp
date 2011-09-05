@@ -1,7 +1,7 @@
 <div class="PostBox">
 <div class="ThreadTitleBox">
 	<div class="ThreadTitleContent">
-		<h2><?php Configure::load('caketourney_configuration');echo('Contact the '.Configure::read('Caketourney.company_name') ); ?></h2>
+		<h2><?php echo('Contact the '.Configure::read('__Caketourney.company_name') ); ?></h2>
 	</div> 
 	
 	<p style="clear: both;">  </p>  

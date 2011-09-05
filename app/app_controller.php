@@ -51,6 +51,22 @@ class AppController extends Controller {
         'controller' => 'Users',
         'loginAction' => 'login',
         'logoutAction' => 'logout'
-    );
+    	);
+		$this->fetchSettings();
+	}
+	/* Function which read settings from DB and populate them in constants */
+	function fetchSettings(){
+	   //Loading model on the fly
+	   Controller::loadModel('Setting');
+	   $settings_array = $this->Setting->find('all');
+		
+	   //$settings = new Setting();
+	   //Fetching All params
+	   //$settings_array = $setting->findAll();
+	   foreach($settings_array as $setting){
+		 
+		  Configure::write("__".$setting['Setting']['key'], $setting['Setting']['pair']);
+		  
+	   }
 	}
 }

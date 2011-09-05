@@ -206,26 +206,26 @@ class UsersController extends AppController {
 	}
 	
 	function division_1() {
-		Configure::load('caketourney_configuration');
+		
 		$this->User->id = $this->Auth->user('id');
  
         // Load the user (avoid populating $this->data)
         $current_user = $this->User->findById($this->User->id);
 		
 		$this->User->recursive = 0;
-		$this->paginate = array('conditions' => array('User.division'=>Configure::read('Caketourney.division_1')),'order'=>array( 'admin desc','created asc'));
+		$this->paginate = array('conditions' => array('User.division'=>Configure::read('__Caketourney.division_1')),'order'=>array( 'admin desc','created asc'));
 		$this->set('users', $this->paginate());
 	}
 	
 	function division_2() {
-		Configure::load('caketourney_configuration');
+		
 		$this->User->id = $this->Auth->user('id');
  
         // Load the user (avoid populating $this->data)
         $current_user = $this->User->findById($this->User->id);
 		
 		$this->User->recursive = 0;
-		$this->paginate = array('conditions' => array('User.division'=>Configure::read('Caketourney.division_2')),'order'=>array( 'admin desc','created asc'));
+		$this->paginate = array('conditions' => array('User.division'=>Configure::read('__Caketourney.division_2')),'order'=>array( 'admin desc','created asc'));
 		$this->set('users', $this->paginate());
 	}
 
@@ -239,9 +239,9 @@ class UsersController extends AppController {
 		$user=$this->User->read(null, $id);
 		$this->set('user',$user );
 		
-		Configure::load('caketourney_configuration');
 		
-		$date = date('Y-m-d', strtotime("-".Configure::read('User.recent_matches').' month'));
+		
+		$date = date('Y-m-d', strtotime("-".Configure::read('__User.recent_matches').' month'));
 		$contained_matches = $this->User->Match->find('all', array(
 							'order'=>array('Match.date DESC'),
 							'conditions' => array('Match.open'=>0,'OR'=>array('Match.player1_id'=>$id,'Match.player2_id'=>$id),'Match.date >=' => $date),
@@ -261,7 +261,7 @@ class UsersController extends AppController {
 							));
 		
 		$this->set('matches',$contained_matches);
-		$this->set('month_recent_games',Configure::read('User.recent_matches'));
+		$this->set('month_recent_games',Configure::read('__User.recent_matches'));
 		
 		
 		//$this->set('matches',$matches);

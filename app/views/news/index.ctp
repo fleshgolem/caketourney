@@ -2,7 +2,7 @@
 	<div class="PostBox">
     <div class="ThreadTitleBox">
         <div class="ThreadTitleContent">
-           <h2><?php Configure::load('caketourney_configuration'); echo (Configure::read('Caketourney.company_name_long').' News');?></h2>
+           <h2><?php  echo (Configure::read('__Caketourney.company_name_long').' News');?></h2>
         </div> 
         <div class="bottomaction">
          </div> 

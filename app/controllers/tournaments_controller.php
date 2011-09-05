@@ -22,9 +22,9 @@ class TournamentsController extends AppController {
 		$this->set('tournament_id', $tournament_id);
 		$this->Email->to = $useremail;
 		$this->Email->subject = 'The tournament "'. $tournament_name. '" has beed added.';
-		Configure::load('caketourney_configuration');
-		$this->Email->replyTo = Configure::read('Email.replyTo');
-		$this->Email->from = Configure::read('Email.from');
+		
+		$this->Email->replyTo = Configure::read('__Email.replyTo');
+		$this->Email->from = Configure::read('__Email.from');
 		$this->Email->template = 'new_tournament_email'; // note no '.ctp'
 		//Send as 'html', 'text' or 'both' (default is 'text')
 		$this->Email->sendAs = 'both'; // because we like to send pretty mail
@@ -50,7 +50,7 @@ class TournamentsController extends AppController {
 			$this->update_elo($match['Match']['player1_id'],$match['Match']['player2_id'],$player1_score, $player2_score);
 		}
 		//pass on to the right controller
-		if($tournament['Tournament']['typeAlias']==0)
+		if($tournament['Tournament']['typeAlias']==0 || $tournament['Tournament']['typeAlias']==1)
 		{
 			$KOTournaments = new KOTournamentsController;
 			$KOTournaments->ConstructClasses();
@@ -653,7 +653,7 @@ class TournamentsController extends AppController {
 				$this->Session->setFlash(__('The tournament has been saved', true));
 				//$this->redirect(array('action' => 'index'));
 				//load configuration
-				Configure::load('caketourney_configuration');
+				
 				//find subscribers and message them
 				$subscribers=array();
 				//$tournament = $this->Tournament->read(null,$id);
@@ -678,10 +678,10 @@ class TournamentsController extends AppController {
 						
 						//TODO: machen! ;)
 						$this->data['Message']['body']= 'A new tournament has been added. Sign up for the tournament at:
-														 http://'.$_SERVER['SERVER_NAME'].'/'.Configure::read('Caketourney.folder').'caketourney/tournaments/view/'.$this->Tournament->getLastInsertId().'
+														 http://'.$_SERVER['SERVER_NAME'].'/'.Configure::read('__Caketourney.folder').'caketourney/tournaments/view/'.$this->Tournament->getLastInsertId().'
 													 
 													 To unsubscribe from this automated message, change you account settings at:
-													 http://'.$_SERVER['SERVER_NAME'].'/'.Configure::read('Caketourney.folder').'caketourney/users/account/';
+													 http://'.$_SERVER['SERVER_NAME'].'/'.Configure::read('__Caketourney.folder').'caketourney/users/account/';
 						$this->Tournament->User->Message->save($this->data);
 						//
 						if($subscriber['email_subscriptions']){

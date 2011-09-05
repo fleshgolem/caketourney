@@ -24,9 +24,9 @@ class NewsController extends AppController {
 		$this->set('news_body', $news_body);
 		$this->Email->to = $useremail;
 		$this->Email->subject = $news_title;
-		Configure::load('caketourney_configuration');
-		$this->Email->replyTo = Configure::read('Email.replyTo');
-		$this->Email->from = Configure::read('Email.from');
+		
+		$this->Email->replyTo = Configure::read('__Email.replyTo');
+		$this->Email->from = Configure::read('__Email.from');
 		$this->Email->template = 'new_news_email'; // note no '.ctp'
 		//Send as 'html', 'text' or 'both' (default is 'text')
 		$this->Email->sendAs = 'both'; // because we like to send pretty mail
@@ -53,6 +53,12 @@ class NewsController extends AppController {
 	}
 
 	function add() {
+		if (!$this->Session->read('Auth.User.admin'))
+		{
+			$this->Session->setFlash(__('Access denied', true));
+			$this->redirect(array('action'=>'index'));
+		}
+		
 		if (!empty($this->data)) {
 			$this->News->create();
 			$date = date_create('now');
@@ -84,6 +90,11 @@ class NewsController extends AppController {
 	}
 
 	function edit($id = null) {
+		if (!$this->Session->read('Auth.User.admin'))
+		{
+			$this->Session->setFlash(__('Access denied', true));
+			$this->redirect(array('action'=>'index'));
+		}
 		if (!$id && empty($this->data)) {
 			$this->Session->setFlash(__('Invalid news', true));
 			$this->redirect(array('action' => 'index'));
@@ -108,6 +119,11 @@ class NewsController extends AppController {
 	}
 
 	function delete($id = null) {
+		if (!$this->Session->read('Auth.User.admin'))
+		{
+			$this->Session->setFlash(__('Access denied', true));
+			$this->redirect(array('action'=>'index'));
+		}
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid id for news', true));
 			$this->redirect(array('action'=>'index'));
