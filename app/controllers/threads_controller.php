@@ -30,6 +30,7 @@ class ThreadsController extends AppController {
 		
 	function index() {
 		$this->Thread->recursive = 1;
+		$this->paginate = array('order'=>array( 'icon desc','date_modified desc'));
 		$this->set('threads', $this->paginate());
 	}
 	
@@ -197,9 +198,7 @@ class ThreadsController extends AppController {
 		}
 		if (!empty($this->data)) {
 			$this->Thread->create();
-			$this->Thread->Post->create();
-			$date = date_create('now');
-			$this->data['Thread']['date_modified']= $date->format('Y-m-d H:i:s');
+			
 			
 			switch ($this->data['Thread']['icon']){
 				case 0:
