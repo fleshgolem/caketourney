@@ -184,6 +184,64 @@ class ThreadsController extends AppController {
 
 		$this->set(compact('users'));
 	}
+	
+	function edit($id) {
+		if (!$this->Session->read('Auth.User.admin'))
+		{
+			$this->Session->setFlash(__('Access denied', true));
+			$this->redirect(array('action'=>'index'));
+		}
+		if (!$id && empty($this->data)) {
+			$this->Session->setFlash(__('Invalid thread', true));
+			$this->redirect(array('action' => 'index'));
+		}
+		if (!empty($this->data)) {
+			$this->Thread->create();
+			$this->Thread->Post->create();
+			$date = date_create('now');
+			$this->data['Thread']['date_modified']= $date->format('Y-m-d H:i:s');
+			
+			switch ($this->data['Thread']['icon']){
+				case 0:
+					$this->data['Thread']['icon']='default';
+					break;
+				case 1:
+					$this->data['Thread']['icon']='thread_attention.png';
+					break;
+				case 2:
+					$this->data['Thread']['icon']='thread_bomb.png';
+					break;
+				case 3:
+					$this->data['Thread']['icon']='thread_bulb.png';
+					break;
+				case 4:
+					$this->data['Thread']['icon']='thread_check.png';
+					break;
+				case 5:
+					$this->data['Thread']['icon']='thread_flash.png';
+					break;
+				case 6:
+					$this->data['Thread']['icon']='thread_heart.png';
+					break;
+				case 7:
+					$this->data['Thread']['icon']='thread_star.png';
+			}
+			
+			if ($this->Thread->save($this->data)) {
+				
+				
+				$this->Session->setFlash(__('The thread has been updated', true));
+				$this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('The thread could not be updated. Please, try again.', true));
+			}
+		}
+		if (empty($this->data)) {
+			$this->data = $this->Thread->read(null, $id);
+		}
+
+		$this->set(compact('users'));
+	}
 
 
 	function delete($id = null) {
