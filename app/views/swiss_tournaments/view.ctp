@@ -44,6 +44,12 @@
 		}
 		?>
      </div>
+	 <div class="bottomaction">
+	 <?php if($tournament['SwissTournament']['current_round']==-1 AND $this->Session->read('Auth.User.admin'))
+		{
+           echo $this->Html->link(__('Start first Round',true), array('controller' => 'swiss_tournaments', 'action' => 'finish_round',$tournament['SwissTournament']['id']));
+		}?> 
+	</div>
      <div class="bottomactionleft">
      	<?php 
 		echo $this->Html->link('Score', array('action'=>'score',$tournament['SwissTournament']['id']));
