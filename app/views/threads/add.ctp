@@ -30,7 +30,7 @@
 			echo $this->Html->image('/img/thread/thread_flash.png', array('width' => '25', 'height' => '25'));
 			echo $this->Html->image('/img/thread/thread_heart.png', array('width' => '25', 'height' => '25'));
 			echo $this->Html->image('/img/thread/thread_star.png', array('width' => '25', 'height' => '25'));
-			echo $this->Form->input('icon', array('label'=>'Tag','options' => array("Default","Attention","Bomb","Light Bulb","Check","Lightning Flash","Heart", "Star")));
+			echo $this->Form->input('icon', array('label'=>'Tag','options' => array("none","Attention","Bomb","Light Bulb","Check","Lightning Flash","Heart", "Star")));
 		}
 		echo $this->Form->input('Post.body');
 	?>

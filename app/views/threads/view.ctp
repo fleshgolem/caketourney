@@ -23,6 +23,11 @@
 			echo $this->Html->link('Delete', array('action' => 'delete', $thread['Thread']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $thread['Thread']['id']));
 		}?>
      </div>
+     <div class="bottomaction"> <?php
+		if ($this->Session->read('Auth.User.admin')){
+			echo $this->Html->link('Edit', array('action' => 'edit', $thread['Thread']['id']));
+		}?>
+     </div>
 	<p style="clear: both;">  </p>  
 </div>
 </div>
