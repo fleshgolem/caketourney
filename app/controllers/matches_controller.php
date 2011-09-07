@@ -417,14 +417,14 @@ class MatchesController extends AppController {
 		}
 	}
 	function upload_replays($id){
-		if ((!$this->Session->read('Auth.User.admin')) AND ($this->Match->field('player1_id') != !$this->Session->read('Auth.User.id')) AND ($this->Match->field('player2_id') != !$this->Session->read('Auth.User.id')))
+		if ((!$this->Session->read('Auth.User.admin')) AND ($this->Match->field('player1_id') != $this->Session->read('Auth.User.id')) AND ($this->Match->field('player2_id') != $this->Session->read('Auth.User.id')))
 		{
 			$this->Session->setFlash(__('Access denied', true));
-			//$this->redirect(array('action'=>'index'));
+			$this->redirect(array('controller'=>'tournaments','action'=>'index'));
 		}
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid id for match', true));
-			$this->redirect(array('action'=>'index'));
+			$this->redirect(array('controller'=>'tournaments','action'=>'index'));
 		}
 		if(!empty($this->data))
 		{
@@ -439,7 +439,7 @@ class MatchesController extends AppController {
 					$this->Match->Replay->save($this->data);
 				}
 			}
-			//$this->redirect(array('action' => 'view',$id));
+			$this->redirect(array('action' => 'view',$id));
 			
 		}
 		if (empty($this->data)) {
