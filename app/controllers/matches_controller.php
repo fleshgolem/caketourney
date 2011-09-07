@@ -342,7 +342,9 @@ class MatchesController extends AppController {
 	}
 	function upcoming_matches()
 	{
+		
 		$today = getdate();
+		$today['hours']=$today['hours']-1;
 		$matches = $this->Match->find('all',
 			array(
 				'conditions' => array('Match.date >' =>date('Y-m-d'), 'Match.open' => 1), //array of conditions

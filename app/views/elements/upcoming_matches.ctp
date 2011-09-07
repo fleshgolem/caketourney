@@ -8,7 +8,7 @@ $matches = $this->requestAction('/matches/upcoming_matches');
 	{?>
 
 	<div class="CompleteSidematchbox">
-			<?php echo $match['Match']['date'];?>
+			<?php echo $this->Time->niceShort( $match['Match']['date'] );?>
 			<p style="clear: both;">  </p>
 			<div class="Sidematchbox">
 			<div class="Sidenamesbox">
