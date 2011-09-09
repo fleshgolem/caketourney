@@ -1,6 +1,7 @@
 <?php
 //Get the match data
 $matches = $this->requestAction('/matches/upcoming_matches');
+
 ?>
 
 <?php
@@ -9,6 +10,14 @@ $matches = $this->requestAction('/matches/upcoming_matches');
 
 	<div class="CompleteSidematchbox">
 			<?php echo $this->Time->niceShort( $match['Match']['date'] );?>
+            <br/>
+            <?php 
+			if ($match['Match']['caster_id']!=0)
+			{
+				echo 'Caster: '.$match['Caster']['username'];
+			}
+			
+			?>
 			<p style="clear: both;">  </p>
 			<div class="Sidematchbox">
 			<div class="Sidenamesbox">

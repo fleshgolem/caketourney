@@ -104,6 +104,13 @@ class Match extends AppModel {
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
+		),
+		'Caster' => array(
+			'className' => 'User',
+			'foreignKey' => 'caster_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
 		)
 	);
 }

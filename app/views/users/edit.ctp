@@ -28,6 +28,7 @@
                         echo $this->Form->input('race', array('options' => array("Terran","Protoss","Zerg","Random",), 'selected' => $this->data['User']['race']));
                         echo $this->Form->input('division', array('options' => array("Unranked"=>Configure::read('__Caketourney.division_unranked'),"Code S"=>Configure::read('__Caketourney.division_1'),"Code A"=>Configure::read('__Caketourney.division_2')), 'selected' => $this->data['User']['division']));
                         echo $this->Form->input('admin');
+						echo $this->Form->input('caster');
                         //echo $this->Form->input('password_confirm', array('label' => 'Password', 'type' => 'password'));
                         //echo $this->Form->input('password', array('label' => 'Password Confirm'));
                     ?>

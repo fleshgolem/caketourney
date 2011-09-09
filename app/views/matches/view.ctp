@@ -193,6 +193,20 @@
             ?> 
             <?php } ?>
          </div>
+         
+        <?php if($this->Session->read('Auth.User.caster')){?>
+        <div class="bottomaction"> 
+			<?php if($match['Match']['caster_id']==0){
+                echo $this->Html->link('Sign me Up as Caster', array('action' => 'set_caster',$match['Match']['id'])); 	
+            }
+            else
+            {
+                echo $this->Html->link('Unsign me as Caster', array('action' => 'unset_caster',$match['Match']['id'])); 
+            }
+            ?>
+        </div>
+        <?php } ?>
+
         <p style="clear: both;">  </p>
 	</div>
 </div>

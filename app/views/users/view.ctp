@@ -85,6 +85,20 @@
                             <?php echo $user['User']['division']; ?>
                             &nbsp;
                         </dd>
+                        <?php if($user['User']['admin']){?>
+                        <dt><?php __('Admin'); ?></dt>
+                        <dd>
+                            <?php echo 'yes'; ?>
+                            &nbsp;
+                        </dd>
+                        <?php }?>
+                        <?php if($user['User']['caster']){?>
+                        <dt><?php __('Caster'); ?></dt>
+                        <dd>
+                            <?php echo 'yes'; ?>
+                            &nbsp;
+                        </dd>
+                        <?php }?>
                  </dl>
 				</div>
 			</div>

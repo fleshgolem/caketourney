@@ -263,6 +263,49 @@ class MatchesController extends AppController {
 		$replays=$this->Match->Replay->find('all',array('conditions'=>array('Replay.match_id'=>$id)));
 		$this->set('replays' , $replays);
 	}
+	
+	function set_caster($id)
+	{
+		if ($this->Session->read('Auth.User.caster'))
+		{
+			$this->set('report',true);
+		}
+		else
+		{
+			$this->set('report',false);
+		}
+		$this->data = $this->Match->read(null, $id);
+		$current_user = $this->Session->read('Auth.User.id');
+		
+		$this->data['Match']['caster_id'] = $current_user;
+		if ($this->Match->save($this->data))
+		{
+				$this->Session->setFlash(__('Signed Up as Caster', true));
+				$this->redirect(array('action' => 'view',$id));
+		}
+		
+	}
+	function unset_caster($id)
+	{
+		if ($this->Session->read('Auth.User.caster'))
+		{
+			$this->set('report',true);
+		}
+		else
+		{
+			$this->set('report',false);
+		}
+		$this->data = $this->Match->read(null, $id);
+		$current_user = $this->Session->read('Auth.User.id');
+		
+		$this->data['Match']['caster_id'] = 0;
+		if ($this->Match->save($this->data))
+		{
+				$this->Session->setFlash(__('Unsigned as Caster', true));
+				$this->redirect(array('action' => 'view',$id));
+		}
+		$this->redirect(array('action' => 'view',$id));
+	}
 
 	function edit($id = null) {
 		if (!$this->Session->read('Auth.User.admin'))
