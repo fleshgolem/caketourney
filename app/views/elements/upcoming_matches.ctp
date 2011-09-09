@@ -14,7 +14,20 @@ $matches = $this->requestAction('/matches/upcoming_matches');
             <?php 
 			if ($match['Match']['caster_id']!=0)
 			{
-				echo 'Caster: '.$match['Caster']['username'];
+				//debug($post);
+						if ($match['Caster']['admin']==true)
+						{
+							?><div class="admin"> <?php echo'Caster: '.($this->Html->link($match['Caster']['username'], array('controller' => 'users', 'action' => 'view', $match['Caster']['id']))); ?> 
+							
+							</div> <?php
+						}
+						else
+						{
+							echo'Caster: '.($this->Html->link($match['Caster']['username'], array('controller' => 'users', 'action' => 'view', $match['Caster']['id'])));
+							?>	<?php
+						}
+					
+				
 			}
 			
 			?>
