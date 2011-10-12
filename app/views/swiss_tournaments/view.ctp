@@ -48,7 +48,7 @@
 	 <?php if($tournament['SwissTournament']['current_round']==-1 AND $this->Session->read('Auth.User.admin'))
 		{
            echo $this->Html->link(__('Start first Round',true), array('controller' => 'swiss_tournaments', 'action' => 'finish_round',$tournament['SwissTournament']['id']));
-		}?> 
+		}?>
 	</div>
      <div class="bottomactionleft">
      	<?php 
@@ -183,7 +183,7 @@
         <?php if($tournament['SwissTournament']['current_round']==$round['number'] AND $this->Session->read('Auth.User.admin'))
 		{
            echo $this->Html->link(__('Finish Round',true), array('controller' => 'swiss_tournaments', 'action' => 'finish_round',$tournament['SwissTournament']['id']));
-		}?> </div>
+		}?></div>
 		<p style="clear: both;">  </p>
 	</div>
 </div>

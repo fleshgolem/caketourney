@@ -1010,12 +1010,10 @@ class SwissTournamentsController extends AppController {
 			//player floats, find next lower scoregroup
 			while($score>=0)
 			{
-				debug('a');
 				$score--;
 				$scoregroup=$this->SwissTournament->Ranking->find('all',array('conditions'=>array('Ranking.away'=>'0','Ranking.match_points'=>$score,'Ranking.tournament_id'=>$tournament_id)));
 				if(count($scoregroup)>0)
 				{
-					debug('b');
 					shuffle($scoregroup);
 					//find opponent in scoregroup
 					foreach($scoregroup as $opponent)
