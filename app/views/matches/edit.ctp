@@ -39,8 +39,8 @@
                         <?php
                             
                             
-                            echo $this->Form->input('player1_id');
-                            echo $this->Form->input('player2_id');
+                            echo $this->Form->input('player1_id',array('empty' => '(empty)'));
+                            echo $this->Form->input('player2_id',array('empty' => '(empty)'));
                             echo $this->Form->input('games');
                             echo $this->Form->input('player1_score');
                             echo $this->Form->input('player2_score');
