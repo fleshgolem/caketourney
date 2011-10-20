@@ -479,7 +479,6 @@ class KOTournamentsController extends AppController {
 			$this->redirect(array('action'=>'index'));
 		}
 		if (!empty($this->data)) {
-			
 			if(array_key_exists('Alluser',$this->data['KOTournament'])){
 				$this->data['User']['User']=array_merge($this->data['User']['User'],$this->data['KOTournament']['Alluser']);
 			}
@@ -779,6 +778,7 @@ class KOTournamentsController extends AppController {
 		$this->data['KOTournament']['typeAlias']=0;
 		$this->data['KOTournament']['current_round']=0;
 		$this->data['KOTournament']['name']=$name;
+		$this->data['User']['User']=$seeded_players;
 		if ($this->KOTournament->save($this->data)) {
 			$this->create_matchups($seeded_players);
 		}
