@@ -322,7 +322,7 @@ class MatchesController extends AppController {
 				$this->Session->setFlash(__('The match has been saved', true));
 				$Tournaments = new TournamentsController;
 				$Tournaments->ConstructClasses();
-				$Tournaments->report_match($this->Match->id, $this->data['Match']['player1_score'],$this->data['Match']['player2_score']);
+				//$Tournaments->report_match($this->Match->id, $this->data['Match']['player1_score'],$this->data['Match']['player2_score']);
 				$this->redirect(array('action'=>'view',$id));
 			} else {
 				$this->Session->setFlash(__('The match could not be saved. Please, try again.', true));
