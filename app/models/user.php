@@ -333,5 +333,28 @@ class User extends AppModel {
          //Logic for sanitizing your filename
          return stripslashes($fileName);
     }
+	/**
+     * Generate a random pronounceable password
+     */
+    function generatePassword($length = 10) {
+        // Seed
+        srand((double) microtime()*1000000);
+ 
+        $vowels = array('a', 'e', 'i', 'o', 'u');
+        $cons = array('b', 'c', 'd', 'g', 'h', 'j', 'k', 'l', 'm', 'n',
+            'p', 'r', 's', 't', 'u', 'v', 'w', 'tr',
+            'cr', 'br', 'fr', 'th', 'dr', 'ch', 'ph',
+            'wr', 'st', 'sp', 'sw', 'pr', 'sl', 'cl');
+ 
+        $num_vowels = count($vowels);
+        $num_cons = count($cons);
+ 
+        $password = '';
+        for ($i = 0; $i < $length; $i++){
+            $password .= $cons[rand(0, $num_cons - 1)] . $vowels[rand(0, $num_vowels - 1)];
+        }
+ 
+        return substr($password, 0, $length);
+    }
 }
 ?>

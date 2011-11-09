@@ -26,7 +26,7 @@
 	<div class="PostFooter">
     	<div class="bottomaction"> <?php echo $this->Form->end('Login') ?> <p style="clear: both;">  </p></div>
         <div class="bottomaction"> <a href="register">Register</a> </div>
-       
+       <div class="bottomaction"> <a href="recover">Forgot Password?</a> </div>
 		<p style="clear: both;">  </p>
 	</div>
 </div>
